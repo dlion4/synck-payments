@@ -2846,53 +2846,94 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel">
                             <div class="row justify-content-center">
-                                <div class="col-lg-10">
-                                    <div class="card card-clarity p-4 p-md-5">
-                                        <h4 class="mb-4 fw-bold text-custom-primary">Request Details & Payer Information</h4>
-                                        <div class="row g-4">
-                                            <!-- Payer Identification -->
-                                            <div class="col-md-6">
-                                                <label class="form-label small text-muted">Payer Email Address (Required)</label>
-                                                <input type="email"
-                                                       class="form-control form-control-clarity"
-                                                       placeholder="payer@example.com">
-                                            </div>
-                                            <div class="col-md-6">
+                                <div class="col-lg-12">
+    <div class="card card-clarity shadow-sm border-0">
+        <div class="card-body p-5">
+            <h5 class="mb-4 fw-bold text-custom-primary">Request Money Information</h5>
+            <div class="row g-4">
+                 <div class="col-md-6">
                                                 <label class="form-label small text-muted">Payer Name (Optional)</label>
                                                 <input type="text"
                                                        class="form-control form-control-clarity"
                                                        placeholder="e.g., John Smith">
                                             </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label small text-muted">Payer Phone Number</label>
-                                                <input type="text"
-                                                       class="form-control form-control-clarity"
-                                                       placeholder="e.g., 071234567888">
-                                            </div>
-                                            <div class="col-md-6">
+                                             <div class="col-md-6">
                                                 <label class="form-label small text-muted">Purpose of Payment</label>
                                                 <input type="text"
                                                        class="form-control form-control-clarity"
                                                        placeholder="e.g., Wifi package, loan repymanet etc... ">
                                             </div>
-                                            <!-- Amount and Currency -->
-                                            <div class="col-md-6">
-                                                <label class="form-label small text-muted">Amount to Receive</label>
-                                                <input type="number"
-                                                       class="form-control form-control-clarity fs-5 fw-bold text-custom-primary"
-                                                       placeholder="0.00"
-                                                       value="1500.00">
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label class="form-label small text-muted">Target Currency</label>
-                                                <select class="form-select form-control-clarity">
-                                                    <option selected>USD - US Dollar</option>
-                                                    <option>EUR - Euro</option>
-                                                    <option>GBP - British Pound</option>
-                                                    <option>JPY - Japanese Yen</option>
-                                                </select>
-                                            </div>
-                                            <!-- Due Date and Reference ID -->
+
+                <div class="col-12">
+                    <label class="form-label small text-muted fw-bold">Send Notifications To:</label>
+                    <div class="d-flex gap-3">
+                        <div class="flex-fill">
+                            <input type="checkbox" class="btn-check" id="notifyEmail" checked>
+                            <label class="btn btn-outline-light w-100 border text-dark sm-text py-2" for="notifyEmail">
+                                <i class="bi bi-envelope-fill me-2 text-primary"></i> Email
+                            </label>
+                        </div>
+                        <div class="flex-fill">
+                            <input type="checkbox" class="btn-check" id="notifyPhone">
+                            <label class="btn btn-outline-light w-100 border text-dark sm-text py-2" for="notifyPhone">
+                                <i class="bi bi-phone-fill me-2 text-success"></i> Phone
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="d-flex gap-3">
+                        <div class="flex-fill">
+                        <label class="form-label small text-muted">Recipient Email </label>
+                        <input type="text" class="form-control form-control-clarity bg-light border-0" placeholder="recipient@email.com" value="test.user@wallet.com">
+
+                        </div>
+                    <!-- wwwwwwwwwww -->
+                        <div class="flex-fill">
+                        <label class="form-label small text-muted">Recipient Phone Number</label>
+                        <input type="text" class="form-control form-control-clarity bg-light border-0" placeholder="07123456789" value="071234567890">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="d-flex gap-3">
+                        <div class="flex-fill ">
+
+                            <label class="form-label small text-muted">Requested Amount (USD)</label>
+                            <input type="number" class="form-control form-control-clarity fs-3 fw-bold text-success bg-light border-0" value="125.00">
+                            
+                         </div>  
+                        
+                         <div class="flex-fill">
+                                    <div class="col-md-6">
+                                                                        <label
+                                                                            class="form-label small text-muted fw-bold">Currency</label>
+                                                                        <div class="btn-group w-100" role="group"
+                                                                            aria-label="Currency Switcher">
+                                                                            <input type="radio" class="btn-check"
+                                                                                name="currencyType" id="currUsd"
+                                                                                checked>
+                                                                            <label
+                                                                                class="btn btn-outline-success border-1 fw-bold py-2"
+                                                                                for="currUsd">USD</label>
+
+                                                                            <input type="radio" class="btn-check"
+                                                                                name="currencyType" id="currKes">
+                                                                            <label
+                                                                                class="btn btn-outline-success border-1 fw-bold py-2"
+                                                                                for="currKes">KES</label>
+                                                                        </div>
+                                                                    </div>
+                                 </div>
+                
+                    </div>
+                </div>
+
+
+                 <!-- Due Date and Reference ID -->
                                             <div class="col-md-6">
                                                 <label class="form-label small text-muted">Payment Due Date (Optional)</label>
                                                 <input type="date" class="form-control form-control-clarity">
@@ -2910,207 +2951,291 @@
                                                 <p class="small text-muted mb-3">
                                                     Select the methods you wish to enable for the payer. Fees may apply upon successful collection.
                                                 </p>
-                                                <div class="row g-3">
-                                                    <div class="col-md-4">
-                                                        <div class="form-check form-check-inline p-3 rounded-2 shadow-sm w-100"
-                                                             style="background-color:var(--color-tab-bg)">
-                                                            <input class="form-check-input custom-check-input"
-                                                                   type="checkbox"
-                                                                   id="bankTransferCheck"
-                                                                   checked>
-                                                            <label class="form-check-label fw-semibold" for="bankTransferCheck">
-                                                                🏦 Bank Transfer
-                                                                <span class="d-block small text-muted fw-normal">(ACH/SEPA/SWIFT)</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-check form-check-inline p-3 rounded-2 shadow-sm w-100"
-                                                             style="background-color:var(--color-tab-bg)">
-                                                            <input class="form-check-input custom-check-input"
-                                                                   type="checkbox"
-                                                                   id="cardPaymentCheck">
-                                                            <label class="form-check-label fw-semibold" for="cardPaymentCheck">
-                                                                💳 Card Payment
-                                                                <span class="d-block small text-muted fw-normal">(Visa, MC, Amex)</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-check form-check-inline p-3 rounded-2 shadow-sm w-100"
-                                                             style="background-color:var(--color-tab-bg)">
-                                                            <input class="form-check-input custom-check-input"
-                                                                   type="checkbox"
-                                                                   id="cardPaymentCheck">
-                                                            <label class="form-check-label fw-semibold" for="cardPaymentCheck">
-                                                                💳 Mobile MOney
-                                                                <span class="d-block small text-muted fw-normal">(Airtel, M-pesa)</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-check form-check-inline p-3 rounded-2 shadow-sm w-100"
-                                                             style="background-color:var(--color-tab-bg)">
-                                                            <input class="form-check-input custom-check-input"
-                                                                   type="checkbox"
-                                                                   id="fintechAppCheck"
-                                                                   checked>
-                                                            <label class="form-check-label fw-semibold" for="fintechAppCheck">
-                                                                📱 Sendmo Account
-                                                                <span class="d-block small text-muted fw-normal">(Internal Wallets)</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-check form-check-inline p-3 rounded-2 shadow-sm w-100"
-                                                             style="background-color:var(--color-tab-bg)">
-                                                            <input class="form-check-input custom-check-input"
-                                                                   type="checkbox"
-                                                                   id="fintechAppCheck"
-                                                                   checked>
-                                                            <label class="form-check-label fw-semibold" for="fintechAppCheck">
-                                                                📱 Cash
-                                                                <span class="d-block small text-muted fw-normal">(in-person payments)</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="form-check form-check-inline p-3 rounded-2 shadow-sm w-100"
-                                                             style="background-color:var(--color-tab-bg)">
-                                                            <input class="form-check-input custom-check-input"
-                                                                   type="checkbox"
-                                                                   id="fintechAppCheck"
-                                                                   checked>
-                                                            <label class="form-check-label fw-semibold" for="fintechAppCheck">
-                                                                📱 Crypto
-                                                                <span class="d-block small text-muted fw-normal">(Blockchain payments)</span>
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                <div class="row g-4 p-4">
+    <div class="col-md-4">
+        <input type="checkbox" class="btn-check" id="bankTransferCheck" checked autocomplete="off">
+        <label class="btn btn-outline-light d-flex align-items-center p-3 rounded-3 border shadow-sm w-100 h-100 text-start" for="bankTransferCheck">
+            <div class="channel-icon me-3">🏦</div>
+            <div>
+                <span class="d-block fw-bold text-dark">Bank Transfer</span>
+                <span class="d-block small text-muted">(ACH/SEPA/SWIFT)</span>
+            </div>
+        </label>
+    </div>
+
+    <div class="col-md-4">
+        <input type="checkbox" class="btn-check" id="cardPaymentCheck" autocomplete="off">
+        <label class="btn btn-outline-light d-flex align-items-center p-3 rounded-3 border shadow-sm w-100 h-100 text-start" for="cardPaymentCheck">
+            <div class="channel-icon me-3">💳</div>
+            <div>
+                <span class="d-block fw-bold text-dark">Card Payment</span>
+                <span class="d-block small text-muted">(Visa, MC, Amex)</span>
+            </div>
+        </label>
+    </div>
+
+    <div class="col-md-4">
+        <input type="checkbox" class="btn-check" id="mobileMoneyCheck" autocomplete="off">
+        <label class="btn btn-outline-light d-flex align-items-center p-3 rounded-3 border shadow-sm w-100 h-100 text-start" for="mobileMoneyCheck">
+            <div class="channel-icon me-3">📱</div>
+            <div>
+                <span class="d-block fw-bold text-dark">Mobile Money</span>
+                <span class="d-block small text-muted">(Airtel, M-pesa)</span>
+            </div>
+        </label>
+    </div>
+
+    <div class="col-md-4">
+        <input type="checkbox" class="btn-check" id="sendmoAccountCheck" checked autocomplete="off">
+        <label class="btn btn-outline-light d-flex align-items-center p-3 rounded-3 border shadow-sm w-100 h-100 text-start" for="sendmoAccountCheck">
+            <div class="channel-icon me-3">✨</div>
+            <div>
+                <span class="d-block fw-bold text-dark">Sendmo Account</span>
+                <span class="d-block small text-muted">(Internal Wallets)</span>
+            </div>
+        </label>
+    </div>
+
+    <div class="col-md-4">
+        <input type="checkbox" class="btn-check" id="cashPaymentCheck" autocomplete="off">
+        <label class="btn btn-outline-light d-flex align-items-center p-3 rounded-3 border shadow-sm w-100 h-100 text-start" for="cashPaymentCheck">
+            <div class="channel-icon me-3">💵</div>
+            <div>
+                <span class="d-block fw-bold text-dark">Cash</span>
+                <span class="d-block small text-muted">(In-person)</span>
+            </div>
+        </label>
+    </div>
+
+    <div class="col-md-4">
+        <input type="checkbox" class="btn-check" id="cryptoCheck" autocomplete="off">
+        <label class="btn btn-outline-light d-flex align-items-center p-3 rounded-3 border shadow-sm w-100 h-100 text-start" for="cryptoCheck">
+            <div class="channel-icon me-3">🔗</div>
+            <div>
+                <span class="d-block fw-bold text-dark">Crypto</span>
+                <span class="d-block small text-muted">(Blockchain)</span>
+            </div>
+        </label>
+    </div>
+</div>
+
+<style>
+/* Hide the actual checkbox square */
+.btn-check {
+    display: none;
+}
+
+/* Base Card Style */
+.btn-outline-light {
+    background-color: #ffffff !important;
+    border-color: #f0f0f0 !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Selected State */
+.btn-check:checked + .btn-outline-light {
+    border-color: var(--bs-primary) !important; /* Uses your primary theme color */
+    background-color: rgba(13, 110, 253, 0.04) !important; /* Subtle tint */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+    transform: translateY(-2px);
+}
+
+/* Icon style */
+.channel-icon {
+    font-size: 1.5rem;
+    filter: grayscale(1);
+    transition: filter 0.2s;
+}
+
+.btn-check:checked + .btn-outline-light .channel-icon {
+    filter: grayscale(0); /* Bring icon color back when selected */
+}
+
+/* Label text color change on selection */
+.btn-check:checked + .btn-outline-light .fw-bold {
+    color: var(--bs-primary) !important;
+}
+</style>
                                             </div>
-                                        </div>
-                                        <div class="text-center mt-5">
-                                            <button class="btn btn-clarity-primary px-5 py-3 w-75">
-                                                Generate & Send Request Link <span class="ms-2">✉️</span>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
+
+            </div>
+            
+
+            <div class="text-center mt-5">
+                <button class="btn btn-primary px-5 py-3 w-100 fw-bold rounded-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#requestLinkModal">
+                    Generate Request Link <span class="ms-2">→</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- mmmmmmmmm -->
                             </div>
                         </div>
                         <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel">
-                            <div class="card card-clarity p-4">
-                                <h4 class="mb-4 fw-bold text-custom-primary">Tracking Sent Collection Requests</h4>
-                                <p class="small text-muted mb-4">Monitor the status and manage your outstanding payment requests.</p>
-                                <div class="table-responsive">
-                                    <table class="table align-middle table-borderless table-clarity">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col" class="fw-bold small text-uppercase">Request ID</th>
-                                                <th scope="col" class="fw-bold small text-uppercase">Payer</th>
-                                                <th scope="col" class="fw-bold small text-uppercase">Amount Due</th>
-                                                <th scope="col" class="fw-bold small text-uppercase">Status</th>
-                                                <th scope="col" class="fw-bold small text-uppercase">Due Date</th>
-                                                <th scope="col" class="fw-bold small text-uppercase text-center">Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <!-- PAID Example -->
-                                            <tr>
-                                                <td>
-                                                    <span class="text-dark small fw-semibold">REQ-90123</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-dark small">Acme Corp / acme@corp.com</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-success fw-bold small">2,500.00 USD</span>
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-paid">PAID</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-muted small">01/10/2025</span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-sm text-success p-1" disabled>✔ Settled</button>
-                                                </td>
-                                            </tr>
-                                            <!-- LATE Example -->
-                                            <tr>
-                                                <td>
-                                                    <span class="text-dark small fw-semibold">REQ-90124</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-dark small">Jane Doe / jane.d@web.net</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-custom-primary fw-bold small">550.00 EUR</span>
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-late">LATE</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-danger small fw-semibold">05/11/2025</span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-sm btn-outline-warning text-dark p-1 me-2"
-                                                            style="border-color:var(--color-late)">Resend</button>
-                                                    <button class="btn btn-sm btn-outline-secondary p-1">Cancel</button>
-                                                </td>
-                                            </tr>
-                                            <!-- VIEWED Example -->
-                                            <tr>
-                                                <td>
-                                                    <span class="text-dark small fw-semibold">REQ-90125</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-dark small">Global Retail / retail@global.co</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-custom-primary fw-bold small">10,200.00 GBP</span>
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-viewed">VIEWED</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-muted small">20/11/2025</span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-sm btn-outline-secondary p-1 me-2">View Link</button>
-                                                    <button class="btn btn-sm btn-outline-secondary p-1">Cancel</button>
-                                                </td>
-                                            </tr>
-                                            <!-- PENDING Example -->
-                                            <tr>
-                                                <td>
-                                                    <span class="text-dark small fw-semibold">REQ-90126</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-dark small">Mark Johnson / mark@joh.com</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-custom-primary fw-bold small">95.00 USD</span>
-                                                </td>
-                                                <td>
-                                                    <span class="badge badge-pending">PENDING</span>
-                                                </td>
-                                                <td>
-                                                    <span class="text-muted small">N/A</span>
-                                                </td>
-                                                <td class="text-center">
-                                                    <button class="btn btn-sm btn-outline-secondary p-1" disabled>Processing</button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                            <div class="card card-clarity border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-body p-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
+            <div>
+                <h4 class="fw-bold text-custom-primary mb-1">Collection Requests</h4>
+                <p class="small text-muted mb-0">Manage and track your outgoing payment links.</p>
+            </div>
+            
+            <div class="d-flex gap-2">
+                <div class="input-group input-group-sm" style="max-width: 250px;">
+                    <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control bg-light border-0" placeholder="Search payer or ID...">
+                </div>
+                <button class="btn btn-sm btn-light border"><i class="bi bi-funnel me-1"></i> Filter</button>
+                <button class="btn btn-sm btn-light border"><i class="bi bi-sort-down me-1"></i> Arrange</button>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table align-middle table-hover table-clarity custom- fintech-table">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="py-3 px-3 fw-bold small text-uppercase">Request ID</th>
+                        <th class="py-3 fw-bold small text-uppercase">Payer Details</th>
+                        <th class="py-3 fw-bold small text-uppercase">Amount</th>
+                        <th class="py-3 fw-bold small text-uppercase">Status</th>
+                        <th class="py-3 fw-bold small text-uppercase text-center">Payment Link</th>
+                        <th class="py-3 fw-bold small text-uppercase text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                    <tr>
+                        <td class="px-3">
+                            <span class="fw-bold text-dark">#REQ-90125</span>
+                            <div class="extra-small text-muted">Created 2 mins ago</div>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="avatar-sm me-2 bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width:32px; height:32px; font-size:10px;">GR</div>
+                                <div>
+                                    <div class="text-dark small fw-medium">Global Retail</div>
+                                    <div class="extra-small text-muted">retail@global.co</div>
                                 </div>
                             </div>
+                        </td>
+                        <td>
+                            <div class="fw-bold text-dark">10,200.00</div>
+                            <div class="extra-small text-muted text-uppercase">GBP</div>
+                        </td>
+                        <td><span class="badge rounded-pill bg-info bg-opacity-10 text-info px-3">VIEWED</span></td>
+                        <td class="text-center">
+                            <div class="d-inline-flex align-items-center bg-light rounded-pill px-2 py-1 border">
+                                <code class="extra-small me-2">sendmo.me/req-x1</code>
+                                <button class="btn btn-link btn-sm p-0 text-primary" onclick="copyTableLink('https://sendmo.me/req-x1', this)">
+                                    <i class="bi bi-clipboard"></i>
+                                </button>
+                            </div>
+                        </td>
+                        <td class="text-end">
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-light rounded-circle" data-bs-toggle="dropdown"><i class="bi bi-three-dots-vertical"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0">
+                                    <li><a class="dropdown-item small" href="#"><i class="bi bi-eye me-2"></i>View Details</a></li>
+                                    <li><a class="dropdown-item small" href="#"><i class="bi bi-send me-2"></i>Resend Email</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item small text-danger" href="#"><i class="bi bi-trash me-2"></i>Cancel Request</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+            </table>
+        </div>
+        
+        <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+            <span class="extra-small text-muted">Showing 1 to 10 of 42 requests</span>
+            <nav>
+                <ul class="pagination pagination-sm mb-0">
+                    <li class="page-item disabled"><a class="page-link border-0 bg-light rounded-start-pill" href="#">Prev</a></li>
+                    <li class="page-item active"><a class="page-link border-0" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link border-0" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link border-0 bg-light rounded-end-pill" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<style>
+.extra-small { font-size: 0.7rem; }
+.bg-primary-subtle { background-color: rgba(13, 110, 253, 0.1) !important; }
+
+.fintech-table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #edf2f9;
+    color: #6e84a3;
+    letter-spacing: 0.02em;
+}
+
+.fintech-table tbody tr {
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+}
+
+.fintech-table tbody tr:hover {
+    background-color: #fcfdfe !important;
+}
+
+/* Custom Status Badges */
+.badge-paid { background: #e6fffa; color: #008767; }
+.badge-late { background: #fff5f5; color: #e53e3e; }
+.badge-viewed { background: #ebf8ff; color: #3182ce; }
+</style>
+<script>
+function copyTableLink(link, btnElement) {
+    navigator.clipboard.writeText(link).then(() => {
+        const icon = btnElement.querySelector('i');
+        // Change icon to checkmark
+        icon.classList.replace('bi-clipboard', 'bi-check-lg');
+        icon.classList.add('text-success');
+        
+        // Revert after 2 seconds
+        setTimeout(() => {
+            icon.classList.replace('bi-check-lg', 'bi-clipboard');
+            icon.classList.remove('text-success');
+        }, 2000);
+    });
+}
+</script>
                         </div>
                         <div class="tab-pane fade show" id="kt_tab_pane_3" role="tabpanel">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8">
+                            <div class="row d-flex align-items-stretch g-4">
+                            
+                                <div class="col-lg-6">
                                     <div class="card card-clarity p-4 p-md-5 text-center preview-card-bg">
                                         <h4 class="mb-4 fw-bold text-custom-primary">Your Permanent Payment Gateway Link</h4>
                                         <p class="small text-muted mb-4">
@@ -3124,11 +3249,11 @@
                                         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-4">
                                             <button class="btn btn-clarity-primary px-4 py-2 flex-grow-1"
                                                     style="max-width:200px">Copy Link 📋</button>
-                                            <button class="btn btn-outline-dark px-4 py-2 flex-grow-1"
+                                            <button class="btn btn-outline-dark px-4 py-2 flex-grow-1" data-bs-toggle="modal" data-bs-target="#tipPreviewModal"
                                                     style="max-width:200px;
                                                            border-color: var(--color-primary-dark);
-                                                           color:var(--color-primary-dark)">
-                                                Configure Link Settings ⚙️
+                                                           color:var(--color-primary-success)">
+                                                Preview Outlook
                                             </button>
                                         </div>
                                         <p class="mt-4 small text-muted">
@@ -3136,11 +3261,455 @@
                                         </p>
                                     </div>
                                 </div>
+                            
+                                    <div class="col-lg-6">
+                                        <div class="row g-4">
+
+                                            <div class="col-lg-12">
+    <div class="card card-clarity p-4 border-0 shadow-sm h-100">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold text-custom-primary m-0">Create Custom Tip Link</h5>
+            <span class="badge bg-primary-subtle text-primary rounded-pill small px-3">New Feature</span>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Link Purpose</label>
+                <input type="text" class="form-control bg-light border-0 py-2" id="tipReason" placeholder="e.g., Buy me a coffee">
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label small fw-bold">Currency</label>
+                <select class="form-select bg-light border-0 py-2">
+                    <option value="USD">USD ($)</option>
+                    <option value="KES">KES (KSh)</option>
+                    <option value="GBP">GBP (£)</option>
+                    <option value="EUR">EUR (€)</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label small fw-bold">Default Amount</label>
+                <input type="number" class="form-control bg-light border-0 py-2" id="tipAmount" value="2.00">
+            </div>
+
+            <div class="col-12">
+                <label class="form-label small fw-bold d-block">Enable Payment Channels</label>
+                <div class="d-flex flex-wrap gap-2" id="channelTags">
+                    <input type="checkbox" class="btn-check" id="tagMobile" checked>
+                    <label class="btn btn-sm btn-outline-secondary rounded-pill px-3" for="tagMobile">+ Mobile Money</label>
+
+                    <input type="checkbox" class="btn-check" id="tagCard" checked>
+                    <label class="btn btn-sm btn-outline-secondary rounded-pill px-3" for="tagCard">+ Credit Card</label>
+
+                    <input type="checkbox" class="btn-check" id="tagCrypto">
+                    <label class="btn btn-sm btn-outline-secondary rounded-pill px-3" for="tagCrypto">+ Crypto</label>
+                    
+                    <input type="checkbox" class="btn-check" id="tagBank">
+                    <label class="btn btn-sm btn-outline-secondary rounded-pill px-3" for="tagBank">+ Bank Transfer</label>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Link Validity / Expiration</label>
+                <select class="form-select bg-light border-0 py-2">
+                    <option value="never">Never (Permanent)</option>
+                    <option value="24h">Expires in 24 Hours</option>
+                    <option value="7d">Expires in 7 Days</option>
+                    <option value="30d">Expires in 30 Days</option>
+                    <option value="custom">Set Custom Date...</option>
+                </select>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label small fw-bold">Brand Logo <span class="text-muted fw-normal">(Optional)</span></label>
+                <div class="input-group">
+                    <input type="file" class="form-control bg-light border-0 small" id="brandLogo" accept="image/*">
+                    <label class="input-group-text bg-light border-0"><i class="bi bi-upload"></i></label>
+                </div>
+            </div>
+
+            <div class="col-12 mt-4">
+                <button class="btn btn-primary w-100 py-3 fw-bold rounded-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#generateSuccessModal">
+                    Generate Link ✨
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+            <!-- <div class="col-lg-12">
+                <div class="card card-clarity p-4 border-0 shadow-sm h-100">
+                    <h5 class="fw-bold text-custom-primary mb-4">Create Tip / "Buy Me a Coffee" Link</h5>
+                    <div class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label small fw-bold">Link Purpose</label>
+                            <input type="text" class="form-control bg-light border-0" id="tipReason" placeholder="e.g., Buy me a coffee, Support my work">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Default Tip Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-0">$</span>
+                                <input type="number" class="form-control bg-light border-0" id="tipAmount" value="2.00">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold">Accepted Channels</label>
+                            <select class="form-select bg-light border-0 small">
+                                <option>All Methods</option>
+                                <option>Mobile Money Only</option>
+                                <option>Card/Crypto Only</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <button class="btn btn-primary w-100 py-2 fw-bold rounded-3" data-bs-toggle="modal" data-bs-target="#tipPreviewModal">
+                                Generate Link ✨
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+           
+        </div>
+                                    
+                                </div>
+                    </div>
+                    <div class="card card-clarity mt-5 border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-header bg-white py-3 border-0">
+        <h6 class="fw-bold text-custom-primary m-0">Link Management History</h6>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-middle table-hover mb-0">
+            <thead class="bg-light">
+                <tr>
+                    <th class="small text-muted px-4">CREATED</th>
+                    <th class="small text-muted">LINK TYPE</th>
+                    <th class="small text-muted">URL</th>
+                    <th class="small text-muted">STATUS</th>
+                    <th class="small text-muted text-end px-4">ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="small px-4 text-muted">Oct 12, 2025</td>
+                    <td><span class="small fw-medium">☕ Tip Link</span></td>
+                    <td><code class="extra-small">sendmo.me/coffee/u1</code></td>
+                    <td><span class="badge rounded-pill bg-success bg-opacity-10 text-success">Active</span></td>
+                    <td class="text-end px-4">
+                        <button class="btn btn-sm btn-light p-1 px-2"><i class="bi bi-clipboard text-primary"></i></button>
+                        <button class="btn btn-sm btn-light p-1 px-2"><i class="bi bi-pencil"></i></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="small px-4 text-muted">Aug 05, 2025</td>
+                    <td><span class="small fw-medium">💼 Gateway</span></td>
+                    <td><code class="extra-small">sendmo.me/widget/ABC</code></td>
+                    <td><span class="badge rounded-pill bg-secondary bg-opacity-10 text-secondary">Inactive</span></td>
+                    <td class="text-end px-4">
+                        <button class="btn btn-sm btn-light p-1 px-2" disabled><i class="bi bi-clipboard"></i></button>
+                        <button class="btn btn-sm btn-light p-1 px-2"><i class="bi bi-arrow-repeat"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- mmmmmmmmmmmmmmmmmmmmmmm -->
+ <div class="modal fade" id="generateSuccessModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-body p-4 text-center">
+                <div class="mb-3">
+                    <div class="bg-success bg-opacity-10 text-success d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 60px; height: 60px;">
+                        <i class="bi bi-check2-circle fs-2"></i>
+                    </div>
+                </div>
+                <h6 class="fw-bold text-dark mb-1">Your Link is Ready!</h6>
+                <p class="extra-small text-muted mb-4">Share this link to start receiving tips.</p>
+                
+                <div class="bg-light p-2 rounded-3 border mb-4 d-flex align-items-center">
+                    <input type="text" class="form-control form-control-sm bg-transparent border-0 small text-truncate pe-0" value="sendmo.me/tip/jdoe-24" readonly id="readyLink">
+                    <button class="btn btn-link btn-sm text-primary py-0" onclick="copyValue('readyLink')">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-primary btn-sm py-2 rounded-pill fw-bold" data-bs-dismiss="modal">Done</button>
+                    <button class="btn btn-link btn-sm text-muted text-decoration-none">Share to Whatsapp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+/* Custom Styling for the Channel Tags */
+.btn-check:checked + .btn-outline-secondary {
+    background-color: var(--bs-primary) !important;
+    border-color: var(--bs-primary) !important;
+    color: white !important;
+    box-shadow: 0 4px 10px rgba(13, 110, 253, 0.2);
+}
+
+.btn-outline-secondary {
+    border: 1px dashed #dee2e6;
+    color: #6c757d;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #f8f9fa;
+    border-color: var(--bs-primary);
+    color: var(--bs-primary);
+}
+
+/* Modal styling refinement */
+#generateSuccessModal .modal-content {
+    background: #ffffff;
+    border-radius: 24px !important;
+}
+
+/* File input text size */
+#brandLogo::file-selector-button {
+    background: #e9ecef;
+    border: none;
+    font-size: 12px;
+    padding: 8px 12px;
+    margin-right: 10px;
+}
+</style>
+<!-- mmmmmmmmmmmmmmmmmmmmmmm -->
+<div class="modal fade" id="tipPreviewModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header border-0 bg-light p-3">
+                <h6 class="modal-title fw-bold text-custom-primary"><i class="bi bi-eye me-2"></i>Live Checkout Preview</h6>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            
+            <div class="modal-body p-0">
+                <div class="row g-0">
+                    <div class="col-md-7 border-end bg-white p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <span class="badge bg-danger rounded-pill px-3">Sendmo Tips & Coffee</span>
+                        </div>
+                        
+                        <div class="text-center mb-4">
+                            <div class="brand-logo-preview mb-3 mx-auto shadow-sm rounded-circle d-flex align-items-center justify-content-center bg-white border" style="width: 80px; height: 80px; overflow: hidden;">
+    <img src="https://pkenya.co.ke/static/webpack_bundles/images/favicons/pkenya_logo.png" 
+         class="rounded-circle" 
+         alt="Brand Logo"
+         style="width: 100%; height: 100%; object-fit: contain; padding: 5px;">
+</div>
+                            <h4 class="fw-bold mb-1">Support Pkenya with a Tip</h4>
+                            <p class="text-muted small">Supporting professionals within digital spaces</p>
+                        </div>
+
+                        <div class="payment-card border rounded-4 p-4 mb-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="fw-bold text-dark">Support Reason:</span>
+                                <span class="badge bg-primary-subtle text-primary">☕ Buy me a coffee</span>
+                            </div>
+                            <div class="fs-2 fw-bold text-center py-3 border-top border-bottom my-3">
+                                <span class="small opacity-50 fw-normal">$</span>2.00
+                            </div>
+                            
+                            <label class="small fw-bold text-muted mb-3 text-uppercase d-block">Select Payment Method</label>
+                            <div class="row g-2">
+                                <div class="col-6">
+                                    <button class="btn btn-outline-light border text-dark w-100 py-3 small active-method">
+                                        <div class="mb-1">📱</div> Mobile Money
+                                    </button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-outline-light border text-dark w-100 py-3 small">
+                                        <div class="mb-1">💳</div> Card Payment
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3">
+                            <button class="btn btn-danger bg-opacity-10 text-danger border-0 flex-grow-1 py-3 fw-bold rounded-3">
+                                <i class="bi bi-x-circle me-2"></i>Cancel
+                            </button>
+                            <button class="btn btn-primary flex-grow-1 py-3 fw-bold rounded-3 shadow">
+                                Proceed to Pay <i class="bi bi-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5 bg-light p-4 d-flex align-items-center justify-content-center">
+                        <div class="mobile-device shadow-lg">
+                            <div class="mobile-screen p-3">
+                                <div class="status-bar d-flex justify-content-between mb-3 px-2">
+                                    <span class="extra-small fw-bold">9:41</span>
+                                    <div class="extra-small"><i class="bi bi-battery-full"></i></div>
+                                    <span class="badge bg-danger rounded-pill px-3">Sendmo Tips & Coffee</span>
+                                </div>
+                                
+                                <div class="text-center pt-2">
+                                    <div class="bg-white rounded-circle shadow-sm d-inline-block p-1 mb-2">
+                                        <img src="https://pkenya.co.ke/static/webpack_bundles/images/favicons/pkenya_logo.png" class="rounded-circle" width="40">
+                                    </div>
+                                    <h5 class="fw-bold mb-0">Support Pkenya with a Tip</h5>
+                                    <p class="extra-small text-muted mb-3">Supporting professionals within digital spaces</p>
+                                </div>
+
+                                <div class="mobile-payment-list mt-4">
+                                    <h6 class="fw-light mt-3">Buy me a coffe</h6>
+                                    <p class="extra-small text-muted mb-3">Tip $2.00</p>
+                                    <div class="p-3 bg-white border rounded-3 mb-2 d-flex align-items-center justify-content-between">
+                                        <span class="small fw-medium">M-Pesa / Airtel</span>
+                                        <i class="bi bi-chevron-right text-muted"></i>
+                                    </div>
+                                    <div class="p-3 bg-white border rounded-3 mb-2 d-flex align-items-center justify-content-between">
+                                        <span class="small fw-medium">Credit Card</span>
+                                        <i class="bi bi-chevron-right text-muted"></i>
+                                    </div>
+                                    <!-- <div class="p-3 bg-white border rounded-3 mb-2 d-flex align-items-center justify-content-between">
+                                        <span class="small fw-medium">Crypto (BTC/USDT)</span>
+                                        <i class="bi bi-chevron-right text-muted"></i>
+                                    </div> -->
+                                </div>
+
+                                <button class="btn btn-primary w-100 py-2 mb-2 rounded-pill small fw-bold">Pay Now</button>
+                                <button class="btn btn-link w-100 text-danger text-decoration-none extra-small fw-bold" data-bs-dismiss="modal">Decline Request</button>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+/* Phone Mockup Styling */
+.mobile-device {
+    width: 260px;
+    height: 520px;
+    background: #1a1a1a;
+    border-radius: 40px;
+    padding: 10px;
+    border: 4px solid #333;
+    position: relative;
+}
+
+.mobile-screen {
+    background: #fdfdfd;
+    width: 100%;
+    height: 100%;
+    border-radius: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Scrollbar for the mini-phone */
+.mobile-screen::-webkit-scrollbar { width: 0px; }
+
+/* Status Bar Sim */
+.status-bar { font-size: 10px; color: #000; }
+
+/* Desktop Preview Tweaks */
+.active-method {
+    border-color: var(--bs-primary) !important;
+    background: rgba(13, 110, 253, 0.05) !important;
+    color: var(--bs-primary) !important;
+    font-weight: 600;
+}
+
+.extra-small { font-size: 0.75rem; }
+
+.btn-danger.bg-opacity-10 {
+    background-color: rgba(220, 53, 69, 0.1) !important;
+}
+
+.brand-logo-preview {
+    transition: transform 0.3s ease;
+}
+
+.brand-logo-preview:hover {
+    transform: scale(1.05);
+}
+</style>
                     <!--end::Col-->
                 </div>
+                <!--end::Row-->
+                <!--end::Row-->
+                <div class="modal fade" id="requestLinkModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-header border-0 pb-0 justify-content-center mt-3">
+                <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                    <i class="bi bi-link-45deg fs-2 text-primary"></i>
+                </div>
+            </div>
+            <div class="modal-body p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold">Payment Request Ready</h4>
+                    <p class="text-muted small">Share this link with the recipient to receive funds.</p>
+                </div>
+
+                <div class="card bg-light border-0 rounded-3 mb-4">
+                    <div class="card-body p-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted small">Recipient</span>
+                            <span class="fw-bold small">test.user@wallet.com</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted small">Channel</span>
+                            <span class="badge bg-white text-dark border fw-medium">PayPal Express</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted small">Deposit To</span>
+                            <span class="fw-bold small text-primary">Sendmo Primary Account</span>
+                        </div>
+                        <hr class="my-2 border-secondary opacity-10">
+                        <div class="d-flex justify-content-between mb-1">
+                            <span class="text-muted small">Requested Amount</span>
+                            <span class="fw-bold small">$125.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-muted small">Transaction Fee</span>
+                            <span class="fw-bold small text-danger">+$1.50</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label small fw-bold text-muted">Payment Link</label>
+                    <div class="input-group">
+                        <input type="text" id="copyLinkInput" class="form-control border-end-0 bg-light" value="https://sendmo.me/pay/req-992x" readonly>
+                        <button class="btn btn-light border border-start-0 px-3" onclick="copyRequestLink()">
+                            <i class="bi bi-clipboard text-primary"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button class="btn btn-dark py-3 fw-bold rounded-3">Complete Process</button>
+                    <button class="btn btn-link text-muted small text-decoration-none">View All Active Links</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyRequestLink() {
+    const copyText = document.getElementById("copyLinkInput");
+    copyText.select();
+    navigator.clipboard.writeText(copyText.value);
+    
+    // Simple visual feedback
+    const icon = document.querySelector('.bi-clipboard');
+    icon.classList.replace('bi-clipboard', 'bi-check2');
+    setTimeout(() => icon.classList.replace('bi-check2', 'bi-clipboard'), 2000);
+}
+</script>
+                <!--end::Row-->
                 <!--end::Row-->
                 <style>
                                     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
