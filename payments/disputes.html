@@ -1660,7 +1660,7 @@
 
                                     <div class="tab-pane fade" id="kt_aside_nav_tab_wallet" role="tabpanel">
                                         <div class="m-0">
-                                            <h1 class="text-gray-800 fw-semibold mb-6 mx-5">My Wallets</h1>
+                                            <h1 class="text-gray-800 fw-semibold mb-6 mx-5">Wallet Accounts </h1>
                                             <div class="mx-5">
                                                 <a href="../wallet/accounts.html"
                                                     class="card border border-dashed border-success bg-light-success mb-5 text-decoration-none hover-elevate-up d-block">
@@ -1670,8 +1670,8 @@
                                                                 <span class="path1"></span><span class="path2"></span>
                                                             </i>
                                                             <div class="d-flex flex-column">
-                                                                <span class="text-gray-900 fw-bold fs-6">Fiat
-                                                                    Currency</span>
+                                                                <span class="text-gray-900 fw-bold fs-6">Solo
+                                                                    Account</span>
                                                                 <span class="text-muted fw-semibold fs-8">KES / USD /
                                                                     EUR</span>
                                                             </div>
@@ -1681,39 +1681,34 @@
                                                             operational costs.
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <span class="fw-bold text-gray-800 fs-5">0.00 KES</span>
+                                                            <span class="fw-bold text-gray-800 fs-5">500980.00 KES</span>
                                                             <span
-                                                                class="btn btn-sm btn-success px-3 py-1">Deposit</span>
+                                                                class="btn btn-sm btn-success px-3 py-1">Available Balances</span>
                                                         </div>
                                                     </div>
                                                 </a>
-
-                                                <a href="../wallet/crypto.html"
-                                                    class="card border border-dashed border-info bg-light-info mb-5 text-decoration-none hover-elevate-up d-block">
+                                                <a href="../wallet/sharedaccount.html"
+                                                    class="card border border-dashed border-gold bg-light-dark mb-5 text-decoration-none hover-elevate-up d-block">
                                                     <div class="card-body p-4">
                                                         <div class="d-flex align-items-center mb-2">
                                                             <i class="ki-duotone ki-bitcoin text-info fs-2x me-3">
                                                                 <span class="path1"></span><span class="path2"></span>
                                                             </i>
                                                             <div class="d-flex flex-column">
-                                                                <span class="text-gray-900 fw-bold fs-6">Crypto
-                                                                    Assets</span>
-                                                                <span class="text-muted fw-semibold fs-8">BTC / ETH /
-                                                                    USDT</span>
+                                                                <span class="text-gray-900 fw-bold fs-6">Shared Account</span>
+                                                                <span class="text-muted fw-semibold fs-8">shared wallet balances</span>
                                                             </div>
                                                         </div>
                                                         <div class="fs-7 text-gray-600 mb-4">
-                                                            Digital asset portfolio for borderless transactions and
-                                                            crypto integration.
+                                                            Set temporary account and input a limited or fixed amount where others can use.
                                                         </div>
                                                         <div class="d-flex justify-content-between align-items-center">
-                                                            <span class="fw-bold text-gray-800 fs-5">0.00 USDT</span>
-                                                            <span class="btn btn-sm btn-info px-3 py-1">Swap</span>
+                                                            <span class="fw-bold text-gray-800 fs-5">550.00 USD</span>
+                                                            <span class="btn btn-sm btn-info px-3 py-1">Shared Amount</span>
                                                         </div>
                                                     </div>
                                                 </a>
-
-                                                <a href="../wallet/tokens.html"
+                                                 <a href="../wallet/tokens.html"
                                                     class="card border border-dashed border-primary bg-light-primary mb-5 text-decoration-none hover-elevate-up d-block">
                                                     <div class="card-body p-4">
                                                         <div class="d-flex align-items-center mb-2">
@@ -1770,6 +1765,34 @@
                                                         </div>
                                                     </div>
                                                 </a>
+
+                                                <a href="../wallet/crypto.html"
+                                                    class="card border border-dashed border-info bg-light-info mb-5 text-decoration-none hover-elevate-up d-block">
+                                                    <div class="card-body p-4">
+                                                        <div class="d-flex align-items-center mb-2">
+                                                            <i class="ki-duotone ki-bitcoin text-info fs-2x me-3">
+                                                                <span class="path1"></span><span class="path2"></span>
+                                                            </i>
+                                                            <div class="d-flex flex-column">
+                                                                <span class="text-gray-900 fw-bold fs-6">Crypto
+                                                                    Assets</span>
+                                                                <span class="text-muted fw-semibold fs-8">BTC / ETH /
+                                                                    USDT</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="fs-7 text-gray-600 mb-4">
+                                                            Digital asset portfolio for borderless transactions and
+                                                            crypto integration.
+                                                        </div>
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <span class="fw-bold text-gray-800 fs-5">0.00 USDT</span>
+                                                            <span class="btn btn-sm btn-info px-3 py-1">Swap</span>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                                
+
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -2922,8 +2945,86 @@
                                                 </tr>
                                             </thead>
                                             <tbody id="disputeTableBody">
-                                                <!-- Table rows will be inserted here by JavaScript -->
-                                            </tbody>
+    <tr style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#disputeDetailModal">
+        <td><input type="checkbox" class="form-check-input case-checkbox"></td>
+        <td><span class="text-dark fw-bold">CAS-8829</span></td>
+        <td class="text-muted">Mar 28, 2026</td>
+        <td><code class="text-primary fw-bold">TXN_99021445</code></td>
+        <td>
+            <div class="d-flex flex-column">
+                <span class="text-dark fw-bold">Unauthorized Charge</span>
+                <span class="text-muted fs-8">Reported via Mobile App</span>
+            </div>
+        </td>
+        <td><span class="text-dark fw-bolder">$1,240.00</span></td>
+        <td><span class="badge badge-light-warning fw-bolder px-3 py-2">Under Review</span></td>
+        <td class="text-muted">2 hours ago</td>
+    </tr>
+
+    <tr style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#disputeDetailModal">
+        <td><input type="checkbox" class="form-check-input case-checkbox"></td>
+        <td><span class="text-dark fw-bold">CAS-8710</span></td>
+        <td class="text-muted">Mar 25, 2026</td>
+        <td><code class="text-primary fw-bold">TXN_88120092</code></td>
+        <td>
+            <div class="d-flex flex-column">
+                <span class="text-dark fw-bold">Duplicate Payment</span>
+                <span class="text-muted fs-8">System Auto-Flagged</span>
+            </div>
+        </td>
+        <td><span class="text-dark fw-bolder">$45.00</span></td>
+        <td><span class="badge badge-light-success fw-bolder px-3 py-2">Resolved (Refunded)</span></td>
+        <td class="text-muted">Mar 26, 2026</td>
+    </tr>
+
+    <tr style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#disputeDetailModal">
+        <td><input type="checkbox" class="form-check-input case-checkbox"></td>
+        <td><span class="text-dark fw-bold">CAS-8655</span></td>
+        <td class="text-muted">Mar 22, 2026</td>
+        <td><code class="text-primary fw-bold">TXN_11203948</code></td>
+        <td>
+            <div class="d-flex flex-column">
+                <span class="text-dark fw-bold">Goods Not Described</span>
+                <span class="text-muted fs-8">Dispute Case #4410</span>
+            </div>
+        </td>
+        <td><span class="text-dark fw-bolder">$3,500.00</span></td>
+        <td><span class="badge badge-light-primary fw-bolder px-3 py-2">Awaiting Bank Response</span></td>
+        <td class="text-muted">Yesterday</td>
+    </tr>
+
+    <tr style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#disputeDetailModal">
+        <td><input type="checkbox" class="form-check-input case-checkbox"></td>
+        <td><span class="text-dark fw-bold">CAS-8540</span></td>
+        <td class="text-muted">Mar 20, 2026</td>
+        <td><code class="text-primary fw-bold">TXN_77402199</code></td>
+        <td>
+            <div class="d-flex flex-column">
+                <span class="text-dark fw-bold">Unauthorized Charge</span>
+                <span class="text-muted fs-8">Card-not-present fraud</span>
+            </div>
+        </td>
+        <td><span class="text-dark fw-bolder">$890.00</span></td>
+        <td><span class="badge badge-light-danger fw-bolder px-3 py-2">High Risk Audit</span></td>
+        <td class="text-muted">4 hours ago</td>
+    </tr>
+
+    <tr style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#disputeDetailModal">
+        <td><input type="checkbox" class="form-check-input case-checkbox"></td>
+        <td><span class="text-dark fw-bold">CAS-8421</span></td>
+        <td class="text-muted">Mar 18, 2026</td>
+        <td><code class="text-primary fw-bold">TXN_33491022</code></td>
+        <td>
+            <div class="d-flex flex-column">
+                <span class="text-dark fw-bold">Duplicate Payment</span>
+                <span class="text-muted fs-8">I&M Bank Gateway Error</span>
+            </div>
+        </td>
+        <td><span class="text-dark fw-bolder">$12.50</span></td>
+        <td><span class="badge badge-light-success fw-bolder px-3 py-2">Resolved</span></td>
+        <td class="text-muted">Mar 19, 2026</td>
+    </tr>
+</tbody>
                                         </table>
                                     </div>
                                 </div>
@@ -3340,7 +3441,76 @@
                                         };
                                     });
                 </script>
-                extra space for css custome
+
+                <div class="modal fade" id="disputeDetailModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content shadow-sm border-0">
+            <div class="modal-header border-0 pb-0">
+                <div class="d-flex flex-column">
+                    <h3 class="fw-bolder text-dark mb-1">Case Details: CAS-8829</h3>
+                    <span class="text-muted fw-bold fs-7">Dispute initiated on Mar 28, 2026 • 04:30 PM</span>
+                </div>
+                <button type="button" class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg fs-4"></i>
+                </button>
+            </div>
+
+            <div class="modal-body py-10 px-lg-10">
+                <div class="d-flex align-items-center bg-light-primary rounded p-5 mb-7">
+                    <span class="svg-icon svg-icon-primary me-5">
+                        <i class="bi bi-shield-check fs-2hx text-primary"></i>
+                    </span>
+                    <div class="flex-grow-1">
+                        <div class="fw-bolder text-dark fs-6">Unauthorized Charge</div>
+                        <div class="text-muted fw-bold">TXN_99021445 • $1,240.00</div>
+                    </div>
+                    <span class="badge badge-light-warning fw-bolder px-4 py-3">Under Review</span>
+                </div>
+
+                <div class="mb-8">
+                    <h5 class="fw-bolder text-dark mb-5">Audit Trail</h5>
+                    <div class="timeline-label px-3">
+                        <div class="timeline-item d-flex align-items-center mb-4">
+                            <div class="timeline-label fw-bold text-gray-800 fs-8 w-75px">14:30</div>
+                            <div class="timeline-badge"><i class="bi bi-dot text-primary fs-1"></i></div>
+                            <div class="timeline-content fw-bold text-gray-600 ps-3">Payer flagged transaction as unauthorized.</div>
+                        </div>
+                        <div class="timeline-item d-flex align-items-center mb-4">
+                            <div class="timeline-label fw-bold text-gray-800 fs-8 w-75px">16:15</div>
+                            <div class="timeline-badge"><i class="bi bi-dot text-warning fs-1"></i></div>
+                            <div class="timeline-content fw-bold text-gray-600 ps-3">Case assigned to Compliance Officer.</div>
+                        </div>
+                        <div class="timeline-item d-flex align-items-center">
+                            <div class="timeline-label fw-bold text-gray-800 fs-8 w-75px">Current</div>
+                            <div class="timeline-badge"><i class="bi bi-dot text-muted fs-1"></i></div>
+                            <div class="timeline-content fw-mormal text-muted ps-3">Awaiting supporting documentation from the merchant.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notice d-flex bg-light-danger rounded border-danger border border-dashed p-6">
+                    <div class="d-flex flex-stack flex-grow-1">
+                        <div class="fw-bold">
+                            <h4 class="text-gray-900 fw-bolder">Need an Urgent Resolve?</h4>
+                            <div class="fs-6 text-gray-700">Re-submitting this case with additional proof will trigger a 24-hour priority audit by our senior desk.</div>
+                            <button class="btn btn-danger fw-bolder mt-4 px-6 py-3" id="btn_resubmit">
+                                <i class="bi bi-lightning-charge-fill me-2"></i> Re-submit for Urgent Resolve
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer bg-light border-0 justify-content-between">
+                <button type="button" class="btn btn-light fw-bolder px-8" data-bs-dismiss="modal">Discard</button>
+                <button type="button" class="btn btn-success fw-bolder px-8">
+                    <i class="bi bi-check-circle me-2"></i> Close & Mark Resolved
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+                extra space for css custome modlals
                 <style>
                                     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
                                     /* --- GOLD/BROWN MONOCHROMATIC PALETTE --- */
@@ -3488,6 +3658,32 @@
                                         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
                                     }
                 </style>
+                <style>/* Modal Width Utility */
+.mw-650px { max-width: 650px !important; }
+
+/* Timeline Label Styling */
+.timeline-label { position: relative; }
+.timeline-label:before {
+    content: "";
+    position: absolute;
+    left: 78px;
+    width: 2px;
+    top: 0;
+    bottom: 0;
+    background-color: var(--kt-gray-200);
+}
+
+.timeline-label .timeline-label { width: 75px; flex-shrink: 0; position: relative; }
+.timeline-badge { flex-shrink: 0; background: #fff; z-index: 1; margin-left: -5px; }
+
+/* Action Button Polish */
+.btn-active-light-primary:hover {
+    background-color: #e1f0ff !important;
+    color: #009ef7 !important;
+}
+
+.bg-light-danger { background-color: #fff5f8 !important; }
+.border-danger.border-dashed { border-color: #f1416c !important; }</style>
 
 
                     </div>

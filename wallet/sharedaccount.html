@@ -1253,7 +1253,7 @@
                                 data-kt-scroll-wrappers="#kt_aside_wordspace"
                                 data-kt-scroll-dependencies="#kt_aside_secondary_footer" data-kt-scroll-offset="0px">
 
-                               <!--begin::Tab content xxxxxxxxxxxxx 1 xxxxxxxxxx-->
+                                <!--begin::Tab content xxxxxxxxxxxxx 1 xxxxxxxxxx-->
                                 <div class="tab-content">
                                     <!--begin::Tab pane xxxxxxxxxxxx-->
                                     <div class="tab-pane fade" id="kt_aside_nav_tab_dasshboard"
@@ -2842,191 +2842,536 @@
                     <!--begin::Container-->
                     <div class=" container-xxl " id="kt_content_container">
 
-                            <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-    <div class="container-xxl" id="kt_content_container">
+
+                                <div class="mb-10">
+    
+    <div class="d-flex flex-column flex-md-row align-items-center justify-content-between mb-8">
+        <div>
+            <h1 class="fw-bolder text-dark mb-1 fs-2" style="font-family: Inter, sans-serif;">MO Shared Accounts</h1>
+            <span class="text-muted fw-bold fs-6" style="font-family: Inter, sans-serif;">Manage pooled funds and mobile-money distributions</span>
+        </div>
+        <div class="mt-4 mt-md-0">
+            <button class="btn fw-bolder px-6 py-3" style="background-color: #7239ea; color: #ffffff; border-radius: 0.5rem; box-shadow: 0 4px 9px rgba(114, 57, 234, 0.2); transition: all 0.3s;" data-bs-toggle="modal" data-bs-target="#kt_modal_create_shared_wallet">
+                <i class="bi bi-plus-lg me-2 text-white"></i> Create Shared Wallet
+            </button>
+        </div>
+    </div>
+    <div class="card" style="box-shadow: 0px 0px 20px 0px rgba(76, 87, 125, 0.03); border-radius: 1rem; border: none; background-color: #ffffff;">
         
-        <div class="d-flex flex-stack mb-8">
-            <div class="d-flex flex-column">
-                <div class="d-flex align-items-center gap-2 mb-1">
-                    <div class="symbol symbol-30px">
-                        <div class="symbol-label bg-light-success"><i class="fa-solid fa-leaf text-success"></i></div>
-                    </div>
-                    <h1 class="fw-bolder text-gray-900 fs-2 mb-0">SendMO Tokens (SMO)</h1>
-                </div>
-                <span class="text-muted fw-semibold fs-7">Native utility token for zero-fee P2P transfers and network rewards.</span>
-            </div>
-            <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-light-success fw-bold"><i class="fa fa-gift me-2"></i>Claim Rewards</button>
-            </div>
+        <div class="card-header border-0 pt-6 px-8" style="border-bottom: 1px solid #eff2f5 !important;">
+            <ul class="nav nav-tabs fs-5" id="moSharedTabs" role="tablist" style="border-bottom: none;">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="mo-overview-tab" data-bs-toggle="tab" data-bs-target="#mo_overview" type="button" role="tab" style="color: #7239ea; font-weight: 600; padding: 1rem 1.5rem; border: none; border-bottom: 2px solid #7239ea; background: transparent; font-family: Inter, sans-serif;">Overview & Spending</button>
+                </li>
+                
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="mo-transactions-tab" data-bs-toggle="tab" data-bs-target="#mo_transactions" type="button" role="tab" style="color: #a1a5b7; font-weight: 600; padding: 1rem 1.5rem; border: none; border-bottom: 2px solid transparent; background: transparent; font-family: Inter, sans-serif;">Wallet Transactions</button>
+                </li>
+            </ul>
         </div>
-
-        <div class="row g-5 g-xl-10 mb-8">
-            <div class="col-xl-6">
-                <div class="card shadow-sm border border-success h-100 bg-light-success" style="background-image: radial-gradient(circle at top right, rgba(80, 205, 137, 0.1), transparent);">
-                    <div class="card-body p-8 d-flex flex-column justify-content-between">
-                        <div class="d-flex flex-stack mb-6">
-                            <span class="badge bg-success text-white fw-bolder px-3 py-2 text-uppercase">Internal Utility Token</span>
-                            <span class="fw-bold text-success fs-7"><i class="fa fa-circle text-success fs-9 me-1"></i> Network Active</span>
-                        </div>
-                        <div class="mb-4">
-                            <div class="d-flex align-items-center mb-1">
-                                <span class="fs-2hx fw-bolder text-gray-900 me-2">500.00</span>
-                                <span class="fs-3 fw-bolder text-success">SMO</span>
+        <div class="card-body p-8">
+            <div class="tab-content" id="moSharedTabsContent">
+                
+                <div class="tab-pane fade show active" id="mo_overview" role="tabpanel">
+                    <div class="row g-8">
+                        <div class="col-lg-5">
+                            <div class="card p-7 h-100" style="border: 1px dashed #7239ea; background-color: #f3eefd; border-radius: 0.75rem;">
+                                <div class="d-flex flex-stack mb-6">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3" style="width: 45px; height: 45px; border-radius: 50%; background-color: #ffffff; color: #7239ea; display: flex; align-items: center; justify-content: center; box-shadow: 0px 4px 6px rgba(0,0,0,0.02);">
+                                            <i class="bi bi-wallet2 fs-3"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="fw-bolder mb-1 text-dark" style="font-family: Inter, sans-serif; letter-spacing: -0.3px;">MO Shared Account - Farm</h4>
+                                            <span class="text-muted fs-7 fw-bold" style="font-family: Inter, sans-serif;">Active until Dec 31, 2026</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge" style="background-color: #50cd89; color: #ffffff; padding: 0.5rem 0.8rem; border-radius: 2rem; font-weight: 600;">Active</span>
+                                </div>
+                                <div class="mb-6">
+                                    <span class="text-muted fw-bold d-block mb-2" style="font-family: Inter, sans-serif;">Available Balance</span>
+                                    <span class="fs-1 fw-bolder text-dark" style="font-family: Inter, sans-serif; letter-spacing: -1px;">$2,450.00 <span class="fs-5 text-muted fw-normal">USD</span></span>
+                                </div>
+                                <div>
+                                    <div class="d-flex flex-stack mb-3 text-dark fw-bold fs-7" style="font-family: Inter, sans-serif;">
+                                        <span>Total Limit: $3,000.00</span>
+                                        <span>18% Spent</span>
+                                    </div>
+                                    <div class="progress w-100" style="height: 8px; border-radius: 4px; background-color: #ffffff;">
+                                        <div class="progress-bar" style="width: 18%; background-color: #7239ea; border-radius: 4px;" role="progressbar"></div>
+                                    </div>
+                                </div>
+                                <div class="mt-8 d-flex gap-3">
+                                    <button class="btn w-100 fw-bolder" style="background-color: #e4e6ef; color: #7239ea; border: none; border-radius: 0.5rem;">Top Up</button>
+                                    <button class="btn w-100 fw-bolder" style="background-color: #ffffff; color: #3f4254; border: 1px solid #e4e6ef; border-radius: 0.5rem;">Settings</button>
+                                </div>
                             </div>
-                            <div class="text-success fw-bold fs-6">≈ KES 5,000.00 <span class="text-muted fs-8">(Internal Peg: 1 SMO = 10 KES)</span></div>
                         </div>
-                        <div class="d-flex gap-3 mt-4">
-                            <button class="btn btn-success fw-bold flex-grow-1">Transfer P2P</button>
-                            <button class="btn btn-light flex-grow-1 text-success fw-bold border border-success border-dashed">Convert to Fiat</button>
+
+                        <div class="col-lg-7">
+                            <h5 class="fw-bolder text-dark mb-6" style="font-family: Inter, sans-serif;">Linked Beneficiaries (Mobile Money)</h5>
+                            <div class="table-responsive">
+                                <table class="table align-middle gs-0 gy-4">
+                                    <thead>
+                                        <tr class="fw-bolder text-muted" style="background-color: #f5f8fa; font-family: Inter, sans-serif; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                                            <th class="ps-4 rounded-start min-w-150px">User</th>
+                                            <th class="min-w-120px">Phone Number</th>
+                                            <th class="min-w-100px">Allocation</th>
+                                            <th class="min-w-100px text-end rounded-end pe-4">Spent</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody style="border-top: none;">
+                                        <tr style="border-bottom: 1px dashed #eff2f5;">
+                                            <td class="ps-4">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="me-3" style="width: 35px; height: 35px; border-radius: 50%; background-color: #f3eefd; color: #7239ea; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: Inter, sans-serif;">R</div>
+                                                    <span class="text-dark fw-bolder fs-6" style="font-family: Inter, sans-serif;">Rebecca Nalyanya</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge" style="background-color: #f3eefd; color: #7239ea; padding: 0.4rem 0.6rem; border-radius: 0.4rem; font-weight: 600; font-family: Inter, sans-serif;">+254 712 *** 890</span></td>
+                                            <td class="text-dark fw-bold" style="font-family: Inter, sans-serif;">40% ($1,200)</td>
+                                            <td class="text-end pe-4 fw-bolder" style="color: #50cd89; font-family: Inter, sans-serif;">$350.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="ps-4">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="me-3" style="width: 35px; height: 35px; border-radius: 50%; background-color: #f3eefd; color: #7239ea; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: Inter, sans-serif;">M</div>
+                                                    <span class="text-dark fw-bolder fs-6" style="font-family: Inter, sans-serif;">Mother</span>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge" style="background-color: #f3eefd; color: #7239ea; padding: 0.4rem 0.6rem; border-radius: 0.4rem; font-weight: 600; font-family: Inter, sans-serif;">+254 722 *** 123</span></td>
+                                            <td class="text-dark fw-bold" style="font-family: Inter, sans-serif;">60% ($1,800)</td>
+                                            <td class="text-end pe-4 fw-bolder" style="color: #50cd89; font-family: Inter, sans-serif;">$200.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                
+                <div class="tab-pane fade" id="mo_transactions" role="tabpanel">
+                    <div class="d-flex flex-stack mb-8">
+                        <h4 class="text-dark fw-bolder m-0" style="font-family: Inter, sans-serif;">Recent Spending Records</h4>
+                        <div class="position-relative">
+                            <i class="bi bi-search position-absolute top-50 translate-middle-y ms-4 text-muted"></i>
+                            <input type="text" class="form-control ps-12 w-250px" style="background-color: #f5f8fa; border: 1px solid #f5f8fa; border-radius: 0.5rem; color: #3f4254; font-weight: 500; padding: 0.65rem 1rem;" placeholder="Search transactions...">
+                        </div>
+                    </div>
 
-            <div class="col-xl-6">
-                <div class="card shadow-sm border-0 h-100 bg-white">
-                    <div class="card-body p-8">
+                    <div class="table-responsive">
+                        <table class="table align-middle fs-6 gy-5">
+                            <thead>
+                                <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0" style="border-bottom: 1px solid #eff2f5;">
+                                    <th class="min-w-100px pb-3">Date</th>
+                                    <th class="min-w-150px pb-3">Beneficiary</th>
+                                    <th class="min-w-200px pb-3">Description</th>
+                                    <th class="min-w-100px pb-3">Method</th>
+                                    <th class="text-end min-w-100px pb-3">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody class="text-gray-600 fw-bold" style="border-top: none;">
+                                <tr style="border-bottom: 1px dashed #eff2f5;">
+                                    <td class="py-4">Mar 28, 2026</td>
+                                    <td class="d-flex align-items-center py-4">
+                                        <div class="me-2" style="width: 30px; height: 30px; border-radius: 50%; background-color: #f3eefd; color: #7239ea; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem;">R</div>
+                                        <span class="text-dark fw-bold">Rebecca Nalyanya</span>
+                                    </td>
+                                    <td class="py-4">Farm Input Supplies (Kimilili)</td>
+                                    <td class="py-4"><span class="badge" style="background-color: #e8fff3; color: #50cd89; padding: 0.4rem 0.6rem; border-radius: 0.3rem;">M-Pesa Paybill</span></td>
+                                    <td class="text-end fw-bolder py-4" style="color: #f1416c;">-$120.00</td>
+                                </tr>
+                                <tr style="border-bottom: 1px dashed #eff2f5;">
+                                    <td class="py-4">Mar 26, 2026</td>
+                                    <td class="d-flex align-items-center py-4">
+                                        <div class="me-2" style="width: 30px; height: 30px; border-radius: 50%; background-color: #f3eefd; color: #7239ea; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem;">M</div>
+                                        <span class="text-dark fw-bold">Mother</span>
+                                    </td>
+                                    <td class="py-4">Groceries & Home upkeep</td>
+                                    <td class="py-4"><span class="badge" style="background-color: #e8fff3; color: #50cd89; padding: 0.4rem 0.6rem; border-radius: 0.3rem;">M-Pesa Send</span></td>
+                                    <td class="text-end fw-bolder py-4" style="color: #f1416c;">-$85.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4">Mar 20, 2026</td>
+                                    <td class="d-flex align-items-center py-4">
+                                        <div class="me-2" style="width: 30px; height: 30px; border-radius: 50%; background-color: #e4e6ef; color: #3f4254; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem;"><i class="bi bi-bank"></i></div>
+                                        <span class="text-dark fw-bold">System Deposit</span>
+                                    </td>
+                                    <td class="py-4">Initial Wallet Funding</td>
+                                    <td class="py-4"><span class="badge" style="background-color: #f3eefd; color: #7239ea; padding: 0.4rem 0.6rem; border-radius: 0.3rem;">Card Transfer</span></td>
+                                    <td class="text-end fw-bolder py-4" style="color: #50cd89;">+$3,000.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+        </div>
+        </div>
+    </div>
+
+   <div class="modal fade" id="kt_modal_create_shared_wallet" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-900px">
+        <div class="modal-content" style="border-radius: 1.5rem; border: none; box-shadow: 0 15px 50px rgba(0,0,0,0.2);">
+            <div class="modal-header pb-0 border-0 justify-content-end">
+                <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-lg fs-2"></i>
+                </div>
+            </div>
+            <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
+                <div class="mb-10 text-center">
+                    <h1 class="mb-3" style="font-family: Inter, sans-serif; font-weight: 800; color: #181c32;">Configure MO Shared Wallet</h1>
+                    <div class="text-muted fw-bold fs-6">Automated splitting & mobile money distribution</div>
+                </div>
+
+                <form id="shared_wallet_form">
+                    <div class="row g-9 mb-8">
+                        <div class="col-md-5">
+                            <label class="fs-6 fw-bold mb-2">Funding Source</label>
+                            <select class="form-select border-0" style="background-color: #f5f8fa; font-weight: 500; border-radius: 0.65rem;">
+                                <option>Main Wallet (Ksh 1,240,500)</option>
+                                <option>Business Account</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fs-6 fw-bold mb-2">Wallet Currency</label>
+                            <div class="nav-group d-inline-flex p-1" style="background-color: #f5f8fa; border-radius: 0.75rem; width: 100%;">
+                                <input type="radio" class="btn-check" name="currency" value="KSH" id="curr_ksh" checked onchange="distributeShares()" />
+                                <label class="btn btn-sm btn-active-white fw-bolder px-4 py-2 flex-grow-1" for="curr_ksh" style="border-radius: 0.6rem;">KSH</label>
+                                
+                                <input type="radio" class="btn-check" name="currency" value="USD" id="curr_usd" onchange="distributeShares()" />
+                                <label class="btn btn-sm btn-active-white fw-bolder px-4 py-2 flex-grow-1" for="curr_usd" style="border-radius: 0.6rem;">USD</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="fs-6 fw-bold mb-2">Wallet Name</label>
+                            <input type="text" class="form-control border-0" style="background-color: #f5f8fa; border-radius: 0.65rem;" placeholder="e.g. Farm Labor" />
+                        </div>
+                    </div>
+
+                    <div class="row g-9 mb-10">
+                        <div class="col-md-4">
+                            <label class="fs-6 fw-bold mb-2">Total Amount</label>
+                            <input type="number" id="main_total_amount" class="form-control border-0" style="background-color: #f5f8fa; font-weight: 700; border-radius: 0.65rem;" placeholder="Amount" value="5000" oninput="distributeShares()" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fs-6 fw-bold mb-2">Valid From</label>
+                            <input type="date" class="form-control border-0" style="background-color: #f5f8fa; border-radius: 0.65rem;" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fs-6 fw-bold mb-2">Valid Until</label>
+                            <input type="date" class="form-control border-0" style="background-color: #f5f8fa; border-radius: 0.65rem;" />
+                        </div>
+                    </div>
+
+                    <div class="mb-8">
                         <div class="d-flex flex-stack mb-5">
-                            <h3 class="text-gray-800 fw-bolder fs-4 mb-0">Sendmo VIP Tier</h3>
-                            <span class="badge badge-light-warning fw-bold px-3 py-2"><i class="fa fa-star text-warning me-1"></i> Gold Member</span>
-                        </div>
-                        
-                        <p class="text-muted fw-semibold fs-6 mb-6">You currently earn <span class="text-gray-900 fw-bolder">1.5x SMO points</span> on all fiat transactions. Reach Platinum to unlock 2x rewards and free instant settlements.</p>
-                        
-                        <div class="d-flex flex-stack mb-2">
-                            <span class="text-gray-800 fw-bolder fs-6">500 / 1,000 SMO</span>
-                            <span class="text-muted fw-bold fs-7">500 to Platinum</span>
-                        </div>
-                        <div class="progress h-8px w-100 bg-light-warning mb-6">
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 50%"></div>
+                            <h3 class="fw-bolder text-dark m-0">Link Mobile Money Users</h3>
+                            <button type="button" onclick="addBeneficiary()" class="btn btn-sm fw-bolder" style="background-color: #f3eefd; color: #7239ea; border-radius: 0.5rem;">
+                                <i class="bi bi-person-plus-fill me-1"></i> Add Member
+                            </button>
                         </div>
 
-                        <div class="row g-0 border-top pt-4">
-                            <div class="col-6">
-                                <div class="text-muted fw-semibold fs-7 mb-1">Lifetime Earned</div>
-                                <div class="text-gray-800 fw-bolder fs-5">1,250 SMO</div>
+                        <div id="me_row" class="d-none mb-4 p-5" style="background-color: #f1faff; border-radius: 0.85rem; border: 1px solid #c0eaff; border-left: 5px solid #009ef7;">
+                            <div class="row g-5 align-items-center">
+                                <div class="col-md-4">
+                                    <span class="badge mb-2" style="background-color: #009ef7; color: #fff;">Pinned: Me (Admin)</span>
+                                    <div class="fw-bolder fs-6">Current User Account</div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="fs-7 text-muted">Share</div>
+                                    <input type="text" class="form-control share-input bg-white fw-bold border-0" readonly value="100%" />
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="fs-7 text-muted">Estimated Amount</div>
+                                    <div class="fw-bolder fs-5 text-primary"><span class="curr_label">KSH</span> <span class="calc_val">0</span></div>
+                                </div>
+                                <div class="col-md-1 text-end">
+                                    <button type="button" onclick="document.getElementById('include_me_check').click()" class="btn btn-icon btn-sm text-danger"><i class="bi bi-dash-circle"></i></button>
+                                </div>
                             </div>
-                            <div class="col-6 border-start ps-4">
-                                <div class="text-muted fw-semibold fs-7 mb-1">Saved on Fees</div>
-                                <div class="text-gray-800 fw-bolder fs-5">KES 7,500</div>
+                        </div>
+
+                        <div id="beneficiary_list"></div>
+
+                        <div class="mt-6 p-6" style="background-color: #f9f9f9; border-radius: 1rem; border: 1px solid #f1f1f1;">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-check form-check-custom">
+                                        <input class="form-check-input" type="checkbox" id="include_me_check" onchange="toggleMe()" />
+                                        <label class="form-check-label fw-bold ms-3" for="include_me_check">Include Me in this shared wallet</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="form-check form-check-custom">
+                                        <input class="form-check-input" type="checkbox" id="auto_split" checked onchange="distributeShares()" />
+                                        <label class="form-check-label fw-bold ms-3" for="auto_split">Auto-Split Shares Equally</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="text-center pt-5">
+                        <button type="reset" class="btn btn-light me-3 fw-bolder px-8 py-3" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn fw-bolder px-10 py-3" style="background-color: #7239ea; color: #ffffff; border-radius: 0.65rem;" data-bs-toggle="modal" data-bs-target="#moSuccessModal">
+                            Complete Process <i class="bi bi-check-circle ms-2"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <div class="row g-5 g-xl-10 mb-8">
-            <div class="col-xl-4">
-                <div class="card shadow-sm border border-gray-200 hover-elevate-up h-100">
-                    <div class="card-body p-6">
-                        <div class="symbol symbol-40px mb-4">
-                            <div class="symbol-label bg-light-primary"><i class="fa fa-sync-alt text-primary fs-3"></i></div>
-                        </div>
-                        <h4 class="text-gray-800 fw-bolder mb-2">Transaction Cashback</h4>
-                        <p class="text-muted fw-semibold fs-7 mb-4">Every KES/USD transfer you make automatically generates SMO points. Earn 1 SMO for every 1,000 KES processed through your Sendmo gateway.</p>
-                        <div class="d-flex align-items-center bg-light p-3 rounded">
-                            <i class="fa fa-info-circle text-primary me-2"></i>
-                            <span class="text-gray-700 fs-8 fw-bold">Current Rate: 0.1% Yield</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="card shadow-sm border border-gray-200 h-100 bg-gray-900 text-white" style="background-image: url('https://preview.keenthemes.com/metronic8/demo1/assets/media/patterns/vector-1.png'); background-size: cover;">
-                    <div class="card-body p-6">
-                        <div class="symbol symbol-40px mb-4">
-                            <div class="symbol-label bg-white bg-opacity-10"><i class="fa fa-percent text-white fs-3"></i></div>
-                        </div>
-                        <h4 class="text-white fw-bolder mb-2">Discounted Network Fees</h4>
-                        <p class="text-gray-400 fw-semibold fs-7 mb-5">Burn SMO to cover payment gateway fees. Enjoy a 50% discount on standard transaction costs when paying with SendMO tokens.</p>
-                        
-                        <div class="d-flex flex-stack bg-white bg-opacity-10 rounded p-4 border border-gray-700">
-                            <div class="d-flex flex-column">
-                                <span class="fw-bolder text-white fs-6">Use SMO for fees</span>
-                                <span class="text-gray-400 fs-8 fw-bold">Save 50% instantly</span>
-                            </div>
-                            <div class="form-check form-switch form-check-custom form-check-success form-check-solid">
-                                <input class="form-check-input" type="checkbox" value="" id="smoFeeToggle" checked="checked" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-xl-4">
-                <div class="card shadow-sm border border-gray-200 hover-elevate-up h-100">
-                    <div class="card-body p-6">
-                        <div class="symbol symbol-40px mb-4">
-                            <div class="symbol-label bg-light-warning"><i class="fa fa-users text-warning fs-3"></i></div>
-                        </div>
-                        <h4 class="text-gray-800 fw-bolder mb-2">Referral Engine</h4>
-                        <p class="text-muted fw-semibold fs-7 mb-4">Invite merchants to Sendmo. Once they process their first KES 10,000, you both receive a 50 SMO bonus drop into your wallets.</p>
-                        <button class="btn btn-sm btn-light-warning fw-bold w-100"><i class="fa fa-link me-2"></i>Copy Invite Link</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row g-5 g-xl-10">
-            <div class="col-xl-12">
-                <div class="card shadow-sm border-0 bg-white">
-                    <div class="card-header border-0 pt-6">
-                        <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bold fs-3 mb-1">SMO Token Ledger</span>
-                            <span class="text-muted mt-1 fw-semibold fs-7">Recent minting, burning, and P2P transfers</span>
-                        </h3>
-                    </div>
-                    <div class="card-body py-4">
-                        <div class="table-responsive">
-                            <table class="table align-middle table-row-dashed fs-6 gy-5">
-                                <thead>
-                                    <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0">
-                                        <th class="min-w-150px">Date</th>
-                                        <th class="min-w-250px">Transaction Details</th>
-                                        <th>Action</th>
-                                        <th>Amount</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-gray-600 fw-bold">
-                                    <tr>
-                                        <td>Today, 09:45 AM</td>
-                                        <td>
-                                            <div class="text-gray-800 fw-bolder">Cashback: POS Collection</div>
-                                            <div class="text-muted fs-8">Generated from KES 45,000 sale</div>
-                                        </td>
-                                        <td><span class="badge badge-light-success fw-bold">Minted</span></td>
-                                        <td class="text-success fw-bolder">+ 45.00 SMO</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Yesterday, 3:20 PM</td>
-                                        <td>
-                                            <div class="text-gray-800 fw-bolder">Network Fee Payment</div>
-                                            <div class="text-muted fs-8">Covered fees for Invoice #INV-883</div>
-                                        </td>
-                                        <td><span class="badge badge-light-danger fw-bold">Burned</span></td>
-                                        <td class="text-danger fw-bolder">- 2.50 SMO</td>
-                                    </tr>
-                                    <tr>
-                                        <td>18 Mar 2026, 11:00 AM</td>
-                                        <td>
-                                            <div class="text-gray-800 fw-bolder">P2P Transfer to Albert Flores</div>
-                                            <div class="text-muted fs-8">Memo: Split server costs</div>
-                                        </td>
-                                        <td><span class="badge badge-light-primary fw-bold">Transferred</span></td>
-                                        <td class="text-gray-800 fw-bolder">- 100.00 SMO</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
+
+<script>
+    let includeMe = false;
+
+    function toggleMe() {
+        includeMe = document.getElementById('include_me_check').checked;
+        const meRow = document.getElementById('me_row');
+        meRow.classList.toggle('d-none', !includeMe);
+        distributeShares();
+    }
+
+    function addBeneficiary() {
+        const id = Date.now();
+        const html = `
+            <div id="row_${id}" class="beneficiary-row mb-4 p-5" style="background-color: #ffffff; border-radius: 1rem; border: 1px solid #eff2f5;">
+                <div class="row g-5 align-items-end">
+                    <div class="col-md-3">
+                        <label class="fs-9 fw-bolder text-uppercase text-muted mb-1">Full Name</label>
+                        <input type="text" class="form-control form-control-solid border-0 bg-light" placeholder="John Doe" />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fs-9 fw-bolder text-uppercase text-muted mb-1">Mobile Number</label>
+                        <input type="text" class="form-control form-control-solid border-0 bg-light" placeholder="+254 7XX..." />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="fs-9 fw-bolder text-uppercase text-muted mb-1">Share (%)</label>
+                        <input type="text" class="form-control share-input fw-bolder text-primary border-0" style="background-color: #f3eefd;" value="0%" readonly />
+                    </div>
+                    <div class="col-md-3">
+                        <label class="fs-9 fw-bolder text-uppercase text-muted mb-1">Perspective Amount</label>
+                        <div class="d-flex align-items-center h-40px px-3" style="background-color: #f1faff; border: 1px dashed #009ef7; border-radius: 0.5rem;">
+                            <span class="text-primary fw-bold fs-7 me-1 curr_label">KSH</span>
+                            <span class="text-primary fw-bolder fs-6 calc_val">0</span>
+                        </div>
+                    </div>
+                    <div class="col-md-1 text-end">
+                        <button type="button" onclick="removeBeneficiary(${id})" class="btn btn-icon btn-sm" style="background-color: #fff5f8; color: #f1416c;"><i class="bi bi-trash"></i></button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('beneficiary_list').insertAdjacentHTML('beforeend', html);
+        distributeShares();
+    }
+
+    function removeBeneficiary(id) {
+        document.getElementById(`row_${id}`).remove();
+        distributeShares();
+    }
+
+    function distributeShares() {
+        const rows = document.querySelectorAll('.beneficiary-row');
+        const count = rows.length + (includeMe ? 1 : 0);
+        const totalAmount = parseFloat(document.getElementById('main_total_amount').value) || 0;
+        const currency = document.querySelector('input[name="currency"]:checked').value;
+        
+        // Update all labels to match current currency
+        document.querySelectorAll('.curr_label').forEach(el => el.innerText = currency);
+
+        if (count === 0) return;
+
+        const percentage = Math.floor(100 / count);
+        const remainder = 100 % count;
+
+        // Helper to update visual amount
+        const updateRowAmount = (container, perc) => {
+            const amount = (perc / 100) * totalAmount;
+            container.querySelector('.calc_val').innerText = amount.toLocaleString(undefined, {minimumFractionDigits: 2});
+        };
+
+        // Handle "Me" row
+        if (includeMe) {
+            const meShare = percentage + remainder;
+            document.querySelector('#me_row .share-input').value = meShare + '%';
+            updateRowAmount(document.getElementById('me_row'), meShare);
+        }
+
+        // Handle dynamic rows
+        rows.forEach((row, index) => {
+            const share = (!includeMe && index === 0) ? (percentage + remainder) : percentage;
+            row.querySelector('.share-input').value = share + '%';
+            updateRowAmount(row, share);
+        });
+    }
+
+    // Auto-load one member on start
+    window.onload = () => addBeneficiary();
+</script>
+
+<!-- <script>
+    let members = [];
+    let includeMe = false;
+
+    function toggleMe() {
+        includeMe = document.getElementById('include_me_check').checked;
+        const meRow = document.getElementById('me_row');
+        meRow.classList.toggle('d-none', !includeMe);
+        distributeShares();
+    }
+
+    function addBeneficiary() {
+        const id = Date.now();
+        const html = `
+            <div id="row_${id}" class="row g-5 mb-4 align-items-end p-5 beneficiary-row" style="background-color: #ffffff; border-radius: 0.85rem; border: 1px solid #eff2f5;">
+                <div class="col-md-4">
+                    <label class="fs-9 fw-bolder text-uppercase text-muted mb-1">Full Name</label>
+                    <input type="text" class="form-control form-control-sm bg-light-secondary" style="border: none;" placeholder="John Doe" />
+                </div>
+                <div class="col-md-4">
+                    <label class="fs-9 fw-bolder text-uppercase text-muted mb-1">Mobile Number</label>
+                    <input type="text" class="form-control form-control-sm bg-light-secondary" style="border: none;" placeholder="+254 7XX..." />
+                </div>
+                <div class="col-md-3">
+                    <label class="fs-9 fw-bolder text-uppercase text-muted mb-1">Share</label>
+                    <input type="text" class="form-control form-control-sm share-input text-primary fw-bolder" style="border: 1px solid #f3eefd; background-color: #f3eefd;" value="0%" readonly />
+                </div>
+                <div class="col-md-1 text-end">
+                    <button type="button" onclick="removeBeneficiary(${id})" class="btn btn-icon btn-sm" style="background-color: #fff5f8; color: #f1416c;"><i class="bi bi-trash"></i></button>
+                </div>
+            </div>
+        `;
+        document.getElementById('beneficiary_list').insertAdjacentHTML('beforeend', html);
+        distributeShares();
+    }
+
+    function removeBeneficiary(id) {
+        document.getElementById(`row_${id}`).remove();
+        distributeShares();
+    }
+
+    function distributeShares() {
+        const rows = document.querySelectorAll('.beneficiary-row');
+        const count = rows.length + (includeMe ? 1 : 0);
+        
+        if (count === 0) return;
+
+        const percentage = Math.floor(100 / count);
+        const remainder = 100 % count;
+
+        // Apply to "Me" row
+        if (includeMe) {
+            document.querySelector('#me_row .share-input').value = (percentage + remainder) + '%';
+        }
+
+        // Apply to others
+        rows.forEach((row, index) => {
+            const input = row.querySelector('.share-input');
+            // If Me is not included, give the remainder to the first person
+            const share = (!includeMe && index === 0) ? (percentage + remainder) : percentage;
+            input.value = share + '%';
+        });
+    }
+
+    // Initialize with one beneficiary
+    window.onload = () => addBeneficiary();
+</script> -->
+
+<style>
+    .form-check-input:checked {
+        background-color: #7239ea;
+        border-color: #7239ea;
+    }
+    .btn-active-white:hover { color: #7239ea !important; }
+    .btn-check:checked + .btn-active-white {
+        background-color: #ffffff !important;
+        color: #7239ea !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+</style>
+<div class="modal fade" id="moSuccessModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-600px">
+        <div class="modal-content" style="border-radius: 1.25rem; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+            <div class="modal-header border-0 pb-0 justify-content-end">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pt-0 pb-10 px-10">
+                <div class="text-center mb-8">
+                    <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #e8fff3; color: #50cd89; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;">
+                        <i class="bi bi-check-lg" style="font-size: 3rem; font-weight: bolder;"></i>
+                    </div>
+                    <h2 class="fw-bolder text-dark mb-2" style="font-family: Inter, sans-serif;">Wallet Created Successfully!</h2>
+                    <p class="text-muted fs-6" style="font-family: Inter, sans-serif;">The "MO Shared Account" is now active and ready for distribution.</p>
+                </div>
+
+                <div class="p-5 mb-8" style="background-color: #f9f9f9; border-radius: 0.75rem; border: 1px solid #eff2f5;">
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <span class="text-muted fw-bolder d-block mb-1" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Total Limit</span>
+                            <span class="text-dark fs-5 fw-bolder" style="font-family: Inter, sans-serif;">$5,000.00</span>
+                        </div>
+                        <div class="col-6">
+                            <span class="text-muted fw-bolder d-block mb-1" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Duration</span>
+                            <span class="text-dark fs-6 fw-bold" style="font-family: Inter, sans-serif;">Mar '26 - Dec '26</span>
+                        </div>
+                        <div class="col-12 mt-4">
+                            <span class="text-muted fw-bolder d-block mb-2" style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px;">Beneficiaries Notified</span>
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="badge" style="background-color: #f3eefd; color: #7239ea; padding: 0.4rem 0.6rem; border-radius: 0.4rem; font-weight: 600;">John D. (50%)</span>
+                                <span class="badge" style="background-color: #f3eefd; color: #7239ea; padding: 0.4rem 0.6rem; border-radius: 0.4rem; font-weight: 600;">Jane D. (50%)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <label class="form-label fw-bolder text-dark fs-6" style="font-family: Inter, sans-serif;">Reference Code</label>
+                    <div class="d-flex">
+                        <input type="text" class="form-control me-2" style="background-color: #f5f8fa; border: none; color: #7239ea; font-weight: bold; font-family: monospace; padding: 0.75rem 1rem; border-radius: 0.5rem;" value="MO-SHRD-9938-X8A" readonly>
+                        <button class="btn" style="background-color: #f3eefd; color: #7239ea; border: none; border-radius: 0.5rem;"><i class="bi bi-files"></i></button>
+                    </div>
+                </div>
+
+                <div class="mb-10">
+                    <label class="form-label fw-bolder text-dark fs-6 mb-1" style="font-family: Inter, sans-serif;">Direct Share URL</label>
+                    <p class="text-muted mb-3" style="font-size: 0.8rem;">Share this link with beneficiaries so they can accept funds via Mobile Money.</p>
+                    <div class="d-flex">
+                        <input type="text" class="form-control me-2" style="background-color: #f5f8fa; border: none; color: #3f4254; padding: 0.75rem 1rem; border-radius: 0.5rem; font-size: 0.85rem;" value="https://sendmo.com/shared/accept/9938-X8A" readonly>
+                        <button class="btn fw-bolder text-nowrap" style="background-color: #7239ea; color: #ffffff; border: none; border-radius: 0.5rem; padding: 0.75rem 1.25rem;">Copy Link</button>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="button" class="btn fw-bolder px-8 py-3" style="background-color: #f5f8fa; color: #3f4254; border: none; border-radius: 0.5rem;" data-bs-dismiss="modal">Close Window</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var tabTriggerList = [].slice.call(document.querySelectorAll('#moSharedTabs .nav-link'));
+        tabTriggerList.forEach(function (tabTriggerEl) {
+            tabTriggerEl.addEventListener('click', function (event) {
+                event.preventDefault();
+                // Reset styling for all tabs
+                tabTriggerList.forEach(function(t) {
+                    t.style.color = '#a1a5b7';
+                    t.style.borderBottom = '2px solid transparent';
+                });
+                // Apply styling to active tab
+                this.style.color = '#7239ea';
+                this.style.borderBottom = '2px solid #7239ea';
+            });
+        });
+    });
+</script>
+    
+
+                        <!-- end of pop ups -->
 
 
 
