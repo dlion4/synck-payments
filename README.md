@@ -12,4 +12,4 @@ v15....cards sections
 v16....cards functions completed
 
 
-v17....channels
+v17....channels 50% POS sections
