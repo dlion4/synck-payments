@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintech Card Management Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Custom Theme & Inline-like Styles (Keen Theme Inspired) */
+        :root {
+            --primary-gold: #d4af37;
+            --primary-gold-hover: #b5952f;
+            --light-gold: #fbf8f1;
+            --slate-dark: #1e293b;
+            --slate-light: #f8fafc;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f1f5f9;
+            color: #334155;
+        }
+
+        .font-monospace {
+            font-family: 'JetBrains Mono', monospace !important;
+        }
+
+        .text-primary-gold { color: var(--primary-gold) !important; }
+        .bg-primary-gold { background-color: var(--primary-gold) !important; }
+        .bg-light-gold { background-color: var(--light-gold) !important; }
+        .text-slate-dark { color: var(--slate-dark) !important; }
+        .tracking-widest { letter-spacing: 0.25em; }
+        .tracking-wider { letter-spacing: 0.1em; }
+        .transition { transition: all 0.3s ease; }
+        .cursor-pointer { cursor: pointer; }
+        .cursor-move { cursor: move; }
+
+        /* Card Designs */
+        .bank-card {
+            width: 100%;
+            max-width: 400px;
+            height: 240px;
+            border-radius: 1.5rem;
+            padding: 1.75rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+        }
+
+        .bank-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 30px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .bank-card.active-card {
+            border-color: var(--primary-gold);
+            transform: scale(1.02);
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+        }
+
+        .theme-visa {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+        }
+
+        .theme-mastercard {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+        }
+
+        .theme-virtual {
+            background: linear-gradient(135deg, #047857 0%, #0d9488 100%);
+        }
+
+        .bank-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+            pointer-events: none;
+        }
+
+        .bank-card.paused {
+            filter: grayscale(100%) opacity(0.8);
+        }
+
+        /* Tabs */
+        .main-tab-active {
+            border-bottom: 3px solid var(--primary-gold) !important;
+            color: var(--primary-gold) !important;
+            font-weight: 600;
+        }
+
+        /* Custom Modals */
+        .custom-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(5px);
+            z-index: 1050;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .custom-modal-overlay.show {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .custom-modal-content {
+            background: white;
+            border-radius: 1.5rem;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(20px) scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .custom-modal-overlay.show .custom-modal-content {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Forms & Inputs */
+        .form-control-custom {
+            border: 1px solid #cbd5e1;
+            border-radius: 0.75rem;
+            padding: 0.75rem 1rem;
+            transition: all 0.2s;
+        }
+        
+        .form-control-custom:focus {
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            outline: none;
+        }
+
+        /* Switches */
+        .form-check-input:checked {
+            background-color: var(--primary-gold);
+            border-color: var(--primary-gold);
+        }
+
+        /* Table Styles */
+        .transaction-table th {
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            background-color: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
+            padding: 1rem;
+        }
+
+        .transaction-table td {
+            padding: 1rem;
+            vertical-align: middle;
+            color: #334155;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .transaction-table tbody tr:hover {
+            background-color: #f8fafc;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-completed { background: #dcfce7; color: #166534; }
+        .status-pending { background: #fef08a; color: #854d0e; }
+        .status-failed { background: #fee2e2; color: #991b1b; }
+
+        .blur-text {
+            filter: blur(4px);
+            user-select: none;
+            transition: filter 0.3s ease;
+        }
+        
+        .blur-text.revealed {
+            filter: blur(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <div>
+            <h1 class="fw-bold text-slate-dark m-0">Card Management</h1>
+            <p class="text-secondary mt-1 m-0">Manage your physical and virtual cards, set limits, and view transactions.</p>
+        </div>
+        <div class="d-flex gap-3 align-items-center">
+            <div class="text-end d-none d-md-block">
+                <p class="m-0 text-secondary fs-6">Available Balance</p>
+                <h2 class="m-0 fw-bold text-primary-gold">$42,500.00</h2>
+            </div>
+            <button class="btn bg-primary-gold text-white px-4 py-2 rounded-3 shadow-sm hover:bg-primary-gold-hover transition">
+                <i class="fas fa-arrow-down me-2"></i> Receive
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-5 gx-xl-10 mb-5 mb-xl-10">
+        <div class="col-12">
+            
+            <div class="mb-4 border-bottom border-secondary-subtle">
+                <div class="d-flex overflow-auto" id="main-tabs" style="white-space: nowrap;">
+                    <button onclick="switchTab('cards')" id="tab-cards" class="btn btn-link pb-3 fs-5 me-4 main-tab-active border-0 text-decoration-none transition">
+                        <i class="fas fa-credit-card me-2"></i> My Cards
+                    </button>
+                    <button onclick="switchTab('virtual')" id="tab-virtual" class="btn btn-link pb-3 fs-5 me-4 text-secondary border-0 text-decoration-none transition">
+                        <i class="fas fa-gem me-2"></i> Virtual Cards
+                    </button>
+                    <button onclick="switchTab('security')" id="tab-security" class="btn btn-link pb-3 fs-5 me-4 text-secondary border-0 text-decoration-none transition">
+                        <i class="fas fa-shield-alt me-2"></i> Limits & Security
+                    </button>
+                    <button onclick="switchTab('transactions')" id="tab-transactions" class="btn btn-link pb-3 fs-5 text-secondary border-0 text-decoration-none transition">
+                        <i class="fas fa-receipt me-2"></i> Transactions
+                    </button>
+                </div>
+            </div>
+
+            <div id="content-cards" class="tab-content">
+                <div class="row g-4">
+                    <div class="col-xl-7 col-lg-6">
+                        <div class="bg-white p-4 p-xl-5 rounded-4 shadow-sm border border-light h-100">
+                            <h2 class="fs-3 fw-bold text-slate-dark mb-4 d-flex align-items-center">
+                                <i class="fas fa-wallet text-primary-gold me-3"></i> Your Active Cards
+                            </h2>
+                            
+                            <div id="card-list" class="card-container d-flex flex-column align-items-center align-items-lg-start">
+                                <div id="card-visa" data-card-id="4242" data-card-network="VISA" onclick="selectCard('4242')" class="bank-card theme-visa active-card w-100 mb-4">
+                                    <div class="position-absolute top-0 end-0 p-4 fs-4 fw-bold tracking-widest opacity-75 fst-italic">VISA</div>
+                                    <div class="position-absolute top-0 start-0 p-4">
+                                        <i class="fas fa-microchip fs-2 text-warning opacity-75"></i>
+                                        <i class="fas fa-wifi fs-4 text-white opacity-50 ms-2" style="transform: rotate(90deg);"></i>
+                                    </div>
+                                    <div class="mt-5 pt-3 d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fs-5 fw-semibold text-light">Primary Checking</span>
+                                        <span class="badge rounded-pill text-dark bg-white px-3 py-2 fw-bold shadow-sm">USD</span>
+                                    </div>
+                                    <div class="fs-2 font-monospace tracking-wider mb-4 text-shadow" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.5);">
+                                        **** **** **** 4242
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-end">
+                                        <div>
+                                            <div class="text-uppercase" style="font-size: 0.65rem; letter-spacing: 1px; color: #cbd5e1;">Cardholder Name</div>
+                                            <div class="fs-5 fw-medium font-monospace">ALEXANDER PIERCE</div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="text-uppercase" style="font-size: 0.65rem; letter-spacing: 1px; color: #cbd5e1;">Expires</div>
+                                            <div class="fs-5 fw-medium font-monospace">12/28</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="card-master" data-card-id="9011" data-card-network="Mastercard" onclick="selectCard('9011')" class="bank-card theme-mastercard paused w-100">
+                                    <div class="position-absolute top-0 end-0 p-4 d-flex">
+                                        <div style="width: 24px; height: 24px; background: #eb001b; border-radius: 50%; opacity: 0.8;"></div>
+                                        <div style="width: 24px; height: 24px; background: #f79e1b; border-radius: 50%; margin-left: -10px; opacity: 0.8;"></div>
+                                    </div>
+                                    <div class="position-absolute top-50 start-50 translate-middle fs-1 fw-bolder text-danger bg-white px-4 py-2 rounded-3 shadow-lg" style="transform: translate(-50%, -50%) rotate(-15deg) !important; z-index: 10;">
+                                        FROZEN
+                                    </div>
+                                    <div class="position-absolute top-0 start-0 p-4">
+                                        <i class="fas fa-microchip fs-2 text-warning opacity-75"></i>
+                                    </div>
+                                    <div class="mt-5 pt-3 d-flex justify-content-between align-items-center mb-2">
+                                        <span class="fs-5 fw-semibold text-light">Euro Travel Account</span>
+                                        <span class="badge rounded-pill text-dark bg-white px-3 py-2 fw-bold shadow-sm">EUR</span>
+                                    </div>
+                                    <div class="fs-2 font-monospace tracking-wider mb-4 text-shadow">
+                                        **** **** **** 9011
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-end">
+                                        <div>
+                                            <div class="text-uppercase" style="font-size: 0.65rem; letter-spacing: 1px; color: #cbd5e1;">Cardholder Name</div>
+                                            <div class="fs-5 fw-medium font-monospace">ALEXANDER PIERCE</div>
+                                        </div>
+                                        <div class="text-end">
+                                            <div class="text-uppercase" style="font-size: 0.65rem; letter-spacing: 1px; color: #cbd5e1;">Expires</div>
+                                            <div class="fs-5 fw-medium font-monospace">06/27</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-5 col-lg-6">
+                        <div class="bg-white p-4 rounded-4 shadow-sm border border-light mb-4">
+                            <h3 id="card-actions-title" class="fs-4 fw-bold mb-4 text-slate-dark border-bottom pb-3">
+                                Managing: <span class="text-primary-gold font-monospace">VISA **** 4242</span>
+                            </h3>
+                            <div class="d-flex flex-column gap-3">
+                                <button onclick="openModal('vcc-details')" class="btn btn-dark text-white p-3 rounded-3 shadow-sm d-flex justify-content-between align-items-center transition hover:bg-opacity-75">
+                                    <span class="fs-6 fw-semibold"><i class="fas fa-eye me-2"></i> Reveal Card Details</span>
+                                    <i class="fas fa-chevron-right fs-7 text-secondary"></i>
+                                </button>
+                                <button onclick="openModal('add-money')" class="btn bg-light-gold text-primary-gold border border-warning p-3 rounded-3 shadow-sm d-flex justify-content-between align-items-center transition">
+                                    <span class="fs-6 fw-semibold"><i class="fas fa-exchange-alt me-2"></i> Top Up / Withdraw</span>
+                                    <i class="fas fa-chevron-right fs-7 text-secondary"></i>
+                                </button>
+                                <button onclick="openModal('theme-change')" class="btn bg-light text-slate-dark border p-3 rounded-3 shadow-sm d-flex justify-content-between align-items-center transition">
+                                    <span class="fs-6 fw-semibold"><i class="fas fa-paint-brush me-2"></i> Change Card PIN</span>
+                                    <i class="fas fa-chevron-right fs-7 text-secondary"></i>
+                                </button>
+                                <div class="row g-2 mt-2">
+                                    <div class="col-6">
+                                        <button id="pause-btn-4242" onclick="togglePause('4242')" class="btn btn-warning w-100 text-dark p-3 rounded-3 shadow-sm fw-bold">
+                                            <i class="fas fa-pause me-2"></i> Freeze Card
+                                        </button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button onclick="openModal('suspend-card')" class="btn btn-outline-danger w-100 p-3 rounded-3 shadow-sm fw-bold">
+                                            <i class="fas fa-ban me-2"></i> Cancel Card
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-dark text-white p-4 rounded-4 shadow-sm border border-light position-relative overflow-hidden">
+                            <div class="position-absolute top-0 end-0 p-3 opacity-25">
+                                <i class="fas fa-credit-card fa-4x"></i>
+                            </div>
+                            <h3 class="fs-4 fw-bold mb-2 position-relative z-index-1">Need another card?</h3>
+                            <p class="text-light opacity-75 mb-4 position-relative z-index-1 fs-6">Order a new physical card for your secondary accounts or family members.</p>
+                            <button onclick="openModal('add-new-card')" class="btn bg-primary-gold text-white w-100 py-3 rounded-3 shadow-sm fw-bold fs-6 transition position-relative z-index-1">
+                                <i class="fas fa-plus me-2"></i> Order Physical Card
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-virtual" class="tab-content d-none">
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="bg-white p-4 p-xl-5 rounded-4 shadow-sm border border-light">
+                            <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+                                <h2 class="fs-3 fw-bold text-slate-dark m-0">Virtual Cards</h2>
+                                <button onclick="openModal('create-virtual-card')" class="btn bg-primary-gold text-white px-4 py-2 rounded-3 shadow-sm fw-bold">
+                                    <i class="fas fa-plus me-2"></i> Create Virtual Card
+                                </button>
+                            </div>
+                            
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <div class="bank-card theme-virtual w-100 mb-0" onclick="openModal('vcc-details')">
+                                        <div class="position-absolute top-0 end-0 p-3 fs-5 fw-bold tracking-widest opacity-75">CloudSub</div>
+                                        <div class="mt-4 pt-2 d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fs-5 fw-semibold text-light">AWS & GCP Billing</span>
+                                            <span class="badge rounded-pill text-success bg-white px-2 py-1 fw-bold">Active</span>
+                                        </div>
+                                        <div class="fs-3 font-monospace tracking-wider mb-3 text-shadow">
+                                            **** **** **** 1003
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-end">
+                                            <div>
+                                                <div class="text-uppercase mb-1" style="font-size: 0.65rem; color: #cbd5e1;">Monthly Limit</div>
+                                                <div class="fs-5 fw-bold font-monospace">$5,000.00</div>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="text-uppercase mb-1" style="font-size: 0.65rem; color: #cbd5e1;">CVC</div>
+                                                <div class="fs-5 fw-medium font-monospace">***</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3 px-2">
+                                        <span class="text-secondary fs-7">Spent: $1,240.50</span>
+                                        <a href="#" class="text-primary-gold text-decoration-none fs-7 fw-bold">Edit Limits</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="bank-card w-100 mb-0" style="background: linear-gradient(135deg, #4f46e5 0%, #312e81 100%);" onclick="openModal('vcc-details')">
+                                        <div class="position-absolute top-0 end-0 p-3 fs-5 fw-bold tracking-widest opacity-75">Burner</div>
+                                        <div class="mt-4 pt-2 d-flex justify-content-between align-items-center mb-2">
+                                            <span class="fs-5 fw-semibold text-light">One-Time Online</span>
+                                            <span class="badge rounded-pill text-warning bg-white px-2 py-1 fw-bold">Single-Use</span>
+                                        </div>
+                                        <div class="fs-3 font-monospace tracking-wider mb-3 text-shadow">
+                                            **** **** **** 8821
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-end">
+                                            <div>
+                                                <div class="text-uppercase mb-1" style="font-size: 0.65rem; color: #cbd5e1;">Total Limit</div>
+                                                <div class="fs-5 fw-bold font-monospace">$150.00</div>
+                                            </div>
+                                            <div class="text-end">
+                                                <div class="text-uppercase mb-1" style="font-size: 0.65rem; color: #cbd5e1;">Valid Thru</div>
+                                                <div class="fs-5 fw-medium font-monospace">12/24</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between mt-3 px-2">
+                                        <span class="text-secondary fs-7">Deletes after 1st charge</span>
+                                        <a href="#" class="text-danger text-decoration-none fs-7 fw-bold">Delete Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4">
+                        <div class="bg-light-gold p-4 rounded-4 shadow-sm border border-warning h-100">
+                            <h4 class="fw-bold text-primary-gold mb-3"><i class="fas fa-lightbulb me-2"></i> Why use Virtual Cards?</h4>
+                            <ul class="list-unstyled d-flex flex-column gap-3 text-slate-dark">
+                                <li class="d-flex align-items-start gap-3">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <div>
+                                        <strong>Enhanced Security:</strong> Mask your physical card details when shopping on unfamiliar sites.
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start gap-3">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <div>
+                                        <strong>Subscription Control:</strong> Create a card strictly for Netflix or Spotify and cap the monthly spend.
+                                    </div>
+                                </li>
+                                <li class="d-flex align-items-start gap-3">
+                                    <i class="fas fa-check-circle text-success mt-1"></i>
+                                    <div>
+                                        <strong>Instant Issuance:</strong> Available to use online immediately after creation.
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-security" class="tab-content d-none">
+                <div class="bg-white p-4 p-xl-5 rounded-4 shadow-sm border border-light">
+                    <h2 class="fs-3 fw-bold text-slate-dark border-bottom pb-3 mb-4">Security Overview & Settings</h2>
+                    
+                    <div class="row g-4">
+                        <div class="col-lg-7 d-flex flex-column gap-3">
+                            <h4 class="fs-5 fw-bold text-slate-dark mb-2">Global Card Security Features</h4>
+                            
+                            <div class="p-4 border border-secondary-subtle rounded-3 d-flex justify-content-between align-items-center bg-light transition hover:shadow-sm">
+                                <div>
+                                    <h5 class="fw-bold mb-1"><i class="fas fa-globe me-2 text-primary"></i> Online Transactions</h5>
+                                    <p class="text-secondary fs-7 m-0">Allow card to be used for internet purchases.</p>
+                                </div>
+                                <div class="form-check form-switch fs-4 m-0">
+                                    <input class="form-check-input cursor-pointer" type="checkbox" role="switch" checked>
+                                </div>
+                            </div>
+
+                            <div class="p-4 border border-secondary-subtle rounded-3 d-flex justify-content-between align-items-center bg-light transition hover:shadow-sm">
+                                <div>
+                                    <h5 class="fw-bold mb-1"><i class="fas fa-money-bill-wave me-2 text-success"></i> ATM Withdrawals</h5>
+                                    <p class="text-secondary fs-7 m-0">Enable cash withdrawals at ATMs worldwide.</p>
+                                </div>
+                                <div class="form-check form-switch fs-4 m-0">
+                                    <input class="form-check-input cursor-pointer" type="checkbox" role="switch" checked>
+                                </div>
+                            </div>
+
+                            <div class="p-4 border border-secondary-subtle rounded-3 d-flex justify-content-between align-items-center bg-light transition hover:shadow-sm">
+                                <div>
+                                    <h5 class="fw-bold mb-1"><i class="fas fa-plane me-2 text-info"></i> International Spend</h5>
+                                    <p class="text-secondary fs-7 m-0">Allow transactions in foreign currencies.</p>
+                                </div>
+                                <div class="form-check form-switch fs-4 m-0">
+                                    <input class="form-check-input cursor-pointer" type="checkbox" role="switch">
+                                </div>
+                            </div>
+                            
+                            <div class="p-4 border border-warning rounded-3 d-flex justify-content-between align-items-center bg-warning bg-opacity-10 transition">
+                                <div>
+                                    <h5 class="fw-bold mb-1 text-warning-emphasis"><i class="fas fa-map-marker-alt me-2"></i> Geo-Location Lock</h5>
+                                    <p class="text-warning-emphasis fs-7 m-0 opacity-75">Restrict card usage to specific countries.</p>
+                                </div>
+                                <button onclick="openModal('geo-lock')" class="btn btn-warning fw-bold text-dark px-4 shadow-sm">
+                                    Configure Areas
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-5">
+                            <h4 class="fs-5 fw-bold text-slate-dark mb-4">Spending Limits</h4>
+                            
+                            <div class="p-4 border border-secondary-subtle rounded-4 bg-white mb-4">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold text-slate-dark">Daily Spend Limit</span>
+                                    <span class="fw-bold font-monospace text-primary-gold">$2,450 / $5,000</span>
+                                </div>
+                                <div class="progress" style="height: 10px; border-radius: 5px;">
+                                    <div class="progress-bar bg-primary-gold" role="progressbar" style="width: 49%" aria-valuenow="49" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="text-secondary fs-7 mt-2 mb-0">Resets in 14 hours</p>
+                            </div>
+
+                            <div class="p-4 border border-secondary-subtle rounded-4 bg-white">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="fw-bold text-slate-dark">Monthly ATM Limit</span>
+                                    <span class="fw-bold font-monospace text-slate-dark">$400 / $1,000</span>
+                                </div>
+                                <div class="progress" style="height: 10px; border-radius: 5px;">
+                                    <div class="progress-bar bg-dark" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="text-secondary fs-7 mt-2 mb-0">Resets on May 1st</p>
+                            </div>
+                            
+                            <button class="btn btn-outline-secondary w-100 mt-4 fw-bold p-3 rounded-3">
+                                Request Limit Increase
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="content-transactions" class="tab-content d-none">
+                <div class="bg-white p-4 rounded-4 shadow-sm border border-light">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center border-bottom pb-3 mb-4 gap-3">
+                        <h2 class="fs-3 fw-bold text-slate-dark m-0">Recent Transactions</h2>
+                        <div class="d-flex gap-2">
+                            <input type="date" class="form-control form-control-custom w-auto" placeholder="Select Date">
+                            <button class="btn btn-outline-secondary rounded-3"><i class="fas fa-filter"></i></button>
+                            <button class="btn btn-outline-secondary rounded-3"><i class="fas fa-download"></i> CSV</button>
+                        </div>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table transaction-table align-middle w-100 m-0">
+                            <thead>
+                                <tr>
+                                    <th>Transaction Detail</th>
+                                    <th>Card Info</th>
+                                    <th>Date & Time</th>
+                                    <th>Status</th>
+                                    <th class="text-end">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr onclick="openModal('transaction-details')" class="cursor-pointer">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                                <i class="fas fa-coffee text-secondary fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold text-slate-dark">Starbucks Roastery</div>
+                                                <div class="text-secondary fs-7">Food & Beverage</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border font-monospace">VISA **** 4242</span></td>
+                                    <td>
+                                        <div class="fw-medium">Today</div>
+                                        <div class="text-secondary fs-7">08:45 AM</div>
+                                    </td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td class="text-end fw-bold font-monospace text-slate-dark">-$12.50</td>
+                                </tr>
+                                <tr onclick="openModal('transaction-details')" class="cursor-pointer">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                                <i class="fas fa-cloud text-info fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold text-slate-dark">Amazon Web Services</div>
+                                                <div class="text-secondary fs-7">Technology & Software</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border font-monospace">VCC **** 1003</span></td>
+                                    <td>
+                                        <div class="fw-medium">Yesterday</div>
+                                        <div class="text-secondary fs-7">11:02 PM</div>
+                                    </td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td class="text-end fw-bold font-monospace text-slate-dark">-$450.00</td>
+                                </tr>
+                                <tr onclick="openModal('transaction-details')" class="cursor-pointer">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                                <i class="fas fa-money-check-alt text-success fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold text-slate-dark">Salary Deposit</div>
+                                                <div class="text-secondary fs-7">Inbound Transfer</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">Main Account</span></td>
+                                    <td>
+                                        <div class="fw-medium">Apr 01, 2026</div>
+                                        <div class="text-secondary fs-7">09:00 AM</div>
+                                    </td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td class="text-end fw-bold font-monospace text-success">+$6,250.00</td>
+                                </tr>
+                                <tr onclick="openModal('transaction-details')" class="cursor-pointer">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                                <i class="fas fa-plane-departure text-warning fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold text-slate-dark">Delta Airlines</div>
+                                                <div class="text-secondary fs-7">Travel</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border font-monospace">MC **** 9011</span></td>
+                                    <td>
+                                        <div class="fw-medium">Mar 28, 2026</div>
+                                        <div class="text-secondary fs-7">02:15 PM</div>
+                                    </td>
+                                    <td><span class="status-badge status-pending">Pending</span></td>
+                                    <td class="text-end fw-bold font-monospace text-slate-dark">-$845.20</td>
+                                </tr>
+                                <tr onclick="openModal('transaction-details')" class="cursor-pointer">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                                <i class="fas fa-shopping-cart text-danger fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold text-slate-dark">Target Store #442</div>
+                                                <div class="text-secondary fs-7">Retail</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border font-monospace">VISA **** 4242</span></td>
+                                    <td>
+                                        <div class="fw-medium">Mar 25, 2026</div>
+                                        <div class="text-secondary fs-7">06:30 PM</div>
+                                    </td>
+                                    <td><span class="status-badge status-failed">Declined</span></td>
+                                    <td class="text-end fw-bold font-monospace text-slate-dark">-$120.45</td>
+                                </tr>
+                                <tr onclick="openModal('transaction-details')" class="cursor-pointer">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                                <i class="fas fa-video text-purple fs-5" style="color: #8b5cf6;"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold text-slate-dark">Netflix Subscription</div>
+                                                <div class="text-secondary fs-7">Entertainment</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border font-monospace">VCC **** 1003</span></td>
+                                    <td>
+                                        <div class="fw-medium">Mar 22, 2026</div>
+                                        <div class="text-secondary fs-7">00:01 AM</div>
+                                    </td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td class="text-end fw-bold font-monospace text-slate-dark">-$15.99</td>
+                                </tr>
+                                <tr onclick="openModal('transaction-details')" class="cursor-pointer">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                                <i class="fas fa-car text-dark fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold text-slate-dark">Uber Rides</div>
+                                                <div class="text-secondary fs-7">Transportation</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border font-monospace">VISA **** 4242</span></td>
+                                    <td>
+                                        <div class="fw-medium">Mar 21, 2026</div>
+                                        <div class="text-secondary fs-7">10:42 PM</div>
+                                    </td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td class="text-end fw-bold font-monospace text-slate-dark">-$24.80</td>
+                                </tr>
+                                <tr onclick="openModal('transaction-details')" class="cursor-pointer">
+                                    <td>
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="bg-light p-3 rounded-circle d-flex align-items-center justify-content-center" style="width: 48px; height: 48px;">
+                                                <i class="fas fa-utensils text-warning fs-5"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-bold text-slate-dark">Bouchon Bakery</div>
+                                                <div class="text-secondary fs-7">Dining</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border font-monospace">MC **** 9011</span></td>
+                                    <td>
+                                        <div class="fw-medium">Mar 20, 2026</div>
+                                        <div class="text-secondary fs-7">12:30 PM</div>
+                                    </td>
+                                    <td><span class="status-badge status-completed">Completed</span></td>
+                                    <td class="text-end fw-bold font-monospace text-slate-dark">-$45.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between align-items-center mt-4 pt-3 border-top">
+                        <span class="text-secondary fs-7">Showing 1 to 8 of 142 entries</span>
+                        <ul class="pagination pagination-sm m-0 gap-1">
+                            <li class="page-item disabled"><a class="page-link border-0 text-secondary" href="#">Prev</a></li>
+                            <li class="page-item active"><a class="page-link bg-primary-gold border-primary-gold rounded text-white fw-bold" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link border-0 text-slate-dark" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link border-0 text-slate-dark" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link border-0 text-secondary" href="#">Next</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="modal-add-money" class="custom-modal-overlay">
+    <div class="custom-modal-content">
+        <div class="p-4 border-bottom d-flex justify-content-between align-items-center">
+            <h4 class="fw-bold m-0 text-slate-dark">Top Up Card</h4>
+            <button onclick="closeModal('add-money')" class="btn btn-sm btn-light rounded-circle"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="p-4">
+            <p class="text-secondary mb-4">Transfer funds from your main account to this card instantly.</p>
+            <div class="mb-4">
+                <label class="form-label fw-bold">Select Amount</label>
+                <div class="d-flex gap-2 mb-3">
+                    <button class="btn btn-outline-secondary flex-fill fw-bold font-monospace">$50</button>
+                    <button class="btn btn-outline-secondary flex-fill fw-bold font-monospace">$100</button>
+                    <button class="btn bg-primary-gold text-white flex-fill fw-bold font-monospace shadow-sm">$500</button>
+                    <button class="btn btn-outline-secondary flex-fill fw-bold font-monospace">Other</button>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0 fw-bold">$</span>
+                    <input type="number" class="form-control form-control-custom border-start-0 ps-0 fw-bold font-monospace fs-4" value="500.00">
+                </div>
+            </div>
+            <div class="mb-4">
+                <label class="form-label fw-bold">From Account</label>
+                <select class="form-select form-control-custom">
+                    <option>Main Checking (Balance: $42,500.00)</option>
+                    <option>Savings (Balance: $120,000.00)</option>
+                </select>
+            </div>
+            <button onclick="closeModal('add-money')" class="btn bg-slate-dark text-white w-100 py-3 rounded-3 fw-bold fs-6 mt-2">
+                Confirm Transfer
+            </button>
+        </div>
+    </div>
+</div>
+
+<div id="modal-create-virtual-card" class="custom-modal-overlay">
+    <div class="custom-modal-content">
+        <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-slate-light">
+            <h4 class="fw-bold m-0 text-slate-dark"><i class="fas fa-magic text-primary-gold me-2"></i> New Virtual Card</h4>
+            <button onclick="closeModal('create-virtual-card')" class="btn btn-sm btn-light rounded-circle"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="p-4">
+            <form onsubmit="event.preventDefault(); closeModal('create-virtual-card');">
+                <div class="mb-3">
+                    <label class="form-label fw-bold fs-7">Card Label</label>
+                    <input type="text" class="form-control form-control-custom" placeholder="e.g. Netflix Subscription, Amazon Shopping" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label fw-bold fs-7">Card Type</label>
+                    <div class="row g-2">
+                        <div class="col-6">
+                            <input type="radio" class="btn-check" name="cardType" id="type-multi" autocomplete="off" checked>
+                            <label class="btn btn-outline-secondary w-100 h-100 p-3 d-flex flex-column text-start rounded-3" for="type-multi">
+                                <span class="fw-bold mb-1 d-block"><i class="fas fa-sync-alt me-1"></i> Multi-Use</span>
+                                <span class="fs-7 opacity-75">Standard virtual card for recurring payments.</span>
+                            </label>
+                        </div>
+                        <div class="col-6">
+                            <input type="radio" class="btn-check" name="cardType" id="type-single" autocomplete="off">
+                            <label class="btn btn-outline-secondary w-100 h-100 p-3 d-flex flex-column text-start rounded-3" for="type-single">
+                                <span class="fw-bold mb-1 d-block"><i class="fas fa-fire me-1 text-danger"></i> Burner Card</span>
+                                <span class="fs-7 opacity-75">Self-destructs after single purchase.</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold fs-7">Spending Limit (Optional)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">$</span>
+                        <input type="number" class="form-control form-control-custom" placeholder="0.00">
+                        <select class="form-select form-control-custom" style="max-width: 120px;">
+                            <option>Per Month</option>
+                            <option>Total</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="d-flex gap-2">
+                    <button type="button" onclick="closeModal('create-virtual-card')" class="btn btn-light flex-fill py-3 rounded-3 fw-bold">Cancel</button>
+                    <button type="submit" class="btn bg-primary-gold text-white flex-fill py-3 rounded-3 fw-bold shadow-sm">Generate Card</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id="modal-geo-lock" class="custom-modal-overlay">
+    <div class="custom-modal-content">
+        <div class="p-4 border-bottom d-flex justify-content-between align-items-center bg-warning bg-opacity-10">
+            <h4 class="fw-bold m-0 text-slate-dark"><i class="fas fa-map-marker-alt text-warning me-2"></i> Geo-Location Restrictions</h4>
+            <button onclick="closeModal('geo-lock')" class="btn btn-sm btn-light rounded-circle"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="p-4">
+            <p class="text-secondary fs-7 mb-4">Toggle the regions where you allow this card to process physical/POS transactions.</p>
+            
+            <div class="d-flex flex-column gap-2">
+                <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light">
+                    <span class="fw-bold"><i class="fas fa-flag-usa me-2 text-primary"></i> North America</span>
+                    <div class="form-check form-switch fs-4 m-0"><input class="form-check-input" type="checkbox" checked></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light">
+                    <span class="fw-bold"><i class="fas fa-euro-sign me-2 text-info"></i> Europe</span>
+                    <div class="form-check form-switch fs-4 m-0"><input class="form-check-input" type="checkbox" checked></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light opacity-50">
+                    <span class="fw-bold"><i class="fas fa-globe-asia me-2 text-success"></i> Asia Pacific</span>
+                    <div class="form-check form-switch fs-4 m-0"><input class="form-check-input" type="checkbox"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light opacity-50">
+                    <span class="fw-bold"><i class="fas fa-globe-africa me-2 text-warning"></i> Africa & Middle East</span>
+                    <div class="form-check form-switch fs-4 m-0"><input class="form-check-input" type="checkbox"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center p-3 border rounded-3 bg-light opacity-50">
+                    <span class="fw-bold"><i class="fas fa-globe-americas me-2 text-danger"></i> South America</span>
+                    <div class="form-check form-switch fs-4 m-0"><input class="form-check-input" type="checkbox"></div>
+                </div>
+            </div>
+            
+            <button onclick="closeModal('geo-lock')" class="btn btn-dark w-100 py-3 mt-4 rounded-3 fw-bold">Save Restrictions</button>
+        </div>
+    </div>
+</div>
+
+<div id="modal-vcc-details" class="custom-modal-overlay">
+    <div class="custom-modal-content" style="max-width: 450px;">
+        <div class="p-4 text-center border-bottom bg-slate-dark text-white rounded-top-4">
+            <h4 class="fw-bold m-0"><i class="fas fa-lock me-2 text-primary-gold"></i> Secure View</h4>
+        </div>
+        <div class="p-4 p-xl-5 text-center">
+            <p class="text-secondary mb-4">You are about to view sensitive card information. Authentication is required.</p>
+            
+            <div id="auth-section">
+                <button onclick="revealCardData()" class="btn bg-primary-gold text-white w-100 py-3 rounded-3 fw-bold shadow-sm mb-3">
+                    <i class="fas fa-fingerprint me-2 fs-5 align-middle"></i> Authenticate to Reveal
+                </button>
+            </div>
+
+            <div id="reveal-section" class="d-none text-start bg-light p-4 rounded-4 border">
+                <div class="mb-3">
+                    <label class="text-secondary fs-7 text-uppercase fw-bold">Card Number</label>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="font-monospace fs-4 fw-bold tracking-wider text-slate-dark">4242 5555 8888 1234</div>
+                        <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-6">
+                        <label class="text-secondary fs-7 text-uppercase fw-bold">Expiry</label>
+                        <div class="font-monospace fs-5 fw-bold text-slate-dark">12/28</div>
+                    </div>
+                    <div class="col-6">
+                        <label class="text-secondary fs-7 text-uppercase fw-bold">CVV</label>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="font-monospace fs-5 fw-bold text-slate-dark">942</div>
+                            <button class="btn btn-sm btn-outline-secondary"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4 pt-3 border-top text-center">
+                    <span class="text-danger fs-7 fw-bold"><i class="fas fa-clock me-1"></i> Data hides in <span id="timer-text">30</span>s</span>
+                </div>
+            </div>
+            
+            <button onclick="closeModal('vcc-details')" class="btn btn-light w-100 py-2 mt-3 rounded-3 fw-bold">Close</button>
+        </div>
+    </div>
+</div>
+
+<div id="modal-transaction-details" class="custom-modal-overlay">
+    <div class="custom-modal-content" style="max-width: 500px;">
+        <div class="p-4 border-bottom text-center position-relative">
+            <button onclick="closeModal('transaction-details')" class="btn btn-sm btn-light rounded-circle position-absolute" style="top: 15px; right: 15px;"><i class="fas fa-times"></i></button>
+            <div class="bg-light mx-auto rounded-circle d-flex align-items-center justify-content-center mb-3 mt-2" style="width: 64px; height: 64px;">
+                <i class="fas fa-coffee text-secondary fs-3"></i>
+            </div>
+            <h3 class="fw-bold text-slate-dark m-0">Starbucks Roastery</h3>
+            <p class="text-secondary m-0">Food & Beverage</p>
+            <h2 class="fw-bold font-monospace mt-3 text-slate-dark">-$12.50</h2>
+            <span class="status-badge status-completed mt-2 d-inline-block">Completed</span>
+        </div>
+        <div class="p-4">
+            <ul class="list-unstyled d-flex flex-column gap-3 m-0">
+                <li class="d-flex justify-content-between border-bottom pb-2">
+                    <span class="text-secondary fw-medium">Date & Time</span>
+                    <span class="fw-bold text-end">Apr 6, 2026<br><span class="text-secondary fs-7">08:45 AM</span></span>
+                </li>
+                <li class="d-flex justify-content-between border-bottom pb-2">
+                    <span class="text-secondary fw-medium">Payment Method</span>
+                    <span class="fw-bold font-monospace">VISA **** 4242</span>
+                </li>
+                <li class="d-flex justify-content-between border-bottom pb-2">
+                    <span class="text-secondary fw-medium">Merchant ID</span>
+                    <span class="fw-bold font-monospace text-secondary fs-7">STBX-9942-NY</span>
+                </li>
+                <li class="d-flex justify-content-between border-bottom pb-2">
+                    <span class="text-secondary fw-medium">Location</span>
+                    <span class="fw-bold text-end">New York, NY<br><span class="text-secondary fs-7">USA</span></span>
+                </li>
+            </ul>
+            <div class="mt-4 row g-2">
+                <div class="col-6">
+                    <button class="btn btn-outline-secondary w-100 py-2 rounded-3 fw-bold"><i class="fas fa-receipt me-1"></i> Receipt</button>
+                </div>
+                <div class="col-6">
+                    <button class="btn btn-outline-danger w-100 py-2 rounded-3 fw-bold"><i class="fas fa-flag me-1"></i> Report</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Tab Switching Logic
+    function switchTab(tabName) {
+        // Hide all contents
+        document.querySelectorAll('.tab-content').forEach(el => el.classList.add('d-none'));
+        
+        // Remove active class from all tabs
+        document.querySelectorAll('#main-tabs button').forEach(el => {
+            el.classList.remove('main-tab-active', 'text-primary-gold');
+            el.classList.add('text-secondary');
+        });
+
+        // Show target content
+        document.getElementById('content-' + tabName).classList.remove('d-none');
+        
+        // Set active class on target tab
+        const activeBtn = document.getElementById('tab-' + tabName);
+        activeBtn.classList.remove('text-secondary');
+        activeBtn.classList.add('main-tab-active', 'text-primary-gold');
+    }
+
+    // Select Physical Card Logic
+    function selectCard(cardId) {
+        // Remove active state
+        document.querySelectorAll('.bank-card').forEach(card => card.classList.remove('active-card'));
+        
+        // Find clicked card element
+        const cards = document.querySelectorAll('.bank-card');
+        let selectedElement = null;
+        let network = "";
+        
+        cards.forEach(card => {
+            if (card.getAttribute('data-card-id') === cardId) {
+                selectedElement = card;
+                network = card.getAttribute('data-card-network');
+            }
+        });
+
+        if (selectedElement) {
+            selectedElement.classList.add('active-card');
+            // Update Title in Actions Section
+            document.getElementById('card-actions-title').innerHTML = `Managing: <span class="text-primary-gold font-monospace">${network} **** ${cardId}</span>`;
+        }
+    }
+
+    // Modal Control Logic
+    function openModal(modalId) {
+        const modal = document.getElementById('modal-' + modalId);
+        if (modal) {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            
+            // Reset VCC reveal state if opening VCC modal
+            if(modalId === 'vcc-details') {
+                document.getElementById('auth-section').classList.remove('d-none');
+                document.getElementById('reveal-section').classList.add('d-none');
+            }
+        }
+    }
+
+    function closeModal(modalId) {
+        const modal = document.getElementById('modal-' + modalId);
+        if (modal) {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto'; // Restore scrolling
+        }
+    }
+
+    // Close modals on outside click
+    document.querySelectorAll('.custom-modal-overlay').forEach(overlay => {
+        overlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    });
+
+    // Pause/Unpause Card Toggle
+    function togglePause(cardId) {
+        const cards = document.querySelectorAll('.bank-card');
+        cards.forEach(card => {
+            if (card.getAttribute('data-card-id') === cardId) {
+                const isPaused = card.classList.contains('paused');
+                if (isPaused) {
+                    card.classList.remove('paused');
+                    // Find and remove frozen banner if exists
+                    const banner = card.querySelector('.text-danger.bg-white');
+                    if(banner) banner.remove();
+                    // Update Button
+                    const btn = document.getElementById('pause-btn-' + cardId);
+                    if(btn) btn.innerHTML = '<i class="fas fa-pause me-2"></i> Freeze Card';
+                } else {
+                    card.classList.add('paused');
+                    // Add frozen banner
+                    const banner = document.createElement('div');
+                    banner.className = 'position-absolute top-50 start-50 translate-middle fs-1 fw-bolder text-danger bg-white px-4 py-2 rounded-3 shadow-lg';
+                    banner.style.cssText = 'transform: translate(-50%, -50%) rotate(-15deg) !important; z-index: 10;';
+                    banner.innerText = 'FROZEN';
+                    card.appendChild(banner);
+                    // Update Button
+                    const btn = document.getElementById('pause-btn-' + cardId);
+                    if(btn) btn.innerHTML = '<i class="fas fa-play me-2"></i> Unfreeze Card';
+                }
+            }
+        });
+    }
+
+    // Reveal VCC Logic (Mock Authentication)
+    let hideTimer;
+    function revealCardData() {
+        document.getElementById('auth-section').classList.add('d-none');
+        document.getElementById('reveal-section').classList.remove('d-none');
+        
+        let timeLeft = 30;
+        document.getElementById('timer-text').innerText = timeLeft;
+        
+        clearInterval(hideTimer);
+        hideTimer = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer-text').innerText = timeLeft;
+            if(timeLeft <= 0) {
+                clearInterval(hideTimer);
+                closeModal('vcc-details');
+            }
+        }, 1000);
+    }
+</script>
+
+</body>
+</html>
