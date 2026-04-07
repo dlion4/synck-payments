@@ -2,10 +2,14 @@
 
 v12....shared amounts page
 
-v13....cards sections
+v13......sahred balances
+
+v14.....shared wallet completed
+
+v15....cards sections
 
 
-v14....cards functions
+v16....cards functions completed
 
 
-v15....
+v17....channels
