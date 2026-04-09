@@ -13,3 +13,8 @@ v16....cards functions completed
 
 
 v17....channels 50% POS sections
+
+
+v18....channels 90% POS sections but advnaced level POS
+
+

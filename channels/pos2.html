@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pkenya Nexus | Enterprise Dashboard</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        :root {
+            /* Core Fintech Palette */
+            --primary-gold: #C9A93F;
+            --primary-gold-hover: #b5952f;
+            --dark-slate: #1e1e2d;
+            --light-bg: #f5f8fa;
+            --card-bg: #ffffff;
+            --input-bg: #f9f9f9;
+            --border-color: #eff2f5;
+            
+            /* Status Colors */
+            --success: #10b981;
+            --info: #3b82f6;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: #3f4254;
+            overflow-x: hidden;
+        }
+
+        /* --- Layout & Sidebar --- */
+        .aside {
+            width: 100px;
+            background-color: var(--card-bg);
+            border-right: 1px dashed var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 0;
+        }
+
+        .wrapper {
+            margin-left: 100px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* --- Sidebar Nav --- */
+        .nav-pills.aside-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        .nav-pills.aside-nav .nav-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            color: #a1a5b7;
+            background-color: transparent;
+            transition: var(--transition);
+            margin: 0 auto;
+        }
+
+        .nav-pills.aside-nav .nav-link:hover {
+            color: var(--primary-gold);
+            background-color: rgba(201, 169, 63, 0.1);
+        }
+
+        .nav-pills.aside-nav .nav-link.active {
+            color: #fff;
+            background-color: var(--primary-gold);
+            box-shadow: 0 4px 10px rgba(201, 169, 63, 0.3);
+        }
+
+        /* --- UI Components --- */
+        .card-custom {
+            background-color: var(--card-bg);
+            border: 1px dashed var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.02);
+            transition: var(--transition);
+        }
+
+        .hover-elevate-up:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05);
+            border-color: var(--primary-gold);
+        }
+
+        .btn-gold {
+            background-color: var(--primary-gold);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+        .btn-gold:hover {
+            background-color: var(--primary-gold-hover);
+            color: #fff;
+        }
+
+        /* --- Modals --- */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        }
+        .modal-header { border-bottom: 1px dashed var(--border-color); }
+        .modal-footer { border-top: 1px dashed var(--border-color); }
+
+        /* --- Utilities --- */
+        .fs-7 { font-size: 0.95rem; }
+        .fs-8 { font-size: 0.85rem; }
+        .fs-9 { font-size: 0.75rem; }
+        .text-gold { color: var(--primary-gold); }
+        .bg-light-gold { background-color: rgba(201, 169, 63, 0.1); }
+        .bg-light-primary { background-color: rgba(59, 130, 246, 0.1); }
+        .bg-light-success { background-color: rgba(16, 185, 129, 0.1); }
+        .bg-light-danger { background-color: rgba(239, 68, 68, 0.1); }
+    </style>
+</head>
+
+<body>
+
+    <div class="aside shadow-sm">
+        <a href="#" class="mb-5">
+            <div class="bg-dark text-white rounded-3 d-flex align-items-center justify-content-center fw-bold fs-4" style="width: 45px; height: 45px;">Pk</div>
+        </a>
+        
+        <ul class="nav nav-pills aside-nav" id="sidebar-tabs" role="tablist">
+            <li class="nav-item" role="presentation" data-bs-toggle="tooltip" title="Dashboard">
+                <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab-dashboard" type="button" role="tab"><i class="fas fa-home fs-4"></i></button>
+            </li>
+            <li class="nav-item" role="presentation" data-bs-toggle="tooltip" title="Compliance">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-compliance" type="button" role="tab"><i class="fas fa-shield-alt fs-4"></i></button>
+            </li>
+            <li class="nav-item" role="presentation" data-bs-toggle="tooltip" title="Performance">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-performance" type="button" role="tab"><i class="fas fa-chart-line fs-4"></i></button>
+            </li>
+            <li class="nav-item" role="presentation" data-bs-toggle="tooltip" title="Wallet">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-wallet" type="button" role="tab"><i class="fas fa-wallet fs-4"></i></button>
+            </li>
+            <li class="nav-item" role="presentation" data-bs-toggle="tooltip" title="Channels">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-channels" type="button" role="tab"><i class="fas fa-network-wired fs-4"></i></button>
+            </li>
+            <li class="nav-item" role="presentation" data-bs-toggle="tooltip" title="Cards">
+                <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab-cards" type="button" role="tab"><i class="fas fa-credit-card fs-4"></i></button>
+            </li>
+        </ul>
+
+        <div class="mt-auto">
+            <button class="btn btn-icon btn-light text-muted"><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        
+        <header class="d-flex align-items-center justify-content-between p-4 bg-white border-bottom dashed">
+            <div>
+                <h2 class="fw-bolder m-0 text-dark">Platform Hub</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb fs-8 m-0">
+                        <li class="breadcrumb-item"><a href="#" class="text-muted text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item active text-dark fw-bold" aria-current="page">Dashboard</li>
+                    </ol>
+                </nav>
+            </div>
+            
+            <div class="d-flex align-items-center gap-3">
+                <button class="btn btn-sm btn-light-primary text-primary fw-bold" data-bs-toggle="modal" data-bs-target="#quickSellModal">
+                    <i class="fas fa-bolt me-1"></i> Quick Sell
+                </button>
+                <div class="dropdown">
+                    <button class="btn btn-icon btn-light rounded-circle" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell text-warning"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 p-3" style="width: 300px;">
+                        <li><h6 class="dropdown-header fw-bold text-dark px-0">Notifications (3)</h6></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item px-0 py-2 fs-8" href="#"><i class="fas fa-check-circle text-success me-2"></i> KYC Verified successfully</a></li>
+                        <li><a class="dropdown-item px-0 py-2 fs-8" href="#"><i class="fas fa-info-circle text-info me-2"></i> System update scheduled</a></li>
+                    </ul>
+                </div>
+                <div class="symbol symbol-40px rounded-circle bg-light-primary border text-center lh-lg fw-bold text-primary cursor-pointer">
+                    DM
+                </div>
+            </div>
+        </header>
+
+        <div class="content p-4 p-md-5 flex-grow-1">
+            <div class="tab-content" id="sidebar-tabContent">
+                
+                <div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel">
+                    
+                    <div class="row mb-5 py-4 px-4 rounded-4" style="background-color: var(--card-bg); border: 2px solid var(--primary-gold)">
+                        <div class="col-12 text-center">
+                            <h1 class="fw-bolder mb-2 text-gold">Go from Setup to Sale in 5 Minutes.</h1>
+                            <p class="text-muted mb-4 fs-6">Accept secure card payments, bank transfers, and mobile money via shareable links, QR codes, and virtual terminals.</p>
+                            <div class="d-flex justify-content-center gap-3">
+                                <button class="btn btn-gold shadow-sm px-4 py-2" data-bs-toggle="modal" data-bs-target="#quickSellModal">
+                                    <i class="fas fa-bolt me-2"></i> Start Selling Now
+                                </button>
+                                <button class="btn btn-outline-dark fw-bold px-4 py-2" data-bs-toggle="modal" data-bs-target="#setupWizardModal">
+                                    <i class="fas fa-cogs me-2"></i> Configure Business
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="fw-bold mb-4">Performance Overview</h4>
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-3">
+                            <div class="card-custom p-4 border-start border-4 border-gold">
+                                <p class="text-muted mb-1 fs-8 fw-bold text-uppercase">Total Revenue (30 Days)</p>
+                                <h3 class="fw-bold text-dark mb-1">$12,450.00</h3>
+                                <span class="badge bg-light-success text-success fs-9"><i class="fas fa-arrow-up me-1"></i> 18% vs Last Month</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card-custom p-4 border-start border-4 border-info">
+                                <p class="text-muted mb-1 fs-8 fw-bold text-uppercase">Transactions</p>
+                                <h3 class="fw-bold text-dark mb-1">458</h3>
+                                <span class="badge bg-light-info text-info fs-9">99% Success Rate</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card-custom p-4 border-start border-4 border-danger">
+                                <p class="text-muted mb-1 fs-8 fw-bold text-uppercase">New Customers</p>
+                                <h3 class="fw-bold text-dark mb-1">87</h3>
+                                <span class="badge bg-light-danger text-danger fs-9"><i class="fas fa-arrow-down me-1"></i> 3% Drop</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card-custom p-4 border-start border-4 border-primary">
+                                <p class="text-muted mb-1 fs-8 fw-bold text-uppercase">Setup Progress</p>
+                                <div class="progress h-8px mb-2 mt-2">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 70%"></div>
+                                </div>
+                                <span class="text-muted fs-9 fw-bold">70% Completed</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="tab-pane fade" id="tab-compliance" role="tabpanel">
+                    <h4 class="fw-bold mb-4">Verification & Compliance</h4>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card-custom p-4 hover-elevate-up cursor-pointer">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="symbol symbol-40px bg-light-success text-success rounded-circle d-flex justify-content-center align-items-center border">
+                                            <i class="fas fa-user-check fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold m-0">Individual KYC</h6>
+                                            <span class="text-muted fs-8">Identity Verification</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-success">Verified</span>
+                                </div>
+                                <p class="fs-8 text-muted mb-0">Personal documents and biometrics have been successfully processed and anchored.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-custom p-4 hover-elevate-up cursor-pointer border-danger border-opacity-50">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="symbol symbol-40px bg-light-danger text-danger rounded-circle d-flex justify-content-center align-items-center border">
+                                            <i class="fas fa-building fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bold m-0">Business KYB</h6>
+                                            <span class="text-muted fs-8">ASEN Organisation</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-danger">Pending Docs</span>
+                                </div>
+                                <p class="fs-8 text-muted mb-0">Registration documents are required to activate your dashboard endpoints.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-performance" role="tabpanel">
+                    <h4 class="fw-bold mb-4">Performance Analytics</h4>
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="card-custom p-4 text-center hover-elevate-up cursor-pointer">
+                                <i class="fas fa-chart-bar fa-3x text-primary mb-3"></i>
+                                <h5 class="fw-bold">Sales Report</h5>
+                                <p class="text-muted fs-8 mb-0">View Growth & Revenue</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-custom p-4 text-center hover-elevate-up cursor-pointer">
+                                <i class="fas fa-file-invoice-dollar fa-3x text-success mb-3"></i>
+                                <h5 class="fw-bold">Settlements</h5>
+                                <p class="text-muted fs-8 mb-0">Payouts & Wallet Balances</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card-custom p-4 text-center hover-elevate-up cursor-pointer">
+                                <i class="fas fa-chart-pie fa-3x text-warning mb-3"></i>
+                                <h5 class="fw-bold">Valuation</h5>
+                                <p class="text-muted fs-8 mb-0">Asset & Entity Value Forecasts</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-wallet" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold m-0">Wallet Accounts</h4>
+                        <button class="btn btn-sm btn-dark" data-bs-toggle="modal" data-bs-target="#modal-transfer-funds">
+                            <i class="fas fa-exchange-alt me-1"></i> Transfer Funds
+                        </button>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="card-custom p-4 bg-light-success border-success border-opacity-50">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="fas fa-piggy-bank fa-2x text-success"></i>
+                                        <div>
+                                            <h6 class="fw-bold m-0">Solo Account</h6>
+                                            <span class="text-muted fs-8">KES / USD / EUR</span>
+                                        </div>
+                                    </div>
+                                    <span class="badge bg-success">Active</span>
+                                </div>
+                                <h3 class="fw-bolder m-0">500,980.00 KES</h3>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-custom p-4 bg-light-warning border-warning border-opacity-50">
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="fas fa-users fa-2x text-warning"></i>
+                                        <div>
+                                            <h6 class="fw-bold m-0">Shared Account</h6>
+                                            <span class="text-muted fs-8">Team Balances</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h3 class="fw-bolder m-0">550.00 USD</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-cards" role="tabpanel">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold m-0">My Cards</h4>
+                    </div>
+                    <div class="row g-4">
+                        <div class="col-lg-5">
+                            <div class="p-4 rounded-4 shadow-lg text-white position-relative overflow-hidden mb-4" style="background: linear-gradient(135deg, #1e1e2d 0%, #3f4254 100%); height: 220px;">
+                                <div class="d-flex justify-content-between align-items-start mb-5">
+                                    <div>
+                                        <h5 class="fw-bold text-white mb-0">SendMO Card</h5>
+                                        <span class="text-gold fs-8">Premium All-in-One</span>
+                                    </div>
+                                    <i class="fas fa-wifi fs-4"></i>
+                                </div>
+                                <h3 class="font-monospace tracking-wider mb-4 mt-4 text-white">**** **** **** 8892</h3>
+                                <div class="d-flex justify-content-between align-items-end position-absolute w-100 px-4" style="bottom: 20px; left: 0;">
+                                    <span class="fs-8 text-uppercase opacity-75">ASEN Network</span>
+                                    <i class="fab fa-cc-mastercard fs-1"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-7">
+                            <div class="card-custom p-4 h-100">
+                                <h6 class="fw-bold border-bottom pb-2 mb-3">Card Actions</h6>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-light text-start fw-bold" data-bs-toggle="modal" data-bs-target="#change-pin-modal">
+                                        <i class="fas fa-lock text-muted me-2"></i> Change PIN
+                                    </button>
+                                    <button class="btn btn-light text-start fw-bold">
+                                        <i class="fas fa-eye text-muted me-2"></i> View Details
+                                    </button>
+                                    <button class="btn btn-light text-start fw-bold" data-bs-toggle="modal" data-bs-target="#replace-card-modal">
+                                        <i class="fas fa-sync text-muted me-2"></i> Replace Card
+                                    </button>
+                                    <button class="btn btn-light-danger text-danger text-start fw-bold mt-2" data-bs-toggle="modal" data-bs-target="#deleteCardModal">
+                                        <i class="fas fa-ban me-2"></i> Block / Delete Card
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="tab-payments" role="tabpanel"><h4 class="fw-bold">Payments Hub</h4><p class="text-muted">Manage transfers and utilities here.</p></div>
+                <div class="tab-pane fade" id="tab-channels" role="tabpanel"><h4 class="fw-bold">Active Channels</h4><p class="text-muted">POS, STK Push, and Webstore integrations.</p></div>
+                
+            </div>
+        </div>
+        
+    </div>
+
+
+    <div class="modal fade" id="quickSellModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold text-dark"><i class="fas fa-bolt text-warning me-2"></i> Quick Sell Terminal</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control bg-light border-0" placeholder="Item Name">
+                        <label>Item / Service Description</label>
+                    </div>
+                    <div class="form-floating mb-4">
+                        <input type="number" class="form-control bg-light border-0 fs-3 fw-bold text-dark" placeholder="Amount">
+                        <label>Amount (KES)</label>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success fw-bold py-3"><i class="fas fa-mobile-alt me-2"></i> Send M-Pesa Prompt</button>
+                        <button class="btn btn-primary fw-bold py-3"><i class="fas fa-link me-2"></i> Generate Payment Link</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-transfer-funds" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header pb-0 border-0 d-block">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="fw-bold m-0">Fund Management</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <ul class="nav nav-tabs nav-fill border-0">
+                        <li class="nav-item"><a class="nav-link active fw-bold text-dark border-bottom border-2 border-dark" data-bs-toggle="tab" href="#fund-topup">Top Up</a></li>
+                        <li class="nav-item"><a class="nav-link fw-bold text-muted" data-bs-toggle="tab" href="#fund-withdraw">Withdraw</a></li>
+                    </ul>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="tab-content">
+                        <div class="tab-pane fade show active" id="fund-topup">
+                            <div class="p-3 bg-light rounded border border-dashed mb-4">
+                                <span class="d-block fs-8 text-muted fw-bold text-uppercase">Destination Card</span>
+                                <span class="d-block fw-bold text-dark fs-6"><i class="fab fa-cc-mastercard text-primary me-2"></i> SendMO Card •••• 8892</span>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="form-select bg-light border-0 fw-bold text-dark">
+                                    <option>Main Wallet (KES 500,980.00)</option>
+                                    <option>M-Pesa Express</option>
+                                </select>
+                                <label>Source of Funds</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="number" class="form-control bg-light border-0 fw-bold fs-4 text-dark" placeholder="Amount">
+                                <label>Amount (KES)</label>
+                            </div>
+                            <button class="btn btn-dark w-100 fw-bold py-3">Confirm Top Up</button>
+                        </div>
+                        <div class="tab-pane fade" id="fund-withdraw">
+                            <p class="text-muted text-center py-5">Withdrawal form configuration here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="setupWizardModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-rocket text-gold me-2"></i> Business Configuration</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-pills nav-fill mb-4 bg-light rounded p-1" id="wizardTabs" role="tablist">
+                        <li class="nav-item"><button class="nav-link active fw-bold" data-bs-toggle="pill" data-bs-target="#wiz-step1">1. Profile</button></li>
+                        <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#wiz-step2">2. Channels</button></li>
+                        <li class="nav-item"><button class="nav-link fw-bold" data-bs-toggle="pill" data-bs-target="#wiz-step3">3. Finish</button></li>
+                    </ul>
+                    <div class="tab-content border rounded p-4 bg-white">
+                        <div class="tab-pane fade show active" id="wiz-step1">
+                            <h6 class="fw-bold mb-3">Legal Business Profile</h6>
+                            <input type="text" class="form-control bg-light border-0 mb-3" placeholder="Business Name" value="Pkenya Verification Ltd">
+                            <input type="text" class="form-control bg-light border-0 mb-3" placeholder="Registration/KRA PIN" value="P051234567Z">
+                            <button class="btn btn-dark float-end" onclick="new bootstrap.Tab(document.querySelector('#wizardTabs button[data-bs-target=\'#wiz-step2\']')).show()">Next <i class="fas fa-arrow-right"></i></button>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="tab-pane fade" id="wiz-step2">
+                            <h6 class="fw-bold mb-3">Enable Payment Channels</h6>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label fw-bold">M-Pesa Express (STK Push)</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label fw-bold">Card Payments (Visa/MC)</label>
+                            </div>
+                            <button class="btn btn-light float-start" onclick="new bootstrap.Tab(document.querySelector('#wizardTabs button[data-bs-target=\'#wiz-step1\']')).show()">Back</button>
+                            <button class="btn btn-dark float-end" onclick="new bootstrap.Tab(document.querySelector('#wizardTabs button[data-bs-target=\'#wiz-step3\']')).show()">Next <i class="fas fa-arrow-right"></i></button>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="tab-pane fade text-center py-5" id="wiz-step3">
+                            <i class="fas fa-check-circle fa-4x text-success mb-3"></i>
+                            <h4 class="fw-bold">All Set!</h4>
+                            <p class="text-muted">Your business profile is configured and ready to accept payments.</p>
+                            <button class="btn btn-gold px-5 fw-bold mt-3" data-bs-dismiss="modal">Launch Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteCardModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="fw-bold text-danger m-0">Delete Card</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted fs-7 mb-4">Are you sure you want to permanently delete this card? All active subscriptions linked to it will fail.</p>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-light w-50 fw-bold" data-bs-dismiss="modal">Cancel</button>
+                        <button class="btn btn-danger w-50 fw-bold">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="change-pin-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-sm modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="fw-bold m-0">Change PIN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="password" class="form-control bg-light border-0 text-center mb-3 fw-bold ls-2" placeholder="Current PIN" maxlength="4">
+                    <input type="password" class="form-control bg-light border-0 text-center mb-3 fw-bold ls-2" placeholder="New PIN" maxlength="4">
+                    <button class="btn btn-dark w-100 fw-bold mt-2">Update PIN</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="replace-card-modal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pb-0">
+                    <h5 class="fw-bold m-0">Replace Card</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="p-3 bg-light-info text-info rounded border border-info border-dashed mb-4 fs-7">
+                        <i class="fas fa-info-circle me-2"></i> You can generate new card details once every 30 days. Old details are retained until existing subscriptions expire.
+                    </div>
+                    <div class="form-check form-switch mb-4">
+                        <input class="form-check-input" type="checkbox" id="genNewDetails" checked>
+                        <label class="form-check-label fw-bold" for="genNewDetails">Generate new Number & CVV</label>
+                    </div>
+                    <button class="btn btn-dark w-100 fw-bold">Request Replacement</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Native Bootstrap Tab routing handler to fix active states on custom navs
+            const tabLinks = document.querySelectorAll('.nav-pills.aside-nav .nav-link');
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    tabLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
