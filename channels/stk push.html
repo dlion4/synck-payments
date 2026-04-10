@@ -2839,1001 +2839,606 @@
                 <!--end::Header-->
                 <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-                    <!--begin::Container-->
-                    <div class=" container-xxl " id="kt_content_container">
+                    <div class="container-xxl" id="kt_content_container">
 
-                                     <!--begin::Row-->
-                <div class="row g-5 gx-xl-10 mb-5 mb-xl-10">
-                    <!--begin::Col-->
-                    <!--end::Col-->
-                    <style>
+    <style>
         /* ======================================================= */
-        /* 1. CUSTOM GOLD MONOCHROMATIC THEME DEFINITIONS */
+        /* 1. CUSTOM THEME DEFINITIONS & ACCENTS */
         /* ======================================================= */
         :root {
             --bs-font-sans-serif: 'Inter', sans-serif;
             --gold-900: #886a08;
             --gold-700: #b89112;
-            --gold-500: #e6b829; /* Main Accent */
-            --gold-300: #f7d670;
-            --gold-100: #fcf1d0;
-            --gold-50: #fffef8;
-
-            /* Override Bootstrap primary with our gold for utility classes */
-            --bs-primary: var(--gold-500);
-            --bs-primary-rgb: 230, 184, 41;
-            --bs-primary-dark: var(--gold-700);
-            --bs-primary-light: var(--gold-100);
+            --gold-500: #e6b829;
+            --safaricom-green: #43B02A;
+            --safaricom-light: rgba(67, 176, 42, 0.1);
+            --airtel-red: #FF0000;
+            --airtel-light: rgba(255, 0, 0, 0.1);
+            --bg-surface: #f5f7fa;
         }
 
         body {
-            background-color: #f5f7fa; /* Light surface background */
+            background-color: var(--bg-surface);
             font-family: var(--bs-font-sans-serif);
         }
 
-        /* Custom utility for strong gold text */
         .text-gold { color: var(--gold-700) !important; }
-        .bg-gold-light { background-color: var(--gold-50) !important; }
-
-        /* Custom utility for larger radius, mimicking Tailwind's rounded-2xl */
         .rounded-4 { border-radius: 1.5rem !important; }
+        .shadow-soft { box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.05) !important; }
 
-        /* Custom shadow for the gold feel, mimicking Tailwind's shadow-gold-xl */
-        .shadow-gold-lg {
-            box-shadow: 0 0.5rem 1rem rgba(230, 184, 41, 0.25) !important;
+        /* Network Tabs */
+        .network-tab .nav-link {
+            color: #6c757d;
+            border-radius: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            padding: 1rem 1.5rem;
+            border: 2px solid transparent;
         }
+        .network-tab .nav-link.safaricom:hover { background-color: var(--safaricom-light); color: var(--safaricom-green); }
+        .network-tab .nav-link.safaricom.active { background-color: var(--safaricom-light); color: var(--safaricom-green); border-color: var(--safaricom-green); }
+        
+        .network-tab .nav-link.airtel:hover { background-color: var(--airtel-light); color: var(--airtel-red); }
+        .network-tab .nav-link.airtel.active { background-color: var(--airtel-light); color: var(--airtel-red); border-color: var(--airtel-red); }
 
-        /* ======================================================= */
-        /* 2. CUSTOM ANIMATIONS (Replicating Tailwind Animations) */
-        /* ======================================================= */
-
-        /* Animation: Pop In (For Modals) */
-        @keyframes popIn {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+        /* Mode Radio Cards */
+        .mode-card-input:checked + .mode-card-wrapper {
+            border-color: var(--gold-500) !important;
+            background-color: rgba(230, 184, 41, 0.05);
         }
-        .animate-pop-in { animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-
-        /* Animation: Fade In (For Tab Content) */
-        @keyframes fadeIn {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in { animation: fadeIn 0.5s ease-out; }
-        .hidden-content { display: none; } /* Used by JS for controlled animation visibility */
-
-        /* Animation: Gold Spinner (Replicates gold-border spinner) */
-        .gold-spinner {
-            border-color: var(--gold-300) !important;
-            border-top-color: var(--gold-700) !important;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .mode-card-input:checked + .mode-card-wrapper .mode-icon {
+            color: var(--gold-700) !important;
         }
 
-        /* Animation: Pulse Gold (For Status Dot) */
-        .pulse-gold {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        /* Destination Pills */
+        .dest-pills .nav-link {
+            color: #495057;
+            background-color: #e9ecef;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-right: 0.5rem;
+            padding: 0.5rem 1rem;
+            transition: 0.2s;
         }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-
-        /* Animated Card Hover Effect */
-        .animated-card {
-            transition: all 0.3s ease-in-out;
-        }
-        .animated-card:hover {
-            transform: translateY(-4px) scale(1.01);
-            box-shadow: 0 1rem 3rem rgba(230, 184, 41, 0.4) !important; /* Stronger gold shadow on hover */
+        .dest-pills .nav-link.active {
+            background-color: #343a40;
+            color: #fff;
+            box-shadow: 0 4px 10px rgba(52, 58, 64, 0.2);
         }
 
-                    </style>
-                    <!-- Header / Global Nav (Fixed to top) -->
-                    <header class="bg-white shadow-sm sticky-top">
-                        <div class="container-fluid px-4 px-md-5 py-3 d-flex justify-content-between align-items-center">
-                            <h1 class="h3 fw-bolder d-flex align-items-center mb-0">
-                                <i class="fas fa-chart-bar text-gold fs-4 me-2"></i>
-                                <span class="text-dark">STK Push</span>
-                                <span style="color: var(--gold-500);" class="ms-2">Dashboard</span>
-                            </h1>
-                            
-                        </div>
-                    </header>
-                    <!-- Main Content Area -->
-                    <main class="container-fluid py-5 px-4 px-md-5">
-                        <!-- Primary Tabs -->
-                        <ul class="nav nav-tabs border-bottom-0" id="main-tabs" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active fw-semibold border-0 me-3"
-                                        style="color: var(--gold-700);
-                                               border-bottom: 3px solid var(--gold-500) !important"
-                                        onclick="switchTab('tab-analytics')"
-                                        data-tab-id="tab-analytics">
-                                    <i class="fas fa-chart-line me-2"></i> Analytics & Performance
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link fw-medium text-muted border-0 me-3"
-                                        onclick="switchTab('tab-api')"
-                                        data-tab-id="tab-api">
-                                    <i class="fas fa-code me-2"></i> API & Webhook Configuration
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link fw-medium text-muted border-0"
-                                        onclick="switchTab('tab-compliance')"
-                                        data-tab-id="tab-compliance">
-                                    <i class="fas fa-shield-alt me-2"></i> Compliance & Audit
-                                </button>
-                            </li>
-                        </ul>
-                        <!-- Tab Content Containers -->
-                        <div class="mt-4">
-                            <!-- TAB 1: Analytics & Performance -->
-                            <div id="tab-analytics"
-                                 class="tab-content-item animate-fade-in"
-                                 data-tab-content>
-                                <h2 class="h3 fw-bold mb-4">Real-Time Performance</h2>
-                                <!-- Action Button: Initiate Wizard -->
-                                <button id="open-wizard-btn"
-                                        class="btn btn-primary btn-lg fw-bold rounded-3 shadow-gold-lg mb-5"
-                                        style="background-color: var(--gold-500);
-                                               border-color: var(--gold-500)"
-                                        onmouseover="this.style.backgroundColor= 'var(--gold-700)'; this.style.borderColor='var(--gold-700)';"
-                                        onmouseout="this.style.backgroundColor= 'var(--gold-500)'; this.style.borderColor='var(--gold-500)';">
-                                    <i class="fas fa-rocket me-2"></i> Initiate Live STK Push 
-                                </button>
-                                <!-- Mini Tabs for Analytics -->
-                                <div class="d-flex mb-4" id="analytics-mini-tabs">
-                                    <button onclick="switchMiniTab('mini-metrics')"
-                                            class="btn btn-sm fw-semibold rounded-pill me-3"
-                                            style="background-color: var(--gold-100);
-                                                   color: var(--gold-900)"
-                                            data-mini-tab-id="mini-metrics">Key Metrics</button>
-                                    <button onclick="switchMiniTab('mini-latency')"
-                                            class="btn btn-sm btn-light fw-medium rounded-pill text-muted me-3"
-                                            data-mini-tab-id="mini-latency">Latency & Error Rate</button>
-                                    <button onclick="switchMiniTab('mini-geo')"
-                                            class="btn btn-sm btn-light fw-medium rounded-pill text-muted"
-                                            data-mini-tab-id="mini-geo">Geographic Breakdown</button>
-                                </div>
-                                <!-- Mini Tab Content 1: Key Metrics -->
-                                <div id="mini-metrics"
-                                     class="mini-tab-content animate-fade-in"
-                                     data-mini-tab-content>
-                                    <div class="row g-4">
-                                        <!-- Card 1: Total Volume -->
-                                        <div class="col-md-6 col-lg-3">
-                                            <div class="card p-4 border-0 rounded-4 animated-card"
-                                                 style="border-left: 5px solid var(--gold-500) !important">
-                                                <p class="text-muted mb-1 small d-flex align-items-center">
-                                                    <i class="fas fa-exchange-alt me-2"></i> Total Transaction Volume (24h)
-                                                </p>
-                                                <p class="h2 fw-bolder mb-1" id="stat-volume">5,201</p>
-                                                <div class="small fw-semibold text-success d-flex align-items-center">
-                                                    <i class="fas fa-arrow-up me-1"></i> +12.4% <span class="text-muted fw-normal ms-1">vs last day</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Card 2: Success Rate -->
-                                        <div class="col-md-6 col-lg-3">
-                                            <div class="card p-4 border-0 rounded-4 animated-card"
-                                                 style="border-left: 5px solid #28a745 !important">
-                                                <p class="text-muted mb-1 small d-flex align-items-center">
-                                                    <i class="fas fa-check-circle me-2"></i> Success Rate (Trailing 7d)
-                                                </p>
-                                                <p class="h2 fw-bolder mb-1" id="stat-success">99.85%</p>
-                                                <div class="small fw-semibold text-gold d-flex align-items-center">
-                                                    <i class="fas fa-star me-1"></i> Excellent <span class="text-muted fw-normal ms-1">SLA Target >99.5%</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Card 3: Revenue (Mock) -->
-                                        <div class="col-md-6 col-lg-3">
-                                            <div class="card p-4 border-0 rounded-4 animated-card"
-                                                 style="border-left: 5px solid var(--gold-700) !important">
-                                                <p class="text-muted mb-1 small d-flex align-items-center">
-                                                    <i class="fas fa-wallet me-2"></i> Processed Value (Today)
-                                                </p>
-                                                <p class="h2 fw-bolder mb-1" id="stat-value">$1.4M</p>
-                                                <div class="small fw-semibold text-primary d-flex align-items-center">
-                                                    <i class="fas fa-dollar-sign me-1"></i> +5.1% <span class="text-muted fw-normal ms-1">vs average</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Card 4: Current Status -->
-                                        <div class="col-md-6 col-lg-3">
-                                            <div class="card p-4 border-0 rounded-4 animated-card"
-                                                 style="border-left: 5px solid #6f42c1 !important">
-                                                <p class="text-muted mb-1 small d-flex align-items-center">
-                                                    <i class="fas fa-tachometer-alt me-2"></i> Current System Status
-                                                </p>
-                                                <div class="d-flex align-items-center mb-1">
-                                                    <div id="stat-status-dot"
-                                                         class="rounded-circle bg-success pulse-gold me-2"
-                                                         style="width: 1rem;
-                                                                height: 1rem"></div>
-                                                    <p class="h2 fw-bolder mb-0" id="stat-status-text">Operational</p>
-                                                </div>
-                                                <div class="small text-muted fw-normal">All Services Active</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Transactions Table Section -->
-                                    <div class="card mt-5 p-4 p-md-5 border-0 rounded-4 shadow-lg animate-fade-in">
-                                        <h3 class="h4 fw-semibold mb-4 d-flex justify-content-between align-items-center">
-                                            Recent Transactions
-                                            <button class="btn btn-sm text-gold fw-semibold"
-                                                    style="color: var(--gold-700) !important">View All</button>
-                                        </h3>
-                                        <div class="table-responsive">
-                                            <table class="table table-hover align-middle mb-0">
-                                                <thead class="bg-light">
-                                                    <tr>
-                                                        <th scope="col" class="text-muted small fw-semibold text-uppercase py-3">ID</th>
-                                                        <th scope="col" class="text-muted small fw-semibold text-uppercase py-3">Amount</th>
-                                                        <th scope="col" class="text-muted small fw-semibold text-uppercase py-3">Phone</th>
-                                                        <th scope="col" class="text-muted small fw-semibold text-uppercase py-3">Status</th>
-                                                        <th scope="col" class="text-muted small fw-semibold text-uppercase py-3">Time</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="transactions-table-body" class="small">
-                                                    <!-- Dynamic rows will be inserted here -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Mini Tab Content 2: Latency & Error Rate -->
-                                <div id="mini-latency"
-                                     class="mini-tab-content hidden-content animate-fade-in"
-                                     data-mini-tab-content>
-                                    <div class="row g-4">
-                                        <div class="col-lg-8">
-                                            <div class="card p-4 rounded-4 shadow-sm">
-                                                <h3 class="h5 fw-semibold mb-3">P95 Latency Trend (ms)</h3>
-                                                <div class="d-flex align-items-center justify-content-center bg-light rounded-3 border border-secondary-subtle"
-                                                     style="height: 250px">
-                                                    <p class="text-muted">Visualization placeholder (e.g., Chart.js or D3.js chart)</p>
-                                                </div>
-                                                <p class="text-center small text-muted mt-3">
-                                                    P95 Latency: <span class="fw-bold text-gold">450ms</span>. Peak at 600ms (14:30 UTC).
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="card p-4 rounded-4 shadow-sm">
-                                                <h3 class="h5 fw-semibold mb-3">Error Breakdown</h3>
-                                                <ul class="list-unstyled small">
-                                                    <li class="d-flex justify-content-between mb-2">
-                                                        <span class="text-dark">Timeout (Network)</span>
-                                                        <span class="fw-semibold text-danger">45%</span>
-                                                    </li>
-                                                    <li class="d-flex justify-content-between mb-2">
-                                                        <span class="text-dark">Invalid Credentials</span>
-                                                        <span class="fw-semibold text-warning">30%</span>
-                                                    </li>
-                                                    <li class="d-flex justify-content-between mb-2">
-                                                        <span class="text-dark">Duplicate Request</span>
-                                                        <span class="fw-semibold text-info">25%</span>
-                                                    </li>
-                                                </ul>
-                                                <div class="progress mt-3" style="height: 8px;">
-                                                    <div class="progress-bar bg-danger"
-                                                         role="progressbar"
-                                                         style="width: 45%"
-                                                         aria-valuenow="45"
-                                                         aria-valuemin="0"
-                                                         aria-valuemax="100"></div>
-                                                    <div class="progress-bar bg-warning"
-                                                         role="progressbar"
-                                                         style="width: 30%"
-                                                         aria-valuenow="30"
-                                                         aria-valuemin="0"
-                                                         aria-valuemax="100"></div>
-                                                    <div class="progress-bar bg-info"
-                                                         role="progressbar"
-                                                         style="width: 25%"
-                                                         aria-valuenow="25"
-                                                         aria-valuemin="0"
-                                                         aria-valuemax="100"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Mini Tab Content 3: Geographic Breakdown -->
-                                <div id="mini-geo"
-                                     class="mini-tab-content hidden-content animate-fade-in"
-                                     data-mini-tab-content>
-                                    <div class="card p-4 p-md-5 rounded-4 shadow-lg">
-                                        <h3 class="h5 fw-semibold mb-4">Transaction Source Map</h3>
-                                        <div class="d-flex align-items-center justify-content-center bg-light rounded-3 border border-secondary-subtle"
-                                             style="height: 380px">
-                                            <p class="text-muted">Interactive Map Placeholder (Showing density of STK Push initiation)</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- TAB 2: API & Webhook Configuration -->
-                            <div id="tab-api"
-                                 class="tab-content-item hidden-content animate-fade-in"
-                                 data-tab-content>
-                                <h2 class="h3 fw-bold mb-4">Developer Tools & Security</h2>
-                                <!-- Mini Tabs for API -->
-                                <div class="d-flex mb-4" id="api-mini-tabs">
-                                    <button onclick="switchMiniTab('mini-endpoints')"
-                                            class="btn btn-sm fw-semibold rounded-pill me-3"
-                                            style="background-color: var(--gold-100);
-                                                   color: var(--gold-900)"
-                                            data-mini-tab-id="mini-endpoints">API Endpoints</button>
-                                    <button onclick="switchMiniTab('mini-webhooks')"
-                                            class="btn btn-sm btn-light fw-medium rounded-pill text-muted me-3"
-                                            data-mini-tab-id="mini-webhooks">Webhook Setup</button>
-                                    <button onclick="switchMiniTab('mini-keys')"
-                                            class="btn btn-sm btn-light fw-medium rounded-pill text-muted"
-                                            data-mini-tab-id="mini-keys">Credentials & Keys</button>
-                                </div>
-                                <!-- Mini Tab Content 1: API Endpoints -->
-                                <div id="mini-endpoints"
-                                     class="mini-tab-content animate-fade-in"
-                                     data-mini-tab-content>
-                                    <div class="row g-4">
-                                        <div class="col-lg-6">
-                                            <div class="card p-4 rounded-4 shadow-sm animated-card">
-                                                <h3 class="h5 fw-semibold mb-2 d-flex align-items-center">
-                                                    <i class="fas fa-link text-gold me-2"></i> STK Push Initiate
-                                                </h3>
-                                                <code class="bg-light p-3 rounded d-block small overflow-auto">POST /api/v1/stk/initiate</code>
-                                                <p class="mt-3 text-muted small">
-                                                    Initiates a new STK Push request to the customer's phone. Requires `Amount`, `PhoneNumber`, and `AccountRef`.
-                                                </p>
-                                                <button class="btn btn-link p-0 text-gold fw-semibold small text-decoration-none text-start"
-                                                        onclick="showEndpointDocs('STK Push Initiate')">
-                                                    View Documentation & Schema
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="card p-4 rounded-4 shadow-sm animated-card">
-                                                <h3 class="h5 fw-semibold mb-2 d-flex align-items-center">
-                                                    <i class="fas fa-history text-gold me-2"></i> Query Status
-                                                </h3>
-                                                <code class="bg-light p-3 rounded d-block small overflow-auto">GET /api/v1/stk/query/{checkoutRequestID}</code>
-                                                <p class="mt-3 text-muted small">
-                                                    Checks the final status of a transaction using the unique ID returned upon initiation. Implements exponential backoff.
-                                                </p>
-                                                <button class="btn btn-link p-0 text-gold fw-semibold small text-decoration-none text-start"
-                                                        onclick="showEndpointDocs('Query Status')">
-                                                    View Documentation & Schema
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Mini Tab Content 2: Webhook Setup -->
-                                <div id="mini-webhooks"
-                                     class="mini-tab-content hidden-content animate-fade-in"
-                                     data-mini-tab-content>
-                                    <div class="card p-4 rounded-4 shadow-lg">
-                                        <h3 class="h5 fw-semibold mb-3">Asynchronous Callback URL</h3>
-                                        <div class="input-group mb-3">
-                                            <input type="url"
-                                                   value="https://app.startup.com/webhooks/stk_callback"
-                                                   class="form-control rounded-start-3"
-                                                   readonly>
-                                            <button class="btn btn-outline-secondary"
-                                                    style="color: var(--gold-700);
-                                                           border-color: var(--gold-500)"
-                                                    title="Edit URL">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </button>
-                                            <button class="btn btn-dark"
-                                                    title="Send Test Payload"
-                                                    onclick="testWebhook()">
-                                                <i class="fas fa-bug"></i>
-                                            </button>
-                                        </div>
-                                        <p class="small text-muted">
-                                            This endpoint receives the final transaction result. Ensure it returns a 200 OK response within 5 seconds.
-                                        </p>
-                                        <div class="mt-4">
-                                            <h4 class="fw-semibold mb-2">Recent Test Results</h4>
-                                            <ul class="list-unstyled small">
-                                                <li class="d-flex justify-content-between align-items-center p-2 rounded-2 mb-2 bg-success-subtle text-success-emphasis">
-                                                    <span class="fw-medium">200 OK (Latency: 120ms)</span>
-                                                    <span class="text-muted">2025-11-23 11:58:01</span>
-                                                </li>
-                                                <li class="d-flex justify-content-between align-items-center p-2 rounded-2 bg-warning-subtle text-warning-emphasis">
-                                                    <span class="fw-medium">401 Unauthorized (Auth Failed)</span>
-                                                    <span class="text-muted">2025-11-23 09:15:22</span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Mini Tab Content 3: Credentials & Keys -->
-                                <div id="mini-keys"
-                                     class="mini-tab-content hidden-content animate-fade-in"
-                                     data-mini-tab-content>
-                                    <div class="card p-4 rounded-4 shadow-lg">
-                                        <h3 class="h5 fw-semibold mb-3">API Credentials</h3>
-                                        <div class="mb-4">
-                                            <label class="form-label small fw-medium text-muted">Consumer Key (Public)</label>
-                                            <div class="input-group">
-                                                <input type="text"
-                                                       id="consumer-key"
-                                                       value="pks-sk_live_#################"
-                                                       class="form-control small font-monospace rounded-start-3"
-                                                       readonly>
-                                                <button onclick="copyToClipboard('consumer-key', this)"
-                                                        class="btn text-white rounded-end-3"
-                                                        style="background-color: var(--gold-500)"
-                                                        onmouseover="this.style.backgroundColor= 'var(--gold-700)';"
-                                                        onmouseout="this.style.backgroundColor= 'var(--gold-500)';">
-                                                    <i class="fas fa-copy"></i>
-                                                </button>
-                                            </div>
-                                            <small class="text-danger mt-1 d-block">Secret must be protected. Use environment variables.</small>
+        /* Form styling */
+        .form-floating > .form-control:focus {
+            border-color: var(--gold-500);
+            box-shadow: 0 0 0 0.25rem rgba(230, 184, 41, 0.25);
+        }
+        
+        /* Spinners & Modals */
+        .gold-spinner { border-color: rgba(230, 184, 41, 0.3) !important; border-top-color: var(--gold-700) !important; }
+    </style>
+
+    <header class="bg-white shadow-sm sticky-top mb-5 rounded-bottom-4">
+        <div class="container-fluid px-4 px-md-5 py-4 d-flex justify-content-between align-items-center">
+            <div>
+                <h1 class="h3 fw-bolder d-flex align-items-center mb-1">
+                    <i class="fas fa-satellite-dish text-gold fs-4 me-3"></i>
+                    <span class="text-dark">Omni-Channel Push Engine</span>
+                </h1>
+                <span class="text-muted fs-7">Initiate STK and USSD pushes across local and cross-border networks.</span>
+            </div>
+            <div class="d-flex align-items-center bg-light px-3 py-2 rounded-3 border">
+                <span class="text-muted fs-8 fw-bold me-2 text-uppercase">Wallet Balance:</span>
+                <span class="fw-bolder text-dark fs-5">KES 142,500.00</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container-fluid px-4 px-md-5 pb-5">
+        <div class="card shadow-soft border-0 rounded-4 overflow-hidden">
+            
+            <div class="card-header border-bottom p-0 bg-white">
+                <ul class="nav nav-pills network-tab w-100" role="tablist">
+                    <li class="nav-item flex-fill text-center m-2" role="presentation">
+                        <button class="nav-link safaricom w-100 active d-flex flex-column align-items-center justify-content-center" data-bs-toggle="pill" data-bs-target="#network-safaricom" type="button" role="tab">
+                            <i class="fas fa-bolt fs-3 mb-2"></i>
+                            Safaricom (M-Pesa)
+                        </button>
+                    </li>
+                    <li class="nav-item flex-fill text-center m-2" role="presentation">
+                        <button class="nav-link airtel w-100 d-flex flex-column align-items-center justify-content-center" data-bs-toggle="pill" data-bs-target="#network-airtel" type="button" role="tab">
+                            <i class="fas fa-signal fs-3 mb-2"></i>
+                            Airtel Money
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card-body p-4 p-md-5 bg-white">
+                <div class="tab-content">
+                    
+                    <div class="tab-pane fade show active" id="network-safaricom" role="tabpanel">
+                        
+                        <h5 class="fw-bold text-dark mb-3">1. Select Action Mode</h5>
+                        <div class="row g-3 mb-5">
+                            <div class="col-md-6">
+                                <label class="w-100 cursor-pointer">
+                                    <input type="radio" class="d-none mode-card-input" name="safa_mode" id="safa_mode_pull" checked onchange="toggleActionView('safa', 'pull')">
+                                    <div class="mode-card-wrapper border p-4 rounded-3 d-flex align-items-center transition-all h-100">
+                                        <div class="symbol symbol-45px bg-light rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            <i class="fas fa-arrow-down fs-4 text-muted mode-icon"></i>
                                         </div>
                                         <div>
-                                            <label class="form-label small fw-medium text-muted">Short Code (Business ID)</label>
-                                            <div class="input-group">
-                                                <input type="text"
-                                                       id="short-code"
-                                                       value="174379"
-                                                       class="form-control small font-monospace rounded-start-3"
-                                                       readonly>
-                                                <button onclick="copyToClipboard('short-code', this)"
-                                                        class="btn text-white rounded-end-3"
-                                                        style="background-color: var(--gold-500)"
-                                                        onmouseover="this.style.backgroundColor= 'var(--gold-700)';"
-                                                        onmouseout="this.style.backgroundColor= 'var(--gold-500)';">
-                                                    <i class="fas fa-copy"></i>
-                                                </button>
-                                            </div>
+                                            <h6 class="fw-bolder mb-1 text-dark">Pull Funds (Request Payment)</h6>
+                                            <span class="text-muted fs-8">Send an STK prompt to a customer to fund your wallet.</span>
                                         </div>
                                     </div>
-                                </div>
+                                </label>
                             </div>
-                            <!-- TAB 3: Compliance & Audit -->
-                            <div id="tab-compliance"
-                                 class="tab-content-item hidden-content animate-fade-in"
-                                 data-tab-content>
-                                <h2 class="h3 fw-bold mb-4">Regulatory Adherence</h2>
+                            <div class="col-md-6">
+                                <label class="w-100 cursor-pointer">
+                                    <input type="radio" class="d-none mode-card-input" name="safa_mode" id="safa_mode_push" onchange="toggleActionView('safa', 'push')">
+                                    <div class="mode-card-wrapper border p-4 rounded-3 d-flex align-items-center transition-all h-100">
+                                        <div class="symbol symbol-45px bg-light rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            <i class="fas fa-arrow-up fs-4 text-muted mode-icon"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bolder mb-1 text-dark">Push Funds (Send/Pay Out)</h6>
+                                            <span class="text-muted fs-8">Directly transfer money from wallet to external destinations.</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="safa_view_pull" class="animate-fade-in">
+                            <h5 class="fw-bold text-dark mb-4">2. Request Details</h5>
+                            <form onsubmit="event.preventDefault(); openConfirmModal('pull', 'M-Pesa STK Push');">
                                 <div class="row g-4">
-                                    <!-- Card: PCI-DSS Readiness -->
-                                    <div class="col-md-4">
-                                        <div class="card p-4 rounded-4 shadow-sm animated-card border-top border-5 border-info">
-                                            <i class="fas fa-lock text-info fs-3 mb-3 d-block"></i>
-                                            <h3 class="h5 fw-semibold mb-2">Data Security (PCI-DSS)</h3>
-                                            <p class="text-muted small">
-                                                We maintain Level 1 compliance readiness. All PII data is tokenized before hitting our internal systems.
-                                            </p>
-                                            <span class="badge rounded-pill bg-info-subtle text-info-emphasis mt-2">Quarterly Review Cycle</span>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="tel" class="form-control fw-bold fs-5" placeholder="254700000000" required>
+                                            <label>Customer Phone Number</label>
                                         </div>
                                     </div>
-                                    <!-- Card: Audit Log -->
-                                    <div class="col-md-4">
-                                        <div class="card p-4 rounded-4 shadow-sm animated-card border-top border-5"
-                                             style="border-color: var(--gold-500) !important">
-                                            <i class="fas fa-file-alt text-gold fs-3 mb-3 d-block"></i>
-                                            <h3 class="h5 fw-semibold mb-2">Audit Logging</h3>
-                                            <p class="text-muted small">
-                                                All API actions and administrative changes are immutable-logged, meeting global financial audit standards.
-                                            </p>
-                                            <span class="badge rounded-pill bg-primary-subtle text-primary-emphasis mt-2">Real-Time Monitoring</span>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control fw-bold fs-5 text-success" placeholder="Amount" required>
+                                            <label>Amount to Request (KES)</label>
                                         </div>
                                     </div>
-                                    <!-- Card: KYC/AML -->
-                                    <div class="col-md-4">
-                                        <div class="card p-4 rounded-4 shadow-sm animated-card border-top border-5 border-success">
-                                            <i class="fas fa-user-check text-success fs-3 mb-3 d-block"></i>
-                                            <h3 class="h5 fw-semibold mb-2">KYC/AML Screening</h3>
-                                            <p class="text-muted small">
-                                                Automated screening integrated at onboarding. Zero high-risk users detected in the last 90 days.
-                                            </p>
-                                            <span class="badge rounded-pill bg-success-subtle text-success-emphasis mt-2">Fully Automated</span>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" placeholder="Reference" value="INV-0092">
+                                            <label>Account Reference / Invoice No.</label>
                                         </div>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <button type="submit" class="btn btn-lg w-100 text-white fw-bolder shadow-sm" style="background-color: var(--safaricom-green);">
+                                            <i class="fas fa-paper-plane me-2"></i> Initiate STK Request
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                    </main>
-                    <!-- Modal: Initiate STK Push Wizard -->
-                    <div class="modal fade"
-                         id="stkPushModal"
-                         data-bs-backdrop="static"
-                         data-bs-keyboard="false"
-                         tabindex="-1"
-                         aria-labelledby="stkPushModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content rounded-4 shadow-gold-lg animate-pop-in">
-                                <!-- Modal Header -->
-                                <div class="modal-header border-bottom-0 py-3">
-                                    <h5 class="modal-title h4 fw-bold d-flex align-items-center"
-                                        id="stkPushModalLabel">
-                                        <i class="fas fa-paper-plane text-gold me-2"></i> Initiate STK Push
-                                    </h5>
-                                    <button type="button"
-                                            class="btn-close"
-                                            data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                </div>
-                                <!-- Modal Tabs (Wizard Steps) -->
-                                <div class="border-bottom">
-                                    <ul class="nav nav-pills d-flex" id="wizard-tabs" role="tablist">
-                                        <li class="nav-item flex-fill" role="presentation">
-                                            <button class="wizard-tab-button nav-link active fw-medium rounded-0 border-bottom border-3"
-                                                    style="color: var(--gold-700);
-                                                           border-color: var(--gold-500) !important"
-                                                    data-wizard-step="1">Step 1: Details</button>
-                                        </li>
-                                        <li class="nav-item flex-fill" role="presentation">
-                                            <button class="wizard-tab-button nav-link fw-medium rounded-0 border-bottom border-3 text-muted"
-                                                    style="border-color: transparent !important"
-                                                    data-wizard-step="2">Step 2: Review</button>
-                                        </li>
-                                        <li class="nav-item flex-fill" role="presentation">
-                                            <button class="wizard-tab-button nav-link fw-medium rounded-0 border-bottom border-3 text-muted"
-                                                    style="border-color: transparent !important"
-                                                    data-wizard-step="3">Step 3: Execution</button>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- Modal Body (Content) -->
-                                <div class="modal-body p-4 p-md-5">
-                                    <!-- Step 1: Details -->
-                                    <div id="wizard-step-1" class="wizard-step-content animate-fade-in">
-                                        <form id="step-1-form" onsubmit="event.preventDefault(); nextStep(2)">
-                                            <div class="mb-3">
-                                                <label for="amount" class="form-label small fw-medium text-muted">Amount (Min 10.00)</label>
-                                                <input type="number"
-                                                       id="amount"
-                                                       required
-                                                       min="10"
-                                                       class="form-control form-control-lg rounded-3"
-                                                       placeholder="e.g., 500.00">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="phone" class="form-label small fw-medium text-muted">Phone Number (Format: 2547XXXXXXXX)</label>
-                                                <input type="tel"
-                                                       id="phone"
-                                                       required
-                                                       pattern="2547\d{8}"
-                                                       class="form-control form-control-lg rounded-3"
-                                                       placeholder="e.g., 254712345678">
-                                            </div>
-                                            <div class="mb-4">
-                                                <label for="ref" class="form-label small fw-medium text-muted">Account Reference</label>
-                                                <input type="text"
-                                                       id="ref"
-                                                       required
-                                                       class="form-control form-control-lg rounded-3"
-                                                       placeholder="e.g., INVESTORDEMO001">
-                                            </div>
-                                            <div class="d-flex justify-content-end">
-                                                <button type="submit"
-                                                        class="btn btn-primary fw-semibold rounded-3"
-                                                        style="background-color: var(--gold-500);
-                                                               border-color: var(--gold-500)"
-                                                        onmouseover="this.style.backgroundColor= 'var(--gold-700)'; this.style.borderColor='var(--gold-700)';"
-                                                        onmouseout="this.style.backgroundColor= 'var(--gold-500)'; this.style.borderColor='var(--gold-500)';">
-                                                    Next: Review <i class="fas fa-arrow-right ms-2"></i>
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <!-- Step 2: Review -->
-                                    <div id="wizard-step-2"
-                                         class="wizard-step-content hidden-content animate-fade-in">
-                                        <p class="lead fw-semibold mb-4 text-muted">Please confirm the transaction details:</p>
-                                        <div class="p-4 rounded-3 border"
-                                             style="background-color: var(--gold-50);
-                                                    border-color: var(--gold-300) !important">
-                                            <div class="d-flex justify-content-between small mb-2">
-                                                <span class="fw-medium text-gold">Amount:</span>
-                                                <span id="review-amount" class="fw-bold"></span>
-                                            </div>
-                                            <div class="d-flex justify-content-between small mb-2">
-                                                <span class="fw-medium text-gold">Phone:</span>
-                                                <span id="review-phone" class="fw-bold"></span>
-                                            </div>
-                                            <div class="d-flex justify-content-between small">
-                                                <span class="fw-medium text-gold">Reference:</span>
-                                                <span id="review-ref" class="fw-bold"></span>
+
+                        <div id="safa_view_push" class="d-none animate-fade-in">
+
+                                                                             <div class="mt-5 mb-3 border-top pt-4">
+    <h5 class="fw-bold text-dark mb-4">2. Source of Funds & Transfer Details</h5>
+    
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="tel" class="form-control fw-bold fs-5" id="sourceMobile" placeholder="254700000000" required>
+                <label for="sourceMobile">Source Mobile Number</label>
+            </div>
+            <div class="form-text mt-2 text-muted fs-8">
+                <i class="fas fa-info-circle me-1 text-primary"></i> The number that will be debited to fund this transfer.
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-3">
+            <div class="form-floating">
+                <input type="number" class="form-control fw-bolder fs-4 text-danger" id="transferAmount" placeholder="Amount" required>
+                <label for="transferAmount">Amount to Send (KES)</label>
+            </div>
+            <div class="form-text mt-2 text-muted fs-8">
+                <i class="fas fa-wallet me-1 text-success"></i> Maximum limit : KES 500,000.00
+            </div>
+        </div>
+
+      
+
+        
+    </div>
+</div>
+
+                            <h5 class="fw-bold text-dark mb-3">3. Choose Destination</h5>
+
+
+
+                            
+                            <ul class="nav nav-pills dest-pills mb-4" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#safa-dest-phone" type="button"><i class="fas fa-mobile-alt me-1"></i> Phone Number</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#safa-dest-till" type="button"><i class="fas fa-store me-1"></i> Buy Goods (Till)</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#safa-dest-paybill" type="button"><i class="fas fa-file-invoice me-1"></i> Paybill</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" data-bs-toggle="pill" data-bs-target="#safa-dest-pochi" type="button"><i class="fas fa-wallet me-1"></i> Pochi La Biashara</button>
+                                </li>
+                            </ul>
+
+                            <form onsubmit="event.preventDefault(); openConfirmModal('push', 'M-Pesa B2C/B2B Disbursement');">
+                                <div class="tab-content bg-light p-4 rounded-3 border mb-4">
+
+                                    
+                                    
+                                    <div class="tab-pane fade show active" id="safa-dest-phone" role="tabpanel">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <span class="fw-bold text-dark">Recipient Details</span>
+                                            <div class="form-check form-switch form-check-custom form-check-solid">
+                                                <input class="form-check-input h-20px w-35px bg-primary border-primary" type="checkbox" id="crossBorderToggle" onchange="toggleCrossBorder(this)">
+                                                <label class="form-check-label text-muted fs-8 fw-bold text-uppercase ms-2" for="crossBorderToggle">Cross-Border Transfer</label>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between mt-4">
-                                            <button onclick="nextStep(1)"
-                                                    class="btn btn-outline-secondary fw-semibold rounded-3">
-                                                <i class="fas fa-arrow-left me-2"></i> Back
-                                            </button>
-                                            <button onclick="initiateTransaction()"
-                                                    class="btn btn-success fw-semibold rounded-3">
-                                                Confirm & Push <i class="fas fa-fingerprint ms-2"></i>
-                                            </button>
+                                        <div class="row g-3">
+                                            <div class="col-md-4" id="countryCodeWrapper" style="display:none;">
+                                                <div class="form-floating">
+                                                    <select class="form-select fw-bold">
+                                                        <option value="UG">Uganda (+256)</option>
+                                                        <option value="TZ">Tanzania (+255)</option>
+                                                        <option value="RW">Rwanda (+255)</option>
+                                                    </select>
+                                                    <label>Country Destination</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 flex-grow-1">
+                                                <div class="form-floating">
+                                                    <input type="tel" class="form-control fw-bold" placeholder="Phone Number" required>
+                                                    <label>Phone Number</label>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <!-- Step 3: Execution & Status -->
-                                    <div id="wizard-step-3"
-                                         class="wizard-step-content hidden-content animate-fade-in text-center">
-                                        <div id="status-spinner" class="mb-4">
-                                            <!-- Animated Gold Spinner -->
-                                            <div class="spinner-border gold-spinner"
-                                                 role="status"
-                                                 style="width: 3.5rem;
-                                                        height: 3.5rem;
-                                                        border-width: 0.4em">
-                                                <span class="visually-hidden">Loading...</span>
-                                            </div>
-                                        </div>
-                                        <p id="execution-message" class="h5 fw-semibold mb-2">Sending Request...</p>
-                                        <p id="execution-details" class="small text-muted">
-                                            Awaiting response from payment gateway. This process is fully asynchronous.
-                                        </p>
-                                        <div id="result-box" class="mt-4 p-3 rounded-3 text-start hidden-content">
-                                            <p class="small fw-medium d-flex justify-content-between mb-1">
-                                                <span class="text-gold">Transaction ID:</span> <span id="txn-id" class="fw-bold text-dark"></span>
-                                            </p>
-                                            <p class="small fw-medium d-flex justify-content-between mb-1">
-                                                <span class="text-gold">Result Code:</span> <span id="result-code" class="fw-bold text-dark"></span>
-                                            </p>
-                                            <p class="small fw-medium d-flex justify-content-between mb-1">
-                                                <span class="text-gold">Description:</span> <span id="result-desc" class="fw-bold text-dark"></span>
-                                            </p>
-                                        </div>
-                                        <div class="mt-4">
-                                            <button onclick="hideModal()"
-                                                    id="finish-btn"
-                                                    class="btn btn-primary fw-semibold rounded-3"
-                                                    disabled
-                                                    style="background-color: var(--gold-500);
-                                                           border-color: var(--gold-500)"
-                                                    onmouseover="this.style.backgroundColor= 'var(--gold-700)'; this.style.borderColor='var(--gold-700)';"
-                                                    onmouseout="this.style.backgroundColor= 'var(--gold-500)'; this.style.borderColor='var(--gold-500)';">
-                                                <i class="fas fa-home me-2"></i> Return to Dashboard
-                                            </button>
+
+                                    <div class="tab-pane fade" id="safa-dest-till" role="tabpanel">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control fw-bold" placeholder="Till Number">
+                                            <label>Buy Goods Till Number (e.g., 123456)</label>
                                         </div>
                                     </div>
+
+                                    <div class="tab-pane fade" id="safa-dest-paybill" role="tabpanel">
+                                        <div class="row g-3">
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="number" class="form-control fw-bold" placeholder="Business Number">
+                                                    <label>Paybill Number</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control fw-bold text-uppercase" placeholder="Account Number">
+                                                    <label>Account Number</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane fade" id="safa-dest-pochi" role="tabpanel">
+                                        <div class="form-floating">
+                                            <input type="tel" class="form-control fw-bold" placeholder="Pochi Number">
+                                            <label>Merchant Phone Number (Pochi La Biashara)</label>
+                                        </div>
+                                        <div class="mt-2 text-warning fs-8"><i class="fas fa-info-circle me-1"></i> Funds sent to Pochi cannot be reversed automatically.</div>
+                                    </div>
                                 </div>
-                            </div>
+
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control fw-bolder fs-4 text-danger" placeholder="Amount" required>
+                                            <label>Amount to Send (KES)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control" placeholder="Purpose (Optional)">
+                                            <label>Purpose / Description</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <button type="submit" class="btn btn-lg w-100 text-white fw-bolder shadow-sm" style="background-color: var(--gold-700);">
+                                            <i class="fas fa-shield-alt me-2"></i> Proceed to Authorization
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
+   
                     </div>
-                    <!-- Bootstrap JS Bundle CDN (Required for Modal functionality) -->
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-                            xintegrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-                            crossorigin="anonymous"></script>
-                    <script>
-        const transactionData = [
-            { id: 'STK001234', amount: 500.00, phone: '254711***555', status: 'Success', time: '12:15:30' },
-            { id: 'STK001233', amount: 150.00, phone: '254722***678', status: 'Failed', time: '11:45:10' },
-            { id: 'STK001232', amount: 2500.00, phone: '254733***901', status: 'Pending', time: '11:20:05' },
-            { id: 'STK001231', amount: 99.00, phone: '254700***234', status: 'Success', time: '10:55:45' },
-        ];
 
-        let currentMainTab = 'tab-analytics';
-        let currentMiniTab = 'mini-metrics';
-        let currentWizardStep = 1;
 
-        // Get the Bootstrap Modal instance
-        let stkPushModal = null;
-        document.addEventListener('DOMContentLoaded', () => {
-            const modalElement = document.getElementById('stkPushModal');
-            if (modalElement) {
-                stkPushModal = new bootstrap.Modal(modalElement);
-            }
-        });
+                    <div class="tab-pane fade" id="network-airtel" role="tabpanel">
+                        
+                        <h5 class="fw-bold text-dark mb-3">1. Select Action Mode</h5>
+                        <div class="row g-3 mb-5">
+                            <div class="col-md-6">
+                                <label class="w-100 cursor-pointer">
+                                    <input type="radio" class="d-none mode-card-input" name="airtel_mode" id="airtel_mode_pull" checked onchange="toggleActionView('airtel', 'pull')">
+                                    <div class="mode-card-wrapper border p-4 rounded-3 d-flex align-items-center transition-all h-100">
+                                        <div class="symbol symbol-45px bg-light rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            <i class="fas fa-arrow-down fs-4 text-muted mode-icon"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bolder mb-1 text-dark">USSD Push (Pull Funds)</h6>
+                                            <span class="text-muted fs-8">Send an Airtel Money prompt to fund wallet.</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="w-100 cursor-pointer">
+                                    <input type="radio" class="d-none mode-card-input" name="airtel_mode" id="airtel_mode_push" onchange="toggleActionView('airtel', 'push')">
+                                    <div class="mode-card-wrapper border p-4 rounded-3 d-flex align-items-center transition-all h-100">
+                                        <div class="symbol symbol-45px bg-light rounded-circle d-flex align-items-center justify-content-center me-3">
+                                            <i class="fas fa-arrow-up fs-4 text-muted mode-icon"></i>
+                                        </div>
+                                        <div>
+                                            <h6 class="fw-bolder mb-1 text-dark">Send Out (Push Funds)</h6>
+                                            <span class="text-muted fs-8">Transfer to Airtel lines or Airtel Tills.</span>
+                                        </div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
 
-        // --- CORE UI FUNCTIONS ---
+                        <div id="airtel_view_pull" class="animate-fade-in">
+                            <h5 class="fw-bold text-dark mb-4">2. Request Details</h5>
+                            <form onsubmit="event.preventDefault(); openConfirmModal('pull', 'Airtel USSD Push');">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="tel" class="form-control fw-bold fs-5" placeholder="254730000000" required>
+                                            <label>Airtel Customer Phone</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="number" class="form-control fw-bold fs-5 text-success" placeholder="Amount" required>
+                                            <label>Amount (KES)</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 mt-4">
+                                        <button type="submit" class="btn btn-lg w-100 text-white fw-bolder shadow-sm" style="background-color: var(--airtel-red);">
+                                            <i class="fas fa-mobile-alt me-2"></i> Send Airtel Prompt
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div id="airtel_view_push" class="d-none animate-fade-in">
+                            <h5 class="fw-bold text-dark mb-3">2. Enter Transfer Details</h5>
+                            <div class="alert bg-light-warning text-warning-dark border border-warning border-dashed p-3">
+                                <i class="fas fa-info-circle me-2"></i> Airtel B2B / B2C services are active for direct phone transfers only at this time.
+                            </div>
+                            <form onsubmit="event.preventDefault(); openConfirmModal('push', 'Airtel Money Transfer');">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <input type="tel" class="form-control fw-bold fs-5" placeholder="254730000000" required>
+                                            <label>Recipient Airtel Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                <input type="text" class="form-control fw-semibold" id="transferPurpose" placeholder="Purpose (Optional)">
+                <label for="transferPurpose">Purpose of Funds (Optional)</label>
+            </div>
+                                    </div>
 
-        /**
-         * Switches the primary dashboard tab.
-         * @param {string} tabId - The ID of the tab content to show (e.g., 'tab-analytics').
-         */
-        function switchTab(tabId) {
-            currentMainTab = tabId;
 
-            document.querySelectorAll('.tab-content-item').forEach(el => el.classList.add('hidden-content'));
-            document.getElementById(tabId).classList.remove('hidden-content');
+                                                      <div class="mt-5 border-top pt-4">
+    <h5 class="fw-bold text-dark mb-4">3. Source of Funds & Transfer Details</h5>
+    
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="tel" class="form-control fw-bold fs-5" id="sourceMobile" placeholder="254700000000" required>
+                <label for="sourceMobile">Source Mobile Number</label>
+            </div>
+            <div class="form-text mt-2 text-muted fs-8">
+                <i class="fas fa-info-circle me-1 text-primary"></i> The number that will be debited to fund this transfer.
+            </div>
+        </div>
 
-            document.querySelectorAll('#main-tabs .nav-link').forEach(btn => {
-                const btnId = btn.getAttribute('data-tab-id');
-                if (btnId === tabId) {
-                    btn.classList.add('active');
-                    btn.style.color = 'var(--gold-700)';
-                    btn.style.borderBottom = '3px solid var(--gold-500)';
-                    btn.classList.remove('text-muted');
-                } else {
-                    btn.classList.remove('active');
-                    btn.style.color = ''; // Reset inline style
-                    btn.style.borderBottom = ''; // Reset inline style
-                    btn.classList.add('text-muted');
-                }
-            });
+        <div class="col-md-6 mb-4">
+            <div class="form-floating">
+                <input type="number" class="form-control fw-bolder fs-4 text-danger" id="transferAmount" placeholder="Amount" required>
+                <label for="transferAmount">Amount to Send (KES)</label>
+            </div>
+            <div class="form-text mt-2 text-muted fs-8">
+                <i class="fas fa-wallet me-1 text-success"></i> Maximum limit : KES 500,000.00
+            </div>
+        </div>
 
-            // Ensure the first mini-tab is active when the main tab changes
-            const contentContainer = document.getElementById(tabId);
-            const firstMiniTabButton = contentContainer.querySelector('.mini-tab-button');
-            if (firstMiniTabButton) {
-                switchMiniTab(firstMiniTabButton.getAttribute('data-mini-tab-id'));
-            }
-        }
+       
 
-        /**
-         * Switches the mini-tabs within a section.
-         * @param {string} miniTabId - The ID of the mini-tab content to show.
-         */
-        function switchMiniTab(miniTabId) {
-            currentMiniTab = miniTabId;
+        
+    </div>
+</div>
 
-            // Find the container for the current main tab to scope the search
-            const mainTabContent = document.getElementById(currentMainTab);
 
-            // Hide all mini-tab contents within the current main tab
-            mainTabContent.querySelectorAll('.mini-tab-content').forEach(el => el.classList.add('hidden-content'));
-            // Show the selected mini-tab content
-            document.getElementById(miniTabId).classList.remove('hidden-content');
 
-            // Update mini-tab button styling (scoped to the current main tab)
-            mainTabContent.querySelectorAll('.mini-tab-button').forEach(btn => {
-                if (btn.getAttribute('data-mini-tab-id') === miniTabId) {
-                    btn.style.backgroundColor = 'var(--gold-100)';
-                    btn.style.color = 'var(--gold-900)';
-                    btn.classList.add('fw-semibold');
-                    btn.classList.remove('btn-light', 'fw-medium', 'text-muted');
-                } else {
-                    btn.style.backgroundColor = ''; // Use default btn-light
-                    btn.style.color = ''; // Use default btn-light text color
-                    btn.classList.remove('fw-semibold');
-                    btn.classList.add('btn-light', 'fw-medium', 'text-muted');
-                }
-            });
-        }
+                                    <div class="col-12 mt-2">
+                                        <button type="submit" class="btn btn-lg btn-dark w-100 fw-bolder shadow-sm">
+                                            <i class="fas fa-shield-alt me-2"></i> Authorize Transfer
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
 
-        /**
-         * Renders the recent transactions table data.
-         */
-        function renderTransactions() {
-            const tbody = document.getElementById('transactions-table-body');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-            transactionData.forEach((txn) => {
-                const isSuccess = txn.status === 'Success';
-                const isFailed = txn.status === 'Failed';
-                const statusBg = isSuccess ? 'bg-success-subtle' : isFailed ? 'bg-danger-subtle' : 'bg-warning-subtle';
-                const statusText = isSuccess ? 'text-success-emphasis' : isFailed ? 'text-danger-emphasis' : 'text-warning-emphasis';
-                const statusIcon = isSuccess ? 'fa-check' : isFailed ? 'fa-times' : 'fa-clock';
+      
 
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td class="font-monospace text-muted">${txn.id}</td>
-                    <td class="fw-semibold" style="color: var(--gold-700);">$${txn.amount.toFixed(2)}</td>
-                    <td class="text-muted">${txn.phone}</td>
-                    <td>
-                        <span class="badge rounded-pill ${statusBg} ${statusText} fw-medium">
-                            <i class="fas ${statusIcon} me-1"></i>
-                            ${txn.status}
-                        </span>
-                    </td>
-                    <td class="text-muted">${txn.time}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
+                    </div>
 
-        // --- WIZARD/MODAL FUNCTIONS ---
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
 
-        /**
-         * Opens the STK Push initiation modal.
-         */
-        function openModal() {
-            if (stkPushModal) {
-                stkPushModal.show();
-                nextStep(1); // Reset to step 1
-            }
-        }
-
-        /**
-         * Closes the STK Push initiation modal.
-         */
-        function hideModal() {
-            if (stkPushModal) {
-                stkPushModal.hide();
-            }
-        }
-
-        /**
-         * Advances or retreats the modal wizard steps.
-         * @param {number} step - The step number to navigate to (1, 2, or 3).
-         */
-        function nextStep(step) {
-            currentWizardStep = step;
-            document.querySelectorAll('.wizard-step-content').forEach(el => el.classList.add('hidden-content'));
-            document.getElementById(`wizard-step-${step}`).classList.remove('hidden-content');
-
-            document.querySelectorAll('.wizard-tab-button').forEach(btn => {
-                const btnStep = parseInt(btn.getAttribute('data-wizard-step'));
-                if (btnStep === step) {
-                    btn.classList.add('active');
-                    btn.style.color = 'var(--gold-700)';
-                    btn.style.borderColor = 'var(--gold-500)';
-                    btn.classList.remove('text-muted');
-                } else if (btnStep < step) {
-                    // Mark completed steps with green success style
-                    btn.classList.add('text-success');
-                    btn.style.borderColor = '#28a745';
-                    btn.classList.remove('active', 'text-muted');
-                    btn.style.color = '#28a745';
-                } else {
-                    // Future steps are grayed out
-                    btn.classList.remove('active', 'text-success');
-                    btn.classList.add('text-muted');
-                    btn.style.color = '';
-                    btn.style.borderColor = 'transparent';
-                }
-            });
-
-            if (step === 2) {
-                // Populate review details in Step 2
-                const amount = document.getElementById('amount').value;
-                const phone = document.getElementById('phone').value;
-                const ref = document.getElementById('ref').value;
-
-                if (!amount || !phone || !ref) {
-                    // Simple validation for the demo
-                    showDocsModal("Validation Error", "Please fill in all transaction details before proceeding to review.");
-                    return nextStep(1);
-                }
-
-                document.getElementById('review-amount').textContent = `KSH ${parseFloat(amount).toFixed(2)}`;
-                document.getElementById('review-phone').textContent = phone;
-                document.getElementById('review-ref').textContent = ref;
-            }
-        }
-
-        /**
-         * Simulates the API call to initiate the STK Push.
-         */
-        function initiateTransaction() {
-            nextStep(3);
-            const amount = document.getElementById('amount').value;
-            const phone = document.getElementById('phone').value;
-            const ref = document.getElementById('ref').value;
-
-            document.getElementById('status-spinner').classList.remove('hidden-content');
-            document.getElementById('execution-message').textContent = 'Sending Request...';
-            document.getElementById('execution-details').textContent = 'Awaiting response from payment gateway. This process is fully asynchronous.';
-            document.getElementById('result-box').classList.add('hidden-content');
-            document.getElementById('finish-btn').textContent = 'Processing...';
-            document.getElementById('finish-btn').disabled = true;
-
-            // Simulate Network Delay (2 seconds)
-            setTimeout(() => {
-                const success = Math.random() > 0.3;
-
-                document.getElementById('status-spinner').classList.add('hidden-content');
-                document.getElementById('finish-btn').disabled = false;
-                document.getElementById('result-box').classList.remove('hidden-content');
-                document.getElementById('finish-btn').innerHTML = '<i class="fas fa-home me-2"></i> Return to Dashboard';
-
-                if (success) {
-                    const txnId = 'STK' + Math.floor(Math.random() * 900000 + 100000);
-                    document.getElementById('execution-message').textContent = 'Success! STK Push Initiated.';
-                    document.getElementById('execution-details').textContent = 'Customer will receive a prompt shortly. Final confirmation will arrive via webhook.';
-                    document.getElementById('result-box').classList.add('bg-success-subtle', 'text-success-emphasis');
-                    document.getElementById('result-box').classList.remove('bg-danger-subtle', 'text-danger-emphasis');
-                    document.getElementById('txn-id').textContent = txnId;
-                    document.getElementById('result-code').textContent = '0 - Success';
-                    document.getElementById('result-desc').textContent = 'The transaction was accepted for processing.';
-
-                    // Add simulated transaction to the list (as pending)
-                    transactionData.unshift({
-                        id: txnId,
-                        amount: parseFloat(amount),
-                        phone: phone.substring(0, 7) + '***' + phone.substring(10),
-                        status: 'Pending',
-                        time: new Date().toLocaleTimeString('en-US', { hour12: false }),
-                    });
-                    renderTransactions();
-                } else {
-                    const errorCode = '10' + Math.floor(Math.random() * 5 + 1);
-                    document.getElementById('execution-message').textContent = 'Failed to Initiate Request.';
-                    document.getElementById('execution-details').textContent = 'The payment gateway rejected the request due to a transient error.';
-                    document.getElementById('result-box').classList.add('bg-danger-subtle', 'text-danger-emphasis');
-                    document.getElementById('result-box').classList.remove('bg-success-subtle', 'text-success-emphasis');
-                    document.getElementById('txn-id').textContent = 'N/A';
-                    document.getElementById('result-code').textContent = errorCode + ' - Service Error';
-                    document.getElementById('result-desc').textContent = 'Transient server error or invalid input parameters.';
-                }
-
-            }, 2000);
-        }
-
-        // --- UTILITY FUNCTIONS ---
-
-        function copyToClipboard(elementId, button) {
-            const input = document.getElementById(elementId);
-            input.select();
-            input.setSelectionRange(0, 99999);
-            try {
-                document.execCommand('copy');
-                const originalHtml = button.innerHTML;
-                const originalBg = button.style.backgroundColor;
-                button.innerHTML = '<i class="fas fa-check"></i>';
-                button.style.backgroundColor = '#28a745';
+<div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-soft">
+            <div class="modal-header border-0 pb-0 pt-4 px-4 align-items-start">
+                <div class="d-flex flex-column">
+                    <h4 class="fw-bolder text-dark mb-1">Confirm Transaction</h4>
+                    <span class="text-muted fs-7" id="authTxnType">M-Pesa STK Push</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
                 
+                <div class="bg-light p-4 rounded-3 border mb-4 text-center">
+                    <span class="d-block text-muted fs-8 fw-bold text-uppercase mb-1" id="authDirectionText">Requesting</span>
+                    <h2 class="fw-bolder mb-0 text-dark" id="authAmount">KES 0.00</h2>
+                </div>
+
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control fw-bolder fs-4 text-center tracking-widest" id="sendmoPin" placeholder="PIN" maxlength="4" autocomplete="off">
+                    <label>Enter Sendmo Security PIN</label>
+                </div>
+
+                <button class="btn btn-dark btn-lg w-100 fw-bolder" onclick="executeTransaction()">
+                    <i class="fas fa-fingerprint me-2"></i> Authorize & Execute
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="processingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 bg-dark text-white text-center p-5">
+            <div class="spinner-border gold-spinner mx-auto mb-4" style="width: 3rem; height: 3rem; border-width: 4px;" role="status"></div>
+            <h5 class="fw-bolder mb-1 text-white">Communicating with Gateway</h5>
+            <span class="fs-8 text-gray-400">Awaiting network response...</span>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered" style="max-width: 320px;">
+        <div class="modal-content border-0 shadow-lg rounded-4">
+            <div class="modal-body p-5 text-center">
+                <div class="mb-4 d-inline-flex align-items-center justify-content-center rounded-circle" 
+                     style="width: 60px; height: 60px; background-color: rgba(80, 205, 137, 0.1); border: 2px solid #50cd89;">
+                    <i class="fas fa-check fs-1 text-success"></i>
+                </div>
+                <h5 class="fw-bolder text-dark mb-2">Request Dispatched!</h5>
+                <p class="text-muted fs-7 mb-4">
+                    The instruction was successfully sent to the network operator.
+                </p>
+                <button class="btn btn-light-success w-100 fw-bold" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // Toggle View between Pull (Request) and Push (Send)
+    function toggleActionView(network, mode) {
+        const viewPull = document.getElementById(`${network}_view_pull`);
+        const viewPush = document.getElementById(`${network}_view_push`);
+        
+        if (mode === 'pull') {
+            viewPull.classList.remove('d-none');
+            viewPush.classList.add('d-none');
+        } else {
+            viewPush.classList.remove('d-none');
+            viewPull.classList.add('d-none');
+        }
+    }
+
+    // Cross-border toggle logic
+    function toggleCrossBorder(checkbox) {
+        const countryWrapper = document.getElementById('countryCodeWrapper');
+        if (checkbox.checked) {
+            countryWrapper.style.display = 'block';
+        } else {
+            countryWrapper.style.display = 'none';
+        }
+    }
+
+    // Open Confirmation Modal and set context
+    function openConfirmModal(actionType, networkType) {
+        document.getElementById('authTxnType').innerText = networkType;
+        document.getElementById('sendmoPin').value = ''; // clear pin
+        
+        const directionText = document.getElementById('authDirectionText');
+        const amountText = document.getElementById('authAmount');
+
+        // Grab a dummy amount from the active form (For demo purposes, we fake it)
+        const amount = "5,400.00"; 
+
+        if (actionType === 'pull') {
+            directionText.innerText = "Requesting (Deposit into Wallet)";
+            amountText.classList.replace('text-danger', 'text-success');
+            amountText.innerText = "+ KES " + amount;
+        } else {
+            directionText.innerText = "Sending (Deduct from Wallet)";
+            amountText.classList.replace('text-success', 'text-danger');
+            amountText.innerText = "- KES " + amount;
+        }
+
+        const authModal = new bootstrap.Modal(document.getElementById('authModal'));
+        authModal.show();
+    }
+
+    // Execute the transaction flow
+    function executeTransaction() {
+        const pin = document.getElementById('sendmoPin').value;
+        if(pin.length !== 4) {
+            alert("Please enter a valid 4-digit PIN.");
+            return;
+        }
+
+        // Close Auth Modal
+        bootstrap.Modal.getInstance(document.getElementById('authModal')).hide();
+        
+        // Show Processing Modal
+        const processingModal = new bootstrap.Modal(document.getElementById('processingModal'));
+        processingModal.show();
+
+        // Simulate API call delay
+        setTimeout(() => {
+            processingModal.hide();
+            
+            // Show Success Modal
+            setTimeout(() => {
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+                
+                // Auto dismiss success after 3.5s
                 setTimeout(() => {
-                    button.innerHTML = originalHtml;
-                    button.style.backgroundColor = originalBg;
-                }, 1500);
-            } catch (err) {
-                console.error('Could not copy text: ', err);
-            }
-        }
+                    const activeSuccess = bootstrap.Modal.getInstance(document.getElementById('successModal'));
+                    if(activeSuccess) activeSuccess.hide();
+                }, 3500);
 
-        /**
-         * Custom modal message box replacement for alert()/confirm()
-         */
-        function showDocsModal(title, message) {
-            const overlay = document.createElement('div');
-            overlay.className = 'modal fade show d-block'; // Mimic Bootstrap modal display
-            overlay.setAttribute('tabindex', '-1');
-            overlay.innerHTML = `
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content rounded-4 shadow-gold-lg animate-pop-in">
-                        <div class="modal-header border-bottom-0">
-                            <h5 class="modal-title h5 fw-bold text-gold">${title}</h5>
-                            <button type="button" class="btn-close" aria-label="Close" onclick="this.parentNode.parentNode.parentNode.parentNode.remove()"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="text-muted small">${message}</p>
-                        </div>
-                        <div class="modal-footer border-top-0">
-                            <button type="button" class="btn btn-primary fw-semibold rounded-3" style="background-color: var(--gold-500); border-color: var(--gold-500);" onmouseover="this.style.backgroundColor= 'var(--gold-700)'; this.style.borderColor='var(--gold-700)';" onmouseout="this.style.backgroundColor= 'var(--gold-500)'; this.style.borderColor='var(--gold-500)';" onclick="this.parentNode.parentNode.parentNode.parentNode.remove()">
-                                Got It
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(overlay);
-        }
+                // Optional: Reset form fields here
 
-        function testWebhook() {
-            showDocsModal('Webhook Test Sent', 'A dummy test payload has been successfully dispatched to the callback URL. Please check the logs in a real environment to verify the 200 OK response.');
-        }
-
-        function showEndpointDocs(name) {
-            showDocsModal('Developer Documentation', `Detailed documentation for "${name}" would be displayed here. Investors can review full request/response schemas, security protocols, and rate limits.`);
-        }
-
-        // --- INITIALIZATION ---
-        document.addEventListener('DOMContentLoaded', () => {
-            // Set up event listener for the custom modal trigger button
-            document.getElementById('open-wizard-btn').addEventListener('click', openModal);
-
-            // Initial render of data
-            renderTransactions();
-
-            // Initialize the correct tabs
-            switchTab('tab-analytics');
-            switchMiniTab('mini-metrics');
-        });
-                    </script>
-                    <!--end::Col-->
-                </div>
-                <!--end::Row-->
-                extra space
-
-
-
-                    </div>
-                    <!--end::Container-->
+            }, 300);
+        }, 2000);
+    }
+</script>
                 </div>
                 <!--end::Content-->
 
