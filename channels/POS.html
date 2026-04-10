@@ -4917,57 +4917,90 @@
         </div>
 
         <div class="card-footer p-4 border-0 bg-white" style="border-top: 1px solid var(--border-color) !important; border-radius: 0 0 20px 20px; box-shadow: 0 -10px 20px rgba(0,0,0,0.02); z-index: 10;">
-            
-            <div class="input-group input-group-sm mb-3">
-                <span class="input-group-text bg-light border-end-0"><i class="fas fa-ticket-alt text-muted"></i></span>
-                <input type="text" class="form-control border-start-0 ps-0 bg-light" placeholder="Promo or Discount code...">
-                <button class="btn btn-dark px-3 fw-bold" type="button" style="border-radius: 0 6px 6px 0;" data-bs-toggle="modal" data-bs-target="#promoEngineModal">Apply</button>
-            </div>
-
-            <div class="d-flex justify-content-between mb-1">
-                <span class="text-muted fs-7">Subtotal</span>
-                <span class="fw-semibold fs-7" style="color: var(--text-dark);">KES 17,800.00</span>
-            </div>
-            <div class="d-flex justify-content-between mb-1">
-                <span class="text-muted fs-7">Discount <span class="badge bg-light-danger text-danger ms-1">-10%</span></span>
-                <span class="fw-semibold fs-7 text-danger">- KES 1,780.00</span>
-            </div>
-            <div class="d-flex justify-content-between mb-3 cursor-pointer" data-bs-toggle="modal" data-bs-target="#taxBreakdownModal">
-                <span class="text-muted fs-7 text-decoration-underline decoration-dashed">VAT (16%) & Levies</span>
-                <span class="fw-semibold fs-7" style="color: var(--text-dark);">KES 2,563.20</span>
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center pt-3 mb-4" style="border-top: 2px dashed var(--border-color);">
-                <span class="fw-bolder fs-5 text-uppercase" style="color: var(--text-dark);">Total Due</span>
-                <span class="fw-bolder fs-3" style="color: var(--primary-gold);">KES 18,583.20</span>
-            </div>
-
-            <div class="action-grid mb-3">
-                <button class="btn btn-action-hold fw-bold d-flex flex-column align-items-center justify-content-center py-2 rounded-3" onclick="parkCurrentCart()">
-                    <i class="fas fa-pause-circle fs-5 mb-1"></i>
-                    <span class="fs-9 text-uppercase">Hold Cart</span>
-                </button>
-                
-                <button class="btn btn-action-credit fw-bold d-flex flex-column align-items-center justify-content-center py-2 rounded-3" onclick="convertToPayLater()">
-                    <i class="fas fa-file-invoice fs-5 mb-1"></i>
-                    <span class="fs-9 text-uppercase">Pay Later</span>
-                </button>
-            </div>
-
-            <button class="btn btn-checkout btn-lg w-100 fw-bolder text-white d-flex justify-content-between align-items-center p-3" data-bs-toggle="modal" data-bs-target="#paymentProcessingModal">
-                <div class="d-flex align-items-center">
-                    <i class="fas fa-lock me-2 fs-5"></i>
-                    <span class="fs-5">Checkout</span>
-                </div>
-                <span class="bg-white text-success px-2 py-1 rounded-2 fs-7 shadow-sm">KES 18,583</span>
-            </button>
-
-            <div id="cartOfflineWarning" class="text-center mt-3 d-none">
-                <span class="badge bg-light-danger text-danger border border-danger border-dashed w-100 py-2 fs-8">
-                    <i class="fas fa-exclamation-triangle me-1"></i> Offline: Cash payments only.
-                </span>
-            </div>
+    
+    <div class="d-flex align-items-center justify-content-between mb-4 bg-light p-2 rounded-3 border border-dashed">
+        <span class="text-muted fs-8 fw-bolder text-uppercase ms-2"><i class="fas fa-tags me-1 text-warning"></i> Fixed Discount</span>
+        <div class="input-group input-group-sm w-50 shadow-sm">
+            <span class="input-group-text bg-white border-end-0 text-muted fw-bold">KES</span>
+            <input type="number" id="directDiscountInput" class="form-control border-start-0 text-end fw-bolder text-danger fs-6" value="0" min="0" oninput="autoCalculateCart()">
         </div>
+    </div>
+
+    <div class="d-flex justify-content-between mb-2">
+        <span class="text-muted fs-7">Subtotal</span>
+        <span class="fw-semibold fs-7" style="color: var(--text-dark);">KES 17,800.00</span>
+    </div>
+    <div class="d-flex justify-content-between mb-2">
+        <span class="text-muted fs-7">Discount Applied</span>
+        <span class="fw-semibold fs-7 text-danger" id="displayDiscountAmt">- KES 0.00</span>
+    </div>
+    <div class="d-flex justify-content-between mb-3 cursor-pointer" data-bs-toggle="modal" data-bs-target="#taxBreakdownModal">
+        <span class="text-muted fs-7 text-decoration-underline decoration-dashed">VAT (16%) & Levies</span>
+        <span class="fw-semibold fs-7" style="color: var(--text-dark);" id="displayVatAmt">KES 2,848.00</span>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center pt-3 mb-4" style="border-top: 2px dashed var(--border-color);">
+        <span class="fw-bolder fs-5 text-uppercase" style="color: var(--text-dark);">Total Due</span>
+        <span class="fw-bolder fs-3" style="color: var(--primary-gold);" id="displayTotalDue">KES 20,648.00</span>
+    </div>
+
+    <div class="action-grid mb-3">
+        <button class="btn btn-action-hold fw-bold d-flex flex-column align-items-center justify-content-center py-2 rounded-3" onclick="parkCurrentCart()">
+            <i class="fas fa-pause-circle fs-5 mb-1"></i>
+            <span class="fs-9 text-uppercase">Hold Cart</span>
+        </button>
+        
+        <button class="btn btn-action-credit fw-bold d-flex flex-column align-items-center justify-content-center py-2 rounded-3" onclick="convertToPayLater()">
+            <i class="fas fa-file-invoice fs-5 mb-1"></i>
+            <span class="fs-9 text-uppercase">Pay Later</span>
+        </button>
+    </div>
+
+    <button class="btn btn-checkout btn-lg w-100 fw-bolder text-white d-flex justify-content-between align-items-center p-3" data-bs-toggle="modal" data-bs-target="#paymentProcessingModal">
+        <div class="d-flex align-items-center">
+            <i class="fas fa-lock me-2 fs-5"></i>
+            <span class="fs-5">Checkout</span>
+        </div>
+        <span class="bg-white text-success px-2 py-1 rounded-2 fs-7 shadow-sm" id="checkoutBtnTotal">KES 20,648.00</span>
+    </button>
+
+    <div id="cartOfflineWarning" class="text-center mt-3 d-none">
+        <span class="badge bg-light-danger text-danger border border-danger border-dashed w-100 py-2 fs-8">
+            <i class="fas fa-exclamation-triangle me-1"></i> Offline: Cash payments only.
+        </span>
+    </div>
+</div>
+
+<script>
+    function autoCalculateCart() {
+        const baseSubtotal = 17800.00; // The fixed subtotal of items in cart
+        const vatRate = 0.16; // 16% Tax
+        
+        // 1. Get the typed discount value (default to 0 if empty)
+        let discountInput = document.getElementById('directDiscountInput');
+        let discount = parseFloat(discountInput.value) || 0;
+        
+        // Prevent discount from being higher than the subtotal
+        if (discount > baseSubtotal) {
+            discount = baseSubtotal;
+            discountInput.value = discount;
+        }
+
+        // 2. Perform Calculations (Tax applies to the discounted amount)
+        const discountedSubtotal = baseSubtotal - discount;
+        const vatAmount = discountedSubtotal * vatRate;
+        const totalDue = discountedSubtotal + vatAmount;
+
+        // 3. Number Formatter (e.g., KES 1,500.00)
+        const formatMoney = (num) => 'KES ' + num.toLocaleString('en-KE', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+        // 4. Update the UI instantly
+        document.getElementById('displayDiscountAmt').innerText = '- ' + formatMoney(discount);
+        document.getElementById('displayVatAmt').innerText = formatMoney(vatAmount);
+        document.getElementById('displayTotalDue').innerText = formatMoney(totalDue);
+        document.getElementById('checkoutBtnTotal').innerText = formatMoney(totalDue);
+    }
+</script>
     </div>
 </div>
 
@@ -5030,6 +5063,8 @@
 </style>
 
 
+
+<!-- modddddddddddddddddddddddddddddddddddddddddddddddddddddooodaaaal -->
 <!-- modddddddddddddddddddddddddddddddddddddddddddddddddddddooodaaaal -->
  <div class="modal fade" id="addNewItemModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
@@ -5681,52 +5716,122 @@
                 </div>
             </div>
 
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="card p-4" style="background-color: #cacaca;">
-                        <h4 class="mb-4">Recent Transactions & Activity Feed</h4>
-                        <div class="table-responsive">
-                            <table class="table table-striped align-middle">
-                                <thead>
-                                    <tr>
-                                        <th style="color: var(--primary-gold);">Time</th>
-                                        <th style="color: var(--primary-gold);">Customer</th>
-                                        <th style="color: var(--primary-gold);">Amount</th>
-                                        <th style="color: var(--primary-gold);">Method</th>
-                                        <th style="color: var(--primary-gold);">Source</th>
-                                        <th style="color: var(--primary-gold);">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="stat-card-base" style="transform: none" onmouseover="this.style.backgroundColor='#3A3A3A'" onmouseout="this.style.backgroundColor='transparent'">
-                                        <td>10:10 AM</td>
-                                        <td>John K.</td>
-                                        <td>$55.00</td>
-                                        <td>Mobile Money</td>
-                                        <td>Quick Sell</td>
-                                        <td><span class="badge text-bg-success"><i class="fas fa-check-circle"></i> Paid</span></td>
-                                    </tr>
-                                    <tr class="stat-card-base" style="transform: none" onmouseover="this.style.backgroundColor='#3A3A3A'" onmouseout="this.style.backgroundColor='transparent'">
-                                        <td>09:45 AM</td>
-                                        <td>Payment Link #2024C</td>
-                                        <td>$12.50</td>
-                                        <td>Card (Visa)</td>
-                                        <td>Link</td>
-                                        <td><span class="badge text-bg-warning text-dark"><i class="fas fa-clock"></i> Pending</span></td>
-                                    </tr>
-                                    <tr class="stat-card-base" style="transform: none" onmouseover="this.style.backgroundColor='#3A3A3A'" onmouseout="this.style.backgroundColor='transparent'">
-                                        <td>08:01 AM</td>
-                                        <td>Virtual Terminal Order</td>
-                                        <td>$120.00</td>
-                                        <td>Bank Transfer</td>
-                                        <td>Terminal</td>
-                                        <td><span class="badge text-bg-info text-dark"><i class="fas fa-spinner fa-spin"></i> Processing</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+            <div class="">
+                <div class="card shadow-sm mt-4" style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
+    
+    <div class="card-header border-0 pt-4 pb-2 d-flex flex-wrap justify-content-between align-items-center" style="background-color: transparent;">
+        <h5 class="card-title align-items-start flex-column m-0">
+            <span class="fw-bolder fs-4 mb-1" style="color: var(--text-dark);">Digital Storefront & Records</span>
+            <span class="text-muted fs-8">Manage your public link and view booked/paid transactions</span>
+        </h5>
+        
+        <div class="d-flex align-items-center mt-2 mt-md-0 p-2 rounded-3" style="background-color: var(--input-bg); border: 1px dashed var(--primary-gold);">
+            <div class="d-flex flex-column me-3 ps-2">
+                <span class="fs-8 text-muted fw-bold text-uppercase">Your Public Store Link</span>
+                <a href="#" class="fw-bolder fs-7 text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#publicStorefrontModal">
+                    pay.pkenya.com/store/nairobi-hq <i class="fas fa-external-link-alt ms-1 fs-8"></i>
+                </a>
+            </div>
+            <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-icon btn-light border tooltip-trigger" title="Copy Link" style="border-radius: 6px;">
+                    <i class="fas fa-copy text-dark"></i>
+                </button>
+                <button class="btn btn-sm btn-icon btn-gold tooltip-trigger" title="Share Options" data-bs-toggle="modal" data-bs-target="#shareUrlModal" style="border-radius: 6px;">
+                    <i class="fas fa-share-alt"></i>
+                </button>
+                <button class="btn btn-sm btn-icon btn-dark tooltip-trigger" title="Edit Link Settings" data-bs-toggle="modal" data-bs-target="#editStoreModal" style="border-radius: 6px;">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body pt-3 pb-4">
+        <ul class="nav nav-tabs nav-line-tabs mb-4 fs-6 fw-bold border-bottom-0" id="recordsTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active text-dark px-4" data-bs-toggle="tab" href="#records-paid" style="border-bottom: 2px solid var(--primary-gold);">
+                    <i class="fas fa-check-double text-success me-2"></i> Completed Purchases
+                </a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link text-muted px-4" data-bs-toggle="tab" href="#records-booked">
+                    <i class="fas fa-clock text-warning me-2"></i> Booked For Later <span class="badge bg-danger ms-2 rounded-circle">3</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="recordsTabContent">
+            <div class="tab-pane fade show active" id="records-paid" role="tabpanel">
+                <div class="table-responsive">
+                    <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                        <thead>
+                            <tr class="fw-bolder text-muted bg-light">
+                                <th class="ps-4 rounded-start min-w-150px">Transaction ID</th>
+                                <th class="min-w-200px">Customer & Items</th>
+                                <th class="min-w-100px text-end">Amount (KES)</th>
+                                <th class="min-w-100px text-center">Status</th>
+                                <th class="pe-4 text-end rounded-end">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ps-4">
+                                    <span class="text-dark fw-bolder d-block fs-7">#TX-90210-POS</span>
+                                    <span class="text-muted fw-semibold d-block fs-8">07 Apr 2026, 10:48 PM</span>
+                                </td>
+                                <td>
+                                    <span class="text-dark fw-bold d-block fs-7">Sarah Nduta</span>
+                                    <span class="text-muted fs-8">2x Tembo 73 Maize Seed, 1x DAP</span>
+                                </td>
+                                <td class="text-end fw-bolder text-dark">18,583.20</td>
+                                <td class="text-center"><span class="badge bg-light-success text-success fw-bold">Paid via M-Pesa</span></td>
+                                <td class="text-end pe-4">
+                                    <button class="btn btn-sm btn-light btn-active-light-primary">Receipt</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
+
+            <div class="tab-pane fade" id="records-booked" role="tabpanel">
+                <div class="table-responsive">
+                    <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+                        <thead>
+                            <tr class="fw-bolder text-muted bg-light">
+                                <th class="ps-4 rounded-start min-w-150px">Booking Ref</th>
+                                <th class="min-w-200px">Customer Details</th>
+                                <th class="min-w-150px">Reserved Item(s)</th>
+                                <th class="min-w-100px text-center">Expected Date</th>
+                                <th class="pe-4 text-end rounded-end">Fulfill</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="ps-4">
+                                    <span class="text-dark fw-bolder d-block fs-7">#BK-55412</span>
+                                    <span class="badge bg-light-warning text-warning fw-bold mt-1">Pending Payment</span>
+                                </td>
+                                <td>
+                                    <span class="text-dark fw-bold d-block fs-7">Eldoret Logistics Ltd</span>
+                                    <span class="text-muted fs-8"><i class="fas fa-phone-alt me-1"></i>+254 712 334 455</span>
+                                </td>
+                                <td>
+                                    <span class="text-dark fw-bold d-block fs-7">Tsavo WE4141 Seed</span>
+                                    <span class="text-muted fs-8">Qty: 50 (KES 120,000)</span>
+                                </td>
+                                <td class="text-center"><span class="fw-bold text-dark">10 Apr 2026</span></td>
+                                <td class="text-end pe-4">
+                                    <button class="btn btn-sm btn-gold fw-bold" data-bs-toggle="modal" data-bs-target="#paymentProcessingModal">Process Now</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
             </div>
 
             <h3 class="mb-3 ">Management & Configuration Modules</h3>
@@ -5967,6 +6072,20 @@
                                                     </div>
                                                     <span class="badge bg-success">Live</span>
                                                 </div>
+                                                  <div class="d-flex align-items-center justify-content-between p-3 border rounded-3" style="background-color: var(--input-bg);">
+                            <div class="d-flex align-items-center">
+                                <div class="symbol symbol-40px me-3 bg-white border rounded d-flex justify-content-center align-items-center">
+                                    <i class="fas fa-university text-dark fs-4"></i>
+                                </div>
+                                <div>
+                                    <span class="fw-bolder d-block text-dark">EFT / Wire Transfer</span>
+                                    <span class="text-muted fs-8">Manual verification required</span>
+                                </div>
+                            </div>
+                            <div class="form-check form-switch form-check-custom form-check-solid">
+                                <input class="form-check-input" type="checkbox" checked="checked">
+                            </div>
+                        </div>
                                             </div>
                                         </div>
                                     </div>
@@ -5997,80 +6116,171 @@
                                 </div>
 
                                 <div class="row g-4">
-                                    <div class="col-xl-7">
-                                        <div class="card shadow-sm mb-4" style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
-                                            <div class="card-header border-0 pt-5">
-                                                <h3 class="card-title align-items-start flex-column">
-                                                    <span class="fw-bolder fs-5 text-dark">Automated Receipt Delivery</span>
-                                                    <span class="text-muted mt-1 fw-semibold fs-7">How customers receive their proof of purchase</span>
-                                                </h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row g-3">
-                                                    <div class="col-md-4">
-                                                        <div class="border rounded-4 p-4 text-center position-relative overflow-hidden h-100" style="background-color: rgba(37, 211, 102, 0.03); border: 1px solid rgba(37, 211, 102, 0.2) !important;">
-                                                            <i class="fab fa-whatsapp fs-1 text-success mb-3"></i>
-                                                            <h6 class="fw-bolder text-dark">WhatsApp</h6>
-                                                            <p class="text-muted fs-9 mb-4">Send PDF receipts via official API</p>
-                                                            <div class="form-check form-switch form-check-custom form-check-solid justify-content-center">
-                                                                <input class="form-check-input h-20px w-30px" type="checkbox" checked>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="border rounded-4 p-4 text-center h-100" style="background-color: rgba(63, 106, 201, 0.03); border: 1px solid rgba(63, 106, 201, 0.2) !important;">
-                                                            <i class="fas fa-envelope-open-text fs-1 text-primary mb-3"></i>
-                                                            <h6 class="fw-bolder text-dark">Email (SMTP)</h6>
-                                                            <p class="text-muted fs-9 mb-4">Traditional HTML receipts with tax breakdown</p>
-                                                            <div class="form-check form-switch form-check-custom form-check-solid justify-content-center">
-                                                                <input class="form-check-input h-20px w-30px" type="checkbox" checked>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-4">
-                                                        <div class="border rounded-4 p-4 text-center h-100" style="background-color: rgba(246, 191, 7, 0.03); border: 1px solid rgba(246, 191, 7, 0.2) !important;">
-                                                            <i class="fas fa-sms fs-1 text-warning mb-3"></i>
-                                                            <h6 class="fw-bolder text-dark">SMS (Shortcode)</h6>
-                                                            <p class="text-muted fs-9 mb-4">Text link for quick download</p>
-                                                            <div class="form-check form-switch form-check-custom form-check-solid justify-content-center">
-                                                                <input class="form-check-input h-20px w-30px" type="checkbox">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xl-5">
-                                        <div class="card shadow-sm h-100" style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
-                                            <div class="card-header border-0 pt-5">
-                                                <h3 class="card-title align-items-start flex-column">
-                                                    <span class="fw-bolder fs-5 text-dark">Legal & Compliance</span>
-                                                    <span class="text-muted mt-1 fw-semibold fs-7">Protect your business with clear terms</span>
-                                                </h3>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="mb-8">
-                                                    <label class="form-label fw-bold text-dark fs-7">Terms of Service Link</label>
-                                                    <div class="input-group">
-                                                        <span class="input-group-text bg-light"><i class="fas fa-gavel"></i></span>
-                                                        <input type="text" class="form-control" value="https://pkenya.com/legal/terms" readonly>
-                                                        <button class="btn btn-light-primary border"><i class="fas fa-edit"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="mb-8">
-                                                    <label class="form-label fw-bold text-dark fs-7">Refund Policy</label>
-                                                    <select class="form-select border-0 bg-light fw-bold fs-7">
-                                                        <option>Strict: No Refunds (Exchange Only)</option>
-                                                        <option>Flexible: 7-Day Money Back</option>
-                                                        <option selected>Partial: 15% Restocking Fee</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
+            
+            <div class="col-xl-7">
+                <div class="card shadow-sm mb-4" style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
+                    <div class="card-header border-0 pt-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="fw-bolder fs-5 text-dark">Automated Receipt Delivery</span>
+                            <span class="text-muted mt-1 fw-semibold fs-7">How customers receive their proof of purchase</span>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <div class="border rounded-4 p-4 text-center position-relative overflow-hidden h-100" style="background-color: rgba(37, 211, 102, 0.03); border: 1px solid rgba(37, 211, 102, 0.2) !important;">
+                                    <i class="fab fa-whatsapp fs-1 text-success mb-3"></i>
+                                    <h6 class="fw-bolder text-dark">WhatsApp</h6>
+                                    <p class="text-muted fs-9 mb-4">Send PDF receipts via official WhatsApp API</p>
+                                    <div class="form-check form-switch form-check-custom form-check-solid justify-content-center">
+                                        <input class="form-check-input h-20px w-30px" type="checkbox" checked>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="border rounded-4 p-4 text-center h-100" style="background-color: rgba(63, 106, 201, 0.03); border: 1px solid rgba(63, 106, 201, 0.2) !important;">
+                                    <i class="fas fa-envelope-open-text fs-1 text-primary mb-3"></i>
+                                    <h6 class="fw-bolder text-dark">Email (SMTP)</h6>
+                                    <p class="text-muted fs-9 mb-4">Traditional HTML receipts with tax breakdown</p>
+                                    <div class="form-check form-switch form-check-custom form-check-solid justify-content-center">
+                                        <input class="form-check-input h-20px w-30px" type="checkbox" checked>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="border rounded-4 p-4 text-center h-100" style="background-color: rgba(246, 191, 7, 0.03); border: 1px solid rgba(246, 191, 7, 0.2) !important;">
+                                    <i class="fas fa-sms fs-1 text-warning mb-3"></i>
+                                    <h6 class="fw-bolder text-dark">SMS (Shortcode)</h6>
+                                    <p class="text-muted fs-9 mb-4">Text link for quick download via Africa's Talking</p>
+                                    <div class="form-check form-switch form-check-custom form-check-solid justify-content-center">
+                                        <input class="form-check-input h-20px w-30px" type="checkbox">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 p-4 rounded-3 border border-dashed" style="background-color: var(--input-bg);">
+                            <div class="d-flex flex-stack mb-3">
+                                <span class="fw-bolder text-dark fs-7">Receipt Footer Note</span>
+                                <button class="btn btn-sm btn-link fs-8 p-0">Edit Template</button>
+                            </div>
+                            <p class="text-muted fs-8 mb-0 italic">"Thank you for choosing Pkenya Verification Ltd. All seeds are certified by KEPHIS. No returns on opened packaging."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm" style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
+                    <div class="card-header border-0 pt-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="fw-bolder fs-5 text-dark">Customer Satisfaction (NPS)</span>
+                            <span class="text-muted mt-1 fw-semibold fs-7">Real-time feedback from recent buyers</span>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-5">
+                            <div class="text-center me-10">
+                                <span class="fw-bolder fs-2hx text-dark d-block">4.8</span>
+                                <div class="rating justify-content-center">
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star text-warning"></i>
+                                    <i class="fas fa-star-half-alt text-warning"></i>
+                                </div>
+                                <span class="text-muted fs-8 fw-bold">Avg Score</span>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="d-flex align-items-center mb-2">
+                                    <span class="text-muted fs-8 fw-bold w-40px">5 Star</span>
+                                    <div class="progress h-6px w-100 mx-2 bg-light">
+                                        <div class="progress-bar bg-success" style="width: 85%"></div>
+                                    </div>
+                                    <span class="text-muted fs-8 fw-bold">85%</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="text-muted fs-8 fw-bold w-40px">4 Star</span>
+                                    <div class="progress h-6px w-100 mx-2 bg-light">
+                                        <div class="progress-bar bg-primary" style="width: 12%"></div>
+                                    </div>
+                                    <span class="text-muted fs-8 fw-bold">12%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-5">
+                <div class="card shadow-sm h-100" style="background-color: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px;">
+                    <div class="card-header border-0 pt-5">
+                        <h3 class="card-title align-items-start flex-column">
+                            <span class="fw-bolder fs-5 text-dark">Legal & Compliance</span>
+                            <span class="text-muted mt-1 fw-semibold fs-7">Protect your business with clear terms</span>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        
+                        <div class="mb-8">
+                            <label class="form-label fw-bold text-dark fs-7">Terms of Service Link</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light"><i class="fas fa-gavel"></i></span>
+                                <input type="text" class="form-control" value="https://pkenya.com/legal/terms" readonly>
+                                <button class="btn btn-light-primary border"><i class="fas fa-edit"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <label class="form-label fw-bold text-dark fs-7">Refund Policy</label>
+                            <select class="form-select border-0 bg-light fw-bold fs-7">
+                                <option>Strict: No Refunds (Exchange Only)</option>
+                                <option>Flexible: 7-Day Money Back</option>
+                                <option selected>Partial: 15% Restocking Fee</option>
+                            </select>
+                            <div class="p-3 bg-light-warning rounded-3 mt-2">
+                                <span class="text-warning-dark fs-8 fw-semibold">Note: Agricultural products often fall under "Perishable Goods" legal exemptions in Kenya.</span>
+                            </div>
+                        </div>
+
+                        <div class="separator separator-dashed my-5"></div>
+
+                        <h6 class="fw-bolder text-dark mb-4 fs-7">Buyer Consent Checkboxes</h6>
+                        <div class="d-flex flex-column gap-4">
+                            <div class="d-flex flex-stack">
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-35px me-3">
+                                        <span class="symbol-label bg-light-info text-info"><i class="fas fa-shield-alt"></i></span>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="text-dark fw-bold fs-8">Mandatory TOS Acceptance</span>
+                                        <span class="text-muted fs-9">Buyer cannot pay without clicking 'Agree'</span>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch form-check-custom form-check-solid">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                </div>
+                            </div>
+
+                            <div class="d-flex flex-stack">
+                                <div class="d-flex align-items-center">
+                                    <div class="symbol symbol-35px me-3">
+                                        <span class="symbol-label bg-light-danger text-danger"><i class="fas fa-user-check"></i></span>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="text-dark fw-bold fs-8">Identity Verification (KYC)</span>
+                                        <span class="text-muted fs-9">Required for orders over KES 500,000</span>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch form-check-custom form-check-solid">
+                                    <input class="form-check-input" type="checkbox" checked>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
                             </div>
                         </div>
 
@@ -6082,6 +6292,754 @@
     </div>
 </div>
 
+
+
+<!-- modddddddddddddddddddddddddddddddddddddddddddddddddddddooodaaaal -->
+ <div class="modal fade" id="buyerCheckoutFlowModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content overflow-hidden" style="border-radius: 20px; border: 0; box-shadow: 0 10px 40px rgba(0,0,0,0.2);">
+            
+            <div class="row g-0">
+                <div class="col-md-5 p-5 text-white" style="background-color: #1e1e2d;">
+                    <div class="mb-5">
+                        <h4 class="fw-bolder text-white mb-0">Pkenya Storefront</h4>
+                        <span class="fs-8 text-gray-400">Secure Checkout</span>
+                    </div>
+
+                    <div class="bg-dark p-2 rounded-3 mb-4 d-inline-flex border border-secondary">
+                        <button class="btn btn-sm btn-dark active py-1 px-3 fs-8 fw-bold">KES</button>
+                        <button class="btn btn-sm btn-dark py-1 px-3 fs-8 fw-bold">USD</button>
+                        <button class="btn btn-sm btn-dark py-1 px-3 fs-8 fw-bold">EUR</button>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-gray-400 fs-7">Subtotal</span>
+                        <span class="fw-bold">KES 18,583.20</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-gray-400 fs-7">Shipping</span>
+                        <span class="fw-bold text-warning" id="shippingCostDisplay">Calculated next step</span>
+                    </div>
+                    <div class="border-top border-secondary my-3 pt-3 d-flex justify-content-between align-items-center">
+                        <span class="text-white fs-6 fw-bold">Total Due</span>
+                        <span class="fw-bolder fs-3" style="color: var(--primary-gold);">KES 18,583.20</span>
+                    </div>
+
+                    <div class="mt-5 p-3 rounded bg-dark border border-secondary">
+                        <span class="d-block fs-8 text-gray-400 mb-1">Items in Cart:</span>
+                        <span class="d-block fs-7 fw-bold">2x Tembo 73 Maize Seed</span>
+                        <span class="d-block fs-7 fw-bold">1x DAP Fertilizer</span>
+                    </div>
+                </div>
+
+                <div class="col-md-7 bg-white p-0 position-relative">
+                    
+                    <div class="d-flex border-bottom px-4 py-3 bg-light">
+                        <div class="flex-fill text-center fw-bolder fs-7 text-primary" id="step1-nav">
+                            <span class="bg-primary text-white rounded-circle d-inline-block me-1" style="width:20px; height:20px; line-height:20px;">1</span> Logistics
+                        </div>
+                        <div class="flex-fill text-center fw-bolder fs-7 text-muted" id="step2-nav">
+                            <span class="bg-secondary text-dark rounded-circle d-inline-block me-1" style="width:20px; height:20px; line-height:20px;">2</span> Payment
+                        </div>
+                    </div>
+
+                    <div class="p-5" id="checkout-step-1">
+                        <h4 class="fw-bolder text-dark mb-4">How should we deliver?</h4>
+                        
+                        <ul class="nav nav-pills nav-justified mb-4 p-1 bg-light rounded" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active fw-bold py-2 fs-7" data-bs-toggle="pill" data-bs-target="#buyer-ship" type="button">
+                                    <i class="fas fa-truck me-1"></i> Ship to me
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link fw-bold py-2 fs-7" data-bs-toggle="pill" data-bs-target="#buyer-pickup" type="button">
+                                    <i class="fas fa-store me-1"></i> I'll Pick It Up
+                                </button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="buyer-ship" role="tabpanel">
+                                <div class="row g-3">
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control bg-light border-0" placeholder="Full Name">
+                                            <label>Full Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <select class="form-select bg-light border-0">
+                                                <option>Nairobi Metropolitan (+KES 500)</option>
+                                                <option>Western Region (+KES 800)</option>
+                                            </select>
+                                            <label>Region / Zone</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control bg-light border-0" placeholder="City">
+                                            <label>City/Town</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating">
+                                            <input type="text" class="form-control bg-light border-0" placeholder="Street Address">
+                                            <label>Street Address / Building</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="tab-pane fade" id="buyer-pickup" role="tabpanel">
+                                <p class="text-muted fs-7 mb-3">Select a location to collect your items for free.</p>
+                                <div class="border rounded-3 p-3 mb-2 cursor-pointer bg-light-primary border-primary">
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="radio" name="pickupLoc" id="loc1" checked>
+                                        <label class="form-check-label fw-bold text-dark w-100" for="loc1">
+                                            Kimilili Hub
+                                            <span class="d-block fw-normal text-muted fs-8 mt-1">Bungoma County (Main Farm). Open 8AM - 5PM.</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="border rounded-3 p-3 cursor-pointer">
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <input class="form-check-input" type="radio" name="pickupLoc" id="loc2">
+                                        <label class="form-check-label fw-bold text-dark w-100" for="loc2">
+                                            Juja Center
+                                            <span class="d-block fw-normal text-muted fs-8 mt-1">Near JKUAT Gate A. Open 9AM - 6PM.</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-5 d-flex justify-content-between align-items-center">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-dark fw-bold px-4" id="goToStep2Btn">Continue to Payment <i class="fas fa-arrow-right ms-2"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="p-5 d-none" id="checkout-step-2">
+                        <button class="btn btn-sm btn-icon btn-light mb-4" id="backToStep1Btn"><i class="fas fa-arrow-left"></i></button>
+                        <h4 class="fw-bolder text-dark mb-4">Payment Method</h4>
+                        
+                        <div class="accordion" id="buyerPaymentAccordion2">
+                            
+                            <div class="accordion-item border rounded mb-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button fw-bolder bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#buyer-pay-mpesa">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" height="20" class="me-3" alt="M-Pesa">
+                                        Pay with M-Pesa
+                                    </button>
+                                </h2>
+                                <div id="buyer-pay-mpesa" class="accordion-collapse collapse show" data-bs-parent="#buyerPaymentAccordion2">
+                                    <div class="accordion-body p-4 text-center">
+                                        <p class="text-muted fs-7 mb-4">Enter your Safaricom number to receive a payment prompt.</p>
+                                        <div class="form-floating mb-4 w-75 mx-auto">
+                                            <input type="tel" class="form-control fw-bold fs-5 text-center bg-light border-0" id="buyerMpesaPushPhone" value="254712345678">
+                                            <label for="buyerMpesaPushPhone">Safaricom Number</label>
+                                        </div>
+                                        <button class="btn btn-success w-100 fw-bold py-3 fs-5" id="triggerBuyerStkBtn">
+                                            <i class="fas fa-paper-plane me-2"></i> Send Prompt
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item border rounded mb-3 overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bolder bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#buyer-pay-card">
+                                        <i class="fas fa-credit-card text-primary me-3 fs-4"></i> Credit / Debit Card
+                                    </button>
+                                </h2>
+                                <div id="buyer-pay-card" class="accordion-collapse collapse" data-bs-parent="#buyerPaymentAccordion2">
+                                    <div class="accordion-body p-4">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control bg-light border-0" placeholder="Card Number">
+                                            <label>Card Number</label>
+                                        </div>
+                                        <div class="row g-2 mb-3">
+                                            <div class="col-6">
+                                                <div class="form-floating">
+                                                    <input type="text" class="form-control bg-light border-0" placeholder="MM/YY">
+                                                    <label>Expiry (MM/YY)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="form-floating">
+                                                    <input type="password" class="form-control bg-light border-0" placeholder="CVC">
+                                                    <label>CVC</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-dark w-100 fw-bold py-3">Pay KES 18,583.20</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item border rounded overflow-hidden">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed fw-bolder bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#buyer-pay-bank">
+                                        <i class="fas fa-university text-dark me-3 fs-4"></i> Bank Transfer (EFT)
+                                    </button>
+                                </h2>
+                                <div id="buyer-pay-bank" class="accordion-collapse collapse" data-bs-parent="#buyerPaymentAccordion2">
+                                    <div class="accordion-body p-4 bg-light text-start">
+                                        <div class="p-3 border rounded bg-white mb-3">
+                                            <span class="fs-8 text-muted d-block text-uppercase fw-bold mb-1">Bank Name</span>
+                                            <span class="fw-bold d-block text-dark mb-2">KCB Bank Kenya</span>
+                                            <span class="fs-8 text-muted d-block text-uppercase fw-bold mb-1">Account Name</span>
+                                            <span class="fw-bold d-block text-dark mb-2">Pkenya Verification Ltd</span>
+                                            <span class="fs-8 text-muted d-block text-uppercase fw-bold mb-1">Account Number</span>
+                                            <span class="fw-bold fs-5 text-primary">1122334455</span>
+                                        </div>
+                                        <label class="form-label fw-bold fs-7">Upload Proof of Payment</label>
+                                        <input type="file" class="form-control mb-3">
+                                        <button class="btn btn-dark w-100 fw-bold py-2">Submit for Verification</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="p-5 d-none text-center h-100 d-flex flex-column justify-content-center" id="checkout-step-loading">
+                        
+                        <div class="position-relative mx-auto mb-4" style="width: 100px; height: 100px;">
+                            <div class="spinner-border text-success" style="width: 100px; height: 100px; border-width: 6px;" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <i class="fas fa-mobile-alt text-success fs-1 position-absolute top-50 start-50 translate-middle"></i>
+                        </div>
+                        
+                        <h3 class="fw-bolder text-dark mb-2">Waiting for PIN</h3>
+                        <p class="text-muted fs-6 mb-5">Please check your phone (254712***678) and enter your M-Pesa PIN to complete the transaction.</p>
+                        
+                        <div class="bg-light p-3 rounded-3 d-inline-block mx-auto border mb-4">
+                            <span class="fw-bold text-dark d-block">Amount: KES 18,583.20</span>
+                            <span class="text-muted fs-8 d-block">Pkenya Verification Ltd</span>
+                        </div>
+
+                        <button class="btn btn-link text-muted fw-bold mt-auto" id="cancelStkBtn">Cancel Transaction</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const step1 = document.getElementById('checkout-step-1');
+        const step2 = document.getElementById('checkout-step-2');
+        const stepLoading = document.getElementById('checkout-step-loading');
+        
+        const nav1 = document.getElementById('step1-nav');
+        const nav2 = document.getElementById('step2-nav');
+
+        // Nav Step 1 -> 2
+        document.getElementById('goToStep2Btn').addEventListener('click', function() {
+            step1.classList.add('d-none');
+            step2.classList.remove('d-none');
+            nav1.classList.replace('text-primary', 'text-muted');
+            nav1.querySelector('span').classList.replace('bg-primary', 'bg-secondary');
+            nav2.classList.replace('text-muted', 'text-primary');
+            nav2.querySelector('span').classList.replace('bg-secondary', 'bg-primary');
+            nav2.querySelector('span').classList.replace('text-dark', 'text-white');
+        });
+
+        // Nav Step 2 -> 1
+        document.getElementById('backToStep1Btn').addEventListener('click', function() {
+            step2.classList.add('d-none');
+            step1.classList.remove('d-none');
+            nav2.classList.replace('text-primary', 'text-muted');
+            nav2.querySelector('span').classList.replace('bg-primary', 'bg-secondary');
+            nav2.querySelector('span').classList.replace('text-white', 'text-dark');
+            nav1.classList.replace('text-muted', 'text-primary');
+            nav1.querySelector('span').classList.replace('bg-secondary', 'bg-primary');
+        });
+
+        // Trigger STK Push Wait State
+        document.getElementById('triggerBuyerStkBtn').addEventListener('click', function() {
+            // Hide normal UI, show loading UI
+            document.querySelector('.d-flex.border-bottom').classList.add('d-none'); // hide stepper nav
+            step2.classList.add('d-none');
+            stepLoading.classList.remove('d-none');
+
+            // Simulate the waiting loop, then success (integrates with your existing Success Modal from Group 2)
+            setTimeout(() => {
+                // Hide Checkout Flow Modal
+                var checkoutModalEl = document.getElementById('buyerCheckoutFlowModal');
+                var checkoutModal = bootstrap.Modal.getInstance(checkoutModalEl);
+                if(checkoutModal) checkoutModal.hide();
+                
+                // Reset this modal's state for next time
+                document.querySelector('.d-flex.border-bottom').classList.remove('d-none');
+                stepLoading.classList.add('d-none');
+                step1.classList.remove('d-none');
+                
+                // Show final success receipt (Assuming 'paymentSuccessModal' exists from previous snippet)
+                var successModalEl = document.getElementById('paymentSuccessModal');
+                if(successModalEl) {
+                    var successModal = new bootstrap.Modal(successModalEl);
+                    successModal.show();
+                } else {
+                    alert('Payment Successful! (Add Group 2 Success Modal to view receipt)');
+                }
+            }, 3500); // 3.5 seconds waiting for PIN
+        });
+
+        // Cancel STK Push Wait State
+        document.getElementById('cancelStkBtn').addEventListener('click', function() {
+            stepLoading.classList.add('d-none');
+            document.querySelector('.d-flex.border-bottom').classList.remove('d-none');
+            step2.classList.remove('d-none');
+        });
+    });
+</script>
+<!-- modddddddddddddddddddddddddddddddddddddddddddddddddddddooodaaaal -->
+ <div class="modal fade" id="postPurchasePreviewModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content overflow-hidden" style="border-radius: 24px; border: 0; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+            
+            <div class="text-center py-10 px-5" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); position: relative;">
+                <div class="success-checkmark mb-4">
+                    <div class="check-icon bg-white text-success rounded-circle shadow-lg mx-auto d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                        <i class="fas fa-check fs-2hx"></i>
+                    </div>
+                </div>
+                <h2 class="text-white fw-bolder mb-0">Payment Successful!</h2>
+                <p class="text-white-50 fs-6 mt-1">Order Ref: #TX-90210-POS</p>
+                
+                <div class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden" style="pointer-events: none; opacity: 0.3;">
+                    <i class="fas fa-circle text-white position-absolute" style="top:10%; left:20%; font-size:4px;"></i>
+                    <i class="fas fa-square text-warning position-absolute" style="top:30%; left:80%; font-size:6px;"></i>
+                    <i class="fas fa-star text-white position-absolute" style="top:70%; left:40%; font-size:8px;"></i>
+                </div>
+            </div>
+
+            <div class="modal-body p-8 bg-white">
+                
+                <div class="p-4 rounded-4 mb-8 text-center border-dashed border-2" style="background-color: #f9fafb; border-color: #e5e7eb !important;">
+                    <h6 class="fw-bolder text-dark mb-2">We've sent your receipt!</h6>
+                    <div class="d-flex justify-content-center gap-3 mt-3">
+                        <div class="badge bg-light-success text-success fw-bold py-2 px-3">
+                            <i class="fab fa-whatsapp me-2"></i> WhatsApp
+                        </div>
+                        <div class="badge bg-light-primary text-primary fw-bold py-2 px-3">
+                            <i class="fas fa-envelope me-2"></i> Email
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mb-8">
+                    <h5 class="fw-bolder text-dark mb-4">How was your shopping experience?</h5>
+                    
+                    <div class="d-flex justify-content-center gap-2 mb-4">
+                        <button class="btn btn-icon btn-light-warning rating-star" onclick="selectRating(1)"><i class="far fa-star fs-1"></i></button>
+                        <button class="btn btn-icon btn-light-warning rating-star" onclick="selectRating(2)"><i class="far fa-star fs-1"></i></button>
+                        <button class="btn btn-icon btn-light-warning rating-star" onclick="selectRating(3)"><i class="far fa-star fs-1"></i></button>
+                        <button class="btn btn-icon btn-light-warning rating-star" onclick="selectRating(4)"><i class="far fa-star fs-1"></i></button>
+                        <button class="btn btn-icon btn-light-warning rating-star" onclick="selectRating(5)"><i class="far fa-star fs-1"></i></button>
+                    </div>
+
+                    <div id="feedbackText" class="d-none">
+                        <textarea class="form-control border-0 bg-light fs-7" rows="2" placeholder="Tell us more (optional)..."></textarea>
+                        <button class="btn btn-sm btn-dark mt-3 fw-bold px-4" onclick="submitFeedback()">Send Feedback</button>
+                    </div>
+                </div>
+
+                <div class="border-top pt-6 text-center">
+                    <p class="text-muted fs-8">By purchasing, you have agreed to our <a href="#" class="text-primary text-decoration-none fw-bold">Refund Policy</a> and <a href="#" class="text-primary text-decoration-none fw-bold">Terms of Service</a>.</p>
+                    <button class="btn btn-light w-100 py-3 fw-bolder fs-6" style="border-radius: 12px;" data-bs-dismiss="modal">Return to Store</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function selectRating(stars) {
+        // Reset all stars
+        const allStars = document.querySelectorAll('.rating-star i');
+        allStars.forEach((star, index) => {
+            if (index < stars) {
+                star.classList.replace('far', 'fas');
+            } else {
+                star.classList.replace('fas', 'far');
+            }
+        });
+        
+        // Show comment box
+        document.getElementById('feedbackText').classList.remove('d-none');
+    }
+
+    function submitFeedback() {
+        const feedbackArea = document.getElementById('feedbackText');
+        feedbackArea.innerHTML = `
+            <div class="alert alert-success d-flex align-items-center p-3 mb-0">
+                <i class="fas fa-check-circle me-2"></i>
+                <span class="fs-7 fw-bold">Thanks for your feedback!</span>
+            </div>
+        `;
+    }
+</script>
+
+<style>
+    /* Premium Hover States for Compliance Dashboard */
+    .border-rounded-4 {
+        border-radius: 1.25rem !important;
+    }
+    
+    .rating-star:hover {
+        transform: scale(1.15);
+        background-color: rgba(246, 191, 7, 0.2) !important;
+    }
+
+    .success-checkmark .check-icon {
+        animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes scaleIn {
+        from { transform: scale(0); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+</style>
+<!-- modddddddddddddddddddddddddddddddddddddddddddddddddddddooodaaaal -->
+ <div class="modal fade" id="addZoneModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 16px;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bolder"><i class="fas fa-map-marked-alt text-primary me-2"></i>Add Shipping Zone</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="zoneName" placeholder="e.g., Central Rift">
+                    <label for="zoneName">Zone Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="number" class="form-control" id="baseFee" placeholder="Fee">
+                    <label for="baseFee">Base Delivery Fee (KES)</label>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-bold fs-8 text-muted text-uppercase">Covered Counties/Cities</label>
+                    <textarea class="form-control" rows="2" placeholder="List areas covered..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-primary w-100 fw-bold" data-bs-dismiss="modal">Save Zone</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ... -->
+ <div class="modal fade" id="publicStorefrontModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content" style="background-color: #f4f6f9;">
+            
+            <div class="modal-header py-4" style="background-color: var(--card-bg); border-bottom: 1px solid var(--border-color); box-shadow: 0 4px 20px rgba(0,0,0,0.03);">
+                <div class="container d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <div class="symbol symbol-60px me-3" style="border-radius: 12px; background-color: #1a1a1a; display: flex; align-items: center; justify-content: center; border: 2px solid var(--primary-gold);">
+                            <span style="color: var(--primary-gold); font-weight: 900; font-size: 1.5rem;">Pk</span>
+                        </div>
+                        <div>
+                            <h2 class="mb-0 fw-bolder" style="color: var(--text-dark); display: flex; align-items: center; gap: 8px;">
+                                Pkenya Verification Ltd 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#10b981" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                            </h2>
+                            <span class="text-muted fs-7"><i class="fas fa-map-marker-alt text-danger me-1"></i> Nairobi, Kenya • Trusted Agricultural & Corporate Services</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+
+            <div class="modal-body p-0">
+                
+                <div class="w-100 py-4" style="background-color: #6e6e6e;">
+                    <div class="container">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-lg-5">
+                                <div class="position-relative">
+                                    <i class="fas fa-search position-absolute top-50 translate-middle-y ms-4 text-muted fs-5"></i>
+                                    <input type="text" class="form-control form-control-lg ps-5 border-0" placeholder="Search for products, seeds, or services..." style="border-radius: 12px; background-color: rgba(255,255,255,0.1); color: white;">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-4">
+                                <select class="form-select form-select-lg border-0" style="border-radius: 12px; background-color: rgba(255,255,255,0.1); color: white;">
+                                    <option selected>All Categories</option>
+                                    <option>Agri-Inputs (Seeds)</option>
+                                    <option>Fertilizers</option>
+                                    <option>Mechanized Services</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3 col-md-5">
+                                <div class="d-flex align-items-center bg-transparent border-0 px-3 py-2 rounded-3" style="background-color: rgba(255,255,255,0.1) !important;">
+                                    <span class="text-white-50 me-2 fs-7">Price (KES):</span>
+                                    <input type="number" class="form-control form-control-sm border-0 bg-dark text-white text-center w-50 me-2" placeholder="Min">
+                                    <span class="text-white-50">-</span>
+                                    <input type="number" class="form-control form-control-sm border-0 bg-dark text-white text-center w-50 ms-2" placeholder="Max">
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-3">
+                                <button class="btn btn-lg btn-gold w-100 fw-bold" style="border-radius: 12px;">Filter Items</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container py-5">
+                    <div class="row g-4">
+                        
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="card h-100 border-0 shadow-sm product-hover" style="border-radius: 16px; transition: transform 0.3s, box-shadow 0.3s; overflow: hidden;">
+                                <div class="position-relative" style="height: 200px; background-color: #e8f5e9; display: flex; align-items: center; justify-content: center;">
+                                    <span class="badge bg-dark position-absolute top-0 start-0 m-3 fs-8 py-2 px-3">Top Rated</span>
+                                    <i class="fas fa-seedling text-success" style="font-size: 5rem; opacity: 0.6;"></i>
+                                </div>
+                                <div class="card-body p-4 d-flex flex-column">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="fw-bolder text-dark mb-0">Tsavo WE4141</h5>
+                                        <span class="badge bg-light-success text-success fw-bold">In Stock</span>
+                                    </div>
+                                    <p class="text-muted fs-7 mb-3 flex-grow-1">Premium hybrid seed. Requires a strict 150-day cycle for fully mature, dried maize.</p>
+                                    
+                                    <h3 class="fw-bolder mb-4" style="color: var(--primary-gold);">KES 7,200 <span class="fs-8 text-muted fw-normal">/ 25kg</span></h3>
+                                    
+                                    <div class="d-flex gap-2 mt-auto">
+                                        <button class="btn w-50 fw-bold text-white shadow-sm" style="background-color: #10b981; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#buyerCheckoutModal">
+                                            Pay Now
+                                        </button>
+                                        <button class="btn w-50 fw-bold text-dark border" style="background-color: #f8f9fa; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#bookLaterModal">
+                                            Book Later
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="card h-100 border-0 shadow-sm product-hover" style="border-radius: 16px; transition: transform 0.3s, box-shadow 0.3s; overflow: hidden;">
+                                <div class="position-relative" style="height: 200px; background-color: #e3f2fd; display: flex; align-items: center; justify-content: center;">
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-3 fs-8 py-2 px-3">Only 5 Left</span>
+                                    <i class="fas fa-flask text-primary" style="font-size: 5rem; opacity: 0.6;"></i>
+                                </div>
+                                <div class="card-body p-4 d-flex flex-column">
+                                    <div class="d-flex justify-content-between align-items-start mb-2">
+                                        <h5 class="fw-bolder text-dark mb-0">DAP Fertilizer</h5>
+                                        <span class="badge bg-light-warning text-warning fw-bold">Low Stock</span>
+                                    </div>
+                                    <p class="text-muted fs-7 mb-3 flex-grow-1">Standard 50kg bag for basal application during planting.</p>
+                                    
+                                    <h3 class="fw-bolder mb-4" style="color: var(--primary-gold);">KES 4,800 <span class="fs-8 text-muted fw-normal">/ 50kg</span></h3>
+                                    
+                                    <div class="d-flex gap-2 mt-auto">
+                                        <button class="btn w-50 fw-bold text-white shadow-sm" style="background-color: #10b981; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#buyerCheckoutModal">Pay Now</button>
+                                        <button class="btn w-50 fw-bold text-dark border" style="background-color: #f8f9fa; border-radius: 8px;" data-bs-toggle="modal" data-bs-target="#bookLaterModal">Book Later</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="buyerCheckoutModal" tabindex="-1" aria-hidden="true" style="z-index: 1060;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: 1px solid var(--border-color);">
+            <div class="modal-header border-0 pb-0">
+                <h4 class="modal-title fw-bolder text-dark">Secure Checkout</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4 p-3 rounded" style="background-color: rgba(201, 169, 63, 0.1); border: 1px dashed var(--primary-gold);">
+                    <div>
+                        <span class="text-muted fs-8 d-block fw-bold text-uppercase">Total Amount</span>
+                        <span class="fw-bolder fs-3 text-dark">KES 7,200.00</span>
+                    </div>
+                    <div class="text-end">
+                        <span class="text-muted fs-8 d-block">Item</span>
+                        <span class="fw-bold fs-7 text-dark">1x Tsavo WE4141 (25kg)</span>
+                    </div>
+                </div>
+
+                <label class="form-label fw-bold text-dark fs-7">Choose Payment Method</label>
+                <div class="accordion mb-4" id="buyerPaymentAccordion">
+                    <div class="accordion-item border rounded mb-2">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMpesa">
+                                <i class="fas fa-mobile-alt text-success me-3 fs-4"></i> Pay via M-Pesa
+                            </button>
+                        </h2>
+                        <div id="collapseMpesa" class="accordion-collapse collapse show" data-bs-parent="#buyerPaymentAccordion">
+                            <div class="accordion-body p-4 bg-light">
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" id="buyerMobile" placeholder="254700000000">
+                                    <label for="buyerMobile">Your M-Pesa Number</label>
+                                </div>
+                                <button class="btn btn-success w-100 fw-bold py-3 shadow-sm">Send STK Push Prompt</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border rounded">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCard">
+                                <i class="fas fa-credit-card text-primary me-3 fs-4"></i> Pay via Card (Visa/MC)
+                            </button>
+                        </h2>
+                        <div id="collapseCard" class="accordion-collapse collapse" data-bs-parent="#buyerPaymentAccordion">
+                            <div class="accordion-body p-4 bg-light text-center">
+                                <p class="text-muted fs-7">You will be redirected to the secure DPO/Pesapal gateway to enter your card details.</p>
+                                <button class="btn btn-dark w-100 fw-bold py-3 shadow-sm">Proceed to Secure Gateway</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="bookLaterModal" tabindex="-1" aria-hidden="true" style="z-index: 1060;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius: 20px; border: 1px solid var(--border-color);">
+            <div class="modal-header border-0 pb-0">
+                <h4 class="modal-title fw-bolder text-dark"><i class="fas fa-calendar-check text-warning me-2"></i> Book Item For Later</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <p class="text-muted fs-7 mb-4">Reserve this item now. The seller will be notified and the inventory will be held until your selected date.</p>
+                
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Your Name" style="background-color: var(--input-bg);">
+                            <label>Full Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="tel" class="form-control" placeholder="Phone" style="background-color: var(--input-bg);">
+                            <label>Phone Number</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="date" class="form-control" style="background-color: var(--input-bg);">
+                            <label>Expected Payment/Pickup Date</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Notes" style="height: 80px; background-color: var(--input-bg);"></textarea>
+                            <label>Additional Instructions for Seller</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-warning text-dark w-100 fw-bolder py-3 shadow-sm" onclick="alert('Item booked! The seller has been notified.')" data-bs-dismiss="modal">
+                    Confirm Reservation
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="shareUrlModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content text-center p-4" style="border-radius: 20px;">
+            <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button>
+            <h5 class="fw-bolder mb-3 text-dark">Share Storefront</h5>
+            
+            <div class="bg-light p-3 rounded mb-3 d-inline-block border">
+                <i class="fas fa-qrcode" style="font-size: 6rem; color: var(--text-dark);"></i>
+            </div>
+            
+            <p class="text-muted fs-8 mb-4">Scan QR or share via socials</p>
+            
+            <div class="d-flex justify-content-center gap-2">
+                <button class="btn btn-icon btn-light-success text-success border"><i class="fab fa-whatsapp fs-4"></i></button>
+                <button class="btn btn-icon btn-light-primary text-primary border"><i class="fab fa-twitter fs-4"></i></button>
+                <button class="btn btn-icon btn-light-dark text-dark border"><i class="fas fa-envelope fs-4"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editStoreModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content p-4" style="border-radius: 20px;">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="fw-bolder m-0 text-dark">Storefront Settings</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            
+            <div class="mb-4">
+                <label class="form-label fw-bold fs-7">Custom URL Slug</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light border-end-0 text-muted">channel.sendmo.com/store/</span>
+                    <input type="text" class="form-control border-start-0" value="nairobi-hq">
+                </div>
+            </div>
+
+            <div class="form-check form-switch form-check-custom form-check-solid mb-4">
+                <input class="form-check-input" type="checkbox" id="storeActiveToggle" checked>
+                <label class="form-check-label fw-bold text-dark" for="storeActiveToggle">
+                    Store is Live & Accepting Orders
+                </label>
+            </div>
+
+            <button class="btn btn-gold w-100 fw-bold">Save Changes</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Trigger M-Pesa Push -> Simulate Loading -> Open Success Modal
+        const mpesaBtn = document.getElementById('triggerMpesaPushBtn');
+        const cashBtn = document.getElementById('triggerCashBtn');
+        
+        function handlePaymentSimulation(btnElement) {
+            if(!btnElement) return;
+            btnElement.addEventListener('click', function() {
+                // Change button state
+                const originalHtml = this.innerHTML;
+                this.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Processing...';
+                this.disabled = true;
+
+                // Simulate API Call delay
+                setTimeout(() => {
+                    // Hide Payment Modal
+                    var paymentModalEl = document.getElementById('paymentProcessingModal');
+                    var paymentModal = bootstrap.Modal.getInstance(paymentModalEl);
+                    paymentModal.hide();
+                    
+                    // Show Success Modal
+                    var successModal = new bootstrap.Modal(document.getElementById('paymentSuccessModal'));
+                    successModal.show();
+                    
+                    // Reset Button
+                    this.innerHTML = originalHtml;
+                    this.disabled = false;
+                }, 1500);
+            });
+        }
+
+        handlePaymentSimulation(mpesaBtn);
+        handlePaymentSimulation(cashBtn);
+    });
+</script>
 <div class="modal fade" id="quickSellModal" tabindex="-1" aria-labelledby="quickSellModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content" style="background-color: var(--dark-bg); border: 2px solid var(--primary-gold)">
@@ -6149,75 +7107,581 @@
     </div>
 </div>
 
-<div class="modal fade" id="setupWizardModal" tabindex="-1" aria-labelledby="setupWizardModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-        <div class="modal-content" style="background-color: var(--dark-bg); border: 2px solid var(--primary-gold)">
-            <div class=" modal-dialog-centered" role="document" aria-modal="true">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">
-                            <i class="fas fa-rocket text-gold"></i>
-                            <span>6-Step Fintech Onboarding Wizard</span>
-                        </h4>
-                        <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+<style>
+    .prefill-card {
+        background-color: var(--light-primary);
+        border: 1px dashed var(--primary);
+        border-radius: 12px;
+        transition: all 0.2s ease;
+    }
+    .prefill-card:hover {
+        background-color: #eef3f7;
+        box-shadow: 0 4px 12px rgba(0, 158, 247, 0.1);
+        transform: translateY(-2px);
+    }
+    .prefill-card.applied {
+        background-color: var(--light-success);
+        border-color: var(--success);
+        pointer-events: none;
+    }
+    .form-control.locked-filled {
+        background-color: rgba(80, 205, 137, 0.05) !important;
+        border-color: rgba(80, 205, 137, 0.3) !important;
+        color: var(--text-dark);
+        font-weight: 600;
+    }
+    /* Compliance Checkbox Styling */
+    .compliance-check-row {
+        padding: 12px 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        background-color: #ffffff;
+        transition: 0.2s;
+        cursor: pointer;
+    }
+    .compliance-check-row:hover {
+        border-color: var(--primary-gold);
+        background-color: rgba(201, 169, 63, 0.02);
+    }
+    .compliance-check-row input:checked + span {
+        color: var(--success) !important;
+    }
+    .compliance-check-row input:checked {
+        background-color: var(--success);
+        border-color: var(--success);
+    }
+</style>
+
+<div class="modal fade" id="setupWizardModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content" style="background-color: var(--card-bg); border: 2px solid var(--primary-gold); border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15);">
+            
+            <div class="modal-header bg-light pt-4 pb-3 px-5 border-bottom border-dashed">
+                <h4 class="modal-title fw-bolder d-flex align-items-center">
+                    <div class="symbol symbol-40px bg-white rounded-circle d-flex justify-content-center align-items-center me-3 shadow-sm border">
+                        <i class="fas fa-rocket text-gold fs-5"></i>
                     </div>
-                    <div class="modal-body">
-                        <div class="wizard-tab mb-3">
-                            <div class="flex-fill px-1 py-1"><button class="nav-link w-100 py-2 px-2 active" data-step="0" onclick="setCurrentStep(0)"><i class="fas fa-user me-2"></i> 1. Profile</button></div>
-                            <div class="flex-fill px-1 py-1"><button class="nav-link w-100 py-2 px-2" data-step="1" onclick="setCurrentStep(1)"><i class="fas fa-briefcase me-2"></i> 2. Business Type</button></div>
-                            <div class="flex-fill px-1 py-1"><button class="nav-link w-100 py-2 px-2" data-step="2" onclick="setCurrentStep(2)"><i class="fas fa-sliders-h me-2"></i> 3. Channels</button></div>
-                            <div class="flex-fill px-1 py-1"><button class="nav-link w-100 py-2 px-2" data-step="3" onclick="setCurrentStep(3)"><i class="fas fa-money-bill-wave me-2"></i> 4. Payouts</button></div>
-                            <div class="flex-fill px-1 py-1"><button class="nav-link w-100 py-2 px-2" data-step="4" onclick="setCurrentStep(4)"><i class="fas fa-palette me-2"></i> 5. Branding</button></div>
-                            <div class="flex-fill px-1 py-1"><button class="nav-link w-100 py-2 px-2" data-step="5" onclick="setCurrentStep(5)"><i class="fas fa-shield-alt me-2"></i> 6. Go Live</button></div>
-                        </div>
-                        <div class="bg-card-custom">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <span id="stepTitle" class="fw-bold text-gold">Profile</span>
-                                <span id="stepCount" class="text-gray-400">Step 1 of 6</span>
-                            </div>
-                            <div id="step-0-content" class="step-content">
-                                <div class="space-y-4">
-                                    <h5 class="fw-bold">Step 1: Contact & Legal Profile</h5>
-                                    <p class="text-gray-400">Verify identity and primary contact details for compliance.</p>
-                                    <input id="legalName" class="form-control mb-3" type="text" value="Acme Financial Services" />
-                                    <input id="email" class="form-control mb-3" type="email" value="billing@acmefin.com" />
-                                    <input id="taxId" class="form-control mb-3" type="text" value="US1234567" />
-                                </div>
-                            </div>
-                            <div id="step-1-content" class="step-content d-none">
-                                <div class="space-y-4">
-                                    <h5 class="fw-bold">Step 2: Define Your Business Type</h5>
-                                    <p class="text-success"><i class="fas fa-check-circle me-2"></i> E-commerce selected.</p>
-                                </div>
-                            </div>
-                            <div id="step-2-content" class="step-content d-none">
-                                <h5 class="fw-bold">Step 3: Payment Channels</h5>
-                                <p class="text-gray-400">Card and Mobile Enabled.</p>
-                            </div>
-                            <div id="step-3-content" class="step-content d-none">
-                                <h5 class="fw-bold">Step 4: Payouts</h5>
-                                <p class="text-gray-400">Internal Wallet Enabled.</p>
-                            </div>
-                            <div id="step-4-content" class="step-content d-none">
-                                <h5 class="fw-bold">Step 5: Branding</h5>
-                                <input id="brandColorInput" type="color" class="form-control form-control-color w-100 mb-3" value="#0d6efd" />
-                                <div id="checkoutPreviewContainer"></div>
-                            </div>
-                            <div id="step-5-content" class="step-content d-none">
-                                <h5 class="fw-bold">Step 6: Go Live</h5>
-                                <p class="text-gray-400">Accept terms to finish.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary px-4 py-2" id="prevButton" onclick="handlePrev()" disabled>Previous</button>
-                        <button type="button" class="btn btn-gold px-4 py-2" id="nextButton" onclick="handleNext()">Next Step</button>
+                    <span>Fast-Track Onboarding Wizard</span>
+                </h4>
+                <button type="button" class="btn-close" aria-label="Close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body p-0 d-flex flex-column flex-lg-row">
+                
+                <div class="wizard-sidebar bg-light p-4 border-end" style="min-width: 250px;">
+                    <div class="d-flex flex-column gap-2" id="wizardNavContainer">
+                        <button class="nav-link w-100 text-start py-3 px-4 active rounded-3 fw-bold border-0 text-muted d-flex align-items-center" data-step="0" onclick="setCurrentStep(0)" style="transition: 0.3s;">
+                            <span class="symbol-label bg-white text-dark shadow-sm rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 28px; height: 28px;">1</span> 
+                            Profile
+                        </button>
+                        <button class="nav-link w-100 text-start py-3 px-4 rounded-3 fw-bold border-0 text-muted d-flex align-items-center" data-step="1" onclick="setCurrentStep(1)" style="transition: 0.3s;">
+                            <span class="symbol-label bg-white text-dark shadow-sm rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 28px; height: 28px;">2</span> 
+                            Business Type
+                        </button>
+                        <button class="nav-link w-100 text-start py-3 px-4 rounded-3 fw-bold border-0 text-muted d-flex align-items-center" data-step="2" onclick="setCurrentStep(2)" style="transition: 0.3s;">
+                            <span class="symbol-label bg-white text-dark shadow-sm rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 28px; height: 28px;">3</span> 
+                            Channels
+                        </button>
+                        <button class="nav-link w-100 text-start py-3 px-4 rounded-3 fw-bold border-0 text-muted d-flex align-items-center" data-step="3" onclick="setCurrentStep(3)" style="transition: 0.3s;">
+                            <span class="symbol-label bg-white text-dark shadow-sm rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 28px; height: 28px;">4</span> 
+                            Payouts
+                        </button>
+                        <button class="nav-link w-100 text-start py-3 px-4 rounded-3 fw-bold border-0 text-muted d-flex align-items-center" data-step="4" onclick="setCurrentStep(4)" style="transition: 0.3s;">
+                            <span class="symbol-label bg-white text-dark shadow-sm rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 28px; height: 28px;">5</span> 
+                            Compliance
+                        </button>
+                        <button class="nav-link w-100 text-start py-3 px-4 rounded-3 fw-bold border-0 text-muted d-flex align-items-center" data-step="5" onclick="setCurrentStep(5)" style="transition: 0.3s;">
+                            <span class="symbol-label bg-white text-dark shadow-sm rounded-circle d-flex justify-content-center align-items-center me-3" style="width: 28px; height: 28px;">6</span> 
+                            Ready!
+                        </button>
                     </div>
                 </div>
+
+                <div class="flex-grow-1 p-5 position-relative" style="background-color: var(--card-bg); min-height: 450px;">
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-dashed">
+                        <div>
+                            <h4 id="stepTitle" class="fw-bolder text-dark mb-1">Contact & Legal Profile</h4>
+                            <span id="stepSubTitle" class="text-muted fs-8">Verify identity and primary contact details for compliance.</span>
+                        </div>
+                        <span id="stepCount" class="badge bg-light-dark text-dark fw-bold px-3 py-2 fs-7">Step 1 of 6</span>
+                    </div>
+
+                    <div id="step-0-content" class="step-content">
+                        <div class="prefill-card p-3 mb-4 cursor-pointer d-flex align-items-center justify-content-between" id="kybPrefillCard" onclick="applyKybPrefill()">
+                            <div class="d-flex align-items-center">
+                                <div class="symbol symbol-45px bg-white rounded-circle d-flex justify-content-center align-items-center me-3 shadow-sm border">
+                                    <i class="fas fa-building text-primary fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bolder text-dark mb-1 d-flex align-items-center">Use Verified KYB Profile <span class="badge bg-success ms-2 fs-9">Recommended</span></h6>
+                                    <span class="fs-8 text-muted d-block">Pkenya Verification Ltd • billing@pkenya.com • TIN: P051234567Z</span>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-primary fw-bold px-4" id="kybPrefillBtn">Auto-Fill</button>
+                        </div>
+
+                        <div class="position-relative">
+                            <div class="d-flex align-items-center mb-3">
+                                <hr class="flex-grow-1 border-dashed m-0">
+                                <span class="px-3 text-muted fs-8 fw-bold text-uppercase">Or Enter Manually</span>
+                                <hr class="flex-grow-1 border-dashed m-0">
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <div class="col-12">
+                                <div class="form-floating">
+                                    <input id="wizLegalName" class="form-control" type="text" placeholder="Legal Business Name" />
+                                    <label>Legal Business Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input id="wizEmail" class="form-control" type="email" placeholder="Primary Contact Email" />
+                                    <label>Primary Contact Email</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input id="wizTaxId" class="form-control" type="text" placeholder="Tax / Registration ID" />
+                                    <label>Tax / Registration ID (KRA PIN)</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="step-1-content" class="step-content d-none">
+                        <div class="alert bg-light-primary border border-primary border-dashed p-3 mb-4 d-flex align-items-center rounded-3">
+                            <i class="fas fa-lightbulb text-primary fs-2 me-3"></i>
+                            <div>
+                                <h6 class="fw-bolder text-primary mb-1">Smart Suggestion</h6>
+                                <span class="text-dark fs-8">Based on your KYB industry (Agriculture/Retail), we recommend the <strong>Hybrid E-commerce & POS</strong> model.</span>
+                            </div>
+                        </div>
+
+                        <div class="row g-4 text-center">
+                            <div class="col-md-4">
+                                <div class="stat-card-base active-gold h-100 d-flex flex-column justify-content-center" role="button" onclick="selectBizType(this)">
+                                    <i class="fas fa-shopping-cart fs-2x mb-3"></i>
+                                    <p class="mb-1 fw-bolder text-dark">E-commerce / Webstore</p>
+                                    <small class="text-muted fs-8">Selling goods online with inventory management.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-card-base h-100 d-flex flex-column justify-content-center" role="button" onclick="selectBizType(this)">
+                                    <i class="fas fa-store fs-2x mb-3"></i>
+                                    <p class="mb-1 fw-bolder text-dark">Retail POS</p>
+                                    <small class="text-muted fs-8">Physical store. Requires QR Codes and Virtual Terminal.</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="stat-card-base h-100 d-flex flex-column justify-content-center" role="button" onclick="selectBizType(this)">
+                                    <i class="fas fa-user-tie fs-2x mb-3"></i>
+                                    <p class="mb-1 fw-bolder text-dark">Freelancer / Services</p>
+                                    <small class="text-muted fs-8">Invoicing & Payment Links focused. No physical inventory.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="step-2-content" class="step-content d-none">
+                        <div class="d-flex flex-column gap-3">
+                            <div class="border p-3 rounded-3 bg-white shadow-sm d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/M-PESA_LOGO-01.svg" height="30" class="me-4" alt="M-Pesa">
+                                    <div>
+                                        <h6 class="fw-bolder text-dark mb-0">M-Pesa STK & Paybill</h6>
+                                        <span class="text-muted fs-8">Instant activation via Sendmo aggregation.</span>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch form-check-custom form-check-solid">
+                                    <input class="form-check-input h-25px w-45px" type="checkbox" checked disabled title="Mandatory for Kenya">
+                                </div>
+                            </div>
+
+                            <div class="border p-3 rounded-3 bg-white shadow-sm d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-credit-card text-primary fs-2x me-4 ms-2"></i>
+                                    <div>
+                                        <h6 class="fw-bolder text-dark mb-0">Card Processing (Visa/MC)</h6>
+                                        <span class="text-muted fs-8">Accept global debit and credit cards.</span>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch form-check-custom form-check-solid">
+                                    <input class="form-check-input h-25px w-45px bg-primary border-primary" type="checkbox" checked>
+                                </div>
+                            </div>
+
+                            <div class="border p-3 rounded-3 bg-white shadow-sm d-flex justify-content-between align-items-center">
+                                <div class="d-flex align-items-center">
+                                    <i class="fas fa-university text-dark fs-2x me-4 ms-2"></i>
+                                    <div>
+                                        <h6 class="fw-bolder text-dark mb-0">EFT / Bank Transfers</h6>
+                                        <span class="text-muted fs-8">Generates virtual accounts for B2B invoice payments.</span>
+                                    </div>
+                                </div>
+                                <div class="form-check form-switch form-check-custom form-check-solid">
+                                    <input class="form-check-input h-25px w-45px bg-primary border-primary" type="checkbox" checked>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="step-3-content" class="step-content d-none">
+                        <div class="prefill-card p-3 mb-4 cursor-pointer d-flex align-items-center justify-content-between" id="payoutPrefillCard" onclick="applyPayoutPrefill()">
+                            <div class="d-flex align-items-center">
+                                <div class="symbol symbol-45px bg-white rounded-circle d-flex justify-content-center align-items-center me-3 shadow-sm border">
+                                    <i class="fas fa-mobile-alt text-success fs-5"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bolder text-dark mb-1 d-flex align-items-center">Link Verified KYC Number <span class="badge bg-success ms-2 fs-9">Fastest Payout</span></h6>
+                                    <span class="fs-8 text-muted d-block">Route M-Pesa payouts directly to <strong class="text-dark">+254 712 345 678</strong></span>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-success fw-bold px-4" id="payoutPrefillBtn">Connect</button>
+                        </div>
+
+                        <div class="position-relative mb-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <hr class="flex-grow-1 border-dashed m-0">
+                                <span class="px-3 text-muted fs-8 fw-bold text-uppercase">Or Set Up Bank Settlement</span>
+                                <hr class="flex-grow-1 border-dashed m-0">
+                            </div>
+                        </div>
+
+                        <div class="row g-4">
+                            <div class="col-md-12">
+                                <div class="form-floating">
+                                    <select class="form-select bg-light border-0" id="wizBankName">
+                                        <option value="">Select Bank...</option>
+                                        <option value="kcb">KCB Bank Kenya</option>
+                                        <option value="equity">Equity Bank</option>
+                                        <option value="coop">Co-operative Bank</option>
+                                    </select>
+                                    <label>Destination Bank</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input id="wizAccName" class="form-control bg-light border-0" type="text" placeholder="Account Name" />
+                                    <label>Account Name</label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    <input id="wizAccNumber" class="form-control bg-light border-0" type="text" placeholder="Account Number" />
+                                    <label>Account Number</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="step-4-content" class="step-content d-none">
+                        
+                        <div class="alert bg-light-warning border border-warning border-dashed p-4 mb-4 d-flex align-items-start rounded-3">
+                            <i class="fas fa-shield-alt text-warning fs-2x me-3 mt-1"></i>
+                            <div>
+                                <h5 class="fw-bolder text-warning-dark mb-1">Final Approval Required</h5>
+                                <span class="text-dark fs-7">Please read and agree to all the mandatory compliance policies below before your POS is activated.</span>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-3 border bg-light mb-4 shadow-sm">
+                            <h6 class="fw-bolder text-dark mb-4 fs-5 border-bottom pb-2">Mandatory Declarations</h6>
+                            
+                            <div class="d-flex flex-column gap-2">
+                                <label class="compliance-check-row d-flex align-items-start gap-3 w-100">
+                                    <input class="form-check-input mt-1 kyb-consent-cb h-20px w-20px" type="checkbox" onchange="validateWizFinish()">
+                                    <span class="fs-7 text-dark fw-semibold lh-sm">I accept the <strong class="text-primary">Master Terms of Service</strong> and Merchant Agreement.</span>
+                                </label>
+                                <label class="compliance-check-row d-flex align-items-start gap-3 w-100">
+                                    <input class="form-check-input mt-1 kyb-consent-cb h-20px w-20px" type="checkbox" onchange="validateWizFinish()">
+                                    <span class="fs-7 text-dark fw-semibold lh-sm">I accept the <strong class="text-primary">Privacy Policy</strong> and Data Processing Agreement (DPA).</span>
+                                </label>
+                                <label class="compliance-check-row d-flex align-items-start gap-3 w-100">
+                                    <input class="form-check-input mt-1 kyb-consent-cb h-20px w-20px" type="checkbox" onchange="validateWizFinish()">
+                                    <span class="fs-7 text-dark fw-semibold lh-sm">I acknowledge the <strong class="text-primary">Anti-Money Laundering (AML)</strong> & KYC policies.</span>
+                                </label>
+                                <label class="compliance-check-row d-flex align-items-start gap-3 w-100">
+                                    <input class="form-check-input mt-1 kyb-consent-cb h-20px w-20px" type="checkbox" onchange="validateWizFinish()">
+                                    <span class="fs-7 text-dark fw-semibold lh-sm">I agree to the <strong class="text-primary">Notification & Electronic Communication Policy</strong>.</span>
+                                </label>
+                                <label class="compliance-check-row d-flex align-items-start gap-3 w-100">
+                                    <input class="form-check-input mt-1 kyb-consent-cb h-20px w-20px" type="checkbox" onchange="validateWizFinish()">
+                                    <span class="fs-7 text-dark fw-semibold lh-sm">I understand the <strong class="text-primary">Refund, Chargeback, & Dispute Resolution Policy</strong>.</span>
+                                </label>
+                                <label class="compliance-check-row d-flex align-items-start gap-3 w-100">
+                                    <input class="form-check-input mt-1 kyb-consent-cb h-20px w-20px" type="checkbox" onchange="validateWizFinish()">
+                                    <span class="fs-7 text-dark fw-semibold lh-sm">I consent to <strong class="text-primary">Financial Information Sharing</strong> with banking partners.</span>
+                                </label>
+                                <label class="compliance-check-row d-flex align-items-start gap-3 w-100">
+                                    <input class="form-check-input mt-1 kyb-consent-cb h-20px w-20px" type="checkbox" onchange="validateWizFinish()">
+                                    <span class="fs-7 text-dark fw-semibold lh-sm">I confirm that all submitted documents and details are authentic.</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="step-5-content" class="step-content d-none">
+                        
+                        <div class="text-center mb-5 mt-3">
+                            <div class="d-inline-flex align-items-center justify-content-center bg-light-success text-success rounded-circle mb-3 border border-success border-dashed" style="width: 90px; height: 90px;">
+                                <i class="fas fa-check-double fs-4x"></i>
+                            </div>
+                            <h2 class="fw-bolder text-dark">Setup Complete!</h2>
+                            <p class="text-muted fs-6">Your Fintech POS terminal is fully configured and ready to process payments.</p>
+                        </div>
+                        
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="p-4 rounded-4 border shadow-sm h-100" style="background-color: #fdfdfd;">
+                                    <h6 class="fw-bolder text-dark mb-3 border-bottom pb-2"><i class="fas fa-building text-primary me-2"></i>Business Details</h6>
+                                    <div class="d-flex justify-content-between mb-2 fs-7"><span class="text-muted">Entity Name:</span> <span class="fw-bold text-dark">Pkenya Verification Ltd</span></div>
+                                    <div class="d-flex justify-content-between mb-2 fs-7"><span class="text-muted">KRA PIN:</span> <span class="fw-bold text-dark">P051234567Z</span></div>
+                                    <div class="d-flex justify-content-between mb-2 fs-7"><span class="text-muted">Model:</span> <span class="badge bg-light-primary text-primary">Hybrid E-commerce & POS</span></div>
+                                    <div class="d-flex justify-content-between mb-0 fs-7"><span class="text-muted">Gateway:</span> <span class="fw-bold text-success">Active (M-Pesa, Card, Bank)</span></div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="p-4 rounded-4 border shadow-sm h-100" style="background-color: #fdfdfd;">
+                                    <h6 class="fw-bolder text-dark mb-3 border-bottom pb-2"><i class="fas fa-desktop text-warning me-2"></i>Terminal & Staff</h6>
+                                    <div class="d-flex justify-content-between mb-2 fs-7"><span class="text-muted">Terminal Ref:</span> <span class="badge bg-dark fw-bolder">POS-04-NRB</span></div>
+                                    <div class="d-flex justify-content-between mb-2 fs-7"><span class="text-muted">Manager:</span> <span class="fw-bold text-dark">Daniel Milimo Nalianya</span></div>
+                                    <div class="d-flex justify-content-between mb-0 fs-7"><span class="text-muted">Cashier:</span> <span class="fw-bold text-dark">Thomas O. Kwasa</span></div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="p-4 rounded-4 border border-success bg-light-success d-flex flex-column flex-sm-row justify-content-between align-items-center shadow-sm">
+                                    <div class="d-flex align-items-center mb-3 mb-sm-0">
+                                        <div class="spinner-grow text-success spinner-grow-sm me-3" role="status"></div>
+                                        <div>
+                                            <span class="d-block text-success fw-bolder fs-5 mb-1">System Online & Synced</span>
+                                            <span class="text-success opacity-75 fs-8 fw-bold">Activated: <span id="summaryCurrentDate">09 Apr 2026, 11:00 PM EAT</span></span>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="d-block text-success opacity-75 fw-bold fs-8 text-uppercase mb-1">Network Status</span>
+                                        <span class="badge bg-success fs-7 px-3 py-2">1 Node Running</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
+
+            <div class="modal-footer border-0 p-4 bg-light d-flex justify-content-between align-items-center">
+                <button type="button" class="btn btn-outline btn-outline-dashed btn-outline-dark fw-bold px-5" id="wizPrevBtn" onclick="handleWizPrev()" disabled>
+                    <i class="fas fa-arrow-left me-2"></i> Back
+                </button>
+                <div class="d-flex align-items-center gap-2" id="wizDotsIndicator">
+                    </div>
+                <button type="button" class="btn btn-gold fw-bolder px-5 shadow-sm" id="wizNextBtn" onclick="handleWizNext()">
+                    Next Step <i class="fas fa-arrow-right ms-2"></i>
+                </button>
+            </div>
+
         </div>
     </div>
 </div>
+
+<script>
+    let wizCurrentStep = 0;
+    const wizTotalSteps = 6;
+    const wizTitles = [
+        { title: 'Contact & Legal Profile', sub: 'Verify identity and primary contact details for compliance.' },
+        { title: 'Define Your Business Type', sub: 'Select the model that best describes you. This determines features.' },
+        { title: 'Payment Channels', sub: 'Configure the payment types you wish to accept.' },
+        { title: 'Payout Destination', sub: 'Where should we send your settled funds?' },
+        { title: 'Compliance Declarations', sub: 'Review and accept mandatory terms to launch.' },
+        { title: 'Setup Complete', sub: 'Review your terminal details and start selling.' }
+    ];
+
+    function updateWizUI() {
+        // Update Content Visibility
+        for (let i = 0; i < wizTotalSteps; i++) {
+            const content = document.getElementById(`step-${i}-content`);
+            if (content) {
+                if (i === wizCurrentStep) content.classList.remove('d-none');
+                else content.classList.add('d-none');
+            }
+        }
+
+        // Update Sidebar Active States
+        const navButtons = document.querySelectorAll('.wizard-sidebar .nav-link');
+        navButtons.forEach((btn, index) => {
+            const icon = btn.querySelector('.symbol-label');
+            if (index === wizCurrentStep) {
+                btn.classList.add('active', 'bg-white', 'shadow-sm', 'text-primary');
+                btn.classList.remove('text-muted');
+                icon.classList.replace('bg-white', 'bg-primary');
+                icon.classList.replace('text-dark', 'text-white');
+            } else {
+                btn.classList.remove('active', 'bg-white', 'shadow-sm', 'text-primary');
+                btn.classList.add('text-muted');
+                icon.classList.replace('bg-primary', 'bg-white');
+                icon.classList.replace('text-white', 'text-dark');
+            }
+        });
+
+        // Update Header Titles
+        document.getElementById('stepTitle').innerText = wizTitles[wizCurrentStep].title;
+        document.getElementById('stepSubTitle').innerText = wizTitles[wizCurrentStep].sub;
+        document.getElementById('stepCount').innerText = `Step ${wizCurrentStep + 1} of ${wizTotalSteps}`;
+
+        // Update Buttons
+        const btnPrev = document.getElementById('wizPrevBtn');
+        const btnNext = document.getElementById('wizNextBtn');
+
+        btnPrev.disabled = (wizCurrentStep === 0);
+
+        if (wizCurrentStep === wizTotalSteps - 1) {
+            // STEP 6: Final Congratulations Page
+            btnNext.innerHTML = '<i class="fas fa-store me-2"></i> Start Selling';
+            btnNext.classList.replace('btn-gold', 'btn-success');
+            btnNext.disabled = false;
+            
+            // Set dynamic date
+            document.getElementById('summaryCurrentDate').innerText = new Date().toLocaleString('en-KE', { dateStyle: 'medium', timeStyle: 'short' }) + ' EAT';
+
+            btnNext.onclick = function() {
+                const wizModal = bootstrap.Modal.getInstance(document.getElementById('setupWizardModal'));
+                if(wizModal) wizModal.hide();
+                
+                // Show a success alert
+                alert('POS Terminal Activated. Ready for transactions!');
+                
+                // Reset wizard for demo purposes
+                setTimeout(() => { 
+                    setCurrentStep(0); 
+                    document.querySelectorAll('.kyb-consent-cb').forEach(cb => cb.checked = false); 
+                }, 1000);
+            };
+
+        } else if (wizCurrentStep === 4) {
+            // STEP 5: Compliance Checkboxes
+            btnNext.innerHTML = 'Accept & Continue <i class="fas fa-arrow-right ms-2"></i>';
+            btnNext.classList.replace('btn-success', 'btn-gold');
+            
+            // Re-run validation to set disabled state correctly
+            validateWizFinish();
+            btnNext.onclick = handleWizNext;
+
+        } else {
+            // STEPS 1-4: Standard Navigation
+            btnNext.innerHTML = 'Next Step <i class="fas fa-arrow-right ms-2"></i>';
+            btnNext.classList.replace('btn-success', 'btn-gold');
+            btnNext.disabled = false;
+            btnNext.onclick = handleWizNext;
+        }
+
+        // Update Dots Indicator
+        let dotsHtml = '';
+        for (let i = 0; i < wizTotalSteps; i++) {
+            const color = i === wizCurrentStep ? 'var(--primary-gold)' : '#e4e6ef';
+            dotsHtml += `<span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:${color}; transition:0.3s; margin:0 2px;"></span>`;
+        }
+        document.getElementById('wizDotsIndicator').innerHTML = dotsHtml;
+    }
+
+    function setCurrentStep(index) {
+        wizCurrentStep = index;
+        updateWizUI();
+    }
+
+    function handleWizNext() {
+        if (wizCurrentStep < wizTotalSteps - 1) {
+            wizCurrentStep++;
+            updateWizUI();
+        }
+    }
+
+    function handleWizPrev() {
+        if (wizCurrentStep > 0) {
+            wizCurrentStep--;
+            updateWizUI();
+        }
+    }
+
+    // --- Validation Logic for Compliance Step (Step 5) ---
+    function validateWizFinish() {
+        if (wizCurrentStep === 4) {
+            const btnNext = document.getElementById('wizNextBtn');
+            const checkboxes = document.querySelectorAll('.kyb-consent-cb');
+            
+            // Check if all 7 mandatory checkboxes are checked
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            btnNext.disabled = !allChecked;
+        }
+    }
+
+    // --- Pre-fill Logic ---
+    function applyKybPrefill() {
+        const card = document.getElementById('kybPrefillCard');
+        const nameInput = document.getElementById('wizLegalName');
+        const emailInput = document.getElementById('wizEmail');
+        const taxInput = document.getElementById('wizTaxId');
+
+        nameInput.value = 'Pkenya Verification Ltd';
+        emailInput.value = 'billing@pkenya.com';
+        taxInput.value = 'P051234567Z';
+
+        [nameInput, emailInput, taxInput].forEach(input => {
+            input.setAttribute('readonly', true);
+            input.classList.add('locked-filled');
+        });
+
+        card.classList.add('applied');
+        card.innerHTML = `
+            <div class="d-flex align-items-center">
+                <div class="symbol symbol-45px bg-success rounded-circle d-flex justify-content-center align-items-center me-3 shadow-sm">
+                    <i class="fas fa-check text-white fs-4"></i>
+                </div>
+                <div>
+                    <h6 class="fw-bolder text-success mb-1">KYB Data Applied & Locked</h6>
+                    <span class="fs-8 text-muted d-block">Inputs are verified and cannot be edited manually.</span>
+                </div>
+            </div>
+        `;
+    }
+
+    function applyPayoutPrefill() {
+        const card = document.getElementById('payoutPrefillCard');
+        
+        document.getElementById('wizBankName').setAttribute('disabled', true);
+        document.getElementById('wizAccName').setAttribute('disabled', true);
+        document.getElementById('wizAccNumber').setAttribute('disabled', true);
+
+        card.classList.add('applied');
+        card.innerHTML = `
+            <div class="d-flex align-items-center">
+                <div class="symbol symbol-45px bg-success rounded-circle d-flex justify-content-center align-items-center me-3 shadow-sm">
+                    <i class="fas fa-check text-white fs-4"></i>
+                </div>
+                <div>
+                    <h6 class="fw-bolder text-success mb-1">M-Pesa Payout Activated</h6>
+                    <span class="fs-8 text-muted d-block">Settlements will go to +254 712 345 678</span>
+                </div>
+            </div>
+        `;
+    }
+
+    function selectBizType(element) {
+        document.querySelectorAll('#step-1-content .stat-card-base').forEach(card => {
+            card.classList.remove('active-gold');
+        });
+        element.classList.add('active-gold');
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        updateWizUI();
+    });
+</script>
 
 <div class="modal fade" id="switchAgentModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" style="max-width: 350px;">
@@ -10715,6 +12179,8 @@
             });
         });
     </script>
+
+    
 
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     <script src="../assets/plugins/global/plugins.bundle.js"></script>
