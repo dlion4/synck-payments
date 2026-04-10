@@ -2839,1927 +2839,757 @@
                 <!--end::Header-->
                 <!--begin::Content-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-                    <!--begin::Container-->
-                    <div class=" container-xxl " id="kt_content_container">
+                   <div class="container-xxl" id="kt_content_container">
 
-
-                                    <!--begin::Row-->
-                <style>
-    /* =========================
-       Gold Monochrome Theme Vars
-       ========================= */
-    :root{
-      --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      --gold-900: #6f4b03;
-      --gold-700: #b88612;
-      --gold-500: #e6b829;
-      --gold-300: #f4d87a;
-      --gold-50: #fff9ec;
-      --bg-surface: #f6f7fb;
-      --muted: #6c757d;
-      --text: #222;
-      --card-radius: 14px;
-      --focus-shadow: 0 12px 40px rgba(230,184,41,0.12);
-      --soft-shadow: 0 8px 24px rgba(34,41,47,0.06);
-      --accent-gradient: linear-gradient(90deg, #e96016 0%, #1866ff 100%); /* reuse if needed */
-    }
-
-    body{
-      font-family: var(--font-sans);
-      background: var(--bg-surface);
-      color: var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding-bottom: 80px;
-    }
-
-    /* Header */
-    header {
-      background: #fff;
-      border-bottom: 1px solid rgba(0,0,0,0.04);
-      box-shadow: 0 1px 0 rgba(0,0,0,0.02);
-    }
-    .brand-badge { width:40px; height:40px; border-radius: 10px; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, rgba(230,184,41,0.12), rgba(230,184,41,0.04)); color:var(--gold-700); font-weight:700; }
-
-    /* Tabs */
-    .nav-tabs .nav-link { border: 0; padding: .6rem 1rem; border-radius: 10px; color:var(--muted); font-weight:600; }
-    .nav-tabs .nav-link.active {
-      background: var(--gold-500);
-      color: #fff !important;
-      box-shadow: var(--focus-shadow);
-      transform: translateY(-3px);
-    }
-
-    /* Cards */
-    .rounded-4 { border-radius: var(--card-radius) !important; }
-    .card-elevated {
-      border-radius: var(--card-radius);
-      box-shadow: var(--soft-shadow);
-      transition: transform .18s ease, box-shadow .18s ease;
-      border: 1px solid rgba(0,0,0,0.04);
-    }
-    .card-elevated:hover { transform: translateY(-6px); box-shadow: var(--focus-shadow); }
-
-    /* Animated micro interactions */
-    .btn-gold {
-      background: linear-gradient(90deg, #f2c94c, #e6b829);
-      color: #1b1200;
-      border:none;
-      font-weight:700;
-      border-radius: 10px;
-      box-shadow: 0 10px 24px rgba(230,184,41,0.12);
-      transition: transform .12s, filter .12s;
-    }
-    .btn-gold:hover { transform: translateY(-3px); filter:brightness(.98); }
-
-    /* Animated icons */
-    .icon-pulse { animation: pulse 2s infinite; }
-    @keyframes pulse { 0%{ transform:scale(1); } 50%{ transform:scale(1.05);} 100%{ transform:scale(1); } }
-
-    /* Pop-in animation */
-    @keyframes popIn { 0%{opacity:0; transform:scale(.96) translateY(6px);} 100%{opacity:1; transform:scale(1) translateY(0);} }
-    .animate-pop { animation: popIn .32s cubic-bezier(.2,.9,.3,1) both; }
-
-    /* Fade-in */
-    .animate-fade { animation: fadeIn .45s ease both; }
-    @keyframes fadeIn { from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
-
-    /* Gold spinner */
-    .spinner-gold {
-      width:36px; height:36px; border:4px solid rgba(230,184,41,0.18); border-top-color:var(--gold-700); border-radius:50%; animation:spin 1s linear infinite; margin:auto;
-    }
-    @keyframes spin{ to{transform:rotate(360deg);} }
-
-    /* Mini tabs/buttons */
-    .mini-pill { padding:.35rem .75rem; border-radius:999px; border: 1px solid rgba(0,0,0,0.04); background: #fff; font-weight:600; color:var(--muted); }
-    .mini-pill.active { background: var(--gold-50); border-color: rgba(230,184,41,0.18); color:var(--gold-700); box-shadow: 0 6px 18px rgba(230,184,41,0.06); transform: translateY(-2px); }
-
-    /* Table inside card */
-    .table-card { border-radius: 12px; overflow:hidden; border:1px solid rgba(0,0,0,0.04); }
-
-    /* Modal wizard */
-    .modal-wizard .modal-content { border-radius: 12px; overflow: hidden; border: 1px solid rgba(0,0,0,0.06); }
-    .wizard-step { padding: 1rem; border-radius: 10px; background: #fff; border: 1px dashed rgba(0,0,0,0.03); }
-
-    /* mini progress */
-    .progress-pill { height: 10px; border-radius:10px; overflow:hidden; background: rgba(0,0,0,0.05); }
-    .progress-pill > i { display:block; height:100%; background: linear-gradient(90deg,#ffd86b,#e6b829); width:0%; transition: width .4s ease; }
-
-    /* small helpers */
-    .text-gold { color:var(--gold-700) !important; }
-    .muted-small { color:var(--muted); font-size:.92rem; }
-    .kbd-pill { background:#fff; padding:.35rem .6rem; border-radius:8px; border:1px solid rgba(0,0,0,0.04); }
-
-    /* responsive */
-    @media (max-width: 768px){
-      .nav-tabs { overflow-x:auto; white-space:nowrap; gap:8px; }
-      header .container-fluid{ padding-left:12px; padding-right:12px; }
-    }
-                </style>
-                <style>
-    /* ===== Theme Vars (Gold + Gradient) ===== */
- 
-    /* ===== Page base ===== */
-    body{
-      margin:0;
-      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg, #f4f6f9 0%, #eef2f6 100%);
-      color: #111827;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      padding: 2rem;
-    }
-
-    
-
-    /* ===== Header ===== */
-    header.demo-header{
-      background: transparent;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      margin-bottom:1.25rem;
-    }
-    .brand {
-      display:flex;
-      align-items:center;
-      gap:.6rem;
-    }
-    .brand-bubble{
-      width:46px;height:46px;border-radius:10px;
-      display:flex;align-items:center;justify-content:center;
-      background: linear-gradient(135deg, rgba(230,184,41,0.12), rgba(230,184,41,0.04));
-      color:var(--gold-700); font-weight:700; font-size:1.05rem;
-      box-shadow: 0 6px 20px rgba(34,41,47,0.06);
-    }
-
-    /* ===== LAUNCH BUTTON ===== */
-    .launch-btn {
-      background: linear-gradient(90deg,var(--accent-start),var(--accent-end));
-      color:rgb(77, 74, 68);
-      border:none;
-      padding:.55rem .95rem;
-      border-radius:10px;
-      font-weight:700;
-      box-shadow: 0 12px 34px rgba(24,102,255,0.12);
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .launch-btn:hover { transform: translateY(-3px); }
-
-    /* ===== Modal & Glass Wizard ===== */
-    .modal-wizard .modal-content {
-      background: linear-gradient(180deg, rgba(255,255,255,0.56), rgba(255,255,255,0.36));
-      border-radius: 18px;
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(var(--glass-blur)) saturate(1.05);
-      -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(1.05);
-      box-shadow: 0 18px 50px rgba(18,24,31,0.10);
-      overflow: hidden;
-      padding: 0;
-    }
-
-    .wizard-shell {
-      display:flex;
-      min-height: 72vh;
-      max-height: 78vh;
-    }
-
-    /* Sidebar vertical steps */
-    .wizard-sidebar {
-      width: 260px;
-      padding: 28px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
-      border-right: 1px solid rgba(0,0,0,0.03);
-      display:flex;
-      flex-direction:column;
-      gap: 14px;
-    }
-    .wizard-logo {
-      display:flex; align-items:center; gap:.6rem; margin-bottom:6px;
-    }
-    .step-item {
-      display:flex;
-      align-items:center;
-      gap:.8rem;
-      padding:.6rem;
-      border-radius: 10px;
-      cursor:pointer;
-      transition: all .18s ease;
-      color:var(--muted);
-    }
-    .step-item:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(18,24,31,0.04); }
-    .step-item.active {
-      background: linear-gradient(90deg, rgba(233,96,22,0.08), rgba(24,102,255,0.06));
-      color: #05204d;
-      box-shadow: 0 10px 30px rgba(24,102,255,0.08);
-      border-left: 4px solid var(--gold-500);
-      transform: translateY(-3px);
-    }
-    .step-number {
-      min-width:36px; min-height:36px; border-radius:9px;
-      display:flex; align-items:center; justify-content:center; font-weight:700;
-      background: linear-gradient(90deg,#fff, rgba(255,255,255,0.6));
-      border:1px solid rgba(0,0,0,0.03);
-      color:var(--gold-700);
-      box-shadow: 0 6px 20px rgba(34,41,47,0.04);
-    }
-
-    /* Content area */
-    .wizard-content {
-      flex:1;
-      padding: 28px;
-      overflow:auto;
-    }
-    .wizard-card {
-      background: rgba(255,255,255,0.82);
-      border-radius: 12px;
-      padding: 20px;
-      border: 1px solid rgba(0,0,0,0.04);
-      box-shadow: 0 10px 30px rgba(18,24,31,0.04);
-    }
-
-    /* Step content transitions */
-    .step-pane { display:none; opacity:0; transform: translateY(8px); transition: all .28s cubic-bezier(.2,.9,.3,1); }
-    .step-pane.active { display:block; opacity:1; transform: none; }
-
-    /* Form fields */
-    .form-label { font-weight:600; color:#1f2937; }
-    .muted-sm { color:var(--muted); font-size:.92rem; }
-    .chip { padding:.35rem .6rem; border-radius:999px; border:1px solid rgba(0,0,0,0.04); background:#fff; font-weight:600; }
-
-    /* file preview */
-    .file-preview { border-radius:8px; padding:.6rem; border:1px dashed rgba(0,0,0,0.06); background: rgba(255,255,255,0.65); }
-
-    /* footer actions */
-    .wizard-footer {
-      display:flex; justify-content:space-between; align-items:center; gap:12px;
-      margin-top:14px;
-    }
-    .btn-ghost {
-      background:transparent; border:1px solid rgba(0,0,0,0.06); color:var(--muted); border-radius:8px; padding:.55rem .9rem;
-    }
-
-    /* small responsive */
-    @media (max-width: 900px){
-      .wizard-shell { flex-direction:column; min-height: auto; }
-      .wizard-sidebar { width:100%; display:flex; flex-wrap:wrap; gap:8px; }
-      .wizard-content { padding: 18px; }
-    }
-
-   @media (max-width: 576px) {
-
-  /* Compact header */
-  header .container-fluid {
-    padding: 0.5rem 1rem !important;
-  }
-
-  /* Title smaller for mobile */
-  header .h5 {
-    font-size: 1rem !important;
-  }
-
-  /* Remove text integrations completely */
-  header .muted-small {
-    display: none !important;
-  }
-
-  /* Inject Bootstrap Icons instead */
-  header .social-icons-mobile {
-    display: flex !important;
-    gap: 8px;
-    font-size: 1.1rem;
-    color: #555;
-  }
-
-  /* Verified becomes ONLY the icon */
-  header .verified-text {
-    display: none !important;
-  }
-  header .bi-check-circle-fill {
-    font-size: 1.1rem !important;
-    margin-right: 0 !important;
-    color: #654321 !important;
-  }
-
-  /* Smaller Start button */
-  header .launch-btn {
-    font-size: 0.78rem !important;
-    padding: 6px 10px !important;
-    border-radius: 8px !important;
-    white-space: nowrap;
-  }
-  header .launch-btn i {
-    font-size: 0.85rem !important;
-    margin-right: 4px !important;
-  }
-
-}
-
-
-
-                </style>
-                <!-- HEADER -->
-                <header class="py-3">
-                    <div class="container-fluid px-4 d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="brand-badge">
-                                <i class="fas fa-hand-holding-dollar"></i>
-                            </div>
-                            <div>
-                                <div class="h5 mb-0 fw-bold">
-                                    e-Social <span class="text-gold">Payments</span>
-                                </div>
-                                <div class="social-icons-mobile" style="display:none;">
-                                    <i class="bi bi-whatsapp"></i>
-                                    <i class="bi bi-messenger"></i>
-                                    <i class="bi bi-instagram"></i>
-                                    <i class="bi bi-telegram"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="muted-small d-flex align-items-center gap-2">
-                                <i class="fa-solid fa-circle-check"
-                                   style="color: #654321;
-                                          font-size: 1.2rem"></i>
-                                <span class="verified-text">Verified</span>
-                            </div>
-                            <button class="launch-btn"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#socialWizardModal1">
-                                <i class="fas fa-rocket me-2"></i> Start Social Onboarding
-                            </button>
-                        </div>
-                    </div>
-                </header>
-                <!-- MAIN -->
-                <main class="container-fluid px-4 mt-4">
-                    <!-- PRIMARY TABS -->
-                    <ul class="nav nav-tabs align-items-center" id="main-tabs" role="tablist">
-                        <li class="nav-item me-2">
-                            <button class="nav-link active" onclick="switchTab('overview')">
-                                <i class="fas fa-home me-2"></i>Overview
-                            </button>
-                        </li>
-                        <li class="nav-item me-2">
-                            <button class="nav-link" onclick="switchTab('links')">
-                                <i class="fas fa-link me-2"></i>Payment Links
-                            </button>
-                        </li>
-                        <li class="nav-item me-2">
-                            <button class="nav-link" onclick="switchTab('accounts')">
-                                <i class="fas fa-plug me-2"></i>Social Accounts
-                            </button>
-                        </li>
-                        <li class="nav-item me-2">
-                            <button class="nav-link" onclick="switchTab('transactions')">
-                                <i class="fas fa-receipt me-2"></i>Transactions
-                            </button>
-                        </li>
-                        <li class="nav-item">
-                            <button class="nav-link" onclick="switchTab('settings')">
-                                <i class="fas fa-cog me-2"></i>Settings
-                            </button>
-                        </li>
-                    </ul>
-                    <div class="mt-4">
-                        <!-- OVERVIEW -->
-                        <section id="overview" class="animate-fade">
-                            <div class="row g-4">
-                                <div class="col-lg-3">
-                                    <div class="card-elevated p-4 rounded-4">
-                                        <div class="d-flex align-items-start justify-content-between">
-                                            <div>
-                                                <div class="muted-small">Net revenue (30d)</div>
-                                                <div class="h4 fw-bold">$12,450.50</div>
-                                                <div class="muted-small text-success">
-                                                    <i class="fas fa-arrow-up me-1"></i> +8.1% M-o-M
-                                                </div>
-                                            </div>
-                                            <div class="text-end">
-                                                <div class="kbd-pill text-muted-small">30d</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="card-elevated p-4 rounded-4">
-                                        <div class="d-flex align-items-start justify-content-between">
-                                            <div>
-                                                <div class="muted-small">WhatsApp Payments</div>
-                                                <div class="h4 fw-bold">45%</div>
-                                                <div class="muted-small">Dominant Source</div>
-                                            </div>
-                                            <div>
-                                                <i class="fab fa-whatsapp text-gold fs-3"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="card-elevated p-4 rounded-4">
-                                        <div class="d-flex align-items-start justify-content-between">
-                                            <div>
-                                                <div class="muted-small">Conversion Rate</div>
-                                                <div class="h4 fw-bold">14.8%</div>
-                                                <div class="muted-small text-warning">Above Industry</div>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-percent text-gold fs-3"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="card-elevated p-4 rounded-4">
-                                        <div class="d-flex align-items-start justify-content-between">
-                                            <div>
-                                                <div class="muted-small">Active Linked Accounts</div>
-                                                <div class="h4 fw-bold">4 / 5</div>
-                                                <div class="muted-small">Need Telegram</div>
-                                            </div>
-                                            <div>
-                                                <i class="fas fa-plug text-gold fs-3"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- mini tabs -->
-                            <div class="d-flex gap-2 mt-4">
-                                <button class="mini-pill active"
-                                        data-mini="channels"
-                                        onclick="switchMini('channels')">Channel Breakdown</button>
-                                <button class="mini-pill"
-                                        data-mini="activity"
-                                        onclick="switchMini('activity')">Recent Activity</button>
-                                <button class="mini-pill"
-                                        data-mini="insights"
-                                        onclick="switchMini('insights')">Insights</button>
-                            </div>
-                            <div class="mt-3">
-                                <!-- channels -->
-                                <div id="mini-channels" class="animate-fade">
-                                    <div class="row g-4">
-                                        <div class="col-lg-4">
-                                            <div class="card-elevated p-4 rounded-4">
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <div>
-                                                        <h5 class="mb-1">Whatsapp</h5>
-                                                        <div class="muted-small">Whatsapp combined volume</div>
-                                                        <div class="h4 fw-bold text-gold mt-2">$2,100</div>
-                                                    </div>
-                                                    <div>
-                                                        <i class="fab fa-whatsapp fs-2" style="color:#198a15"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="mt-3 d-grid">
-                                                    <button class="btn btn-outline-primary"
-                                                            onclick="openMiniModal('metaAnalytics')">
-                                                        View Analytics
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="card-elevated p-4 rounded-4">
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <div>
-                                                        <h5 class="mb-1">Facebook</h5>
-                                                        <div class="muted-small">Page clicks & Direct URL Collection</div>
-                                                        <div class="h4 fw-bold text-gold mt-2">$540</div>
-                                                    </div>
-                                                    <div>
-                                                        <i class="fab fa-telegram fs-2" style="color:#0088CC"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="mt-3 d-grid">
-                                                    <button class="btn btn-outline-secondary"
-                                                            onclick="openMiniModal('telegramSetup')">
-                                                        Configure Bot Payments
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="card-elevated p-4 rounded-4">
-                                                <div class="d-flex align-items-center justify-content-between">
-                                                    <div>
-                                                        <h5 class="mb-1">instagram</h5>
-                                                        <div class="muted-small">IG combined volume</div>
-                                                        <div class="h4 fw-bold text-gold mt-2">$2,100</div>
-                                                    </div>
-                                                    <div>
-                                                        <i class="fab fa-facebook fs-2" style="color:#910740"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="mt-3 d-grid">
-                                                    <button class="btn btn-outline-primary"
-                                                            onclick="openMiniModal('metaAnalytics')">
-                                                        View Analytics
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- activity -->
-                                <div id="mini-activity" class="d-none animate-fade">
-                                    <div class="card-elevated p-4 rounded-4">
-                                        <h5 class="mb-3">Live Transaction Stream</h5>
-                                        <ul id="activityFeed" class="list-group list-group-flush small">
-                                        </ul>
-                                        <div class="text-muted text-center mt-3 small">
-                                            <i class="fas fa-sync-alt text-gold"></i> Stream updates simulated every 4s
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- insights -->
-                                <div id="mini-insights" class="d-none animate-fade">
-                                    <div class="card-elevated p-4 rounded-4">
-                                        <h5 class="mb-2">Quick Insights</h5>
-                                        <p class="muted-small">
-                                            Top performing link: "Holiday Donation", Best channel: WhatsApp, Suggested action: Add Telegram.
-                                        </p>
-                                        <div class="d-flex gap-2">
-                                            <button class="btn btn-gold btn-sm"
-                                                    onclick="alert('Suggested action applied (demo)')">
-                                                Apply Suggestion
-                                            </button>
-                                            <button class="btn btn-outline-secondary btn-sm"
-                                                    onclick="openMiniModal('insightsDeep')">See full report</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!-- PAYMENT LINKS -->
-                        <section id="links" class="d-none animate-fade mt-4">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="fw-bold">Payment Links</h4>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-sm btn-gold" onclick="openWizard('createLink')">
-                                        <i class="fas fa-plus me-1"></i> Create Link
-                                    </button>
-                                    <button class="btn btn-outline-secondary btn-sm"
-                                            onclick="openWizard('bulkUpload')">Bulk Upload</button>
-                                </div>
-                            </div>
-                            <!-- mini tabs -->
-                            <div class="d-flex gap-2">
-                                <button class="mini-pill active"
-                                        data-links-mini="active"
-                                        onclick="switchLinksMini('active')">Active Links</button>
-                                <button class="mini-pill"
-                                        data-links-mini="templates"
-                                        onclick="switchLinksMini('templates')">Templates</button>
-                                <button class="mini-pill"
-                                        data-links-mini="archived"
-                                        onclick="switchLinksMini('archived')">Archived</button>
-                            </div>
-                            <div class="mt-3">
-                                <div id="links-active" class="animate-fade">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-card">
-                                            <thead class="bg-light small">
-                                                <tr>
-                                                    <th>Link</th>
-                                                    <th>Amount</th>
-                                                    <th>Uses</th>
-                                                    <th>Conversion</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="linksTableBody">
-                                                <!-- populated by JS -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div id="links-templates" class="d-none animate-fade">
-                                    <div class="row g-3">
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="card-elevated p-3 rounded-4">
-                                                <h6>
-                                                    <i class="fas fa-receipt text-gold me-2"></i> Standard Invoice
-                                                </h6>
-                                                <p class="muted-small">Fixed amount invoice for direct clients.</p>
-                                                <div>
-                                                    <button class="btn btn-outline-primary btn-sm"
-                                                            onclick="useTemplate('Standard Invoice')">
-                                                        Use Template
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="card-elevated p-3 rounded-4">
-                                                <h6>
-                                                    <i class="fas fa-hand-holding-heart text-gold me-2"></i> Donation Link
-                                                </h6>
-                                                <p class="muted-small">Let customers choose amount.</p>
-                                                <div>
-                                                    <button class="btn btn-outline-success btn-sm"
-                                                            onclick="useTemplate('Donation')">Use Template</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="card-elevated p-3 rounded-4">
-                                                <h6>
-                                                    <i class="fas fa-hand-holding-heart text-gold me-2"></i> One-time Link
-                                                </h6>
-                                                <p class="muted-small">The link  closes after succesful payment.</p>
-                                                <div>
-                                                    <button class="btn btn-outline-darkS btn-sm"
-                                                            onclick="useTemplate('Donation')">Use Template</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="links-archived" class="d-none animate-fade">
-                                    <div class="card-elevated p-4 rounded-4">
-                                        <p class="muted-small">No archived links (demo).</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!-- ACCOUNTS -->
-                        <section id="accounts" class="d-none animate-fade mt-4">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
-                                <h4 class="fw-bold">Social Accounts</h4>
-                                <div>
-                                    <button class="btn btn-gold btn-sm" onclick="openWizard('linkAccount')">
-                                        <i class="fas fa-plus me-1"></i> Add Account
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button class="mini-pill active"
-                                        data-accounts-mini="active"
-                                        onclick="switchAccountsMini('active')">Active Connections</button>
-                                <button class="mini-pill"
-                                        data-accounts-mini="pending"
-                                        onclick="switchAccountsMini('pending')">Pending</button>
-                                <button class="mini-pill"
-                                        data-accounts-mini="failed"
-                                        onclick="switchAccountsMini('failed')">Failed</button>
-                            </div>
-                            <div class="mt-3">
-                                <div id="accounts-active" class="animate-fade">
-                                    <div class="row g-3">
-                                        <!-- WhatsApp -->
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="card-elevated p-3 rounded-4 border-top border-5"
-                                                 style="border-color:#25D366">
-                                                <div class="d-flex justify-content-between">
-                                                    <div>
-                                                        <i class="fab fa-whatsapp fs-3" style="color:#25D366"></i>
-                                                    </div>
-                                                    <div>
-                                                        <span class="badge bg-success-subtle text-danger-emphasis">inactive</span>
-                                                    </div>
-                                                </div>
-                                                <h6 class="mt-3">WhatsApp Business API</h6>
-                                                <p class="muted-small">Phone: +2547***010 • Level 3</p>
-                                                <div class="d-flex gap-2">
-                                                    <button class="btn btn-outline-success btn-sm"
-                                                            onclick="confirmDisconnect('WhatsApp')">Connect</button>
-                                                    <button class="btn btn-sm btn-outline-primary"
-                                                            onclick="openMiniModal('whatsappWizard')">Manage</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Facebook Messenger -->
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="card-elevated p-3 rounded-4 border-top border-5"
-                                                 style="border-color:#4267B2">
-                                                <div class="d-flex justify-content-between">
-                                                    <div>
-                                                        <i class="fab fa-facebook-messenger fs-3" style="color:#4267B2"></i>
-                                                    </div>
-                                                    <div>
-                                                        <span class="badge bg-success-subtle text-success-emphasis">Active</span>
-                                                    </div>
-                                                </div>
-                                                <h6 class="mt-3">Facebook Messenger Bot</h6>
-                                                <p class="muted-small">Page: @InvestFinTech</p>
-                                                <div class="d-flex gap-2">
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                            onclick="confirmDisconnect('Facebook Messenger')">
-                                                        Disconnect
-                                                    </button>
-                                                    <button class="btn btn-sm btn-outline-primary"
-                                                            onclick="openMiniModal('fbWizard')">Manage</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Instagram -->
-                                        <div class="col-md-6 col-lg-4">
-                                            <div class="card-elevated p-3 rounded-4 border-top border-5"
-                                                 style="border-color:#E1306C">
-                                                <div class="d-flex justify-content-between">
-                                                    <div>
-                                                        <i class="fab fa-instagram fs-3" style="color:#E1306C"></i>
-                                                    </div>
-                                                    <div>
-                                                        <span class="badge bg-success-subtle text-success-emphasis">Active</span>
-                                                    </div>
-                                                </div>
-                                                <h6 class="mt-3">Instagram Business</h6>
-                                                <p class="muted-small">@InvestFinTech • Connected 1y</p>
-                                                <div class="d-flex gap-2">
-                                                    <button class="btn btn-outline-danger btn-sm"
-                                                            onclick="confirmDisconnect('Instagram')">
-                                                        Disconnect
-                                                    </button>
-                                                    <button class="btn btn-sm btn-outline-primary"
-                                                            onclick="openMiniModal('igWizard')">Manage</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="accounts-pending" class="d-none animate-fade">
-                                    <div class="card-elevated p-3 rounded-4">
-                                        <h6>Pending Integrations</h6>
-                                        <p class="muted-small">Telegram bot setup awaiting token.</p>
-                                        <button class="btn btn-sm btn-gold" onclick="openWizard('telegramWizard')">Start Telegram Setup</button>
-                                    </div>
-                                </div>
-                                <div id="accounts-failed" class="d-none animate-fade">
-                                    <div class="card-elevated p-3 rounded-4">
-                                        <h6>Failed Integrations</h6>
-                                        <p class="muted-small">No failures (demo).</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!-- TRANSACTIONS -->
-                        <section id="transactions" class="d-none animate-fade mt-4">
-                            <div class="d-flex justify-content-between mb-3 align-items-center">
-                                <h4 class="fw-bold">Transactions</h4>
-                                <div>
-                                    <button class="btn btn-sm btn-outline-secondary" onclick="downloadReport()">Export</button>
-                                </div>
-                            </div>
-                            <div class="d-flex gap-2">
-                                <button class="mini-pill active" onclick="switchTxnMini('recent')">Recent</button>
-                                <button class="mini-pill" onclick="switchTxnMini('recon')">Reconciliations</button>
-                            </div>
-                            <div class="mt-3">
-                                <div id="txn-recent" class="animate-fade">
-                                    <div class="table-responsive">
-                                        <table class="table table-hover table-card">
-                                            <thead class="bg-light small">
-                                                <tr>
-                                                    <th>Txn ID</th>
-                                                    <th>Amount</th>
-                                                    <th>Channel</th>
-                                                    <th>Reference</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="txnBody">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div id="txn-recon" class="d-none animate-fade">
-                                    <div class="card-elevated p-4 rounded-4">
-                                        <h6>Reconciliation Reports</h6>
-                                        <p class="muted-small">Generate reconciliation files for accounting.</p>
-                                        <button class="btn btn-sm btn-gold" onclick="simulateRecon()">Generate</button>
-                                        <div class="mt-3 d-none" id="reconSpinner">
-                                            <div class="spinner-gold"></div>
-                                            <div class="muted-small text-center mt-2">Compiling report...</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        <!-- SETTINGS -->
-                        <section id="settings" class="d-none animate-fade mt-4">
-                            <h4 class="fw-bold mb-3">Settings & Integrations</h4>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="card-elevated p-3 rounded-4">
-                                        <h6>Notification Preferences</h6>
-                                        <div class="form-check form-switch mt-2">
-                                            <input class="form-check-input" type="checkbox" id="notifEmail" checked>
-                                            <label class="form-check-label muted-small" for="notifEmail">Email notifications</label>
-                                        </div>
-                                        <div class="form-check form-switch mt-2">
-                                            <input class="form-check-input" type="checkbox" id="notifSMS">
-                                            <label class="form-check-label muted-small" for="notifSMS">SMS notifications</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card-elevated p-3 rounded-4">
-                                        <h6>Branding</h6>
-                                        <p class="muted-small">SendMO theme retained — update colors or upload logos.</p>
-                                        <div class="d-flex gap-2">
-                                            <input type="color"
-                                                   id="brandColor"
-                                                   value="#e6b829"
-                                                   class="form-control form-control-color"
-                                                   style="width:64px;
-                                                          padding:.25rem">
-                                            <button class="btn btn-sm btn-outline-secondary"
-                                                    onclick="alert('Customize brand (demo)')">Customize</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                </main>
-                <!-- MINI MODALS AND WIZARDS -->
-                <!-- Meta Analytics / Insights Modal (simple) -->
-                <div class="modal fade" id="miniModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content modal-wizard">
-                            <div class="modal-header">
-                                <h5 id="miniModalTitle" class="modal-title fw-bold text-gold"></h5>
-                                <button class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="miniModalBody">Loading…</div>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                                <button id="miniModalPrimary" class="btn btn-gold">Take Action</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Create Link Wizard (multi-step modal with nested mini-tabs) -->
-                <div class="modal fade"
-                     id="createLinkModal"
-                     tabindex="-1"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content modal-wizard">
-                            <div class="modal-header">
-                                <h5 class="modal-title fw-bold text-gold">Create Payment Link</h5>
-                                <button class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- wizard step header -->
-                                <div class="d-flex justify-content-between align-items-center mb-3">
-                                    <div class="muted-small">
-                                        Step <span id="createLinkStep">1</span> of 4
-                                    </div>
-                                    <div class="progress-pill" style="width:160px;">
-                                        <i id="createLinkProgress"></i>
-                                    </div>
-                                </div>
-                                <!-- steps -->
-                                <div id="createSteps">
-                                    <div class="wizard-step mb-3" data-step="1">
-                                        <h6 class="fw-bold">1. Basic Info</h6>
-                                        <div class="mb-2">
-                                            <label class="form-label">Link Name</label>
-                                            <input id="linkName"
-                                                   class="form-control"
-                                                   placeholder="e.g., Holiday Donation">
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="form-label">Amount (optional)</label>
-                                            <input id="linkAmount"
-                                                   type="number"
-                                                   class="form-control"
-                                                   placeholder="Leave blank for open amount">
-                                        </div>
-                                    </div>
-                                    <div class="wizard-step mb-3 d-none" data-step="2">
-                                        <h6 class="fw-bold">2. Channels & Expiry</h6>
-                                        <div class="mb-2">
-                                            <label class="form-label">Available Channels</label>
-                                            <div class="d-flex gap-2">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="chWhats" checked>
-                                                    <label class="form-check-label">WhatsApp</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="chFB" checked>
-                                                    <label class="form-check-label">Facebook</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" id="chIG">
-                                                    <label class="form-check-label">Instagram</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="form-label">Expiry</label>
-                                            <select id="linkExpiry" class="form-select">
-                                                <option value="30">30 days</option>
-                                                <option value="7">7 days</option>
-                                                <option value="0">Never</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="wizard-step mb-3 d-none" data-step="3">
-                                        <h6 class="fw-bold">3. Design & CTA</h6>
-                                        <div class="mb-2">
-                                            <label class="form-label">Button Text</label>
-                                            <input id="linkCTA" class="form-control" value="Pay Now">
-                                        </div>
-                                        <div class="mb-2">
-                                            <label class="form-label">Accent Color</label>
-                                            <input id="linkColor"
-                                                   type="color"
-                                                   class="form-control form-control-color"
-                                                   value="#e6b829"
-                                                   style="width:64px">
-                                        </div>
-                                    </div>
-                                    <div class="wizard-step mb-3 d-none" data-step="4">
-                                        <h6 class="fw-bold">4. Review & Create</h6>
-                                        <div id="reviewBlock" class="wizard-step p-3"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button id="linkPrev"
-                                        class="btn btn-outline-secondary"
-                                        onclick="createLinkPrev()">Back</button>
-                                <button id="linkNext" class="btn btn-gold" onclick="createLinkNext()">Next</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Social Onboarding 7-step Modal -->
-                <div class="modal fade"
-                     id="socialWizardModal"
-                     tabindex="-1"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content modal-wizard">
-                            <div class="modal-header">
-                                <h5 class="modal-title fw-bold text-gold">Social Onboarding Wizard</h5>
-                                <button class="btn-close" data-bs-dismiss="modal"></button>
-                            </div>
-                            <div class="modal-body">
-                                <div id="socialStepsContainer">
-                                    <!-- Steps injected via JS -->
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button id="socialNextBtn" class="btn btn-gold">Next</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Toast for actions -->
-                <div class="position-fixed bottom-0 end-0 p-3" style="z-index:12000;">
-                    <div id="actionToast"
-                         class="toast align-items-center text-white bg-dark border-0"
-                         role="alert"
-                         aria-live="polite"
-                         aria-atomic="true">
-                        <div class="d-flex">
-                            <div class="toast-body" id="toastBody">Action completed</div>
-                            <button type="button"
-                                    class="btn-close btn-close-white me-2 m-auto"
-                                    data-bs-dismiss="toast"
-                                    aria-label="Close"></button>
-                        </div>
-                    </div>
-                </div>
-                <!-- Bootstrap & small helper JS -->
-                <!-- Bootstrap & small helper JS -->
-                <!-- Modal: Social Onboarding Wizard -->
-                <div class="modal fade"
-                     id="socialWizardModal1"
-                     tabindex="-1"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-dialog-centered">
-                        <div class="modal-content modal-wizard">
-                            <div class="wizard-shell">
-                                <!-- Sidebar -->
-                                <aside class="wizard-sidebar">
-                                    <div class="wizard-logo">
-                                        <div style="font-weight:800;font-size:1.05rem;color:var(--gold-700);">Social Onboarding</div>
-                                    </div>
-                                    <div id="stepsList">
-                                        <div class="step-item active" data-step="0" onclick="goToStep(0)">
-                                            <div class="step-number">1</div>
-                                            <div>
-                                                <div style="font-weight:700;">Personal Info</div>
-                                                <div class="muted-sm">Name, email, phone</div>
-                                            </div>
-                                        </div>
-                                        <div class="step-item" data-step="1" onclick="goToStep(1)">
-                                            <div class="step-number">2</div>
-                                            <div>
-                                                <div style="font-weight:700;">Social Accounts</div>
-                                                <div class="muted-sm">WhatsApp/FB/IG/Telegram</div>
-                                            </div>
-                                        </div>
-                                        <div class="step-item" data-step="2" onclick="goToStep(2)">
-                                            <div class="step-number">3</div>
-                                            <div>
-                                                <div style="font-weight:700;">Brand & Business</div>
-                                                <div class="muted-sm">Brand names, category</div>
-                                            </div>
-                                        </div>
-                                        <div class="step-item" data-step="3" onclick="goToStep(3)">
-                                            <div class="step-number">4</div>
-                                            <div>
-                                                <div style="font-weight:700;">Activity Type</div>
-                                                <div class="muted-sm">Influencer, Freelancer, Business</div>
-                                            </div>
-                                        </div>
-                                        <div class="step-item" data-step="4" onclick="goToStep(4)">
-                                            <div class="step-number">5</div>
-                                            <div>
-                                                <div style="font-weight:700;">Ways of Earning</div>
-                                                <div class="muted-sm">Products, services, sponsorships</div>
-                                            </div>
-                                        </div>
-                                        <div class="step-item" data-step="5" onclick="goToStep(5)">
-                                            <div class="step-number">6</div>
-                                            <div>
-                                                <div style="font-weight:700;">Proof Uploads</div>
-                                                <div class="muted-sm">Transaction PDFs, screenshots</div>
-                                            </div>
-                                        </div>
-                                        <div class="step-item" data-step="6" onclick="goToStep(6)">
-                                            <div class="step-number">7</div>
-                                            <div>
-                                                <div style="font-weight:700;">Verify & Submit</div>
-                                                <div class="muted-sm">Review and finalize</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="margin-top:auto;">
-                                        <div class="muted-sm">Need help?</div>
-                                        <div class="muted-sm">support@esocial.example</div>
-                                    </div>
-                                </aside>
-                                <!-- Content -->
-                                <main class="wizard-content">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <div>
-                                            <h5 class="mb-0" id="paneTitle">Personal Info</h5>
-                                            <div class="muted-sm">
-                                                Step <span id="paneIndex">1</span> of 7
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="chip">sendMO social Platform Payments</div>
-                                        </div>
-                                    </div>
-                                    <div class="wizard-card">
-                                        <!-- Step panes -->
-                                        <div id="pane-0" class="step-pane active">
-                                            <form id="form-0" onsubmit="return false;">
-                                                <div class="row g-3">
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Full name</label>
-                                                        <input class="form-control" id="fullName" placeholder="Jane Doe" required>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Primary email</label>
-                                                        <input type="email"
-                                                               class="form-control"
-                                                               id="primaryEmail"
-                                                               placeholder="you@domain.com"
-                                                               required>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Phone number</label>
-                                                        <input class="form-control" id="phone" placeholder="+2547..." required>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Country</label>
-                                                        <input class="form-control" id="country" placeholder="Kenya">
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <label class="form-label">Short bio / description</label>
-                                                        <textarea class="form-control"
-                                                                  id="bio"
-                                                                  rows="3"
-                                                                  placeholder="What do you do on social platforms?"></textarea>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div id="pane-1" class="step-pane">
-                                            <form id="form-1" onsubmit="return false;">
-                                                <div class="row g-3">
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">WhatsApp Business Phone</label>
-                                                        <input class="form-control" id="waPhone" placeholder="+2547...">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Facebook Page ID</label>
-                                                        <input class="form-control" id="fbPageId" placeholder="Page ID or URL">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Instagram Business Handle</label>
-                                                        <input class="form-control" id="igHandle" placeholder="@yourhandle">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Telegram Bot Token (optional)</label>
-                                                        <input class="form-control" id="tgToken" placeholder="123456:ABC-DEF">
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <div class="muted-sm">You can add multiple accounts in Settings later.</div>
-                                                        <div class="mt-2 d-flex gap-2">
-                                                            <button class="btn btn-ghost"
-                                                                    onclick="addAccount('WhatsApp', document.getElementById('waPhone').value)">
-                                                                Add WhatsApp
-                                                            </button>
-                                                            <button class="btn btn-ghost"
-                                                                    onclick="addAccount('Facebook', document.getElementById('fbPageId').value)">
-                                                                Add Facebook
-                                                            </button>
-                                                            <button class="btn btn-ghost"
-                                                                    onclick="addAccount('Instagram', document.getElementById('igHandle').value)">
-                                                                Add Instagram
-                                                            </button>
-                                                            <button class="btn btn-ghost"
-                                                                    onclick="addAccount('Telegram', document.getElementById('tgToken').value)">
-                                                                Add Telegram
-                                                            </button>
-                                                        </div>
-                                                        <div class="mt-3" id="linkedAccountsContainer"></div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div id="pane-2" class="step-pane">
-                                            <form id="form-2" onsubmit="return false;">
-                                                <div class="row g-3">
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Brand / Business Name</label>
-                                                        <input class="form-control" id="brandName" placeholder="Acme Store">
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <label class="form-label">Website (optional)</label>
-                                                        <input class="form-control" id="brandWebsite" placeholder="https://">
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <label class="form-label">Short brand description</label>
-                                                        <textarea class="form-control"
-                                                                  id="brandDesc"
-                                                                  rows="3"
-                                                                  placeholder="What does your brand sell or promote?"></textarea>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <label class="form-label">Business registration / Tax ID (optional)</label>
-                                                        <input class="form-control" id="taxId" placeholder="AB123456">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div id="pane-3" class="step-pane">
-                                            <form id="form-3" onsubmit="return false;">
-                                                <div class="row g-3">
-                                                    <div class="col-md-12">
-                                                        <label class="form-label">Type of social activity</label>
-                                                        <div class="d-flex gap-3 mt-2">
-                                                            <div>
-                                                                <input type="radio"
-                                                                       name="activityType"
-                                                                       value="Influencer"
-                                                                       id="actInfluencer">
-                                                                <label class="muted-sm ms-2" for="actInfluencer">Influencer</label>
-                                                            </div>
-                                                            <div>
-                                                                <input type="radio" name="activityType" value="Business" id="actBusiness">
-                                                                <label class="muted-sm ms-2" for="actBusiness">Business</label>
-                                                            </div>
-                                                            <div>
-                                                                <input type="radio"
-                                                                       name="activityType"
-                                                                       value="Freelancer"
-                                                                       id="actFreelancer">
-                                                                <label class="muted-sm ms-2" for="actFreelancer">Freelancer</label>
-                                                            </div>
-                                                            <div>
-                                                                <input type="radio" name="activityType" value="Student" id="actStudent">
-                                                                <label class="muted-sm ms-2" for="actStudent">Student</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <label class="form-label">Primary audience / niche</label>
-                                                        <input class="form-control"
-                                                               id="niche"
-                                                               placeholder="Finance, Fashion, Education...">
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <label class="form-label">Monthly average income from socials (estimate)</label>
-                                                        <input type="number"
-                                                               class="form-control"
-                                                               id="monthlyIncome"
-                                                               placeholder="0.00">
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div id="pane-4" class="step-pane">
-                                            <form id="form-4" onsubmit="return false;">
-                                                <div class="row g-3">
-                                                    <div class="col-12">
-                                                        <label class="form-label">Ways you earn (select all that apply)</label>
-                                                        <div class="mt-2 d-flex gap-3 flex-wrap">
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" id="earnProducts">
-                                                                <label class="form-check-label muted-sm ms-2" for="earnProducts">Products</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" id="earnServices">
-                                                                <label class="form-check-label muted-sm ms-2" for="earnServices">Services</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" id="earnSponsorships">
-                                                                <label class="form-check-label muted-sm ms-2" for="earnSponsorships">Sponsorships</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" id="earnDonations">
-                                                                <label class="form-check-label muted-sm ms-2" for="earnDonations">Tips / Donations</label>
-                                                            </div>
-                                                            <div class="form-check">
-                                                                <input class="form-check-input" type="checkbox" id="earnSubs">
-                                                                <label class="form-check-label muted-sm ms-2" for="earnSubs">Subscriptions</label>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <label class="form-label">Describe your main revenue stream</label>
-                                                        <textarea class="form-control" id="revenueDesc" rows="3"></textarea>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div id="pane-5" class="step-pane">
-                                            <form id="form-5" onsubmit="return false;">
-                                                <div class="row g-3">
-                                                    <div class="col-12">
-                                                        <label class="form-label">Upload transaction proofs (PDF or image)</label>
-                                                        <input type="file"
-                                                               id="proofFiles"
-                                                               class="form-control"
-                                                               accept=".pdf,image/*"
-                                                               multiple>
-                                                        <div class="mt-3" id="proofPreview"></div>
-                                                        <div class="muted-sm mt-2">Max 10 files. PDF or screenshot images accepted.</div>
-                                                    </div>
-                                                    <div class="col-12">
-                                                        <label class="form-label">Upload ID / Verification (Optional)</label>
-                                                        <input type="file" id="idProof" class="form-control" accept=".pdf,image/*">
-                                                        <div class="mt-3" id="idPreview"></div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        <div id="pane-6" class="step-pane">
-                                            <div>
-                                                <h6 class="fw-bold">Review & Verification</h6>
-                                                <p class="muted-sm">
-                                                    Please review the information you provided. When you submit, our team will review your documents and notify you via email / SMS.
-                                                </p>
-                                                <div id="reviewSummary" style="min-height:160px;"></div>
-                                                <div class="form-check mt-3">
-                                                    <input class="form-check-input" type="checkbox" id="agreeTerms">
-                                                    <label class="form-check-label muted-sm ms-2" for="agreeTerms">
-                                                        I confirm the information above is accurate and I authorize verification.
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Footer -->
-                                        <div class="wizard-footer">
-                                            <div>
-                                                <button class="btn btn-ghost" id="prevBtn" onclick="prevStep()" disabled>
-                                                    <i class="fas fa-arrow-left me-2"></i> Back
-                                                </button>
-                                            </div>
-                                            <div>
-                                                <button class="btn btn-ghost me-2" id="saveDraft" onclick="saveDraft()">Save Draft</button>
-                                                <button class="launch-btn" id="nextBtn" onclick="nextStep()">
-                                                    <span id="nextBtnText">Next</span> <i class="fas fa-arrow-right ms-2"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </main>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Success modal -->
-                <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-sm modal-dialog-centered">
-                        <div class="modal-content" style="border-radius:12px;padding:18px;">
-                            <div class="text-center">
-                                <div style="width:64px;
-                                            height:64px;
-                                            border-radius:12px;
-                                            background:linear-gradient(90deg,var(--accent-start),var(--accent-end));
-                                            display:inline-flex;
-                                            align-items:center;
-                                            justify-content:center;
-                                            color:white;
-                                            font-size:24px">
-                                    <i class="fas fa-check"></i>
-                                </div>
-                                <h5 class="mt-3">Submitted</h5>
-                                <p class="muted-sm">Your onboarding submission was received. We'll review and notify you via email.</p>
-                                <button class="btn btn-gold" data-bs-dismiss="modal" onclick="closeWizard()">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Bootstrap JS -->
-                <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
-                <script>
-    // Wizard state
-    let currentStep = 0;
-    const totalSteps = 7;
-    const stepTitles = [
-      'Personal Info','Social Accounts','Brand & Business','Activity Type','Ways of Earning','Proof Uploads','Verify & Submit'
-    ];
-
-    // Init
-    document.addEventListener('DOMContentLoaded', () => {
-      updateWizardUI();
-      // file inputs listeners
-      document.getElementById('proofFiles').addEventListener('change', handleProofFiles);
-      document.getElementById('idProof').addEventListener('change', handleIdFile);
-      // ensure modal focuses
-      const modalEl = document.getElementById('socialWizardModal');
-      modalEl.addEventListener('shown.bs.modal', () => {
-        // reset to first step when opening
-        currentStep = 0;
-        updateWizardUI();
-      });
-    });
-
-    // Navigation
-    function goToStep(index) {
-      if(index < 0 || index >= totalSteps) return;
-      currentStep = index;
-      updateWizardUI();
-    }
-
-    function nextStep(){
-      // validation example for required fields in step 0
-      if(currentStep === 0){
-        const fn = document.getElementById('fullName').value.trim();
-        const em = document.getElementById('primaryEmail').value.trim();
-        const ph = document.getElementById('phone').value.trim();
-        if(!fn || !em || !ph){
-          alert('Please fill full name, email and phone to continue.');
-          return;
+    <style>
+        :root {
+            --bs-font-sans-serif: 'Inter', sans-serif;
+            --primary-gold: #C9A93F;
+            --primary-gold-hover: #b5952f;
+            --dark-bg: #1e1e2d;
+            --card-bg: #ffffff;
+            --input-bg: #f5f8fa;
+            --input-border: #e4e6ef;
+            --border-color: #eff2f5;
+            --text-dark: #181C32;
+            --text-muted: #7E8299;
+            
+            /* Platform Colors */
+            --wa-color: #25D366;
+            --wa-light: #e8f9ef;
+            --fb-color: #0084FF;
+            --fb-light: #e6f2ff;
+            --tg-color: #0088cc;
+            --tg-light: #e6f3fa;
         }
-      }
-      if(currentStep === totalSteps - 1){
-        // On final step: require agree checkbox
-        if(!document.getElementById('agreeTerms').checked){
-          alert('Please confirm and agree to proceed.');
-          return;
+
+        body { background-color: #f4f6f9; font-family: var(--bs-font-sans-serif); color: var(--text-dark); }
+
+        /* Main Navigation Tabs */
+        .social-main-tabs { border-bottom: 2px solid var(--border-color); gap: 10px; margin-bottom: 2rem; }
+        .social-main-tabs .nav-link {
+            border: none; background: transparent; color: var(--text-muted); font-weight: 700; font-size: 1.1rem;
+            padding: 1rem 1.5rem; border-radius: 12px 12px 0 0; transition: all 0.3s ease; position: relative;
         }
-        submitWizard();
-        return;
-      }
-      currentStep++;
-      updateWizardUI();
-    }
-
-    function prevStep(){
-      if(currentStep > 0) currentStep--;
-      updateWizardUI();
-    }
-
-    function updateWizardUI(){
-      // update sidebar active
-      document.querySelectorAll('.step-item').forEach(el => {
-        const idx = parseInt(el.getAttribute('data-step'),10);
-        if(idx === currentStep) el.classList.add('active'); else el.classList.remove('active');
-      });
-
-      // panes
-      for(let i=0;i<totalSteps;i++){
-        const pane = document.getElementById('pane-' + i);
-        if(!pane) continue;
-        if(i === currentStep) pane.classList.add('active'); else pane.classList.remove('active');
-      }
-
-      // header title / index
-      document.getElementById('paneTitle').textContent = stepTitles[currentStep];
-      document.getElementById('paneIndex').textContent = (currentStep+1) + ' of ' + totalSteps;
-
-      // prev button state
-      document.getElementById('prevBtn').disabled = currentStep === 0;
-
-      // next button text
-      const nextText = currentStep === totalSteps - 1 ? 'Submit' : 'Next';
-      document.getElementById('nextBtnText').textContent = nextText;
-
-      // generate review summary on last step
-      if(currentStep === totalSteps - 1){
-        populateReview();
-      }
-    }
-
-    // File previews
-    function handleProofFiles(e){
-      const files = Array.from(e.target.files).slice(0,10);
-      const container = document.getElementById('proofPreview');
-      container.innerHTML = '';
-      files.forEach(f => {
-        const el = document.createElement('div');
-        el.className = 'file-preview mb-2';
-        if(f.type === 'application/pdf'){
-          el.innerHTML = `<div><i class="fas fa-file-pdf me-2" style="color:#d9534f"></i> ${f.name}</div>`;
-        } else if(f.type.startsWith('image/')){
-          const url = URL.createObjectURL(f);
-          el.innerHTML = `<div class="d-flex gap-3 align-items-center"><img src="${url}" style="max-width:84px;max-height:56px;border-radius:6px;object-fit:cover;" /><div><strong>${f.name}</strong><div class="muted-sm">${Math.round(f.size/1024)} KB</div></div></div>`;
-        } else {
-          el.textContent = f.name;
+        .social-main-tabs .nav-link::after {
+            content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 3px; border-radius: 3px 3px 0 0;
+            background: transparent; transition: all 0.3s ease;
         }
-        container.appendChild(el);
-      });
-    }
+        .social-main-tabs .nav-link:hover { background-color: rgba(0,0,0,0.02); color: var(--text-dark); }
+        .social-main-tabs .nav-link.active.wa-tab { color: var(--wa-color); }
+        .social-main-tabs .nav-link.active.wa-tab::after { background: var(--wa-color); }
+        .social-main-tabs .nav-link.active.fb-tab { color: var(--fb-color); }
+        .social-main-tabs .nav-link.active.fb-tab::after { background: var(--fb-color); }
+        .social-main-tabs .nav-link.active.tg-tab { color: var(--tg-color); }
+        .social-main-tabs .nav-link.active.tg-tab::after { background: var(--tg-color); }
 
-    function handleIdFile(e){
-      const f = e.target.files[0];
-      const container = document.getElementById('idPreview');
-      container.innerHTML = '';
-      if(!f) return;
-      const el = document.createElement('div');
-      el.className = 'file-preview';
-      if(f.type === 'application/pdf'){
-        el.innerHTML = `<i class="fas fa-file-pdf me-2" style="color:#d9534f"></i> ${f.name}`;
-      } else if(f.type.startsWith('image/')){
-        const url = URL.createObjectURL(f);
-        el.innerHTML = `<img src="${url}" style="max-width:120px;border-radius:8px;object-fit:cover;" /> <div class="muted-sm mt-2">${f.name}</div>`;
-      } else {
-        el.textContent = f.name;
-      }
-      container.appendChild(el);
-    }
+        /* Nested Navigation Pills */
+        .inner-pills { background: #ffffff; padding: 6px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.02); border: 1px solid var(--border-color); display: inline-flex; gap: 4px; margin-bottom: 1.5rem; }
+        .inner-pills .nav-link { border-radius: 8px; font-weight: 600; color: var(--text-muted); padding: 0.6rem 1.2rem; font-size: 0.9rem; transition: 0.2s; }
+        .inner-pills .nav-link:hover { background: var(--input-bg); color: var(--text-dark); }
+        .inner-pills .nav-link.active { background: var(--text-dark); color: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
 
-    // Add linked accounts container
-    function addAccount(type, value){
-      if(!value || value.trim() === '') { alert('Provide the value for ' + type); return; }
-      const c = document.getElementById('linkedAccountsContainer');
-      const badge = document.createElement('div');
-      badge.className = 'd-flex align-items-center gap-3 mb-2';
-      badge.innerHTML = `<div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(90deg,rgba(230,184,41,0.08),rgba(24,102,255,0.04));display:flex;align-items:center;justify-content:center;"><i class="fab fa-${type.toLowerCase()==='whatsapp'?'whatsapp': type.toLowerCase() === 'facebook' ? 'facebook-f' : type.toLowerCase() === 'instagram' ? 'instagram' : (type.toLowerCase()==='telegram'?'telegram':'link')}" style="color:var(--gold-700)"></i></div><div><div style="font-weight:700">${type}</div><div class="muted-sm">${value}</div></div><div style="margin-left:auto"><button class="btn btn-ghost btn-sm" onclick="this.parentElement.parentElement.remove()">Remove</button></div>`;
-      c.appendChild(badge);
-      // clear input fields if needed
-    }
+        /* Cards & Utilities */
+        .card-advanced { border: 1px solid var(--border-color); border-radius: 16px; background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.03); transition: 0.3s; }
+        .card-advanced:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.06); }
+        .stat-box { background: var(--input-bg); border-radius: 12px; padding: 1.5rem; border: 1px solid var(--border-color); }
+        .form-floating > .form-control:focus { border-color: var(--primary-gold); box-shadow: 0 0 0 0.25rem rgba(201, 169, 63, 0.15); }
+        .hover-elevate { transition: transform 0.2s; cursor: pointer; }
+        .hover-elevate:hover { transform: translateY(-3px); }
 
-    // Review summary
-    function populateReview(){
-      const out = document.getElementById('reviewSummary');
-      const name = document.getElementById('fullName').value || '[not provided]';
-      const email = document.getElementById('primaryEmail').value || '[not provided]';
-      const phone = document.getElementById('phone').value || '[not provided]';
-      const brand = document.getElementById('brandName').value || '[not provided]';
-      const activity = Array.from(document.getElementsByName('activityType')).find(r=>r.checked)?.value || '[not set]';
-      const income = document.getElementById('monthlyIncome').value || '[not set]';
+        /* Smartphone Mockup CSS */
+        .phone-mockup { width: 320px; height: 600px; border: 14px solid #1e1e2d; border-radius: 40px; margin: 0 auto; position: relative; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
+        .phone-notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: #1e1e2d; border-bottom-left-radius: 15px; border-bottom-right-radius: 15px; z-index: 10; }
+        .phone-header { padding: 35px 15px 15px; color: white; display: flex; align-items: center; gap: 10px; font-weight: 600; z-index: 5; position: relative; }
+        .phone-screen { padding: 15px; display: flex; flex-direction: column; gap: 15px; height: calc(100% - 80px); overflow-y: auto; }
+        .chat-bubble { max-width: 85%; padding: 12px; border-radius: 12px; font-size: 0.9rem; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .chat-received { background: #ffffff; align-self: flex-start; border-top-left-radius: 2px; }
+        .chat-sent { background: #dcf8c6; align-self: flex-end; border-top-right-radius: 2px; }
+        .chat-pay-card { background: #ffffff; border: 1px solid #eaedf1; border-radius: 10px; overflow: hidden; margin-top: 8px; width: 100%; }
+        .chat-pay-header { background: #f8f9fa; padding: 10px; font-weight: bold; border-bottom: 1px solid #eaedf1; }
+        .chat-pay-body { padding: 12px; }
+        .chat-pay-btn { display: block; width: 100%; text-align: center; padding: 10px; text-decoration: none; font-weight: bold; border-top: 1px solid #eaedf1; }
+        
+        .mockup-wa .phone-header { background: #075e54; }
+        .mockup-wa .phone-mockup { background: #e5ddd5 url('https://www.transparenttextures.com/patterns/cubes.png'); }
+        .mockup-fb .phone-header { background: #ffffff; color: #000; border-bottom: 1px solid #ddd; }
+        .mockup-fb .phone-mockup { background: #ffffff; }
+        .mockup-fb .chat-received { background: #f0f2f5; border-radius: 18px; }
+        .mockup-tg .phone-header { background: #179cde; }
+        .mockup-tg .phone-mockup { background: #96bbd4 url('https://www.transparenttextures.com/patterns/stardust.png'); }
+        .mockup-tg .chat-received { background: #ffffff; border-radius: 12px; }
+    </style>
 
-      out.innerHTML = `
-        <div class="row g-2">
-          <div class="col-md-6"><strong>Full name</strong><div class="muted-sm">${name}</div></div>
-          <div class="col-md-6"><strong>Email</strong><div class="muted-sm">${email}</div></div>
-          <div class="col-md-6"><strong>Phone</strong><div class="muted-sm">${phone}</div></div>
-          <div class="col-md-6"><strong>Brand</strong><div class="muted-sm">${brand}</div></div>
-          <div class="col-md-6"><strong>Activity</strong><div class="muted-sm">${activity}</div></div>
-          <div class="col-md-6"><strong>Monthly income</strong><div class="muted-sm">${income}</div></div>
-          <div class="col-12 mt-2"><strong>Linked accounts</strong><div id="reviewLinked" class="mt-1 muted-sm"></div></div>
+    <div class="card-advanced p-4 p-md-5 mb-5 d-flex flex-column flex-md-row justify-content-between align-items-center bg-white">
+        <div>
+            <h1 class="fw-bolder text-dark mb-2"><i class="fas fa-hashtag text-primary me-2"></i> e-Social Commerce Hub</h1>
+            <span class="text-muted fs-6">Monetize your social media audiences natively in WhatsApp, Messenger, and Telegram.</span>
         </div>
-      `;
+        <div class="d-flex align-items-center gap-3 mt-4 mt-md-0">
+            <div class="text-end border-end pe-4">
+                <span class="d-block text-muted fs-8 fw-bold text-uppercase mb-1">Social Wallet Balance</span>
+                <span class="fw-bolder fs-3 text-dark">KES 450,230.50</span>
+            </div>
+            <button class="btn btn-dark btn-lg fw-bolder shadow-sm" data-bs-toggle="modal" data-bs-target="#cashInModal">
+                <i class="fas fa-university me-2"></i> Cash In / Settle
+            </button>
+        </div>
+    </div>
 
-      // copy linked accounts
-      const linked = document.getElementById('linkedAccountsContainer').innerHTML || '<div class="muted-sm">None added</div>';
-      document.getElementById('reviewLinked').innerHTML = linked;
-    }
+    <ul class="nav nav-tabs social-main-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link wa-tab active d-flex align-items-center gap-2" data-bs-toggle="tab" data-bs-target="#platform-whatsapp" type="button" role="tab">
+                <i class="fab fa-whatsapp fs-4"></i> WhatsApp Business
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link fb-tab d-flex align-items-center gap-2" data-bs-toggle="tab" data-bs-target="#platform-messenger" type="button" role="tab">
+                <i class="fab fa-facebook-messenger fs-4"></i> Facebook Messenger
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link tg-tab d-flex align-items-center gap-2" data-bs-toggle="tab" data-bs-target="#platform-telegram" type="button" role="tab">
+                <i class="fab fa-telegram-plane fs-4"></i> Telegram Payments
+            </button>
+        </li>
+    </ul>
 
-    // Save draft (demo)
-    function saveDraft(){
-      showToast('Draft saved locally (demo)');
-    }
+    <div class="tab-content">
 
-    // Submit (demo)
-    function submitWizard(){
-      // simulate upload & show success
-      const modal = bootstrap.Modal.getInstance(document.getElementById('socialWizardModal'));
-      if(modal) modal.hide();
-
-      // show success modal
-      const succ = new bootstrap.Modal(document.getElementById('successModal'));
-      succ.show();
-    }
-
-    function closeWizard(){
-      // reset forms optionally
-      document.querySelectorAll('form').forEach(f => f.reset());
-      // hide success modal handled by data-bs-dismiss
-    }
-
-    // small toasts function
-    function showToast(msg){
-      // quick ephemeral message using alert fallback
-      if(window.bootstrap && document.getElementById('toastContainer')){
-        // placeholder if custom toast UI exists
-      } else {
-        // fallback: small tasteful alert
-        const node = document.createElement('div');
-        node.style.position='fixed'; node.style.right='18px'; node.style.bottom='18px'; node.style.background='rgba(0,0,0,0.75)';
-        node.style.color='white'; node.style.padding='10px 14px'; node.style.borderRadius='8px'; node.style.zIndex=99999; node.style.fontSize='0.95rem';
-        node.innerText = msg;
-        document.body.appendChild(node);
-        setTimeout(()=> node.remove(), 2200);
-      }
-    }
-                </script>
-                <!-- Bootstrap & small helper JS -->
-                <!-- Bootstrap & small helper JS -->
-                <!-- Bootstrap & small helper JS -->
-                <!-- Bootstrap & small helper JS -->
-                <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> -->
-                <script>
-    // ---------- Simple Tab Manager ----------
-    function switchTab(id){
-      // hide all sections
-      ['overview','links','accounts','transactions','settings'].forEach(s => {
-        document.getElementById(s).classList.add('d-none');
-      });
-      document.getElementById(id).classList.remove('d-none');
-
-      // set active nav-link styling
-      document.querySelectorAll('#main-tabs .nav-link').forEach(btn => btn.classList.remove('active'));
-      // find the matching nav button by onclick text (quick map)
-      document.querySelectorAll('#main-tabs .nav-link').forEach(btn => {
-        if(btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + id + "'")){
-          btn.classList.add('active');
-        }
-      });
-    }
-
-    // ---------- mini switches ----------
-    function switchMini(key){
-      ['mini-channels','mini-activity','mini-insights'].forEach(id => document.getElementById(id).classList.add('d-none'));
-      document.getElementById('mini-' + key).classList.remove('d-none');
-
-      // pill active toggle
-      document.querySelectorAll('[data-mini]').forEach(p => p.classList.remove('active'));
-      document.querySelector('[data-mini="'+key+'"]').classList.add('active');
-    }
-
-    // links mini
-    function switchLinksMini(key){
-      ['links-active','links-templates','links-archived'].forEach(id => document.getElementById(id).classList.add('d-none'));
-      document.getElementById('links-' + key).classList.remove('d-none');
-      document.querySelectorAll('[data-links-mini]').forEach(p => p.classList.remove('active'));
-      document.querySelector('[data-links-mini="'+key+'"]').classList.add('active');
-    }
-
-    // accounts mini
-    function switchAccountsMini(key){
-      ['accounts-active','accounts-pending','accounts-failed'].forEach(id => document.getElementById(id).classList.add('d-none'));
-      document.getElementById('accounts-' + key).classList.remove('d-none');
-      document.querySelectorAll('[data-accounts-mini]').forEach(p => p.classList.remove('active'));
-      document.querySelector('[data-accounts-mini="'+key+'"]').classList.add('active');
-    }
-
-    // txns mini
-    function switchTxnMini(key){
-      ['txn-recent','txn-recon'].forEach(id => document.getElementById(id).classList.add('d-none'));
-      document.getElementById('txn-' + key).classList.remove('d-none');
-    }
-
-    // ---------- sample data populate ----------
-    const sampleLinks = [
-      {name:'Holiday Donation', amount:'', uses:324, conv:'11.2%'},
-      {name:'Consultation Fee', amount:'$25', uses:78, conv:'7.5%'},
-      {name:'Product A', amount:'$89', uses:140, conv:'14.1%'}
-    ];
-    function populateLinks(){
-      const body = document.getElementById('linksTableBody');
-      body.innerHTML = '';
-      sampleLinks.forEach((l,i) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `<td>${l.name}</td><td>${l.amount||'Any'}</td><td>${l.uses}</td><td>${l.conv}</td>
-          <td>
-            <button class="btn btn-sm btn-outline-primary me-1" onclick="openMiniModal('previewLink','${l.name}')"><i class="fas fa-eye"></i></button>
-            <button class="btn btn-sm btn-outline-secondary me-1" onclick="copyLink('${l.name}')"><i class="fas fa-copy"></i></button>
-            <button class="btn btn-sm btn-outline-danger" onclick="archiveLink(${i})"><i class="fas fa-archive"></i></button>
-          </td>`;
-        body.appendChild(row);
-      });
-    }
-
-    // ---------- transactions sample ----------
-    const sampleTxns = [
-      {id:'TXN-001', amount:'$40.00', channel:'WhatsApp', ref:'INV-001', status:'Success'},
-      {id:'TXN-002', amount:'$120.00', channel:'Instagram', ref:'INV-002', status:'Pending'},
-      {id:'TXN-003', amount:'$9.99', channel:'Telegram', ref:'INV-003', status:'Failed'}
-    ];
-    function populateTxns(){
-      const body = document.getElementById('txnBody');
-      body.innerHTML = '';
-      sampleTxns.forEach(t => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${t.id}</td><td>${t.amount}</td><td>${t.channel}</td><td>${t.ref}</td><td>${t.status}</td>`;
-        body.appendChild(tr);
-      });
-    }
-
-    // ---------- activity stream simulation ----------
-    let activityCount = 0;
-    function pushActivity(){
-      const feed = document.getElementById('activityFeed');
-      const li = document.createElement('li');
-      li.className = 'list-group-item';
-      const now = new Date().toLocaleTimeString();
-      const messages = [
-        `Payment received $${(Math.random()*120).toFixed(2)} via WhatsApp`,
-        `Payment link clicked (Holiday Donation)`,
-        `Failed payment attempt (card)`,
-        `New account connected: Telegram Bot`
-      ];
-      const msg = messages[Math.floor(Math.random()*messages.length)];
-      li.innerHTML = `<div class="d-flex justify-content-between"><div>${msg}</div><small class="text-muted">${now}</small></div>`;
-      feed.insertBefore(li, feed.firstChild);
-      activityCount++;
-      if(activityCount>20) feed.removeChild(feed.lastChild);
-    }
-
-    // ---------- toast ----------
-    const toastEl = new bootstrap.Toast(document.getElementById('actionToast'));
-    function showToast(msg){
-      document.getElementById('toastBody').textContent = msg;
-      toastEl.show();
-    }
-
-    // ---------- mini modal content ----------
-    function openMiniModal(key, extra=''){
-      const title = document.getElementById('miniModalTitle');
-      const body = document.getElementById('miniModalBody');
-      const primary = document.getElementById('miniModalPrimary');
-
-      if(key === 'metaAnalytics'){
-        title.textContent = 'Meta Analytics';
-        body.innerHTML = `<p class="muted-small">Detailed charts and breakdown for FB & IG (demo).</p>
-          <div class="row">
-            <div class="col-md-6"><div class="p-3 card-elevated rounded-4 text-center"><strong>$2,100</strong><div class="muted-small">7d Volume</div></div></div>
-            <div class="col-md-6"><div class="p-3 card-elevated rounded-4 text-center"><strong>14.2%</strong><div class="muted-small">Conversion</div></div></div>
-          </div>`;
-        primary.onclick = () => { showToast('Exporting Meta report (demo)'); };
-      } else if(key === 'telegramSetup'){
-        title.textContent = 'Telegram Bot Setup';
-        body.innerHTML = `<p class="muted-small">Start the Telegram Bot setup wizard to generate token and webhooks. (Demo)</p>
-          <div><button class="btn btn-gold" onclick="openWizard('telegramWizard')">Start Wizard</button></div>`;
-        primary.onclick = () => { openWizard('telegramWizard'); };
-      } else if(key === 'previewLink'){
-        title.textContent = 'Preview Link';
-        body.innerHTML = `<p class="muted-small">Preview: <strong>${extra}</strong></p>
-          <div class="p-3 card-elevated rounded-4"><div class="d-flex justify-content-between"><div>Latest Gadget XXX</div><div class="h5 fw-bold text-gold">$89.00</div></div></div>`;
-        primary.onclick = () => { showToast('Link sent to clipboard (demo)'); };
-      } else if(key === 'whatsappWizard'){
-        title.textContent = 'WhatsApp Management';
-        body.innerHTML = `<p class="muted-small">Manage templates, webhooks and message flows (demo).</p>
-          <div><button class="btn btn-outline-primary" onclick="showToast('Template updated (demo)')">Update Template</button></div>`;
-        primary.onclick = () => { showToast('Saved settings (demo)'); };
-      } else if(key === 'insightsDeep'){
-        title.textContent = 'Full Insights Report';
-        body.innerHTML = `<p class="muted-small">Comprehensive insights & export options (demo).</p>`;
-        primary.onclick = () => { showToast('Generating deep insights (demo)'); };
-      } else {
-        title.textContent = 'Info';
-        body.innerHTML = `<p class="muted-small">No content (demo).</p>`;
-        primary.onclick = () => { showToast('Action completed'); };
-      }
-
-      const modal = new bootstrap.Modal(document.getElementById('miniModal'));
-      modal.show();
-    }
-
-    // ---------- Create Link Wizard logic ----------
-    let createStep = 1;
-    function openWizard(which){
-      if(which === 'createLink'){
-        createStep = 1;
-        updateCreateWizard();
-        const modal = new bootstrap.Modal(document.getElementById('createLinkModal'));
-        modal.show();
-      } else if(which === 'linkAccount'){
-        // quick demo: open social wizard
-        openSocialWizard();
-      } else if(which === 'telegramWizard'){
-        openSocialWizard('telegram');
-      } else if(which === 'bulkUpload'){
-        showToast('Bulk upload started (demo)');
-      }
-    }
-
-    function updateCreateWizard(){
-      document.querySelectorAll('#createSteps [data-step]').forEach(el => el.classList.add('d-none'));
-      document.querySelector(`#createSteps [data-step="${createStep}"]`).classList.remove('d-none');
-      document.getElementById('createLinkStep').textContent = createStep;
-      const progress = document.getElementById('createLinkProgress').firstElementChild || document.getElementById('createLinkProgress');
-      // set progress width
-      const pct = Math.round((createStep-1)/3*100);
-      document.querySelector('#createLinkProgress i')?.style && (document.querySelector('#createLinkProgress i').style.width = pct + '%');
-      // Next/Back text
-      document.getElementById('linkPrev').style.display = createStep === 1 ? 'none' : 'inline-block';
-      document.getElementById('linkNext').textContent = createStep === 4 ? 'Create Link' : 'Next';
-      if(createStep === 4){
-        // fill review
-        const review = document.getElementById('reviewBlock');
-        const name = document.getElementById('linkName').value || '[No name]';
-        const amt = document.getElementById('linkAmount').value || 'Any amount';
-        const cta = document.getElementById('linkCTA').value || 'Pay Now';
-        const color = document.getElementById('linkColor').value || '#e6b829';
-        review.innerHTML = `<div><strong>Name:</strong> ${name}</div>
-          <div><strong>Amount:</strong> ${amt}</div>
-          <div><strong>CTA:</strong> ${cta}</div>
-          <div class="mt-3 p-3 rounded-3" style="background:${color}; color:#111;">Preview CTA</div>`;
-      }
-    }
-
-    function createLinkNext(){
-      if(createStep < 4){
-        createStep++;
-        updateCreateWizard();
-      } else {
-        // finalize (demo)
-        const name = document.getElementById('linkName').value || 'New Link';
-        sampleLinks.unshift({name, amount: document.getElementById('linkAmount').value, uses:0, conv:'0%'});
-        populateLinks();
-        bootstrap.Modal.getInstance(document.getElementById('createLinkModal')).hide();
-        showToast('Link created: ' + name);
-      }
-    }
-    function createLinkPrev(){
-      if(createStep > 1) createStep--, updateCreateWizard();
-    }
-
-    function useTemplate(name){
-      document.getElementById('linkName').value = name;
-      openWizard('createLink');
-    }
-
-    function copyLink(name){
-      showToast('Copied link: ' + name);
-    }
-    function archiveLink(index){
-      sampleLinks.splice(index,1);
-      populateLinks();
-      showToast('Archived link');
-    }
-
-    // ---------- Social wizard 7 steps ----------
-    let socialStepIndex = 0;
-    let socialSteps = [
-      {title:'Welcome', body:'This wizard will guide you to connect social channels and enable e-payments.'},
-      {title:'Connect WhatsApp', body:'Provide your WhatsApp Business API credentials or connect via phone.'},
-      {title:'Connect Facebook / Messenger', body:'Authorize Facebook page & grant messaging permissions.'},
-      {title:'Connect Instagram', body:'Ensure your IG account is set as Business and linked to a FB Page.'},
-      {title:'Connect Telegram', body:'Create a bot and paste token. We will setup webhooks.'},
-      {title:'Setup Webhooks & Notifications', body:'Configure your webhook endpoints and test messages.'},
-      {title:'Finalize & Test', body:'Run test payments and confirm flows.'}
-    ];
-
-    function openSocialWizard(target){
-      socialStepIndex = target === 'telegram' ? 4 : 0;
-      renderSocialWizard();
-      const modal = new bootstrap.Modal(document.getElementById('socialWizardModal'));
-      modal.show();
-    }
-
-    function renderSocialWizard(){
-      const container = document.getElementById('socialStepsContainer');
-      container.innerHTML = '';
-      socialSteps.forEach((s, i) => {
-        const stepEl = document.createElement('div');
-        stepEl.className = 'mb-3';
-        stepEl.innerHTML = `
-          <div class="d-flex justify-content-between mb-2">
-            <div><strong>Step ${i+1}</strong> - ${s.title}</div>
-            <div class="muted-small">${i < socialStepIndex ? 'Completed' : (i === socialStepIndex ? 'Current' : 'Pending')}</div>
-          </div>
-          <div class="wizard-step ${i===socialStepIndex ? '' : 'd-none'}">
-            <h6 class="fw-bold">${s.title}</h6>
-            <p class="muted-small">${s.body}</p>
-            ${i === socialStepIndex ? generateSocialStepControls(i) : ''}
-          </div>
-        `;
-        container.appendChild(stepEl);
-      });
-
-      // Next button logic
-      document.getElementById('socialNextBtn').onclick = () => {
-        if(socialStepIndex < socialSteps.length -1){
-          socialStepIndex++;
-          renderSocialWizard();
-        } else {
-          bootstrap.Modal.getInstance(document.getElementById('socialWizardModal')).hide();
-          showToast('Social onboarding complete (demo)');
-        }
-      };
-    }
-
-    function generateSocialStepControls(i){
-      // return markup for inputs/buttons for that step (demo)
-      if(i === 1){
-        return `<div class="mb-2"><label class="form-label">WhatsApp API Key</label><input class="form-control" id="waKey" placeholder="Enter API key"></div>
-          <div class="d-grid"><button class="btn btn-gold" onclick="simulateConnect('WhatsApp')">Connect WhatsApp</button></div>`;
-      }
-      if(i === 2) {
-        return `<div class="mb-2"><label class="form-label">Facebook Page ID</label><input class="form-control" id="fbPage" placeholder="Page ID"></div>
-          <div class="d-grid"><button class="btn btn-gold" onclick="simulateConnect('Facebook')">Connect Facebook</button></div>`;
-      }
-      if(i === 3) {
-        return `<div class="mb-2"><label class="form-label">Instagram Business Username</label><input class="form-control" id="igUser" placeholder="@username"></div>
-          <div class="d-grid"><button class="btn btn-gold" onclick="simulateConnect('Instagram')">Connect Instagram</button></div>`;
-      }
-      if(i === 4) {
-        return `<div class="mb-2"><label class="form-label">Telegram Bot Token</label><input class="form-control" id="tgToken" placeholder="123456:ABC-DEF"></div>
-          <div class="d-grid"><button class="btn btn-gold" onclick="simulateConnect('Telegram')">Register Bot</button></div>`;
-      }
-      if(i === 5){
-        return `<div class="mb-2"><label class="form-label">Webhook URL</label><input class="form-control" id="webhookUrl" placeholder="https://example.com/webhook"></div>
-          <div class="d-grid"><button class="btn btn-gold" onclick="simulateConnect('Webhooks')">Test Webhook</button></div>`;
-      }
-      if(i === 6){
-        return `<div class="mb-2">Run the quick test flow to send a test payment & confirmation message.</div>
-          <div class="d-flex gap-2"><button class="btn btn-outline-secondary" onclick="simulateTestPayment()">Run Test</button><button class="btn btn-gold" onclick="simulateFinalize()">Finalize</button></div>`;
-      }
-      return `<div class="muted-small">Welcome to the onboarding wizard. Click Next to proceed.</div>`;
-    }
-
-    function simulateConnect(name){
-      showToast(name + ' connected (demo)');
-      // mark as connected by toggling badges/UI - omitted for brevity
-    }
-    function simulateTestPayment(){
-      showToast('Test payment succeeded (demo)');
-    }
-    function simulateFinalize(){
-      showToast('Onboarding finalized (demo)');
-    }
-
-    // ---------- misc helpers ----------
-    function confirmDisconnect(name){
-      if(confirm(`Disconnect ${name}? This will deactivate associated links.`)){
-        showToast(name + ' disconnected (demo)');
-      }
-    }
-
-    function downloadReport(){
-      showToast('Preparing export (demo)');
-    }
-
-    function simulateRecon(){
-      document.getElementById('reconSpinner').classList.remove('d-none');
-      setTimeout(()=>{ document.getElementById('reconSpinner').classList.add('d-none'); showToast('Reconciliation ready (demo)'); }, 1600);
-    }
-
-    // ---------- initialize on load ----------
-    document.addEventListener('DOMContentLoaded', () => {
-      populateLinks();
-      populateTxns();
-      // Stream some fake activity
-      pushActivity(); pushActivity(); // seed
-      setInterval(pushActivity, 4000);
-      // small auto animations (brand color update on change)
-      document.getElementById('brandColor')?.addEventListener('input', (e) => {
-        const val = e.target.value;
-        document.querySelectorAll('.text-gold').forEach(el => el.style.color = val);
-        document.querySelectorAll('.btn-gold').forEach(btn => btn.style.background = val);
-      });
-    });
-
-    // expose some functions to global (if needed)
-    window.openMiniModal = openMiniModal;
-    window.openWizard = openWizard;
-    window.openSocialWizard = openSocialWizard;
-    window.switchTab = switchTab;
-    window.switchMini = switchMini;
-    window.switchLinksMini = switchLinksMini;
-    window.switchAccountsMini = switchAccountsMini;
-    window.switchTxnMini = switchTxnMini;
-                </script>
-                <!--end::Row-->
-                extra space
-
-
+        <div class="tab-pane fade show active" id="platform-whatsapp" role="tabpanel">
+            
+            <div class="alert border border-success border-dashed p-4 rounded-4 mb-4 d-flex justify-content-between align-items-center" style="background-color: var(--wa-light);">
+                <div class="d-flex align-items-center">
+                    <div class="symbol symbol-50px bg-success rounded-circle d-flex justify-content-center align-items-center me-4 shadow-sm">
+                        <i class="fab fa-whatsapp text-white fs-2"></i>
                     </div>
-                    <!--end::Container-->
+                    <div>
+                        <h5 class="fw-bolder text-success mb-1">WhatsApp API Connected</h5>
+                        <span class="text-dark fs-7">WABA Number: <strong>+254 712 345 678</strong> | Tier 2 Messaging Limit</span>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-success fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#sendDmModal" onclick="setDmContext('whatsapp')">
+                        <i class="fas fa-paper-plane me-1"></i> Send Direct Prompt
+                    </button>
+                    <button class="btn btn-light-success border border-success border-dashed fw-bold" onclick="showCustomerPreview('whatsapp')">
+                        <i class="fas fa-eye me-1"></i> Preview UI
+                    </button>
+                </div>
+            </div>
+
+            <ul class="nav inner-pills" role="tablist">
+                <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#wa-overview">Overview</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#wa-links">Payment Links</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#wa-transactions">Transactions</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#wa-automation">Bot Automation</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#wa-settings"><i class="fas fa-cog"></i> Settings</button></li>
+            </ul>
+
+            <div class="tab-content bg-white p-4 p-md-5 card-advanced">
+                
+                <div class="tab-pane fade show active" id="wa-overview">
+                    <h5 class="fw-bolder text-dark mb-4">WhatsApp Performance (30 Days)</h5>
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-3">
+                            <div class="stat-box h-100">
+                                <span class="text-muted fw-bold fs-8 text-uppercase d-block mb-2">Total Volume</span>
+                                <h3 class="fw-bolder text-dark mb-1">KES 1.2M</h3>
+                                <span class="badge bg-light-success text-success"><i class="fas fa-arrow-up"></i> 14%</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-box h-100">
+                                <span class="text-muted fw-bold fs-8 text-uppercase d-block mb-2">Links Sent</span>
+                                <h3 class="fw-bolder text-dark mb-1">8,450</h3>
+                                <span class="text-muted fs-8">Direct DMs & Broadcasts</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-box h-100">
+                                <span class="text-muted fw-bold fs-8 text-uppercase d-block mb-2">Conversion Rate</span>
+                                <h3 class="fw-bolder text-dark mb-1">24.5%</h3>
+                                <span class="badge bg-light-primary text-primary">Industry High</span>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="stat-box h-100" style="border-color: var(--wa-color); background-color: var(--wa-light);">
+                                <span class="text-success fw-bold fs-8 text-uppercase d-block mb-2">Platform Health</span>
+                                <h3 class="fw-bolder text-success mb-1">Online</h3>
+                                <span class="text-success fs-8"><i class="fas fa-check-circle"></i> Webhooks Active</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="wa-links">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-bolder text-dark mb-0">Active WhatsApp Payment Links</h5>
+                        <button class="btn btn-dark fw-bold" data-bs-toggle="modal" data-bs-target="#createLinkModal"><i class="fas fa-plus me-2"></i>Create New Link</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-middle table-row-dashed fs-6 gy-4">
+                            <thead class="bg-light">
+                                <tr class="text-start text-muted fw-bolder fs-8 text-uppercase gs-0">
+                                    <th class="ps-3 rounded-start">Link Name</th>
+                                    <th>Amount</th>
+                                    <th>Link URL</th>
+                                    <th>Clicks / Paid</th>
+                                    <th class="text-end pe-3 rounded-end">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="ps-3 fw-bold text-dark">Summer Promo Sub</td>
+                                    <td class="fw-bolder text-success">KES 1,500.00</td>
+                                    <td><code class="bg-light px-2 py-1 rounded text-primary">wa.me/pkenya/smr24</code></td>
+                                    <td><span class="badge bg-light-dark text-dark">450 / 112</span></td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn btn-sm btn-icon btn-light border"><i class="fas fa-copy text-muted"></i></button>
+                                        <button class="btn btn-sm btn-icon btn-light-danger border-0 ms-1"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-3 fw-bold text-dark">Open Donation Drive</td>
+                                    <td class="text-muted fw-bold">Dynamic</td>
+                                    <td><code class="bg-light px-2 py-1 rounded text-primary">wa.me/pkenya/donate</code></td>
+                                    <td><span class="badge bg-light-dark text-dark">1,200 / 89</span></td>
+                                    <td class="text-end pe-3">
+                                        <button class="btn btn-sm btn-icon btn-light border"><i class="fas fa-copy text-muted"></i></button>
+                                        <button class="btn btn-sm btn-icon btn-light-danger border-0 ms-1"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="wa-transactions">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h5 class="fw-bolder text-dark mb-0">Recent WhatsApp Payments</h5>
+                        <div class="position-relative w-250px">
+                            <i class="fas fa-search position-absolute top-50 translate-middle-y ms-3 text-muted"></i>
+                            <input type="text" class="form-control form-control-sm ps-5 bg-light border-0" placeholder="Search phone or Ref...">
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-middle table-row-dashed fs-6 gy-4">
+                            <thead class="bg-light">
+                                <tr class="text-start text-muted fw-bolder fs-8 text-uppercase gs-0">
+                                    <th class="ps-3 rounded-start">Date</th>
+                                    <th>Customer Phone</th>
+                                    <th>Ref ID</th>
+                                    <th>Amount</th>
+                                    <th class="text-end pe-3 rounded-end">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="ps-3 text-muted">Today, 10:45 AM</td>
+                                    <td class="fw-bold text-dark">+254 712 345 678</td>
+                                    <td class="font-monospace text-muted">#WA-TX-8921</td>
+                                    <td class="fw-bolder text-success">KES 1,500.00</td>
+                                    <td class="text-end pe-3"><span class="badge bg-light-success text-success">Settled</span></td>
+                                </tr>
+                                <tr>
+                                    <td class="ps-3 text-muted">Yesterday, 02:15 PM</td>
+                                    <td class="fw-bold text-dark">+254 799 888 777</td>
+                                    <td class="font-monospace text-muted">#WA-TX-8920</td>
+                                    <td class="fw-bolder text-success">KES 4,250.00</td>
+                                    <td class="text-end pe-3"><span class="badge bg-light-warning text-warning-dark">Pending M-Pesa</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="wa-automation">
+                    <h5 class="fw-bolder text-dark mb-4">Chatbot Conversational Flows</h5>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="border rounded-3 p-4 bg-light shadow-sm">
+                                <div class="form-check form-switch form-check-custom form-check-solid form-check-success mb-3 d-flex justify-content-between">
+                                    <label class="form-check-label fw-bold text-dark fs-6">Auto-Reply with Invoice</label>
+                                    <input class="form-check-input h-25px w-45px" type="checkbox" checked>
+                                </div>
+                                <p class="text-muted fs-8 mb-3">If a customer sends a specific keyword, automatically generate a payment card in the chat.</p>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control bg-white" value="Buy Fertilizer">
+                                    <label>Trigger Keyword(s)</label>
+                                </div>
+                                <button class="btn btn-sm btn-dark fw-bold">Save Automation</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 text-center d-flex flex-column justify-content-center align-items-center border border-dashed rounded-3 p-4 bg-light">
+                            <i class="fas fa-sitemap fs-3x text-muted mb-3"></i>
+                            <h6 class="fw-bold text-dark">Visual Flow Builder</h6>
+                            <p class="text-muted fs-8 mb-3">Use our drag-and-drop builder to create complex multi-step payment menus for WhatsApp.</p>
+                            <button class="btn btn-outline btn-outline-primary fw-bold">Open Flow Builder</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="wa-settings">
+                    <h5 class="fw-bolder text-dark mb-4">WhatsApp Business API Settings</h5>
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control fw-bold font-monospace bg-light" value="EAAGm0PX4ZCpsBA..." readonly>
+                                <label>System User Access Token</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control fw-bold font-monospace bg-light" value="1059483958291" readonly>
+                                <label>WhatsApp Business Account ID</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control fw-bold font-monospace bg-light" value="https://api.sendmo.com/webhook/wa" readonly>
+                                <label>Inbound Webhook URL</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control fw-bold font-monospace bg-light" value="verify_token_xyz123" readonly>
+                                <label>Webhook Verify Token</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mt-4 pt-4 border-top">
+                            <button class="btn btn-light-danger text-danger fw-bold"><i class="fas fa-unlink me-2"></i> Disconnect WhatsApp API</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="platform-messenger" role="tabpanel">
+            
+            <div class="card-advanced p-5 text-center">
+                <div class="mb-4 d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 80px; height: 80px; background-color: var(--fb-light); border: 2px dashed var(--fb-color);">
+                    <i class="fab fa-facebook-messenger fs-2x" style="color: var(--fb-color);"></i>
+                </div>
+                <h3 class="fw-bolder text-dark mb-2">Connect Facebook Messenger</h3>
+                <p class="text-muted fs-6 mb-5 mx-auto" style="max-width: 600px;">
+                    Integrate Sendmo with your Facebook Page to accept seamless payments directly inside Messenger chats. Customers never have to leave the app.
+                </p>
+                
+                <div class="row justify-content-center g-4 mb-5">
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded-3 bg-light h-100">
+                            <i class="fas fa-shopping-bag text-primary fs-3 mb-2"></i>
+                            <h6 class="fw-bold">In-Chat Catalogs</h6>
+                            <span class="fs-9 text-muted">Display products visually inside messenger.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded-3 bg-light h-100">
+                            <i class="fas fa-credit-card text-success fs-3 mb-2"></i>
+                            <h6 class="fw-bold">Secure Cards</h6>
+                            <span class="fs-9 text-muted">PCI-DSS compliant in-app card collection.</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="p-3 border rounded-3 bg-light h-100">
+                            <i class="fas fa-robot text-dark fs-3 mb-2"></i>
+                            <h6 class="fw-bold">Auto-Invoicing</h6>
+                            <span class="fs-9 text-muted">AI bots that negotiate and close sales.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center gap-3">
+                    <button class="btn btn-lg fw-bolder text-white shadow-sm" style="background-color: var(--fb-color);" onclick="simulateOauthConnect(this, 'Facebook Messenger')">
+                        <i class="fab fa-facebook-f me-2"></i> Login with Facebook
+                    </button>
+                    <button class="btn btn-lg btn-light border fw-bold" onclick="showCustomerPreview('facebook')">
+                        <i class="fas fa-eye me-2"></i> Preview Experience
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="tab-pane fade" id="platform-telegram" role="tabpanel">
+            
+            <div class="alert border border-info border-dashed p-4 rounded-4 mb-4 d-flex justify-content-between align-items-center" style="background-color: var(--tg-light);">
+                <div class="d-flex align-items-center">
+                    <div class="symbol symbol-50px rounded-circle d-flex justify-content-center align-items-center me-4 shadow-sm" style="background-color: var(--tg-color);">
+                        <i class="fab fa-telegram-plane text-white fs-2"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bolder text-dark mb-1">Telegram Bot Active</h5>
+                        <span class="text-muted fs-7">Bot Username: <strong class="text-primary">@SendmoPay_Bot</strong></span>
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-dark fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#sendDmModal" onclick="setDmContext('telegram')">
+                        <i class="fas fa-paper-plane me-1"></i> Send Invoice
+                    </button>
+                    <button class="btn btn-light border fw-bold" onclick="showCustomerPreview('telegram')">
+                        <i class="fas fa-eye me-1"></i> Preview UI
+                    </button>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <div class="card-advanced p-4 p-md-5 h-100">
+                        <h5 class="fw-bolder text-dark mb-4"><i class="fas fa-robot text-muted me-2"></i>Bot Configuration</h5>
+                        <form>
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control font-monospace fw-bold bg-light" value="1234567890:AAH_XxYyZz..." readonly>
+                                <label>Telegram Bot API Token (From BotFather)</label>
+                            </div>
+                            <div class="form-floating mb-4">
+                                <input type="text" class="form-control font-monospace fw-bold bg-light" value="https://api.sendmo.com/tg/webhook" readonly>
+                                <label>Webhook URL Configured</label>
+                            </div>
+                            <div class="form-check form-switch form-check-custom form-check-solid mb-4">
+                                <input class="form-check-input h-25px w-45px bg-primary" type="checkbox" checked>
+                                <label class="form-check-label fw-bold text-dark ms-2">Enable Inline Keyboard Payments</label>
+                            </div>
+                            <button type="button" class="btn btn-outline btn-outline-primary fw-bold w-100">Sync Webhook Configuration</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <div class="card-advanced p-4 p-md-5 h-100">
+                        <h5 class="fw-bolder text-dark mb-4"><i class="fas fa-history text-muted me-2"></i>Recent Telegram Sales</h5>
+                        <div class="table-responsive">
+                            <table class="table align-middle gs-0 gy-3">
+                                <tbody>
+                                    <tr class="border-bottom border-dashed">
+                                        <td>
+                                            <span class="text-dark fw-bolder d-block fs-6">@cryptouser99</span>
+                                            <span class="text-muted fs-8">Chat ID: 9821345</span>
+                                        </td>
+                                        <td class="text-end">
+                                            <span class="fw-bolder text-success fs-5">KES 1,200</span>
+                                            <span class="d-block text-muted fs-8">Card Payment</span>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-bottom border-dashed">
+                                        <td>
+                                            <span class="text-dark fw-bolder d-block fs-6">@nairobian_tech</span>
+                                            <span class="text-muted fs-8">Chat ID: 4432190</span>
+                                        </td>
+                                        <td class="text-end">
+                                            <span class="fw-bolder text-success fs-5">KES 5,500</span>
+                                            <span class="d-block text-muted fs-8">M-Pesa STK</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button class="btn btn-light border w-100 fw-bold mt-2">View All Transactions</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div class="modal fade" id="previewUIModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg bg-transparent">
+            <div class="modal-body p-0 position-relative">
+                <button type="button" class="btn-close position-absolute top-0 end-0 m-4 z-index-3 bg-white p-2 rounded-circle" data-bs-dismiss="modal" style="opacity: 1;"></button>
+                
+                <div class="row g-0">
+                    <div class="col-md-6 bg-white p-5 rounded-start-4 d-flex flex-column justify-content-center">
+                        <h3 class="fw-bolder text-dark mb-3" id="previewTitle">Customer Experience</h3>
+                        <p class="text-muted fs-6 mb-4">This is exactly what your customer will see when you send a payment request to their DM.</p>
+                        <ul class="list-unstyled text-muted fs-7 mb-5">
+                            <li class="mb-3 d-flex"><i class="fas fa-check-circle text-success me-3 mt-1 fs-5"></i> <span>Seamless in-app checkout experience without leaving the chat.</span></li>
+                            <li class="mb-3 d-flex"><i class="fas fa-check-circle text-success me-3 mt-1 fs-5"></i> <span>Secure tokenized links compliant with PCI-DSS.</span></li>
+                            <li class="mb-3 d-flex"><i class="fas fa-check-circle text-success me-3 mt-1 fs-5"></i> <span>Instant automated PDF receipt generation upon success.</span></li>
+                        </ul>
+                        <button class="btn btn-dark w-100 fw-bold py-3" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#createLinkModal">Generate Similar Link</button>
+                    </div>
+                    
+                    <div class="col-md-6 d-flex justify-content-center p-4 rounded-end-4" style="background-color: #1e1e2d;" id="previewMockupContainer">
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sendDmModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+            <div class="modal-header border-0 pb-0 pt-4 px-5">
+                <h4 class="fw-bolder text-dark mb-0 d-flex align-items-center">
+                    <i class="fas fa-paper-plane text-primary me-3"></i> Push Invoice to DM
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-5">
+                <form onsubmit="event.preventDefault(); simulateDMPush();">
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <select class="form-select bg-light border-0 fw-bold text-dark" id="dmPlatformSelect">
+                                    <option value="wa">WhatsApp (+254 712 *** ***)</option>
+                                    <option value="tg">Telegram (@SendmoPay_Bot)</option>
+                                    </select>
+                                <label>Sending From Channel</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <input type="text" class="form-control bg-light border-0 fw-bold" placeholder="Customer Contact" required>
+                                <label>Customer Phone Number or @Username</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="number" class="form-control bg-light border-0 fw-bolder text-success fs-4" placeholder="Amount" required>
+                                <label>Amount (KES)</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control bg-light border-0" placeholder="Ref" value="INV-091">
+                                <label>Invoice Ref</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control bg-light border-0" style="height: 80px;" placeholder="Message">Hi! Please use the secure link below to settle Invoice INV-091.</textarea>
+                                <label>Custom Message (Optional)</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-lg w-100 fw-bolder mt-4" id="dmSubmitBtn">Send Prompt Instantly</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="createLinkModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+            <div class="modal-header border-0 pb-0 pt-4 px-5">
+                <h4 class="fw-bolder text-dark mb-0 d-flex align-items-center">
+                    <i class="fas fa-link text-gold me-3"></i> Create Universal Link
+                </h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-5">
+                <p class="text-muted fs-7 mb-4">Generate a URL you can paste in bios, broadcast lists, or external sites.</p>
+                <div class="row g-4">
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control bg-light border-0 fw-bold" placeholder="Product Name" value="Premium Consultation">
+                            <label>Product / Service Name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="number" class="form-control bg-light border-0 fw-bold" placeholder="Amount" value="5000">
+                            <label>Fixed Amount (Leave blank for open)</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <select class="form-select bg-light border-0 fw-bold">
+                                <option value="multi">Multi-Use (Storefront)</option>
+                                <option value="single">Single Use (Invoice)</option>
+                            </select>
+                            <label>Link Type</label>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-gold btn-lg w-100 fw-bolder mt-5" onclick="simulateLinkGen(this)">Generate & Copy URL</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="cashInModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 rounded-4 shadow-lg">
+            <div class="modal-header bg-dark pb-4 pt-4 px-5 border-0">
+                <div class="d-flex flex-column text-white">
+                    <h4 class="fw-bolder text-white mb-1"><i class="fas fa-university me-2 text-gold"></i> Settle Wallet Funds</h4>
+                    <span class="fs-8 text-gray-400">Available to transfer: <strong class="text-gold fs-6">KES 450,230.50</strong></span>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-5">
+                <div class="row g-4">
+                    <div class="col-12">
+                        <label class="form-label fw-bold">Destination Bank Account</label>
+                        <select class="form-select bg-light border-0 fw-bold text-dark form-select-lg">
+                            <option>KCB Bank - Acct ****4455 (Verified)</option>
+                            <option>Equity Bank - Acct ****9912 (Verified)</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="number" class="form-control form-control-lg border-0 bg-light text-success fw-bolder fs-2" placeholder="Amount" value="450230.50">
+                            <label>Amount to Withdraw (KES)</label>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="p-3 bg-light-warning border border-warning border-dashed rounded-3 text-warning-dark fs-8 fw-semibold">
+                            <i class="fas fa-info-circle me-1"></i> Standard EFT transfers take 1 business day. Fees: KES 0.00.
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-dark btn-lg w-100 fw-bolder mt-4" onclick="simulateSettlement(this)">Authorize Transfer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 1. Dynamic UI Previewer
+    function showCustomerPreview(platform) {
+        const container = document.getElementById('previewMockupContainer');
+        const title = document.getElementById('previewTitle');
+        let mockupHtml = '';
+
+        if (platform === 'whatsapp') {
+            title.innerHTML = '<i class="fab fa-whatsapp text-success me-2"></i> WhatsApp Checkout Preview';
+            mockupHtml = `
+                <div class="phone-mockup mockup-wa">
+                    <div class="phone-notch"></div>
+                    <div class="phone-header">
+                        <i class="fas fa-arrow-left"></i>
+                        <div class="symbol symbol-30px rounded-circle bg-white d-flex align-items-center justify-content-center text-success fw-bold fs-7">Pk</div>
+                        <span>Pkenya Verified <i class="fas fa-check-circle fs-9"></i></span>
+                    </div>
+                    <div class="phone-screen">
+                        <div class="text-center w-100 mb-2"><span class="badge bg-white text-muted fs-9 shadow-sm">Today</span></div>
+                        <div class="chat-bubble chat-received">
+                            Hi! Here is the invoice for your recent order.
+                            <div class="chat-pay-card mt-2">
+                                <div class="chat-pay-header d-flex justify-content-between"><span>Invoice #90210</span> <span>KES 4,500</span></div>
+                                <div class="chat-pay-body text-muted fs-8">Tap below to pay securely via M-Pesa.</div>
+                                <a href="#" class="chat-pay-btn text-success bg-light-success"><i class="fas fa-lock me-1"></i> Pay KES 4,500</a>
+                            </div>
+                            <div class="text-end text-muted mt-1" style="font-size: 0.7rem;">10:45 AM</div>
+                        </div>
+                    </div>
+                </div>`;
+        } 
+        else if (platform === 'facebook') {
+            title.innerHTML = '<i class="fab fa-facebook-messenger text-primary me-2"></i> Messenger Flow Preview';
+            mockupHtml = `
+                <div class="phone-mockup mockup-fb">
+                    <div class="phone-notch"></div>
+                    <div class="phone-header">
+                        <i class="fas fa-chevron-left text-dark"></i>
+                        <span class="text-dark">Pkenya Verification Ltd</span>
+                    </div>
+                    <div class="phone-screen">
+                        <div class="text-center w-100 mb-2"><span class="text-muted fs-9">10:45 AM</span></div>
+                        <div class="chat-bubble chat-received text-dark">
+                            Thank you for shopping! Click below to enter your card details securely.
+                            <div class="chat-pay-card mt-2" style="border-radius: 18px;">
+                                <div class="bg-light p-3 text-center border-bottom"><i class="fas fa-credit-card fs-1 text-primary"></i></div>
+                                <div class="chat-pay-body">
+                                    <h6 class="fw-bold mb-0">Total Due: KES 4,500</h6>
+                                    <span class="text-muted fs-8">Visa / Mastercard</span>
+                                </div>
+                                <a href="#" class="chat-pay-btn text-white" style="background-color:#0084FF; border-radius:0 0 18px 18px;">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+        }
+        else if (platform === 'telegram') {
+            title.innerHTML = '<i class="fab fa-telegram text-info me-2"></i> Telegram Bot Preview';
+            mockupHtml = `
+                <div class="phone-mockup mockup-tg">
+                    <div class="phone-notch"></div>
+                    <div class="phone-header">
+                        <i class="fas fa-arrow-left"></i>
+                        <span>SendmoPay Bot</span>
+                    </div>
+                    <div class="phone-screen">
+                        <div class="text-center w-100 mb-2"><span class="badge bg-dark bg-opacity-25 text-white fs-9">October 24</span></div>
+                        <div class="chat-bubble chat-received text-dark">
+                            <strong>Invoice #INV-0091</strong><br>
+                            Amount Due: KES 1,200.00<br><br>
+                            Please use the inline button below to pay.
+                            <div class="text-end text-muted mt-1" style="font-size: 0.7rem;">10:45 AM</div>
+                        </div>
+                        <div class="w-100">
+                            <button class="btn w-100 text-white fw-bold shadow-sm" style="background-color: rgba(255,255,255,0.2); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.4);">💳 Pay KES 1,200</button>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        container.innerHTML = mockupHtml;
+        new bootstrap.Modal(document.getElementById('previewUIModal')).show();
+    }
+
+    // 2. Helper to set Dropdown value dynamically
+    function setDmContext(platformValue) {
+        document.getElementById('dmPlatformSelect').value = platformValue;
+    }
+
+    // 3. Simulators for Modals
+    function simulateOauthConnect(btn, platformName) {
+        const originalHtml = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Connecting to ' + platformName + '...';
+        btn.disabled = true;
+        setTimeout(() => {
+            alert('OAuth Successful! ' + platformName + ' is now connected to Sendmo.');
+            btn.innerHTML = originalHtml;
+            btn.disabled = false;
+            // Note: In real app, trigger page reload or state change here.
+        }, 1500);
+    }
+
+    function simulateDMPush() {
+        const btn = document.getElementById('dmSubmitBtn');
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Dispatching...';
+        btn.disabled = true;
+        setTimeout(() => {
+            bootstrap.Modal.getInstance(document.getElementById('sendDmModal')).hide();
+            alert("Prompt sent! Customer will see the payment card in their DM immediately.");
+            btn.innerHTML = 'Send Prompt Instantly';
+            btn.disabled = false;
+        }, 1500);
+    }
+
+    function simulateLinkGen(btn) {
+        btn.innerHTML = 'Generating... <i class="fas fa-spinner fa-spin ms-2"></i>';
+        btn.disabled = true;
+        setTimeout(() => {
+            btn.innerHTML = 'Link Copied! <i class="fas fa-check ms-2"></i>';
+            btn.classList.replace('btn-gold', 'btn-success');
+            setTimeout(() => {
+                bootstrap.Modal.getInstance(document.getElementById('createLinkModal')).hide();
+                btn.innerHTML = 'Generate & Copy URL';
+                btn.classList.replace('btn-success', 'btn-gold');
+                btn.disabled = false;
+            }, 1000);
+        }, 1000);
+    }
+
+    function simulateSettlement(btn) {
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Authorizing Transfer...';
+        btn.disabled = true;
+        setTimeout(() => {
+            bootstrap.Modal.getInstance(document.getElementById('cashInModal')).hide();
+            alert("Success! KES 450,230.50 has been settled to KCB Bank Kenya. Funds will reflect in 1 business day.");
+            btn.innerHTML = 'Authorize Transfer';
+            btn.disabled = false;
+        }, 2000);
+    }
+</script>
+
+
                 </div>
                 <!--end::Content-->
 
