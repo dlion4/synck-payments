@@ -20,4 +20,10 @@ v18....channels 90% POS sections but advnaced level POS
 
 v19....channels 90% POS sections but advnaced level POS
 
+v20...stk done sections
 
+v21...esocial platforms
+
+v22...subscription...sections
+
+check the urls full ni....https://dlion4.github.io/synck-payments/channels/subscriptions.html
