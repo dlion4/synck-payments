@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Print Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <style>
+        /* =========================================
+           ADVANCED PRO THEME VARIABLES & SYSTEM
+           ========================================= */
+        :root {
+            --bg-deep: #0f1015;
+            --bg-modal: #181920;
+            --bg-card: #22232b;
+            --bg-card-hover: #2a2b36;
+            --border-color: #31323f;
+            --accent-primary: #10b981; 
+            --accent-glow: rgba(16, 185, 129, 0.2);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            padding: 2rem 0; /* Added padding for page layout */
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: var(--border-color); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+        /* =========================================
+           APP LAYOUT ARCHITECTURE (Formerly Modal)
+           ========================================= */
+        .pro-app-content {
+            background-color: var(--bg-modal);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            margin: 0 auto;
+            max-width: 1400px; /* Constrains width on massive screens */
+            min-height: 80vh;
+        }
+
+        .header-custom {
+            background: linear-gradient(180deg, rgba(34,35,43,1) 0%, rgba(24,25,32,1) 100%);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+        }
+
+        .layout-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 75vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar-nav {
+            background-color: var(--bg-card);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .step-item {
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--text-muted);
+        }
+
+        .step-item:hover {
+            background-color: var(--bg-card-hover);
+            color: var(--text-main);
+        }
+
+        .step-item.active {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            box-shadow: inset 4px 0 0 var(--accent-primary);
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: var(--bg-modal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .step-item.active .step-icon {
+            background-color: var(--accent-primary);
+            color: #fff;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        /* =========================================
+           CONTENT PANES & COMPONENTS
+           ========================================= */
+        .content-pane {
+            padding: 2.5rem;
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+        .content-pane.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cybercafe Cards */
+        .cyber-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cyber-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--text-muted);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .cyber-card.selected {
+            border-color: var(--accent-primary);
+            background: linear-gradient(145deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.05) 100%);
+        }
+
+        .cyber-card.selected::before {
+            content: '\F26A'; 
+            font-family: 'bootstrap-icons';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            color: var(--accent-primary);
+            font-size: 1.5rem;
+        }
+
+        .badge-pro {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 0.35em 0.8em;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.75rem;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Nested Tabs */
+        .pro-tabs {
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .pro-tab {
+            padding: 0.75rem 0;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .pro-tab:hover { color: var(--text-main); }
+        .pro-tab.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+        }
+
+        /* Drag & Drop Zone */
+        .upload-zone {
+            border: 2px dashed var(--border-color);
+            border-radius: 16px;
+            padding: 4rem 2rem;
+            text-align: center;
+            background-color: rgba(34, 35, 43, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .upload-zone:hover, .upload-zone.dragover {
+            border-color: var(--accent-primary);
+            background-color: var(--accent-glow);
+        }
+
+        /* File Items UI */
+        .file-item {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s;
+        }
+        
+        .file-item:hover { border-color: #4a4b59; }
+
+        .file-icon-box {
+            width: 48px; height: 48px;
+            border-radius: 10px;
+            background-color: rgba(255,255,255,0.05);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .file-settings-btn {
+            background-color: var(--bg-deep);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+        .file-settings-btn:hover { background-color: var(--border-color); }
+
+        /* Form Controls */
+        .pro-input {
+            background-color: var(--bg-deep);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+        }
+        .pro-input:focus {
+            background-color: var(--bg-deep);
+            border-color: var(--accent-primary);
+            color: var(--text-main);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+
+        /* Summary Panel */
+        .summary-card {
+            background: linear-gradient(180deg, var(--bg-card) 0%, rgba(34,35,43,0.5) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        /* Buttons */
+        .btn-pro-primary {
+            background-color: var(--accent-primary);
+            color: #000;
+            font-weight: 700;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-pro-primary:hover {
+            background-color: #0ea5e9; 
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4);
+            color: #fff;
+        }
+
+        .btn-pro-outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+        .btn-pro-outline:hover { background-color: var(--bg-card-hover); border-color: var(--text-muted); }
+
+        /* Mini Modals */
+        .mini-modal-content {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+        }
+        
+        .pro-check .form-check-input {
+            background-color: var(--bg-deep);
+            border-color: var(--border-color);
+            width: 1.2rem; height: 1.2rem;
+        }
+        .pro-check .form-check-input:checked {
+            background-color: var(--accent-primary);
+            border-color: var(--accent-primary);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container-fluid px-4">
+    <div class="pro-app-content">
+        
+        <div class="header-custom d-flex justify-content-between align-items-center">
+            <div>
+                <h4 class="mb-1 fw-bold d-flex align-items-center gap-3">
+                    <i class="bi bi-layers text-success"></i> Remote Print Network
+                </h4>
+                <p class="text-muted mb-0 small" id="headerStatus">Step 1: Locate a servicing cybercafe</p>
+            </div>
+        </div>
+
+        <div class="layout-wrapper">
+            
+            <div class="sidebar-nav">
+                <div class="step-item active" onclick="appState.navigateToStep(1)" id="navStep1">
+                    <div class="step-icon"><i class="bi bi-shop"></i></div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">Select Hub</h6>
+                        <small class="text-muted" id="navSubtitle1">Required</small>
+                    </div>
+                </div>
+                
+                <div class="step-item" onclick="appState.navigateToStep(2)" id="navStep2">
+                    <div class="step-icon"><i class="bi bi-file-earmark-arrow-up"></i></div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">Documents</h6>
+                        <small class="text-muted" id="navSubtitle2">Pending upload</small>
+                    </div>
+                </div>
+
+                <div class="step-item" onclick="appState.navigateToStep(3)" id="navStep3">
+                    <div class="step-icon"><i class="bi bi-credit-card"></i></div>
+                    <div>
+                        <h6 class="mb-0 fw-bold">Checkout</h6>
+                        <small class="text-muted">Review & Pay</small>
+                    </div>
+                </div>
+                <div class="step-item" onclick="appState.navigateToStep(4)" id="navStep4">
+    <div class="step-icon"><i class="bi bi-clock-history"></i></div>
+    <div>
+        <h6 class="mb-0 fw-bold">Track Orders</h6>
+        <small class="text-muted">Active & Past</small>
+    </div>
+</div>
+
+                <div class="mt-auto pt-5">
+                    <div class="p-3 rounded bg-dark border border-secondary border-opacity-25">
+                        <small class="text-muted d-block mb-1">Total Estimated Cost</small>
+                        <h3 class="fw-bold text-success mb-0" id="sidebarTotal">KES 0.00</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="position-relative">
+                
+                <div class="content-pane active" id="paneStep1">
+                    <div class="d-flex justify-content-between align-items-end mb-4">
+                        <div>
+                            <h4 class="fw-bold mb-1">Nearby Print Hubs</h4>
+                            <p class="text-muted mb-0">Select a destination for your documents</p>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <input type="text" class="form-control pro-input form-control-sm" placeholder="Search locations...">
+                            <button class="btn btn-pro-outline btn-sm"><i class="bi bi-filter"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="cyber-grid" id="cyberGridContainer">
+                        </div>
+
+                    <div class="d-flex justify-content-end mt-5">
+                        <button class="btn btn-pro-primary px-5" onclick="appState.navigateToStep(2)">Continue to Files <i class="bi bi-arrow-right ms-2"></i></button>
+                    </div>
+                </div>
+
+                <div class="content-pane" id="paneStep2">
+                    <h4 class="fw-bold mb-1">p</h4>
+                    <p class="text-muted mb-4">Upload files and configure individual print settings</p>
+
+                    <div class="pro-tabs">
+                        <div class="pro-tab active" onclick="switchNestedTab('localUpload', this)">Local Files</div>
+                        <div class="pro-tab" onclick="switchNestedTab('voiceNotes', this)">Voice Instructions</div>
+                        <div class="pro-tab" onclick="switchNestedTab('cloudImport', this)">Cloud Import <span class="badge bg-primary ms-2 rounded-pill" style="font-size:0.6rem;">Beta</span></div>
+                    </div>
+
+                    <div id="tab-localUpload" class="nested-pane">
+                        <div class="upload-zone mb-4" id="dropZone" onclick="document.getElementById('fileInputMaster').click()">
+                            <i class="bi bi-cloud-arrow-up text-success mb-3" style="font-size: 3rem;"></i>
+                            <h5 class="fw-bold text-light">Drag & Drop files here</h5>
+                            <p class="text-muted mb-0">or click to browse your computer</p>
+                            <small class="text-muted mt-2 d-block">Supports PDF, DOCX, JPG up to 50MB</small>
+                            <input type="file" id="fileInputMaster" class="d-none" multiple onchange="appState.handleFiles(event)">
+                        </div>
+                        
+                        <h6 class="fw-bold mb-3 d-flex justify-content-between">
+                            <span>Uploaded Files (<span id="fileCount">0</span>)</span>
+                            <small class="text-muted fw-normal" style="cursor:pointer;" onclick="appState.clearFiles()"><i class="bi bi-trash"></i> Clear All</small>
+                        </h6>
+                        
+                        <div id="fileListContainer" style="max-height: 250px; overflow-y: auto; padding-right: 10px;">
+                            <div class="text-center p-4 text-muted border border-secondary border-opacity-25 rounded" id="emptyFileState">
+                                No files uploaded yet.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-cloudImport" class="nested-pane d-none">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="cyber-card text-center py-5">
+                                    <i class="bi bi-google text-danger fs-1 mb-2"></i>
+                                    <h6 class="fw-bold">Google Drive</h6>
+                                    <button class="btn btn-pro-outline btn-sm mt-2">Connect</button>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="cyber-card text-center py-5">
+                                    <i class="bi bi-dropbox text-primary fs-1 mb-2"></i>
+                                    <h6 class="fw-bold">Dropbox</h6>
+                                    <button class="btn btn-pro-outline btn-sm mt-2">Connect</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tab-voiceNotes" class="nested-pane d-none">
+                        <textarea class="form-control pro-input mb-4" rows="5" placeholder="Type general instructions for the cyber attendant (e.g., ' bind hizo document titled thesis document with a clear cover')"></textarea>
+                        <div class="p-4 rounded text-center" style="background-color: var(--bg-card); border: 1px solid var(--border-color);">
+                            <button class="btn btn-pro-outline rounded-circle mb-3" style="width: 60px; height: 60px;">
+                                <i class="bi bi-mic-fill fs-4 text-danger"></i>
+                            </button>
+                            <h6 class="fw-bold">Record Voice Note</h6>
+                            <p class="text-muted small mb-0">Max 60 seconds</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-5 pt-3 border-top border-secondary border-opacity-25">
+                        <button class="btn btn-pro-outline px-4" onclick="appState.navigateToStep(1)">Back</button>
+                        <button class="btn btn-pro-primary px-5" onclick="appState.navigateToStep(3)">Review Order <i class="bi bi-check2-circle ms-2"></i></button>
+                    </div>
+                </div>
+
+                <div class="content-pane" id="paneStep3">
+                    <div class="row h-100 g-4">
+                        <div class="col-lg-7">
+                            <h4 class="fw-bold mb-4">Order Review</h4>
+                            
+                            <div class="summary-card mb-4">
+                                <h6 class="text-muted mb-3 text-uppercase font-monospace small">Destination</h6>
+                                <div class="d-flex align-items-center gap-3 mb-4">
+                                    <div class="file-icon-box text-success"><i class="bi bi-shop"></i></div>
+                                    <div>
+                                        <h5 class="fw-bold mb-0" id="summaryCyberName">Not Selected</h5>
+                                        <span class="badge bg-success bg-opacity-25 text-success border border-success mt-1" id="summaryCyberPricing">--</span>
+                                    </div>
+                                </div>
+
+                                <h6 class="text-muted mb-3 text-uppercase font-monospace small border-top border-secondary border-opacity-25 pt-3">Document Breakdown</h6>
+                                <div id="summaryFileList" class="small mb-3">
+                                    </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-lg-5">
+    <div class="summary-card h-100 d-flex flex-column">
+        <h5 class="fw-bold mb-4">Payment & Collection</h5>
+        
+        <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Subtotal</span>
+            <span id="checkoutSubtotal">KES 0</span>
+        </div>
+        <div class="d-flex justify-content-between mb-3 border-bottom border-secondary border-opacity-25 pb-3">
+            <span class="text-muted">Service Fee (Platform)</span>
+            <span>KES 10</span>
+        </div>
+        <div class="d-flex justify-content-between mb-4">
+            <span class="fw-bold fs-5">Total</span>
+            <span class="fw-bold fs-5 text-success" id="checkoutTotal">KES 0</span>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label text-muted small">Select Method</label>
+            
+            <div class="form-check pro-check mb-2 p-3 rounded" style="background-color: var(--bg-deep); border: 1px solid var(--border-color);">
+                <input class="form-check-input ms-1" type="radio" name="paymentMethod" id="payMpesa" value="mpesa" checked>
+                <label class="form-check-label ms-2 fw-bold d-flex align-items-center gap-2" for="payMpesa">
+                    <i class="bi bi-phone text-success"></i> Pay via M-PESA
+                </label>
+            </div>
+            
+            <div class="form-check pro-check mb-2 p-3 rounded" style="background-color: var(--bg-deep); border: 1px solid var(--border-color);">
+                <input class="form-check-input ms-1" type="radio" name="paymentMethod" id="payCash" value="cyber">
+                <label class="form-check-label ms-2 fw-bold d-flex align-items-center gap-2" for="payCash">
+                    <i class="bi bi-shop text-warning"></i> Pay at Cybercafe
+                </label>
+            </div>
+
+            <div class="form-check pro-check p-3 rounded" style="background-color: var(--bg-deep); border: 1px solid var(--border-color);">
+                <input class="form-check-input ms-1" type="radio" name="paymentMethod" id="payDelivery" value="delivery">
+                <label class="form-check-label ms-2 fw-bold d-flex align-items-center gap-2" for="payDelivery">
+                    <i class="bi bi-bicycle text-info"></i> Deliver to Me
+                </label>
+            </div>
+        </div>
+
+        <button class="btn btn-pro-primary w-100 mt-auto py-3 fs-5" onclick="processFinalOrder()">
+            <i class="bi bi-lock-fill me-2"></i> Submit Order
+        </button>
+    </div>
+</div>
+                    </div>
+                </div>
+
+                <div class="content-pane" id="paneStep4">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+        <div>
+            <h4 class="fw-bold mb-1">Print Queues & History</h4>
+            <p class="text-muted small mb-0">Track active orders or modify them within 3 minutes of placement.</p>
+        </div>
+        <button class="btn btn-pro-outline btn-sm"><i class="bi bi-arrow-clockwise me-2"></i>Refresh Status</button>
+    </div>
+
+    <div class="file-item align-items-start p-4 mb-4" style="border-color: var(--accent-primary); background: linear-gradient(145deg, var(--bg-card) 0%, rgba(16, 185, 129, 0.05) 100%);">
+        <div class="d-flex gap-3 w-100">
+            <div class="file-icon-box text-success" style="width: 60px; height: 60px;">
+                <i class="bi bi-receipt-cutoff fs-2"></i>
+            </div>
+            
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between mb-1">
+                    <h5 class="fw-bold mb-0">Order #PRNT-8492</h5>
+                    <span class="badge bg-success bg-opacity-25 text-success border border-success px-2 py-1">In Queue</span>
+                </div>
+                <p class="text-muted small mb-3">Nairobi CBD Print Hub • 2 Documents • KES 150</p>
+                
+                <div class="p-3 rounded" style="background-color: var(--bg-deep); border: 1px dashed var(--accent-primary);">
+                    <div class="d-flex justify-content-between mb-2">
+                        <small class="text-info fw-bold"><i class="bi bi-unlock-fill me-1"></i> Edit Window Open</small>
+                        <small class="text-muted font-monospace" id="timerDisplay">02:14 remaining</small>
+                    </div>
+                    <div class="progress" style="height: 6px; background-color: #31323f;">
+                        <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" style="width: 35%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ms-4 d-flex flex-column gap-2 border-start border-secondary border-opacity-25 ps-4">
+                <button class="btn btn-pro-primary btn-sm py-2 px-4" 
+        data-bs-toggle="modal" 
+        data-bs-target="#editOrderModal" 
+        onclick="document.getElementById('editOrderId').innerText = '#PRNT-8492'">
+    <i class="bi bi-pencil-square me-2"></i>Modify
+</button>
+                <button class="btn btn-pro-outline btn-sm py-2 text-muted" onclick="alert('Receipt downloading...')">
+                    <i class="bi bi-download me-2"></i>Receipt
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="fw-bold mb-3 mt-5">Past Orders</h5>
+    
+    <div class="file-item align-items-start p-3 opacity-75">
+        <div class="d-flex gap-3 w-100">
+            <div class="file-icon-box text-muted">
+                <i class="bi bi-check2-all"></i>
+            </div>
+            <div class="flex-grow-1">
+                <div class="d-flex justify-content-between mb-1">
+                    <h6 class="fw-bold mb-0 text-muted">Order #PRNT-7710</h6>
+                    <span class="badge bg-secondary">Completed</span>
+                </div>
+                <p class="text-muted small mb-0">Juja Campus Cyber • Printed Today at 10:30 AM</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deliveryAgreementModal" tabindex="-1" style="z-index: 1065;" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content mini-modal-content text-center p-4">
+            <div class="mb-3">
+                <i class="bi bi-bicycle text-info" style="font-size: 3.5rem;"></i>
+            </div>
+            <h5 class="fw-bold text-white mb-2">Delivery Service</h5>
+            <p class="text-muted small mb-3">You have opted for document delivery.</p>
+            
+            <div class="p-3 mb-4 rounded text-start" style="background-color: var(--bg-deep); border: 1px solid var(--border-color);">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted small">Delivery Fee:</span>
+                    <strong class="text-warning">KES 50</strong>
+                </div>
+                <hr class="border-secondary border-opacity-25 my-2">
+                <small class="text-muted d-block" style="font-size: 0.75rem;">
+                    <i class="bi bi-info-circle text-info me-1"></i> Ensure you pay the full total (Print + Delivery) <b>before</b> the parcel is handed to you by the rider.
+                </small>
+            </div>
+
+            <button class="btn btn-pro-primary w-100 mb-2" onclick="confirmDeliveryOrder()">I Agree, Place Order</button>
+            <button class="btn btn-pro-outline w-100" data-bs-dismiss="modal">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="fileSettingsModal" tabindex="-1" style="z-index: 1060;">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content mini-modal-content">
+            
+            <div class="modal-header border-bottom border-secondary border-opacity-25 pb-3 align-items-start">
+                <div>
+                    <h6 class="modal-title fw-bold d-flex align-items-center gap-2 mb-1">
+                        <i class="bi bi-sliders text-success"></i> Document Configuration
+                    </h6>
+                    <p class="text-truncate small text-info mb-0" id="settingsFileName" style="max-width: 350px;">filename.pdf</p>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            
+            <div class="modal-body p-4">
+                <input type="hidden" id="settingFileId">
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted"><i class="bi bi-palette me-1"></i>Color Mode</label>
+                        <select class="form-select pro-input" id="settingColor">
+                            <option value="bw">Black & White</option>
+                            <option value="color">Full Color</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted"><i class="bi bi-files me-1"></i>Copies</label>
+                        <div class="input-group">
+                            <button class="btn btn-pro-outline" type="button" onclick="adjustCopies(-1)">-</button>
+                            <input type="number" class="form-control pro-input text-center" id="settingCopies" value="1" min="1">
+                            <button class="btn btn-pro-outline" type="button" onclick="adjustCopies(1)">+</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted"><i class="bi bi-grid me-1"></i>Pages per Sheet</label>
+                        <select class="form-select pro-input" id="settingPagesPerSheet">
+                            <option value="1">1 Page (Default)</option>
+                            <option value="2">2 Pages</option>
+                            <option value="4">4 Pages</option>
+                            <option value="6">6 Pages</option>
+                            <option value="9">9 Pages</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted"><i class="bi bi-star me-1"></i>Print Quality</label>
+                        <select class="form-select pro-input" id="settingQuality">
+                            <option value="normal">Normal (Standard)</option>
+                            <option value="draft">Draft (Ink Saver)</option>
+                            <option value="high">High (Best Quality)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                     <div class="col-md-6">
+                        <label class="form-label small text-muted"><i class="bi bi-aspect-ratio me-1"></i>Paper Size</label>
+                        <select class="form-select pro-input" id="settingPaperSize">
+                            <option value="a4">A4 (Standard)</option>
+                            <option value="a3">A3 (Large)</option>
+                            <option value="letter">US Letter</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small text-muted"><i class="bi bi-phone-landscape me-1"></i>Orientation</label>
+                        <select class="form-select pro-input" id="settingOrientation">
+                            <option value="portrait">Portrait</option>
+                            <option value="landscape">Landscape</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="p-3 rounded mb-4" style="background-color: var(--bg-deep); border: 1px solid var(--border-color);">
+                    <div class="form-check pro-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="settingDoubleSided">
+                        <label class="form-check-label small fw-medium" for="settingDoubleSided">Print Double Sided (Duplex)</label>
+                    </div>
+                    <div class="form-check pro-check">
+                        <input class="form-check-input" type="checkbox" id="settingCollate" checked>
+                        <label class="form-check-label small fw-medium" for="settingCollate">Collate Pages (1,2,3... 1,2,3)</label>
+                    </div>
+                </div>
+
+                <button class="btn btn-pro-primary w-100 py-2 fs-6" onclick="appState.saveFileSettings()">
+                    <i class="bi bi-check2-circle me-2"></i>Apply Configuration
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="openOrderEditModal" tabindex="-1" style="z-index: 1068;">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content mini-modal-content">
+            
+            <div class="modal-header border-bottom border-secondary border-opacity-25 pb-2">
+                <h6 class="modal-title fw-bold d-flex align-items-center gap-2 small">
+                    <i class="bi bi-pencil-square text-warning"></i> Quick Edit
+                </h6>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" style="font-size: 0.7rem;"></button>
+            </div>
+            
+            <div class="modal-body p-3">
+                <p class="text-truncate small text-light fw-medium mb-3 pb-2 border-bottom border-secondary border-opacity-25" id="quickModifyFileName">document_name.pdf</p>
+                <input type="hidden" id="quickModifyFileId">
+
+                <label class="form-label small text-muted mb-1" style="font-size: 0.8rem;">Copies</label>
+                <div class="input-group input-group-sm mb-3">
+                    <button class="btn btn-pro-outline" type="button" onclick="quickAdjustCopies(-1)">-</button>
+                    <input type="number" class="form-control pro-input text-center" id="quickModifyCopies" value="1" min="1">
+                    <button class="btn btn-pro-outline" type="button" onclick="quickAdjustCopies(1)">+</button>
+                </div>
+
+                <label class="form-label small text-muted mb-1" style="font-size: 0.8rem;">Color Mode</label>
+                <select class="form-select form-select-sm pro-input mb-4" id="quickModifyColor">
+                    <option value="bw">Black & White</option>
+                    <option value="color">Full Color</option>
+                </select>
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-outline-danger btn-sm w-50" onclick="quickRemoveFile()">
+                        <i class="bi bi-trash"></i> Remove
+                    </button>
+                    <button class="btn btn-pro-primary btn-sm w-50 py-1" onclick="saveQuickModify()">
+                        Update
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successModal" tabindex="-1" style="z-index: 1070;" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content mini-modal-content text-center p-5">
+            <div id="loadingState">
+                <div class="spinner-border text-success mb-3" style="width: 3rem; height: 3rem;" role="status"></div>
+                <h5 class="fw-bold">Encrypting & Sending...</h5>
+                <p class="text-muted small mb-0">Connecting to secure print node.</p>
+            </div>
+            <div id="successState" class="d-none">
+                <i class="bi bi-check-circle-fill text-success mb-3 d-block" style="font-size: 4rem;"></i>
+                <h4 class="fw-bold text-white">Order Confirmed</h4>
+                <p class="text-muted small mb-4">Code: <strong class="text-success">#PRNT-8492</strong><br>You will be notified when your order is processed.</p>
+                <button class="btn btn-pro-outline w-100" onclick="window.location.reload()">Return Home</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+    // --- MOCK DATA ---
+    const MOCK_CYBERS = [
+        { id: 'c1', name: 'Nairobi CBD Print Hub', dist: '0.2 km', bw: 5, color: 20, rating: 4.8, tags: ['24/7', 'Binding'] },
+        { id: 'c2', name: 'Juja Campus Cyber', dist: '1.4 km', bw: 3, color: 15, rating: 4.5, tags: ['Student Discount'] },
+        { id: 'c3', name: 'Bungoma Express Print', dist: '3.0 km', bw: 5, color: 25, rating: 4.9, tags: ['Fast Network'] },
+        { id: 'c4', name: 'Kimilili Tech Solutions', dist: '5.1 km', bw: 4, color: 20, rating: 4.2, tags: ['Lamination'] }
+    ];
+
+    // --- APPLICATION STATE MANAGER ---
+    const appState = {
+        currentStep: 1,
+        selectedCyber: null,
+        files: [],
+        basePlatformFee: 10,
+        
+        navigateToStep(step) {
+            // Validation before moving forward
+            if(step === 2 && !this.selectedCyber) {
+                alert("Please select a Cybercafe first.");
+                return;
+            }
+            if(step === 3 && this.files.length === 0) {
+                alert("Please upload at least one document.");
+                return;
+            }
+
+            this.currentStep = step;
+            
+            // Handle Sidebar active states
+            document.querySelectorAll('.step-item').forEach(el => el.classList.remove('active'));
+            document.getElementById(`navStep${step}`).classList.add('active');
+            
+            // Handle Pane visibility
+            document.querySelectorAll('.content-pane').forEach(el => el.classList.remove('active'));
+            document.getElementById(`paneStep${step}`).classList.add('active');
+
+            // Update Header Text dynamically based on Step
+            const headerTexts = [
+                "Step 1: Locate a servicing cybercafe", 
+                "Step 2: Upload & Configure Files", 
+                "Step 3: Secure Checkout",
+                "Step 4: Track & Manage Orders"
+            ];
+            
+            if(headerTexts[step-1]) {
+                document.getElementById('headerStatus').innerText = headerTexts[step-1];
+            }
+
+            // Trigger specific renders when entering checkout
+            if(step === 3) this.renderSummary();
+        },
+
+        initCybers() {
+            const container = document.getElementById('cyberGridContainer');
+            container.innerHTML = MOCK_CYBERS.map(c => `
+                <div class="cyber-card" id="card-${c.id}" onclick="appState.selectCyber('${c.id}')">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h6 class="fw-bold mb-0">${c.name}</h6>
+                        <span class="badge bg-dark border border-secondary text-light"><i class="bi bi-star-fill text-warning me-1"></i>${c.rating}</span>
+                    </div>
+                    <p class="text-muted small mb-3"><i class="bi bi-geo-alt"></i> ${c.dist} away</p>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-info small fw-bold">B/W: KES ${c.bw}</span>
+                        <span class="text-danger small fw-bold">Color: KES ${c.color}</span>
+                    </div>
+                    <div class="d-flex gap-1 flex-wrap">
+                        ${(c.tags || []).map(t => `<span class="badge-pro">${t}</span>`).join('')}
+                    </div>
+                </div>
+            `).join('');
+        },
+
+        selectCyber(id) {
+            this.selectedCyber = MOCK_CYBERS.find(c => c.id === id);
+            
+            document.querySelectorAll('.cyber-card').forEach(el => el.classList.remove('selected'));
+            document.getElementById(`card-${id}`).classList.add('selected');
+
+            document.getElementById('navSubtitle1').innerHTML = `<span class="text-success">${this.selectedCyber.name}</span>`;
+            this.calculateTotal();
+        },
+
+        handleFiles(event) {
+            const uploaded = event.target.files;
+            for(let i=0; i<uploaded.length; i++) {
+                const fileObj = {
+                    id: 'file_' + Math.random().toString(36).substr(2, 9),
+                    name: uploaded[i].name,
+                    size: (uploaded[i].size / 1024 / 1024).toFixed(2) + ' MB',
+                    copies: 1,
+                    colorMode: 'bw', 
+                    pagesPerSheet: '1',
+                    quality: 'normal',
+                    paperSize: 'a4',
+                    orientation: 'portrait',
+                    doubleSided: false,
+                    collate: true,
+                    pagesMock: Math.floor(Math.random() * 20) + 1 
+                };
+                this.files.push(fileObj);
+            }
+            this.renderFiles();
+            this.calculateTotal();
+        },
+
+        removeFile(id) {
+            this.files = this.files.filter(f => f.id !== id);
+            this.renderFiles();
+            this.calculateTotal();
+        },
+
+        clearFiles() {
+            this.files = [];
+            this.renderFiles();
+            this.calculateTotal();
+        },
+
+        renderFiles() {
+            const container = document.getElementById('fileListContainer');
+            const emptyState = document.getElementById('emptyFileState');
+            document.getElementById('fileCount').innerText = this.files.length;
+            
+            document.getElementById('navSubtitle2').innerText = this.files.length > 0 ? `${this.files.length} files added` : 'Pending upload';
+
+            if(this.files.length === 0) {
+                container.innerHTML = '';
+                container.appendChild(emptyState);
+                emptyState.classList.remove('d-none');
+                return;
+            }
+
+            emptyState.classList.add('d-none');
+            container.innerHTML = this.files.map(f => `
+                <div class="file-item">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="file-icon-box text-primary">
+                            <i class="bi bi-file-earmark-pdf-fill"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-truncate" style="max-width: 200px;">${f.name}</h6>
+                            <small class="text-muted">${f.size} • ${f.pagesMock} pages • ${f.colorMode.toUpperCase()} • x${f.copies}</small>
+                        </div>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="file-settings-btn" onclick="appState.openSettingsModal('${f.id}')">
+                            <i class="bi bi-sliders"></i>
+                        </button>
+                        <button class="file-settings-btn text-danger" onclick="appState.removeFile('${f.id}')">
+                            <i class="bi bi-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        },
+
+        openSettingsModal(id) {
+            const file = this.files.find(f => f.id === id);
+            if(!file) return;
+
+            document.getElementById('settingFileId').value = file.id;
+            document.getElementById('settingsFileName').innerText = file.name;
+            
+            document.getElementById('settingColor').value = file.colorMode || 'bw';
+            document.getElementById('settingCopies').value = file.copies || 1;
+            document.getElementById('settingPagesPerSheet').value = file.pagesPerSheet || '1';
+            document.getElementById('settingQuality').value = file.quality || 'normal';
+            document.getElementById('settingPaperSize').value = file.paperSize || 'a4';
+            document.getElementById('settingOrientation').value = file.orientation || 'portrait';
+            document.getElementById('settingDoubleSided').checked = !!file.doubleSided;
+            document.getElementById('settingCollate').checked = file.collate !== false;
+
+            const modal = new bootstrap.Modal(document.getElementById('fileSettingsModal'));
+            modal.show();
+        },
+
+        saveFileSettings() {
+            const id = document.getElementById('settingFileId').value;
+            const file = this.files.find(f => f.id === id);
+            
+            if(file) {
+                file.colorMode = document.getElementById('settingColor').value;
+                file.copies = parseInt(document.getElementById('settingCopies').value);
+                file.pagesPerSheet = document.getElementById('settingPagesPerSheet').value;
+                file.quality = document.getElementById('settingQuality').value;
+                file.paperSize = document.getElementById('settingPaperSize').value;
+                file.orientation = document.getElementById('settingOrientation').value;
+                file.doubleSided = document.getElementById('settingDoubleSided').checked;
+                file.collate = document.getElementById('settingCollate').checked;
+            }
+
+            bootstrap.Modal.getInstance(document.getElementById('fileSettingsModal')).hide();
+            this.renderFiles();
+            this.calculateTotal();
+        },
+
+        calculateTotal() {
+            if(!this.selectedCyber || this.files.length === 0) {
+                this.updateDisplayTotals(0);
+                return;
+            }
+
+            let subtotal = 0;
+            this.files.forEach(f => {
+                const costPerPage = f.colorMode === 'color' ? this.selectedCyber.color : this.selectedCyber.bw;
+                let fileTotal = costPerPage * f.pagesMock * f.copies;
+                if(f.doubleSided) {
+                    fileTotal = fileTotal * 0.9; 
+                }
+                subtotal += fileTotal;
+            });
+
+            this.updateDisplayTotals(subtotal);
+        },
+
+        updateDisplayTotals(subtotal) {
+            const total = subtotal > 0 ? subtotal + this.basePlatformFee : 0;
+            const formattedTotal = `KES ${Math.round(total).toLocaleString()}`;
+            
+            document.getElementById('sidebarTotal').innerText = formattedTotal;
+            document.getElementById('checkoutSubtotal').innerText = `KES ${Math.round(subtotal).toLocaleString()}`;
+            document.getElementById('checkoutTotal').innerText = formattedTotal;
+        },
+
+        // UPGRADED SUMMARY RENDERER (Now with Edit Button)
+        renderSummary() {
+            document.getElementById('summaryCyberName').innerText = this.selectedCyber.name;
+            document.getElementById('summaryCyberPricing').innerText = `Base Rates: B/W KES ${this.selectedCyber.bw} | Col KES ${this.selectedCyber.color}`;
+
+            const listContainer = document.getElementById('summaryFileList');
+            
+            listContainer.innerHTML = this.files.map(f => {
+                const colorLabel = f.colorMode === 'color' ? '<span class="text-info">Full Color</span>' : 'Black & White';
+                const pps = f.pagesPerSheet || '1';
+                const quality = (f.quality || 'normal').charAt(0).toUpperCase() + (f.quality || 'normal').slice(1);
+                const size = (f.paperSize || 'a4').toUpperCase();
+                const orientation = (f.orientation || 'portrait').charAt(0).toUpperCase() + (f.orientation || 'portrait').slice(1);
+                const duplex = f.doubleSided ? '<span class="text-light fw-medium">Yes</span>' : 'No';
+                const collate = (f.collate !== false) ? '<span class="text-light fw-medium">Yes</span>' : 'No';
+                
+                return `
+                <div class="p-3 mb-3 rounded" style="background-color: var(--bg-deep); border: 1px solid var(--border-color);">
+                    <div class="d-flex justify-content-between align-items-center mb-2 pb-2 border-bottom border-secondary border-opacity-25">
+                        <h6 class="mb-0 fw-bold text-truncate text-light" style="max-width: 70%;">
+                            <i class="bi bi-file-earmark-text text-success me-2"></i>${f.name}
+                        </h6>
+                        
+                        <div class="d-flex gap-2 align-items-center">
+                            <span class="badge bg-success bg-opacity-25 text-success border border-success px-2 py-1">
+                                x${f.copies} Copies
+                            </span>
+                            <button class="btn btn-sm btn-pro-outline py-0 px-2 text-muted border-0" onclick="openQuickModify('${f.id}')">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-2 mt-1 small text-muted">
+                        <div class="col-6 d-flex align-items-center text-truncate">
+                            <i class="bi bi-palette me-2"></i> ${colorLabel}
+                        </div>
+                        <div class="col-6 d-flex align-items-center text-truncate">
+                            <i class="bi bi-aspect-ratio me-2"></i> ${size} (${orientation})
+                        </div>
+                        <div class="col-6 d-flex align-items-center text-truncate">
+                            <i class="bi bi-grid me-2"></i> ${pps} Page(s) per Sheet
+                        </div>
+                        <div class="col-6 d-flex align-items-center text-truncate">
+                            <i class="bi bi-star me-2"></i> ${quality} Quality
+                        </div>
+                        <div class="col-6 d-flex align-items-center text-truncate">
+                            <i class="bi bi-book me-2"></i> Duplex: &nbsp;${duplex}
+                        </div>
+                        <div class="col-6 d-flex align-items-center text-truncate">
+                            <i class="bi bi-layers me-2"></i> Collate: &nbsp;${collate}
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+    };
+
+    // --- UTILITY FUNCTIONS ---
+    function switchNestedTab(tabId, el) {
+        document.querySelectorAll('.pro-tab').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        
+        document.querySelectorAll('.nested-pane').forEach(p => p.classList.add('d-none'));
+        document.getElementById(`tab-${tabId}`).classList.remove('d-none');
+    }
+
+    function adjustCopies(val) {
+        const input = document.getElementById('settingCopies');
+        let current = parseInt(input.value) || 1;
+        current += val;
+        if(current < 1) current = 1;
+        input.value = current;
+    }
+
+    // --- QUICK MODIFY LOGIC (For Checkout Pane) ---
+    function openQuickModify(fileId) {
+        const file = appState.files.find(f => f.id === fileId);
+        if (!file) return;
+
+        document.getElementById('quickModifyFileId').value = file.id;
+        document.getElementById('quickModifyFileName').innerText = file.name;
+        document.getElementById('quickModifyCopies').value = file.copies || 1;
+        document.getElementById('quickModifyColor').value = file.colorMode || 'bw';
+
+        const modal = new bootstrap.Modal(document.getElementById('quickModifyModal'));
+        modal.show();
+    }
+
+    function quickAdjustCopies(val) {
+        const input = document.getElementById('quickModifyCopies');
+        let current = parseInt(input.value) || 1;
+        current += val;
+        if (current < 1) current = 1;
+        input.value = current;
+    }
+
+    function saveQuickModify() {
+        const id = document.getElementById('quickModifyFileId').value;
+        const file = appState.files.find(f => f.id === id);
+        
+        if (file) {
+            file.copies = parseInt(document.getElementById('quickModifyCopies').value);
+            file.colorMode = document.getElementById('quickModifyColor').value;
+        }
+
+        bootstrap.Modal.getInstance(document.getElementById('quickModifyModal')).hide();
+        appState.renderSummary(); 
+        appState.calculateTotal(); 
+    }
+
+    function quickRemoveFile() {
+        const id = document.getElementById('quickModifyFileId').value;
+        bootstrap.Modal.getInstance(document.getElementById('quickModifyModal')).hide();
+        
+        appState.removeFile(id); 
+        
+        if (appState.files.length === 0) {
+            appState.navigateToStep(2);
+        } else {
+            appState.renderSummary();
+        }
+    }
+
+    // --- FINAL ORDER SUBMISSION LOGIC ---
+    function processFinalOrder() {
+        const isDeliverySelected = document.getElementById('payDelivery').checked;
+
+        if (isDeliverySelected) {
+            const deliveryModal = new bootstrap.Modal(document.getElementById('deliveryAgreementModal'));
+            deliveryModal.show();
+        } else {
+            executeOrderSimulation();
+        }
+    }
+
+    function confirmDeliveryOrder() {
+        bootstrap.Modal.getInstance(document.getElementById('deliveryAgreementModal')).hide();
+        executeOrderSimulation();
+    }
+
+    function executeOrderSimulation() {
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+
+        document.getElementById('loadingState').classList.remove('d-none');
+        document.getElementById('successState').classList.add('d-none');
+
+        setTimeout(() => {
+            document.getElementById('loadingState').classList.add('d-none');
+            document.getElementById('successState').classList.remove('d-none');
+        }, 2500);
+    }
+
+    // --- TRACKING & EDITING LOGIC (Pane 4) ---
+    function openOrderEditModal(orderId) {
+        document.getElementById('editOrderId').innerText = "#" + orderId;
+        const editModal = new bootstrap.Modal(document.getElementById('editOrderModal'));
+        editModal.show();
+    }
+
+    function submitOrderChanges() {
+        bootstrap.Modal.getInstance(document.getElementById('editOrderModal')).hide();
+        
+        const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+
+        document.getElementById('loadingState').classList.remove('d-none');
+        document.getElementById('successState').classList.add('d-none');
+
+        document.querySelector('#loadingState h5').innerText = "Applying Changes...";
+        document.querySelector('#successState h4').innerText = "Order Updated";
+
+        setTimeout(() => {
+            document.getElementById('loadingState').classList.add('d-none');
+            document.getElementById('successState').classList.remove('d-none');
+        }, 1500);
+    }
+
+    function confirmCancelOrder() {
+        if(confirm("Are you sure you want to completely cancel this print job? Any payments will be refunded to your wallet.")) {
+            bootstrap.Modal.getInstance(document.getElementById('editOrderModal')).hide();
+            alert("Order Cancelled Successfully.");
+        }
+    }
+
+    // --- EVENT LISTENERS (Drag & Drop) ---
+    const dropZone = document.getElementById('dropZone');
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+    function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+    });
+    dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        appState.handleFiles({ target: { files: files } });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        appState.initCybers();
+    });
+
+    function openOrderEditModal(orderId) {
+    // 1. Set the text in the modal header
+    document.getElementById('editOrderId').innerText = "#" + orderId;
+    
+    // 2. Open the modal manually
+    const editModal = new bootstrap.Modal(document.getElementById('editOrderModal'));
+    editModal.show();
+}
+</script>
+</body>
+</html>

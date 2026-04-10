@@ -2847,654 +2847,1196 @@
                     <!--begin::Container-->
                     <!--begin::Container-->
                     <!--begin::Container-->
-                    <div class="container-xxl" id="kt_content_container">
+                    <div class=" container-xxl " id="kt_content_container">
 
+
+
+                       
     <style>
+        /* Base KeenThemes Colors & Typography */
         :root {
-            --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-            --gold-900: #7b590e;
-            --gold-700: #c99c35;
-            --gold-500: #e6b829;
-            --gold-light: rgba(230, 184, 41, 0.15);
-            --dark-bg: #1e1e2d;
-            --dark-surface: #2b2b40;
-            --bg-surface: #f4f6f9;
-            --card-bg: #ffffff;
-            --text-dark: #181C32;
-            --text-muted: #7E8299;
-            --border-color: #e4e6ef;
-            
-            --success: #50cd89;
-            --danger: #f1416c;
-            --info: #009ef7;
-            --warning: #f1bc00;
-
-            --radius: 16px;
-            --soft-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
-            --hover-shadow: 0 15px 40px rgba(201, 169, 63, 0.12);
+            --bs-primary: #009ef7; --bs-success: #50cd89; --bs-info: #7239ea; 
+            --bs-warning: #f1bc00; --bs-danger: #f1416c; --bs-gray-100: #f5f8fa; 
+            --bs-gray-200: #eff2f5; --bs-gray-300: #e4e6ef; --bs-gray-400: #b5b5c3; 
+            --bs-gray-500: #a1a5b7; --bs-gray-600: #7e8299; --bs-gray-700: #5e6278; 
+            --bs-gray-800: #3f4254; --bs-gray-900: #181c32;
         }
+        /* body { background-color: #f5f8fa; font-family: Inter, Helvetica, sans-serif; color: var(--bs-gray-700); } */
 
-        body { font-family: var(--font-sans); background: var(--bg-surface); color: var(--text-dark); }
-
-        /* Cards & Surfaces */
-        .card-elevated {
-            background: var(--card-bg); border: 1px solid var(--border-color);
-            border-radius: var(--radius); box-shadow: var(--soft-shadow);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
-        .hover-elevate-up:hover { transform: translateY(-5px); box-shadow: var(--hover-shadow); border-color: var(--gold-500); }
+        /* MagicUI & Material Animated Effects */
+        .hover-elevate-up { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .hover-elevate-up:hover { transform: translateY(-5px); box-shadow: 0 1rem 3rem rgba(0,0,0,0.1) !important; z-index: 1; }
         
+        .pulse-ring { animation: pulse-ring 2s infinite; }
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(0, 158, 247, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 158, 247, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 158, 247, 0); }
+        }
+
+        /* Layout Utilities */
+        .border-dashed { border-style: dashed !important; border-color: var(--bs-gray-300) !important; }
+        .bg-light-success { background-color: #e8fff3 !important; }
+        .bg-light-primary { background-color: #f1faff !important; }
+        .bg-light-danger { background-color: #fff5f8 !important; }
+        .bg-light-warning { background-color: #fff8dd !important; }
+        
+        /* Gradients */
+        .bg-gradient-red { background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%); }
+        .bg-gradient-dark { background: linear-gradient(135deg, #1e1e2d 0%, #3f4254 100%); }
+        .bg-gradient-blue { background: linear-gradient(135deg, #009ef7 0%, #0052cc 100%); }
+
+        /* Custom Tabs */
+        .nav-pills-custom .nav-link {
+            color: var(--bs-gray-500); font-weight: 600; border-radius: 0.5rem; padding: 0.75rem 1.5rem; transition: all 0.3s;
+        }
+        .nav-pills-custom .nav-link.active {
+            background-color: var(--bs-primary); color: #039a35; box-shadow: 0 4px 9px rgba(0, 158, 247, 0.25);
+        }
+        
+        /* Sub Tabs (Business) */
+        .nav-line-tabs .nav-link {
+            color: var(--bs-gray-500); border-bottom: 2px solid transparent; padding: 0.5rem 1rem; font-weight: 600;
+        }
+        .nav-line-tabs .nav-link.active { color: var(--bs-primary); border-bottom: 2px solid var(--bs-primary); }
+
+        /* Timeline Activities */
+        .timeline-item { position: relative; padding-left: 2.5rem; margin-bottom: 1.5rem; }
+        .timeline-item::before { content: ''; position: absolute; left: 0.75rem; top: 0; bottom: -1.5rem; width: 2px; background-color: var(--bs-gray-200); }
+        .timeline-item:last-child::before { display: none; }
+        .timeline-badge { position: absolute; left: 0; top: 0; width: 1.5rem; border-radius: 50%; background: white; border: 3px solid; display: flex; align-items: center; justify-content: center; height: 1.5rem; }
+
+        /* Vertical Stepper for Compliance */
+        .stepper-column .stepper-item { display: flex; align-items: flex-start; margin-bottom: 2rem; position: relative; }
+        .stepper-column .stepper-item::after { content: ''; position: absolute; left: 1.25rem; top: 3rem; bottom: -1.5rem; width: 2px; background-color: var(--bs-gray-300); z-index: 0; }
+        .stepper-column .stepper-item:last-child::after { display: none; }
+        .stepper-icon { width: 2.5rem; height: 2.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; background-color: var(--bs-gray-200); color: var(--bs-gray-600); z-index: 1; position: relative; margin-right: 1.5rem; transition: all 0.3s; }
+        .stepper-item.completed .stepper-icon { background-color: var(--bs-success); color: white; }
+        .stepper-item.current .stepper-icon { background-color: var(--bs-success); color: white; box-shadow: 0 0 0 4px rgba(80, 205, 137, 0.2); }
+        
+        /* Bar Chart Placeholder CSS */
+        .css-bar { width: 12px; border-radius: 6px 6px 0 0; background: rgba(255,255,255,0.7); display: inline-block; margin: 0 4px; }
+    
+        /* :root {
+            --bs-primary: #009ef7; --bs-success: #50cd89; --bs-gray-100: #f5f8fa;
+            --bs-gray-900: #181c32; --wizard-step-bg: #eff2f5;
+        } */
+        /* body { background-color: #f5f8fa; font-family: 'Inter', sans-serif; padding: 40px 0; } */
+        
+        /* Balance Card Glassmorphism */
         .balance-card {
-            background: linear-gradient(135deg, var(--dark-bg) 0%, #3f4254 100%);
-            border-radius: var(--radius); position: relative; overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #1e1e2d 0%, #3f4254 100%);
+            border-radius: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
         }
         .balance-card::before {
             content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(230,184,41,0.08) 0%, transparent 60%); pointer-events: none;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            pointer-events: none;
         }
 
-        /* Buttons */
-        .btn-gold {
-            background: linear-gradient(90deg, var(--gold-500), var(--gold-700));
-            color: #fff; font-weight: 700; border: none; border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(201, 169, 63, 0.25); transition: 0.3s;
-        }
-        .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(201, 169, 63, 0.4); color: #fff; }
-        
-        .btn-glass {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            color: #fff; font-weight: 600; border-radius: 10px; transition: 0.3s; backdrop-filter: blur(10px);
-        }
-        .btn-glass:hover { background: rgba(255,255,255,0.15); border-color: var(--gold-500); color: var(--gold-500); }
-
-        /* Typography & Utilities */
-        .text-gold { color: var(--gold-700) !important; }
-        .text-vibrant { color: var(--text-dark); font-weight: 800; letter-spacing: -0.5px; }
-        .icon-box { width: 45px; height: 45px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-        
-        /* Navigation Pills */
-        .nav-pills-custom { background: #fff; padding: 6px; border-radius: 12px; border: 1px solid var(--border-color); display: inline-flex; }
-        .nav-pills-custom .nav-link { color: var(--text-muted); font-weight: 700; border-radius: 8px; padding: 0.6rem 1.5rem; transition: 0.2s; }
-        .nav-pills-custom .nav-link:hover { color: var(--text-dark); background: var(--input-bg); }
-        .nav-pills-custom .nav-link.active { background: var(--text-dark); color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-
-        /* Wizard & Stepper */
-        .step-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--border-color); margin: 0 6px; transition: 0.3s; }
-        .step-dot.active { background: var(--gold-500); width: 28px; border-radius: 6px; box-shadow: 0 0 10px var(--gold-light); }
-        .wizard-step-content { display: none; animation: fadeIn 0.4s ease forwards; }
-        .wizard-step-content.active { display: block; }
-        
+        /* Wizard Logic */
+        .step-content { display: none; animation: fadeIn 0.4s ease; }
+        .step-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .pulse-ring { animation: pulse 2s infinite; }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(80, 205, 137, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(80, 205, 137, 0); } 100% { box-shadow: 0 0 0 0 rgba(80, 205, 137, 0); } }
+
+        /* Custom Step Indicators */
+        .step-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--bs-gray-300); margin: 0 5px; transition: 0.3s; }
+        .step-dot.active { background: var(--bs-primary); width: 25px; border-radius: 5px; }
+
+        .method-card {
+            border: 2px solid var(--bs-gray-200);
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .method-card:hover, .method-card.selected {
+            border-color: var(--bs-primary);
+            background-color: var(--bs-light-primary);
+        }
     </style>
 
-    <div class="py-8">
-        
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-8 bg-white p-5 rounded-4 shadow-sm border">
-            <div class="d-flex align-items-center mb-4 mb-md-0">
-                <div class="symbol symbol-55px me-4">
-                    <div class="w-55px h-55px bg-light-primary rounded-circle d-flex align-items-center justify-content-center border border-primary border-dashed">
-                        <i class="fas fa-user-tie text-primary fs-3"></i>
-                    </div>
-                </div>
-                <div>
-                    <h1 class="text-vibrant fs-3 mb-1">Welcome back, Martin Kiprop</h1>
-                    <div class="text-muted fw-semibold fs-7">Manage your SendMO ecosystem & wallets.</div>
+
+<div class="container-fluid px-xl-10 py-10">
+    
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-10 bg-white p-6 rounded shadow-sm border border-gray-200">
+        <div class="d-flex align-items-center mb-4 mb-md-0">
+            <div class="symbol symbol-50px me-5">
+                <div class="w-50px h-50px bg-light-primary rounded-circle d-flex align-items-center justify-content-center">
+                    <i class="fa fa-user-circle text-primary fs-2x"></i>
                 </div>
             </div>
-            
             <div>
-                <ul class="nav nav-pills nav-pills-custom" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="pill" href="#tab_personal" role="tab">
-                            <i class="fas fa-wallet me-2"></i> Personal Wallet
-                        </a>
+                <h1 class="text-gray-900 fw-bolder fs-3 mb-1">Welcome back, Martin Kiprop</h1>
+                <div class="text-gray-500 fw-semibold fs-7">Manage your SendMO ecosystem.</div>
+            </div>
+        </div>
+        
+        <div class="bg-light p-1 rounded-3">
+            <ul class="nav nav-pills nav-pills-custom" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active px-6" data-bs-toggle="pill" href="#tab_personal" role="tab">
+                        <i class="fa fa-user me-2"></i>Personal Profile
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-6" data-bs-toggle="pill" href="#tab_business" role="tab">
+                        <i class="fa fa-briefcase me-2"></i>Business (Pkenya LTD)
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content">
+        
+        <div class="tab-pane fade show active" id="tab_personal" role="tabpanel">
+            
+           <div class="row g-5 mb-8">
+    <div class="col-xl-4">
+        <div class="card balance-card shadow-sm h-100 border-0 overflow-hidden" style="background: linear-gradient(135deg, #1e1e2d 0%, #3f4254 100%); min-height: 250px;">
+            <div class="card-body p-8 d-flex flex-column justify-content-between">
+                <div class="text-white">
+                    <div class="d-flex align-items-center mb-4">
+                        <span class="fs-6 fw-semibold opacity-75">Available Balance</span>
+                        <i class="fa fa-info-circle ms-2 opacity-50" title="Net balance across all accounts"></i>
+                    </div>
+                    <div class="d-flex align-items-baseline mb-4">
+                        <span class="fs-2 fw-bold opacity-50 me-2">KES</span>
+                        <span class="fs-1 fw-bolder" style="font-size: 2.5rem !important;">1,245,600.<small class="fs-4 opacity-75">50</small></span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <span class="badge bg-success bg-opacity-20 text-success px-3 py-2 fs-9 fw-bold"><i class="fa fa-arrow-up me-1"></i> +12.5%</span>
+                        <span class="badge bg-white bg-opacity-10 text-white px-3 py-2 fs-9 fw-bold"><i class="fa fa-shield-check me-1"></i> Insured</span>
+                    </div>
+                </div>
+
+                <div class="row g-2 mt-6">
+                    <div class="col-6">
+                        <button class="btn btn-primary w-100 py-3 fw-bold fs-7" onclick="showDepositWizard()">
+                            <i class="fa fa-plus-circle me-1"></i> Deposit
+                        </button>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-light w-100 py-3 fw-bold fs-7" data-bs-toggle="modal" data-bs-target="#withdrawalModal">
+                            <i class="fa fa-arrow-up-right-from-square me-1"></i> Withdraw
+                        </button>
+                    </div>
+                    <div class="col-12">
+                        <button class="btn btn-white bg-opacity-10 border-0 text-white w-100 py-2 fw-bold fs-8 mt-1" style="background: rgba(255,255,255,0.05);">
+                            <i class="fa fa-exchange-alt me-2"></i> Internal Transfer
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="card shadow-sm border-0 h-100">
+            <div class="card-body p-8">
+                <h3 class="fw-bolder text-gray-800 mb-6">Quick Services</h3>
+                <div class="row g-4">
+                    <div class="col-6">
+                        <div class="border border-dashed border-gray-300 rounded p-4 text-center hover-elevate-up cursor-pointer h-100" data-bs-toggle="modal" data-bs-target="#kt_modal_utilities">
+                            <div class="w-45px h-45px bg-light-warning rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3">
+                                <i class="fa fa-bolt text-warning fs-4"></i>
+                            </div>
+                            <span class="text-gray-800 fw-bold fs-7">Pay Bills</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border border-dashed border-gray-300 rounded p-4 text-center hover-elevate-up cursor-pointer h-100" data-bs-toggle="modal" data-bs-target="#kt_modal_utilities">
+                            <div class="w-45px h-45px bg-light-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3">
+                                <i class="fa fa-mobile-alt text-primary fs-4"></i>
+                            </div>
+                            <span class="text-gray-800 fw-bold fs-7">Airtime</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border border-dashed border-gray-300 rounded p-4 text-center hover-elevate-up cursor-pointer h-100" data-bs-toggle="modal" data-bs-target="#kt_modal_transfer">
+                            <div class="w-45px h-45px bg-light-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3">
+                                <i class="fa fa-qrcode text-success fs-4"></i>
+                            </div>
+                            <span class="text-gray-800 fw-bold fs-7">Scan & Pay</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="border border-dashed border-gray-300 rounded p-4 text-center hover-elevate-up cursor-pointer h-100" data-bs-toggle="modal" data-bs-target="#kt_modal_transfer">
+                            <div class="w-45px h-45px bg-light-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3">
+                                <i class="fa fa-hand-holding-usd text-danger fs-4"></i>
+                            </div>
+                            <span class="text-gray-800 fw-bold fs-7">Request</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4">
+        <div class="card shadow-sm border-0 h-100 hover-elevate-up">
+            <div class="card-header border-0 pt-7 px-8">
+                <h3 class="card-title fw-bolder text-gray-800 m-0">My Savings</h3>
+                <button class="btn btn-icon btn-sm btn-light-primary rounded-circle" data-bs-toggle="modal" data-bs-target="#kt_modal_deposit">
+                    <i class="fa fa-plus"></i>
+                </button>
+            </div>
+            <div class="card-body p-8">
+                <div class="mb-8">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-gray-600 fw-bold fs-7">Emergency Fund</span>
+                        <span class="text-gray-900 fw-bolder fs-7">KES 150,000</span>
+                    </div>
+                    <div class="progress h-8px bg-light-success rounded">
+                        <div class="progress-bar bg-success" style="width: 75%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <span class="text-gray-400 fs-9">75% Complete</span>
+                        <span class="text-gray-400 fs-9">Goal: 200k</span>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-gray-600 fw-bold fs-7">Vacation</span>
+                        <span class="text-gray-900 fw-bolder fs-7">KES 30,000</span>
+                    </div>
+                    <div class="progress h-8px bg-light-info rounded">
+                        <div class="progress-bar bg-info" style="width: 40%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <span class="text-gray-400 fs-9">40% Complete</span>
+                        <span class="text-gray-400 fs-9">Goal: 75k</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="card shadow-sm border-0 hover-elevate-up mb-8">
+    <div class="card-header border-0 pt-6">
+        <h3 class="card-title fw-bolder text-gray-800">Recent Spending</h3>
+        <div class="card-toolbar">
+            <button class="btn btn-sm btn-light-primary me-2"><i class="fa fa-file-pdf me-1"></i> Export PDF</button>
+            <button class="btn btn-sm btn-light">View All</button>
+        </div>
+    </div>
+    <div class="card-body pt-4">
+        <div class="table-responsive">
+            <table class="table align-middle table-row-dashed fs-6 gy-4" id="spending_table">
+                <thead>
+                    <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                        <th>Transaction ID</th>
+                        <th>Details/Receiver</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th class="text-end min-w-100px">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-600 fw-semibold">
+                    <tr>
+                        <td><span class="text-gray-800 fs-7 fw-bold">#TRX-99402</span></td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="w-35px h-35px bg-light-danger rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="fa fa-shopping-cart text-danger"></i>
+                                </div>
+                                <div>
+                                    <span class="text-gray-800 fw-bold d-block">Naivas Supermarket</span>
+                                    <span class="text-gray-500 fs-8">Groceries</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="fs-7">Today, 14:30</td>
+                        <td class="text-gray-900 fw-bold">- KES 4,500.00</td>
+                        <td><span class="badge badge-light-success fs-8 fw-bold">Completed</span></td>
+                        <td class="text-end">
+                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Print Document">
+                                <i class="fa fa-print"></i>
+                            </button>
+                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" title="Share">
+                                <i class="fa fa-share-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text-gray-800 fs-7 fw-bold">#TRX-88210</span></td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="w-35px h-35px bg-light-success rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="fa fa-arrow-down text-success"></i>
+                                </div>
+                                <div>
+                                    <span class="text-gray-800 fw-bold d-block">Jane Doe</span>
+                                    <span class="text-gray-500 fs-8">Received Money</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="fs-7">Yesterday, 09:15</td>
+                        <td class="text-success fw-bold">+ KES 2,000.00</td>
+                        <td><span class="badge badge-light-success fs-8 fw-bold">Completed</span></td>
+                        <td class="text-end">
+                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Print">
+                                <i class="fa fa-print"></i>
+                            </button>
+                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" title="Share">
+                                <i class="fa fa-share-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="text-gray-800 fs-7 fw-bold">#TRX-77104</span></td>
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <div class="w-35px h-35px bg-light-warning rounded-circle d-flex align-items-center justify-content-center me-3">
+                                    <i class="fa fa-bolt text-warning"></i>
+                                </div>
+                                <div>
+                                    <span class="text-gray-800 fw-bold d-block">KPLC Tokens</span>
+                                    <span class="text-gray-500 fs-8">Utilities</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="fs-7">Oct 24, 18:00</td>
+                        <td class="text-gray-900 fw-bold">- KES 1,000.00</td>
+                        <td><span class="badge badge-light-warning fs-8 fw-bold">Pending</span></td>
+                        <td class="text-end">
+                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1" title="Print">
+                                <i class="fa fa-print"></i>
+                            </button>
+                            <button class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm" title="Share">
+                                <i class="fa fa-share-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+            
+        </div>
+        <div class="tab-pane fade" id="tab_business" role="tabpanel">
+            
+            <div class="d-flex justify-content-between align-items-center mb-6">
+                <ul class="nav nav-line-tabs mb-0 fs-5" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" data-bs-toggle="tab" href="#subtab_biz_overview">Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#subtab_biz_compliance">KYB / Compliance</a></li>
+                    <li class="nav-item"><a class="nav-link" data-bs-toggle="tab" href="#subtab_biz_cards">Developer Access</a></li>
+                </ul>
+                <div class="badge bg-light-success text-success fw-bold fs-7 p-2"><i class="fa fa-check-circle text-success me-1"></i> Verified Entity</div>
+            </div>
+
+            <div class="tab-content">
+                
+                <div class="tab-pane fade show active" id="subtab_biz_overview" role="tabpanel">
+                    
+                    <div class="row g-5 mb-8">
+                        <div class="col-xl-4">
+    <div class="card shadow-sm border-0 h-100 hover-elevate-up p-8 text-center bg-dark text-white" 
+         style="background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://www.transparenttextures.com/patterns/cubes.png'); border-radius: 1.5rem;">
+        
+        <h3 class="text-white opacity-75 mb-6 fs-4 fw-semibold">Total Operating Capital</h3>
+        <div class="fs-6 fw-bold text-white opacity-50 mb-1">Equivalent to</div>
+        <div class="fs-2hx fw-bolder mb-8 text-white" style="letter-spacing: -1px;">KES 12,450,000</div>
+        
+        <div class="d-flex gap-3">
+            <button class="btn btn-primary w-100 fw-bold py-3" data-bs-toggle="modal" data-bs-target="#kt_modal_deposit">
+                <i class="fa fa-plus-circle me-2"></i>Deposit
+            </button>
+            <button class="btn btn-light w-100 fw-bold py-3" data-bs-toggle="modal" data-bs-target="#kt_modal_transact">
+                <i class="fa fa-exchange-alt me-2 text-primary"></i>Transact
+            </button>
+        </div>
+    </div>
+</div>
+                        <div class="col-xl-8">
+                            <div class="card shadow-sm border-0 h-100 p-8">
+                                <h4 class="text-gray-800 fw-bold mb-6">Corporate Wallets</h4>
+                                <div class="row g-5">
+                                    <div class="col-md-4">
+                                        <div class="border border-dashed border-gray-300 rounded p-4 d-flex align-items-center hover-elevate-up cursor-pointer" data-bs-toggle="modal" data-bs-target="#kt_modal_transfer">
+                                            <img src="https://flagcdn.com/w40/us.png" class="w-30px rounded me-3">
+                                            <div><span class="d-block fw-bolder text-gray-900 fs-5">$15,400</span><span class="text-gray-500 fs-8">USD Wallet</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="border border-dashed border-gray-300 rounded p-4 d-flex align-items-center hover-elevate-up cursor-pointer" data-bs-toggle="modal" data-bs-target="#kt_modal_transfer">
+                                            <img src="https://flagcdn.com/w40/eu.png" class="w-30px rounded me-3">
+                                            <div><span class="d-block fw-bolder text-gray-900 fs-5">€4,450</span><span class="text-gray-500 fs-8">EUR Wallet</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="border border-dashed border-primary bg-light-primary rounded p-4 d-flex align-items-center justify-content-center hover-elevate-up cursor-pointer" data-bs-toggle="modal" data-bs-target="#kt_modal_add_currency">
+                                            <i class="fa fa-plus text-primary fs-3 me-2"></i><span class="fw-bold text-primary">Open Account</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-5 mb-8">
+                        <div class="col-xl-4">
+                            <div class="card shadow-sm border-0 h-100 hover-elevate-up overflow-hidden">
+                                <div class="bg-gradient-red p-8 position-relative">
+                                    <div class="d-flex justify-content-between align-items-center mb-10">
+                                        <h3 class="text-white fw-bolder m-0">Cash Flow</h3>
+                                        <button class="btn btn-sm btn-icon btn-color-white btn-active-white btn-active-color-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_report"><i class="fa fa-download"></i></button>
+                                    </div>
+                                    <div class="d-flex align-items-end justify-content-between px-2" style="height: 100px;">
+                                        <div class="css-bar" style="height: 40%;"></div>
+                                        <div class="css-bar" style="height: 80%;"></div>
+                                        <div class="css-bar" style="height: 50%;"></div>
+                                        <div class="css-bar" style="height: 90%;"></div>
+                                        <div class="css-bar" style="height: 30%;"></div>
+                                        <div class="css-bar" style="height: 60%;"></div>
+                                    </div>
+                                </div>
+                                <div class="card-body p-8 pt-6">
+                                    <div class="row g-0">
+                                        <div class="col-6 mb-6">
+                                            <div class="text-gray-500 fs-7 fw-semibold">Money in</div>
+                                            <div class="text-success fs-3 fw-bolder">$650</div>
+                                        </div>
+                                        <div class="col-6 mb-6">
+                                            <div class="text-gray-500 fs-7 fw-semibold">Money out</div>
+                                            <div class="text-danger fs-3 fw-bolder">$29,500</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-gray-500 fs-7 fw-semibold">Gross Income</div>
+                                            <div class="text-gray-900 fs-3 fw-bolder">$55,000</div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="text-gray-500 fs-7 fw-semibold">Total Expenses</div>
+                                            <div class="text-gray-900 fs-3 fw-bolder">$1.1M</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-8">
+                            <div class="card shadow-sm border-0 h-100 hover-elevate-up">
+                                <div class="card-body p-8 row">
+                                    <div class="col-md-6 border-end pe-md-8">
+                                        <h3 class="text-gray-800 fw-bold mb-1 fs-5">Sales Volume</h3>
+                                        <div class="text-gray-400 fs-8 fw-semibold mb-6">YTD Business Performance</div>
+                                        
+                                        <div class="d-flex align-items-center mb-6">
+                                            <span class="text-gray-400 fw-bold fs-3 me-2">KES</span>
+                                            <span class="text-gray-900 fw-bolder fs-1">29,034,523</span>
+                                            <span class="badge bg-light-success text-success ms-3">+2.7%</span>
+                                        </div>
+                                        <div class="d-flex flex-column gap-4 mt-6">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="text-gray-600 fw-semibold"><i class="fa fa-calculator me-2"></i>POS Terminals</div>
+                                                <span class="text-gray-900 fw-bold">$172k</span>
+                                            </div>
+                                            <div class="progress h-5px bg-light-primary"><div class="progress-bar bg-primary" style="width: 60%"></div></div>
+                                            
+                                            <div class="d-flex justify-content-between align-items-center mt-2">
+                                                <div class="text-gray-600 fw-semibold"><i class="fa fa-globe me-2"></i>API Integrations</div>
+                                                <span class="text-gray-900 fw-bold">$85k</span>
+                                            </div>
+                                            <div class="progress h-5px bg-light-info"><div class="progress-bar bg-info" style="width: 30%"></div></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6 ps-md-8 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex align-items-center mb-6">
+                                                <h3 class="text-gray-800 fw-bold m-0 fs-5 me-3">Corporate Credit Status</h3>
+                                                <span class="badge bg-success text-white fw-bold">Active</span>
+                                            </div>
+                                            <div class="row g-4">
+                                                <div class="col-6">
+                                                    <div class="border border-dashed border-gray-400 rounded p-4 text-center">
+                                                        <div class="text-gray-900 fw-bolder fs-4 mb-1">$50,000</div>
+                                                        <div class="text-gray-500 fs-8">Facility Limit</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="border border-dashed border-gray-400 rounded p-4 text-center bg-light-success">
+                                                        <div class="text-success fw-bolder fs-4 mb-1">A+</div>
+                                                        <div class="text-gray-500 fs-8">Credit Rating</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-dark w-100 mt-6" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade">Request Facility Increase</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="subtab_biz_compliance" role="tabpanel">
+                    <div class="card shadow border-0 hover-elevate-up my-5">
+                        <div class="card-header border-bottom bg-light py-5">
+                            <h2 class="card-title fw-bolder text-gray-900 m-0">Corporate Compliance (KYB)</h2>
+                            <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_compliance_edit">Edit Info</button>
+                        </div>
+                        <div class="card-body p-10">
+                            <div class="row">
+                                <div class="col-md-4 border-end border-gray-200">
+                                    <div class="stepper-column">
+                                        <div class="stepper-item completed">
+                                            <div class="stepper-icon"><i class="fa fa-check"></i></div>
+                                            <div class="stepper-label mt-2"><h4 class="fw-bold text-gray-800 fs-5">Company Info</h4></div>
+                                        </div>
+                                        <div class="stepper-item completed">
+                                            <div class="stepper-icon"><i class="fa fa-check"></i></div>
+                                            <div class="stepper-label mt-2"><h4 class="fw-bold text-gray-800 fs-5">Directors KYC</h4></div>
+                                        </div>
+                                        <div class="stepper-item current">
+                                            <div class="stepper-icon bg-danger text-white">3</div>
+                                            <div class="stepper-label mt-2"><h4 class="fw-bold text-gray-800 fs-5">Company Document</h4></div>
+                                        </div>
+                                        <div class="stepper-item pending">
+                                            <div class="stepper-icon">4</div>
+                                            <div class="stepper-label mt-2"><h4 class="fw-bold text-gray-500 fs-5">Final Review</h4></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8 ps-md-10 d-flex flex-column pt-5">
+                                    <h1 class="fw-bolder text-gray-900 mb-2 fs-2x">Company documents</h1>
+                                    <div class="alert bg-light-danger border border-danger border-dashed d-flex align-items-center p-5 mb-8">
+                                        <i class="fa fa-exclamation-triangle fs-2hx text-danger me-4"></i>
+                                        <div class="d-flex flex-column">
+                                            <h4 class="mb-1 text-danger">Fetch Error</h4>
+                                            <span class="text-gray-800">We couldn't fetch documents automatically from the local registry. Please upload your CR12 manually or contact support.</span>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex gap-4 mt-auto">
+                                        <button class="btn btn-light" data-bs-toggle="tab" href="#subtab_biz_overview">Cancel</button>
+                                        <button class="btn btn-danger text-white fw-bold px-8 pulse-ring" data-bs-toggle="modal" data-bs-target="#kt_modal_compliance_edit">Upload Manually</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="subtab_biz_cards" role="tabpanel">
+    <div class="row g-5">
+        
+        <div class="col-xl-8">
+    <div class="card shadow-sm border-0 h-100 hover-elevate-up border-top border-4 border-primary">
+        <div class="card-header border-0 pt-7">
+            <h3 class="card-title align-items-start flex-column">
+                <span class="card-label fw-bold text-gray-900 fs-3">API Environment</span>
+                <span class="text-muted mt-1 fw-semibold fs-7">Switch between testing and production environments</span>
+            </h3>
+            <div class="card-toolbar">
+                <ul class="nav nav-group nav-group-outline border-primary p-1" role="tablist" style="border-radius: 0.75rem;">
+                    <li class="nav-item" role="presentation">
+                        <button class="btn btn-sm btn-color-muted btn-active btn-active-primary px-4 py-2 active" 
+                                data-bs-toggle="tab" data-bs-target="#kt_api_sandbox" type="button">Sandbox</button>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="pill" href="#tab_business" role="tab">
-                            <i class="fas fa-briefcase me-2"></i> Business (Pkenya LTD)
-                        </a>
+                    <li class="nav-item" role="presentation">
+                        <button class="btn btn-sm btn-color-muted btn-active btn-active-success px-4 py-2" 
+                                data-bs-toggle="tab" data-bs-target="#kt_api_live" type="button">Live Mode</button>
                     </li>
                 </ul>
             </div>
         </div>
+        
+        <div class="card-body p-9 tab-content">
+            <div class="tab-pane fade show active" id="kt_api_sandbox" role="tabpanel">
+                <div class="mb-10">
+                    <div class="d-flex flex-stack mb-2">
+                        <label class="form-label fw-bold text-gray-700 fs-8 mb-0">SANDBOX PUBLIC KEY</label>
+                        <span class="badge badge-light-primary fw-bold">Test Environment</span>
+                    </div>
+                    <div class="input-group input-group-solid border rounded">
+                        <input type="text" class="form-control fw-bold text-gray-600 border-0" value="REPLACE_WITH_YOUR_KEY" readonly />
+                        <button class="btn btn-icon btn-light border-start"><i class="fa fa-copy text-primary"></i></button>
+                    </div>
+                </div>
 
-        <div class="tab-content">
-            
-            <div class="tab-pane fade show active" id="tab_personal" role="tabpanel">
-                
+                <div class="mb-10">
+                    <div class="d-flex flex-stack mb-2">
+                        <label class="form-label fw-bold text-danger fs-8 mb-0">SANDBOX SECRET KEY</label>
+                        <span class="badge badge-light-danger fw-bold">Revocable</span>
+                    </div>
+                    <div class="input-group input-group-solid border rounded">
+                        <input type="password" class="form-control fw-bold text-gray-600 border-0" value="REPLACE_WITH_YOUR_KEY" readonly />
+                        <button class="btn btn-icon btn-light border-start"><i class="fa fa-eye"></i></button>
+                    </div>
+                </div>
+                <div class="card-body p-9">
+                    <div class="mb-10">
+                        <div class="d-flex flex-stack mb-2">
+                            <label class="form-label fw-bold text-gray-700 fs-8 mb-0">PUBLIC KEY</label>
+                            <span class="badge badge-light-primary fw-bold">Readable</span>
+                        </div>
+                        <div class="input-group input-group-solid">
+                            <input type="text" class="form-control fw-bold text-gray-600" value="REPLACE_WITH_YOUR_KEY" readonly />
+                            <button class="btn btn-icon btn-light" title="Copy Key"><i class="fa fa-copy"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="mb-10">
+                        <div class="d-flex flex-stack mb-2">
+                            <label class="form-label fw-bold text-danger fs-8 mb-0">SECRET KEY</label>
+                            <span class="badge badge-light-danger fw-bold">Critical Security</span>
+                        </div>
+                        <div class="input-group input-group-solid">
+                            <input type="password" class="form-control fw-bold text-gray-600" value="REPLACE_WITH_YOUR_KEY" id="secret_key_input" readonly />
+                            <button class="btn btn-icon btn-light-danger" onclick="toggleSecret()"><i class="fa fa-eye"></i></button>
+                            <button class="btn btn-icon btn-light" title="Copy Key"><i class="fa fa-copy"></i></button>
+                        </div>
+                        <div class="text-muted fs-8 mt-2">This key should never be exposed in client-side code (JS/Mobile apps).</div>
+                    </div>
+
+                    <div class="mb-0">
+                        <label class="form-label fw-bold text-gray-700 fs-8">WEBHOOK ENDPOINT</label>
+                        <div class="d-flex gap-3">
+                            <div class="input-group input-group-solid">
+                                <span class="input-group-text bg-light-info"><i class="fa fa-link text-info"></i></span>
+                                <input type="text" class="form-control fw-semibold" placeholder="https://your-api.com/webhooks/sendmo" />
+                            </div>
+                            <button class="btn btn-info fw-bold px-8">Save</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-light-warning rounded p-5 border border-warning border-dashed">
+                    <div class="d-flex align-items-center">
+                        <i class="fa fa-exclamation-triangle text-warning fs-2 me-4"></i>
+                        <span class="text-gray-700 fw-semibold fs-7">Sandbox transactions do not move real money. Use for integration testing only.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="kt_api_live" role="tabpanel">
                 <div class="row g-5 mb-8">
-                    
-                    <div class="col-xl-4">
-                        <div class="balance-card h-100 p-5 d-flex flex-column justify-content-between">
-                            <div class="text-white position-relative z-index-1">
-                                <div class="d-flex align-items-center justify-content-between mb-4">
-                                    <span class="fs-6 fw-semibold opacity-75">Available Balance</span>
-                                    <span class="badge bg-white bg-opacity-10 text-white px-3 py-2 fs-9 border border-white border-opacity-25"><i class="fas fa-shield-alt me-1 text-success"></i> Insured</span>
-                                </div>
-                                <div class="d-flex align-items-baseline mb-3">
-                                    <span class="fs-3 fw-bold opacity-50 me-2">KES</span>
-                                    <span class="fw-bolder" style="font-size: 2.8rem; letter-spacing: -1px;">1,245,600.<small class="fs-4 opacity-75">50</small></span>
-                                </div>
-                                <div class="d-flex align-items-center text-success fs-7 fw-bold bg-success bg-opacity-10 w-auto d-inline-block px-3 py-1 rounded">
-                                    <i class="fas fa-arrow-up me-1"></i> +12.5% this month
-                                </div>
+                    <div class="col-6">
+                        <div class="border border-gray-300 border-dashed rounded py-3 px-4 bg-light-success" style="border-left: 5px solid #50cd89 !important;">
+                            <div class="d-flex align-items-center">
+                                <span class="bullet bullet-vertical h-10px w-10px bg-success me-2 animate-pulse" style="animation: pulse 1.5s infinite;"></span>
+                                <div class="fs-8 fw-bold text-success text-uppercase">System Status</div>
                             </div>
-
-                            <div class="row g-3 mt-5 position-relative z-index-1">
-                                <div class="col-6">
-                                    <button class="btn btn-gold w-100 py-3 fs-7" onclick="openWizard('deposit')">
-                                        <i class="fas fa-arrow-down me-1"></i> Deposit
-                                    </button>
-                                </div>
-                                <div class="col-6">
-                                    <button class="btn btn-light w-100 py-3 fw-bold fs-7 text-dark" onclick="openWizard('withdraw')">
-                                        <i class="fas fa-arrow-up me-1"></i> Withdraw
-                                    </button>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-glass w-100 py-3 fs-7" data-bs-toggle="modal" data-bs-target="#internalTransferModal">
-                                        <i class="fas fa-exchange-alt me-2"></i> Internal Transfer
-                                    </button>
-                                </div>
-                            </div>
+                            <div class="fs-5 fw-bolder text-gray-900 mt-1">Operational</div>
                         </div>
                     </div>
-
-                    <div class="col-xl-4">
-                        <div class="card-elevated h-100 p-5">
-                            <h4 class="fw-bolder text-dark mb-4">Quick Services</h4>
-                            <div class="row g-4 h-100">
-                                <div class="col-6">
-                                    <div class="border border-dashed border-gray-300 rounded-4 p-4 text-center hover-elevate-up h-100 d-flex flex-column justify-content-center" data-bs-toggle="modal" data-bs-target="#payBillsModal">
-                                        <div class="icon-box bg-light-warning mx-auto mb-3"><i class="fas fa-bolt text-warning fs-4"></i></div>
-                                        <span class="text-dark fw-bold fs-7">Pay Bills</span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="border border-dashed border-gray-300 rounded-4 p-4 text-center hover-elevate-up h-100 d-flex flex-column justify-content-center" data-bs-toggle="modal" data-bs-target="#airtimeModal">
-                                        <div class="icon-box bg-light-primary mx-auto mb-3"><i class="fas fa-mobile-alt text-primary fs-4"></i></div>
-                                        <span class="text-dark fw-bold fs-7">Airtime</span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="border border-dashed border-gray-300 rounded-4 p-4 text-center hover-elevate-up h-100 d-flex flex-column justify-content-center" data-bs-toggle="modal" data-bs-target="#scanPayModal">
-                                        <div class="icon-box bg-light-success mx-auto mb-3"><i class="fas fa-qrcode text-success fs-4"></i></div>
-                                        <span class="text-dark fw-bold fs-7">Scan & Pay</span>
-                                    </div>
-                                </div>
-                                <div class="col-6">
-                                    <div class="border border-dashed border-gray-300 rounded-4 p-4 text-center hover-elevate-up h-100 d-flex flex-column justify-content-center" data-bs-toggle="modal" data-bs-target="#requestMoneyModal">
-                                        <div class="icon-box bg-light-danger mx-auto mb-3"><i class="fas fa-hand-holding-usd text-danger fs-4"></i></div>
-                                        <span class="text-dark fw-bold fs-7">Request</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-xl-4">
-                        <div class="card-elevated h-100 p-5 d-flex flex-column hover-elevate-up">
-                            <div class="d-flex justify-content-between align-items-center mb-5 border-bottom pb-3">
-                                <h4 class="fw-bolder text-dark m-0">My Savings Goals</h4>
-                                <button class="btn btn-sm btn-icon btn-light-primary rounded-circle" data-bs-toggle="modal" data-bs-target="#addSavingsModal">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                            
-                            <div class="mb-5 flex-grow-1">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="text-muted fw-bold fs-7"><i class="fas fa-medkit text-success me-2"></i>Emergency Fund</span>
-                                    <span class="text-dark fw-bolder fs-7">KES 150,000</span>
-                                </div>
-                                <div class="progress h-8px bg-light-success rounded mb-2">
-                                    <div class="progress-bar bg-success" style="width: 75%"></div>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <span class="text-muted fs-9">75% Complete</span>
-                                    <span class="text-muted fs-9 fw-bold">Goal: 200k</span>
-                                </div>
-                            </div>
-
-                            <div class="mb-2 flex-grow-1">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="text-muted fw-bold fs-7"><i class="fas fa-plane text-info me-2"></i>Vacation</span>
-                                    <span class="text-dark fw-bolder fs-7">KES 30,000</span>
-                                </div>
-                                <div class="progress h-8px bg-light-info rounded mb-2">
-                                    <div class="progress-bar bg-info" style="width: 40%"></div>
-                                </div>
-                                <div class="d-flex justify-content-between">
-                                    <span class="text-muted fs-9">40% Complete</span>
-                                    <span class="text-muted fs-9 fw-bold">Goal: 75k</span>
-                                </div>
-                            </div>
+                    <div class="col-6">
+                        <div class="border border-gray-300 border-dashed rounded py-3 px-4 bg-light-info" style="border-left: 5px solid #7239ea !important;">
+                            <div class="fs-8 fw-bold text-info text-uppercase">Latency</div>
+                            <div class="fs-5 fw-bolder text-gray-900 mt-1">124ms</div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card-elevated p-5">
-                    <div class="d-flex justify-content-between align-items-center mb-5 border-bottom pb-3">
-                        <h4 class="fw-bolder text-dark m-0">Recent Spending</h4>
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-sm btn-light-danger fw-bold border" onclick="processAction('Exporting PDF...', 'Statement downloaded successfully!')"><i class="fas fa-file-pdf me-1"></i> Export PDF</button>
-                            <button class="btn btn-sm btn-light border fw-bold text-muted">View All</button>
-                        </div>
-                    </div>
-                    
-                    <div class="table-responsive">
-                        <table class="table align-middle table-row-dashed fs-6 gy-4 mb-0">
-                            <thead class="bg-light">
-                                <tr class="text-start text-muted fw-bolder fs-8 text-uppercase gs-0">
-                                    <th class="ps-4 rounded-start">Transaction ID</th>
-                                    <th>Details/Receiver</th>
-                                    <th>Date & Time</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                    <th class="text-end pe-4 rounded-end">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-gray-600 fw-semibold">
-                                <tr>
-                                    <td class="ps-4"><span class="text-dark fs-7 fw-bold font-monospace">#TRX-99402</span></td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="icon-box bg-light-danger me-3"><i class="fas fa-shopping-cart text-danger"></i></div>
-                                            <div class="d-flex flex-column">
-                                                <span class="text-dark fw-bold">Naivas Supermarket</span>
-                                                <span class="text-muted fs-8">Groceries (Till: 890123)</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="fs-7 text-muted">Today, 14:30</td>
-                                    <td class="text-danger fw-bolder">- KES 4,500.00</td>
-                                    <td><span class="badge bg-light-success text-success fw-bold">Completed</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-icon btn-light btn-sm border me-1" title="Print Receipt" onclick="processAction('Printing...', 'Sent to printer.')"><i class="fas fa-print text-muted"></i></button>
-                                        <button class="btn btn-icon btn-light btn-sm border" title="Share" onclick="processAction('Generating Link...', 'Share link copied to clipboard!')"><i class="fas fa-share-alt text-muted"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4"><span class="text-dark fs-7 fw-bold font-monospace">#TRX-88210</span></td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="icon-box bg-light-success me-3"><i class="fas fa-arrow-down text-success"></i></div>
-                                            <div class="d-flex flex-column">
-                                                <span class="text-dark fw-bold">Jane Doe</span>
-                                                <span class="text-muted fs-8">Received Money (P2P)</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="fs-7 text-muted">Yesterday, 09:15</td>
-                                    <td class="text-success fw-bolder">+ KES 2,000.00</td>
-                                    <td><span class="badge bg-light-success text-success fw-bold">Completed</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-icon btn-light btn-sm border me-1" onclick="processAction('Printing...', 'Sent to printer.')"><i class="fas fa-print text-muted"></i></button>
-                                        <button class="btn btn-icon btn-light btn-sm border" onclick="processAction('Generating Link...', 'Share link copied to clipboard!')"><i class="fas fa-share-alt text-muted"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="ps-4"><span class="text-dark fs-7 fw-bold font-monospace">#TRX-77104</span></td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="icon-box bg-light-warning me-3"><i class="fas fa-bolt text-warning"></i></div>
-                                            <div class="d-flex flex-column">
-                                                <span class="text-dark fw-bold">KPLC Tokens</span>
-                                                <span class="text-muted fs-8">Utilities (Prepaid)</span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="fs-7 text-muted">Oct 24, 18:00</td>
-                                    <td class="text-dark fw-bolder">- KES 1,000.00</td>
-                                    <td><span class="badge bg-light-warning text-warning-dark fw-bold border border-warning border-dashed pulse-ring">Pending</span></td>
-                                    <td class="text-end pe-4">
-                                        <button class="btn btn-icon btn-light btn-sm border me-1" onclick="processAction('Printing...', 'Sent to printer.')"><i class="fas fa-print text-muted"></i></button>
-                                        <button class="btn btn-icon btn-light btn-sm border" onclick="processAction('Generating Link...', 'Share link copied to clipboard!')"><i class="fas fa-share-alt text-muted"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="mb-8">
+                    <label class="form-label fw-bold text-gray-800 fs-7 mb-3">PRODUCTION LIVE TOKEN</label>
+                    <div class="d-flex align-items-center bg-gray-100 rounded p-4 border">
+                        <code class="text-success fw-bold fs-7 flex-grow-1">live_auth_token_9x22_p0s9v_2026_prod</code>
+                        <button class="btn btn-sm btn-success fw-bold ms-2 shadow-sm"><i class="fa fa-sync me-1"></i> Roll Key</button>
                     </div>
                 </div>
-            </div>
 
-            <div class="tab-pane fade" id="tab_business" role="tabpanel">
-                <div class="card-elevated p-5 text-center py-10">
-                    <div class="icon-box bg-light-primary mx-auto mb-4" style="width: 80px; height: 80px;"><i class="fas fa-briefcase text-primary fs-2x"></i></div>
-                    <h3 class="fw-bolder text-dark">Pkenya LTD Corporate Dashboard</h3>
-                    <p class="text-muted mb-5">Switch to the Merchant portal to manage corporate cards, bulk payouts, and API keys.</p>
-                    <button class="btn btn-primary fw-bold px-5" onclick="processAction('Switching Profiles...', 'Welcome to Pkenya LTD Merchant Portal')">Go to Merchant Portal <i class="fas fa-arrow-right ms-2"></i></button>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <div class="modal fade" id="transactionWizardModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0 pb-0 pt-4 px-5">
-                    <h4 class="fw-bolder text-dark mb-0" id="wizTitle"><i class="fas fa-exchange-alt text-gold me-2"></i> Transaction</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body p-5">
-                    <div class="d-flex justify-content-center mb-5" id="wizDots">
-                        </div>
-
-                    <div id="wizStep1" class="wizard-step-content">
-                        <h5 class="fw-bold mb-4 text-center">Enter Amount</h5>
-                        <div class="position-relative mb-4 mx-auto" style="max-width: 400px;">
-                            <input type="number" class="form-control form-control-lg bg-light border-0 fs-1 py-4 text-center fw-bolder text-dark" placeholder="0.00" id="wizAmount">
-                            <span class="position-absolute top-50 translate-middle-y ms-4 text-muted fw-bold fs-5">KES</span>
-                        </div>
-                        <div class="d-flex justify-content-center gap-2">
-                            <button class="btn btn-light-primary fw-bold" onclick="document.getElementById('wizAmount').value = 1000">+ 1K</button>
-                            <button class="btn btn-light-primary fw-bold" onclick="document.getElementById('wizAmount').value = 5000">+ 5K</button>
-                            <button class="btn btn-light-primary fw-bold" onclick="document.getElementById('wizAmount').value = 10000">+ 10K</button>
-                        </div>
-                    </div>
-
-                    <div id="wizStep2" class="wizard-step-content">
-                        <h5 class="fw-bold mb-4 text-center">Choose Method</h5>
-                        <div class="row g-3 max-w-500px mx-auto">
-                            <div class="col-6">
-                                <div class="border rounded-3 p-4 text-center hover-elevate cursor-pointer bg-light" onclick="selectWizMethod(this, 'M-Pesa')">
-                                    <i class="fas fa-mobile-alt fs-2x text-success mb-2"></i>
-                                    <span class="d-block fw-bold text-dark">Mobile Money</span>
-                                </div>
-                            </div>
-                            <div class="col-6">
-                                <div class="border rounded-3 p-4 text-center hover-elevate cursor-pointer bg-light" onclick="selectWizMethod(this, 'Bank Transfer')">
-                                    <i class="fas fa-university fs-2x text-primary mb-2"></i>
-                                    <span class="d-block fw-bold text-dark">Bank Transfer</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="wizStep3" class="wizard-step-content">
-                        <h5 class="fw-bold mb-4 text-center">Confirm Transaction</h5>
-                        <div class="bg-light p-4 rounded-3 border border-dashed mx-auto" style="max-width: 400px;">
-                            <div class="d-flex justify-content-between mb-2"><span class="text-muted">Action</span><span class="fw-bold text-dark" id="wizConfirmType">Deposit</span></div>
-                            <div class="d-flex justify-content-between mb-2"><span class="text-muted">Method</span><span class="fw-bold text-dark" id="wizConfirmMethod">M-Pesa</span></div>
-                            <div class="d-flex justify-content-between border-top pt-2 mt-2"><span class="fw-bolder">Total Amount</span><span class="fw-bolder text-success fs-5" id="wizConfirmAmt">KES 0.00</span></div>
-                        </div>
-                        <div class="form-floating mx-auto mt-4" style="max-width: 400px;">
-                            <input type="password" class="form-control text-center fw-bolder fs-3 tracking-widest" placeholder="PIN" maxlength="4">
-                            <label>Enter 4-Digit PIN</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer border-0 bg-light p-4 d-flex justify-content-between">
-                    <button class="btn btn-outline-custom fw-bold px-4" id="wizBtnPrev" onclick="wizNav(-1)">Back</button>
-                    <button class="btn btn-gold fw-bold px-5" id="wizBtnNext" onclick="wizNav(1)">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                <div class="table-responsive">
+                    <table class="table align-middle table-row-dashed fs-8 gy-3">
+                        <thead class="text-uppercase text-gray-500 fw-bold">
+                            <tr>
+                                <th>API Endpoint</th>
+                                <th>Success Rate</th>
+                                <th class="text-end">Usage (24h)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700 fw-semibold">
+                            <tr>
+                                <td>/v1/payments</td>
+                                <td><span class="badge badge-light-success fs-9">99.9%</span></td>
+                                <td class="text-end">12,402</td>
+                            </tr>
+                            <tr>
+                                <td>/v1/customers</td>
+                                <td><span class="badge badge-light-success fs-9">100%</span></td>
+                                <td class="text-end">850</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="internalTransferModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0 pb-0 pt-4 px-5">
-                    <h4 class="fw-bolder text-dark"><i class="fas fa-exchange-alt text-primary me-2"></i> Internal Transfer</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body p-5">
-                    <div class="form-floating mb-3">
-                        <select class="form-select fw-bold text-dark"><option>Business Wallet (Pkenya LTD)</option><option>Savings: Emergency Fund</option></select>
-                        <label>Transfer To</label>
-                    </div>
-                    <div class="form-floating mb-4">
-                        <input type="number" class="form-control fw-bolder fs-4 text-primary" placeholder="Amount">
-                        <label>Amount (KES)</label>
-                    </div>
-                    <button class="btn btn-primary w-100 fw-bold py-3" onclick="processAction('Moving Funds...', 'Internal transfer successful!')">Move Funds Instantly</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="payBillsModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0 pb-0 pt-4 px-5">
-                    <h4 class="fw-bolder text-dark"><i class="fas fa-bolt text-warning me-2"></i> Pay Bills</h4>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body p-5">
-                    <div class="row g-3 mb-4">
-                        <div class="col-6"><div class="border p-3 rounded text-center hover-elevate cursor-pointer bg-light"><i class="fas fa-lightbulb text-warning fs-3 mb-2"></i><span class="d-block fw-bold fs-8">Power/Water</span></div></div>
-                        <div class="col-6"><div class="border p-3 rounded text-center hover-elevate cursor-pointer bg-light"><i class="fas fa-wifi text-info fs-3 mb-2"></i><span class="d-block fw-bold fs-8">Internet/TV</span></div></div>
-                    </div>
-                    <div class="form-floating mb-3"><input type="text" class="form-control fw-bold" placeholder="Account"><label>Account Number</label></div>
-                    <div class="form-floating mb-4"><input type="number" class="form-control fw-bold text-dark" placeholder="Amount"><label>Amount (KES)</label></div>
-                    <button class="btn btn-dark w-100 fw-bold py-3" onclick="processAction('Validating Account...', 'Bill paid successfully!')">Pay Bill</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="airtimeModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-                <div class="modal-header border-0 pb-0 pt-4 px-4"><h5 class="fw-bolder"><i class="fas fa-mobile-alt text-primary me-2"></i> Buy Airtime</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-                <div class="modal-body p-4">
-                    <div class="form-floating mb-3"><input type="tel" class="form-control fw-bold" value="0712 345 678"><label>Phone Number</label></div>
-                    <div class="form-floating mb-4"><input type="number" class="form-control fw-bold text-success fs-4" placeholder="Amount"><label>Amount (KES)</label></div>
-                    <button class="btn btn-primary w-100 fw-bold" onclick="processAction('Topping up...', 'Airtime purchased successfully!')">Buy Airtime</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="scanPayModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content text-center">
-                <div class="modal-header border-0 pb-0"><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-                <div class="modal-body p-5">
-                    <h5 class="fw-bolder mb-3">Scan QR Code</h5>
-                    <div class="bg-dark rounded-3 d-flex align-items-center justify-content-center mb-4" style="height: 200px; position: relative;">
-                        <div style="width: 150px; height: 150px; border: 2px solid #50cd89; position: absolute;"></div>
-                        <i class="fas fa-camera text-white opacity-50 fs-1"></i>
-                    </div>
-                    <button class="btn btn-success fw-bold w-100" onclick="processAction('Scanning...', 'QR Code Detected. Proceeding to payment.')">Simulate Scan</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="requestMoneyModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-0 pb-0 pt-4 px-5"><h4 class="fw-bolder"><i class="fas fa-hand-holding-usd text-danger me-2"></i> Request Money</h4><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-                <div class="modal-body p-5">
-                    <div class="form-floating mb-3"><input type="text" class="form-control fw-bold" placeholder="Email or Phone"><label>Contact (Email/Phone/@tag)</label></div>
-                    <div class="form-floating mb-3"><input type="number" class="form-control fw-bold text-dark fs-4" placeholder="Amount"><label>Amount (KES)</label></div>
-                    <div class="form-floating mb-4"><input type="text" class="form-control" placeholder="Note"><label>What is this for?</label></div>
-                    <button class="btn btn-danger w-100 fw-bold py-3" onclick="processAction('Sending Request...', 'Payment request sent via SMS/Email!')">Send Request Link</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="addSavingsModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-sm">
-            <div class="modal-content">
-                <div class="modal-header border-0 pb-0 pt-4 px-4"><h5 class="fw-bolder"><i class="fas fa-piggy-bank text-info me-2"></i> Add to Savings</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-                <div class="modal-body p-4">
-                    <div class="form-floating mb-3">
-                        <select class="form-select fw-bold"><option>Emergency Fund</option><option>Vacation</option></select>
-                        <label>Select Goal</label>
-                    </div>
-                    <div class="form-floating mb-4"><input type="number" class="form-control fw-bold text-info fs-4" placeholder="Amount"><label>Amount to Save (KES)</label></div>
-                    <button class="btn btn-info text-white w-100 fw-bold" onclick="processAction('Moving to Vault...', 'Savings updated successfully!')">Deposit to Goal</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="universalActionModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-        <div class="modal-dialog modal-sm modal-dialog-centered" style="max-width: 320px;">
-            <div class="modal-content border-0 shadow-lg" style="border-radius: 20px;">
-                <div class="modal-body p-5 text-center" id="actionModalBody">
-                    </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // --- 1. Universal Processing/Success Flow ---
-        function processAction(loadingText, successText) {
-            // Close any currently open modals
-            const openModals = document.querySelectorAll('.modal.show');
-            openModals.forEach(m => {
-                const instance = bootstrap.Modal.getInstance(m);
-                if(instance && m.id !== 'universalActionModal') instance.hide();
-            });
-
-            const actionModalEl = document.getElementById('universalActionModal');
-            const body = document.getElementById('actionModalBody');
-            
-            // State 1: Processing
-            body.innerHTML = `
-                <div class="spinner-border text-gold mb-4" style="width: 3rem; height: 3rem; border-width: 4px; border-color: rgba(201, 169, 63, 0.2); border-top-color: #c99c35;" role="status"></div>
-                <h5 class="fw-bolder text-dark mb-0">${loadingText}</h5>
-                <p class="text-muted fs-8 mt-2">Please wait...</p>
-            `;
-            
-            const actionModal = new bootstrap.Modal(actionModalEl);
-            actionModal.show();
-
-            // State 2: Success (After 1.5s delay)
-            setTimeout(() => {
-                body.innerHTML = `
-                    <div class="mb-4 d-inline-flex align-items-center justify-content-center rounded-circle" style="width: 60px; height: 60px; background-color: rgba(80, 205, 137, 0.1); border: 2px solid #50cd89;">
-                        <i class="fas fa-check fs-1 text-success"></i>
-                    </div>
-                    <h5 class="fw-bolder text-dark mb-2">Success!</h5>
-                    <p class="text-muted fs-7 mb-4">${successText}</p>
-                    <div class="progress h-4px w-100 bg-light-success" style="border-radius: 10px;">
-                        <div id="actionTimerBar" class="progress-bar bg-success" role="progressbar" style="width: 100%;"></div>
-                    </div>
-                `;
-
-                // Animate progress bar
-                setTimeout(() => {
-                    const bar = document.getElementById('actionTimerBar');
-                    if(bar) { bar.style.transition = 'width 2s linear'; bar.style.width = '0%'; }
-                }, 50);
-
-                // Auto dismiss after 2s
-                setTimeout(() => {
-                    const activeModal = bootstrap.Modal.getInstance(actionModalEl);
-                    if(activeModal) activeModal.hide();
-                }, 2100);
-
-            }, 1500);
-        }
-
-        // --- 2. Unified Deposit/Withdraw Wizard Logic ---
-        let wizType = 'deposit';
-        let wizStep = 1;
-        let selectedMethod = '';
-
-        function openWizard(type) {
-            wizType = type;
-            wizStep = 1;
-            selectedMethod = 'M-Pesa'; // Default
-            
-            document.getElementById('wizTitle').innerHTML = type === 'deposit' 
-                ? '<i class="fas fa-arrow-down text-success me-2"></i> Deposit Funds' 
-                : '<i class="fas fa-arrow-up text-danger me-2"></i> Withdraw Funds';
-            
-            document.getElementById('wizConfirmType').innerText = type.charAt(0).toUpperCase() + type.slice(1);
-            document.getElementById('wizAmount').value = '';
-            
-            updateWizUI();
-            new bootstrap.Modal(document.getElementById('transactionWizardModal')).show();
-        }
-
-        function selectWizMethod(el, method) {
-            document.querySelectorAll('#wizStep2 .border').forEach(c => {
-                c.classList.remove('border-primary', 'bg-light-primary');
-                c.classList.add('bg-light');
-            });
-            el.classList.remove('bg-light');
-            el.classList.add('border-primary', 'bg-light-primary');
-            selectedMethod = method;
-        }
-
-        function wizNav(dir) {
-            const amt = document.getElementById('wizAmount').value;
-            if (dir === 1 && wizStep === 1 && (!amt || amt <= 0)) {
-                alert("Please enter a valid amount.");
-                return;
-            }
-
-            wizStep += dir;
-            updateWizUI();
-        }
-
-        function updateWizUI() {
-            // Update step visibility
-            for(let i=1; i<=3; i++) {
-                const el = document.getElementById(`wizStep${i}`);
-                if(i === wizStep) el.classList.add('active');
-                else el.classList.remove('active');
-            }
-
-            // Update dots
-            let dotsHtml = '';
-            for(let i=1; i<=3; i++) {
-                dotsHtml += `<div class="step-dot ${i===wizStep ? 'active' : ''}"></div>`;
-            }
-            document.getElementById('wizDots').innerHTML = dotsHtml;
-
-            // Update buttons
-            const btnPrev = document.getElementById('wizBtnPrev');
-            const btnNext = document.getElementById('wizBtnNext');
-
-            btnPrev.disabled = (wizStep === 1);
-
-            if (wizStep === 3) {
-                // Populate confirm screen
-                const amt = document.getElementById('wizAmount').value;
-                document.getElementById('wizConfirmMethod').innerText = selectedMethod;
-                document.getElementById('wizConfirmAmt').innerText = 'KES ' + parseFloat(amt).toLocaleString('en-KE', {minimumFractionDigits: 2});
-                
-                btnNext.innerHTML = '<i class="fas fa-fingerprint me-2"></i> Authorize';
-                btnNext.classList.replace('btn-gold', 'btn-dark');
-                btnNext.onclick = function() {
-                    const modal = bootstrap.Modal.getInstance(document.getElementById('transactionWizardModal'));
-                    if(modal) modal.hide();
-                    processAction('Authorizing Transaction...', `Your ${wizType} of KES ${amt} via ${selectedMethod} was successful!`);
-                }
-            } else {
-                btnNext.innerHTML = 'Next <i class="fas fa-arrow-right ms-2"></i>';
-                btnNext.classList.replace('btn-dark', 'btn-gold');
-                btnNext.onclick = function() { wizNav(1); };
-            }
-        }
-    </script>
-
-    <div class="footer py-4 d-flex flex-lg-column mt-5" id="kt_footer">
-        <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
-            <div class="text-dark order-2 order-md-1">
-                <span class="text-muted fw-semibold me-1">2026©</span>
-                <a href="#" class="text-gray-800 text-hover-primary fw-bold">SendMO Fintech</a>
-            </div>
-            <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1 d-flex gap-4 list-unstyled mb-0">
-                <li><a href="#" class="text-muted">About</a></li>
-                <li><a href="#" class="text-muted">Support</a></li>
-                <li><a href="#" class="text-muted">API Docs</a></li>
-            </ul>
-        </div>
-    </div>
-
 </div>
+
+<style>
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
+.animate-pulse {
+    border-radius: 50%;
+}
+</style>
+
+
+
+        <div class="col-xl-4">
+            <div class="row g-5">
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 bg-light-primary border border-primary border-dashed p-6">
+                        <div class="d-flex align-items-center mb-5">
+                            <div class="symbol symbol-40px me-4">
+                                <span class="symbol-label bg-primary"><i class="fa fa-shield-alt text-white"></i></span>
+                            </div>
+                            <div class="d-flex flex-column">
+                                <span class="fw-bold text-gray-900 fs-6">IP Whitelisting</span>
+                                <span class="text-muted fs-8">Only allow specific servers</span>
+                            </div>
+                        </div>
+                        <div class="d-flex flex-wrap gap-2 mb-4">
+                            <span class="badge badge-white border border-gray-300 text-gray-800 fw-bold">192.168.1.1 <i class="fa fa-times ms-2 cursor-pointer fs-9"></i></span>
+                            <span class="badge badge-white border border-gray-300 text-gray-800 fw-bold">10.0.0.1 <i class="fa fa-times ms-2 cursor-pointer fs-9"></i></span>
+                        </div>
+                        <button class="btn btn-sm btn-primary w-100" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade">Add IP Address</button>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 p-6 h-100">
+                        <div class="d-flex justify-content-between align-items-center mb-5">
+                            <span class="fw-bold text-gray-800">API Health</span>
+                            <span class="badge badge-light-success text-success pulse-ring"><i class="fa fa-circle fs-9 me-1"></i> Operational</span>
+                        </div>
+                        <div class="d-flex flex-column gap-3">
+                            <div class="d-flex justify-content-between fs-8">
+                                <span class="text-gray-500">Average Latency</span>
+                                <span class="fw-bold text-gray-800">124ms</span>
+                            </div>
+                            <div class="progress h-4px w-100 bg-light-success">
+                                <div class="progress-bar bg-success" style="width: 100%"></div>
+                            </div>
+                            <div class="d-flex justify-content-between fs-8">
+                                <span class="text-gray-500">Success Rate (24h)</span>
+                                <span class="fw-bold text-gray-800">99.98%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12">
+                    <div class="card shadow-sm border-0 bg-dark p-6 overflow-hidden position-relative">
+                        <i class="fa fa-code position-absolute text-white opacity-10" style="font-size: 6rem; right: -1rem; bottom: -1rem;"></i>
+                        <h4 class="text-white fw-bold mb-3">Developer Docs</h4>
+                        <p class="text-white opacity-50 fs-8 mb-5">Explore our SDKs and detailed API references for Node.js, Python, and Ruby.</p>
+                        <a href="#" class="btn btn-sm btn-light-success fw-bold">Read Documentation <i class="fa fa-external-link-alt ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+</div>
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+<script>
+    let currentSteps = { deposit: 1, withdrawal: 1 };
+
+    function showDepositWizard() {
+        document.getElementById('depositWizardCard').classList.remove('d-none');
+        document.getElementById('depositWizardCard').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function updateDots(type) {
+        const container = document.getElementById(`${type}StepDots`);
+        const dots = container.querySelectorAll('.step-dot');
+        dots.forEach((dot, idx) => {
+            dot.classList.toggle('active', idx === (currentSteps[type] - 1));
+        });
+    }
+
+    function nextStep(type, forceIdx) {
+        const max = type === 'deposit' ? 8 : 7;
+        const current = currentSteps[type];
+        
+        if (current < max) {
+            document.getElementById(`${type === 'deposit' ? 'd' : 'w'}step${current}`).classList.remove('active');
+            currentSteps[type] = forceIdx ? forceIdx + 1 : current + 1;
+            document.getElementById(`${type === 'deposit' ? 'd' : 'w'}step${currentSteps[type]}`).classList.add('active');
+            updateDots(type);
+
+            // Hide footer on last step (success)
+            if(currentSteps[type] === max) {
+                document.getElementById(`${type}Footer`).classList.add('d-none');
+            }
+        }
+    }
+
+    function prevStep(type) {
+        const current = currentSteps[type];
+        if (current > 1) {
+            document.getElementById(`${type === 'deposit' ? 'd' : 'w'}step${current}`).classList.remove('active');
+            currentSteps[type]--;
+            document.getElementById(`${type === 'deposit' ? 'd' : 'w'}step${currentSteps[type]}`).classList.add('active');
+            updateDots(type);
+        }
+    }
+
+    function resetWizard(type) {
+        location.reload(); // Simplest reset
+    }
+</script>
+        <!-- modalssssssssssssss -->
+         <div class="modal fade" id="withdrawalModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header border-0">
+                <h3 class="fw-bolder mb-0">Withdraw Funds</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-10 pb-10">
+                <div class="d-flex justify-content-center mb-8" id="withdrawalStepDots">
+                    <div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div>
+                    <div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div>
+                </div>
+
+                <div class="step-content active" id="wstep1">
+                    <h5 class="fw-bold mb-4">1. Where to?</h5>
+                    <div class="row g-3">
+                        <div class="col-6"><div class="method-card p-4 text-center" onclick="nextStep('withdrawal', 1)"><i class="fa fa-university d-block mb-2"></i>Bank</div></div>
+                        <div class="col-6"><div class="method-card p-4 text-center" onclick="nextStep('withdrawal', 1)"><i class="fa fa-mobile-alt d-block mb-2"></i>Mobile</div></div>
+                    </div>
+                </div>
+
+                <div class="step-content" id="wstep2">
+                    <h5 class="fw-bold mb-4">2. Amount to Withdraw</h5>
+                    <input type="number" class="form-control form-control-lg bg-light fw-bold" placeholder="Amount in KES">
+                </div>
+
+                <div class="step-content" id="wstep3">
+                    <h5 class="fw-bold mb-4">3. Recipient Details</h5>
+                    <input type="text" class="form-control mb-3" placeholder="Account Number / Phone">
+                    <select class="form-select"><option>Equity Bank</option><option>KCB</option><option>M-Pesa</option></select>
+                </div>
+
+                <div class="step-content" id="wstep4">
+                    <h5 class="fw-bold mb-4">4. Terms of Withdrawal</h5>
+                    <div class="form-check bg-light p-4 rounded border border-dashed">
+                        <input class="form-check-input ms-0 me-3" type="checkbox" id="wterms">
+                        <label class="form-check-label fs-7" for="wterms">I agree that funds will be deducted immediately and bank delays may occur.</label>
+                    </div>
+                </div>
+
+                <div class="step-content text-center" id="wstep5">
+                    <h5 class="fw-bold mb-4">5. Biometric / PIN Auth</h5>
+                    <i class="fa fa-fingerprint text-primary fs-1 mb-3"></i>
+                    <p class="fs-8 text-muted">Awaiting authentication...</p>
+                </div>
+
+                <div class="step-content" id="wstep6">
+                    <h5 class="fw-bold mb-4">6. Final Review</h5>
+                    <div class="alert alert-warning fs-8">Fee: KES 100.00 will be charged.</div>
+                </div>
+
+                <div class="step-content text-center" id="wstep7">
+                    <i class="fa fa-rocket text-success fs-1 mb-4"></i>
+                    <h4 class="fw-bolder">Withdrawal Initialized</h4>
+                    <p class="text-muted">Funds arrive in 10-15 mins.</p>
+                </div>
+
+                <div class="mt-10 d-flex justify-content-between" id="withdrawalFooter">
+                    <button class="btn btn-light fw-bold" onclick="prevStep('withdrawal')">Back</button>
+                    <button class="btn btn-primary fw-bold" onclick="nextStep('withdrawal')">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- nnnnnnnnnnnnnn -->
+<!-- nnnnnnnnnnnnnn -->
+ <div class="modal fade" id="kt_modal_transact" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-500px">
+        <div class="modal-content border-0" style="border-radius: 1rem;">
+            <div class="modal-header border-0 pb-0">
+                <h3 class="fw-bolder">Choose Transaction Type</h3>
+                <div class="btn btn-icon btn-sm btn-active-light-primary ms-2" data-bs-dismiss="modal">
+                    <i class="fa fa-times text-gray-500"></i>
+                </div>
+            </div>
+            <div class="modal-body py-8">
+                <div class="d-flex align-items-center mb-5 p-5 border border-dashed rounded cursor-pointer hover-elevate-up" 
+                     style="background: #f9f9f9; border-color: #e1e3ea !important;">
+                    <div class="w-50px h-50px bg-light-primary rounded d-flex align-items-center justify-content-center me-4">
+                        <i class="fa fa-wallet text-primary fs-3"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <span class="text-gray-800 fw-bolder d-block fs-5">Open Wallet</span>
+                        <span class="text-gray-500 fs-7">Manage your liquid funds & balances</span>
+                    </div>
+                    <i class="fa fa-chevron-right text-gray-400"></i>
+                </div>
+
+                <div class="d-flex align-items-center p-5 border border-dashed rounded cursor-pointer hover-elevate-up" 
+                     style="background: #f9f9f9; border-color: #e1e3ea !important;">
+                    <div class="w-50px h-50px bg-light-success rounded d-flex align-items-center justify-content-center me-4">
+                        <i class="fa fa-piggy-bank text-success fs-3"></i>
+                    </div>
+                    <div class="flex-grow-1">
+                        <span class="text-gray-800 fw-bolder d-block fs-5">Add to Savings</span>
+                        <span class="text-gray-500 fs-7">Lock funds for future growth</span>
+                    </div>
+                    <i class="fa fa-chevron-right text-gray-400"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="kt_modal_deposit" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content border-0" style="border-radius: 1rem;">
+            <div class="modal-body p-0">
+                <div class="d-flex flex-column flex-lg-row">
+                    <div class="d-flex flex-column p-10 bg-light-primary rounded-start" style="width: 200px;">
+                        <div class="mb-10 d-flex align-items-center">
+                            <span class="badge badge-circle badge-primary me-3">1</span>
+                            <span class="fw-bold text-gray-800">Amount</span>
+                        </div>
+                        <div class="mb-10 d-flex align-items-center">
+                            <span class="badge badge-circle badge-light-primary text-primary me-3">2</span>
+                            <span class="fw-bold text-gray-500">Method</span>
+                        </div>
+                        <div class="mb-10 d-flex align-items-center">
+                            <span class="badge badge-circle badge-light-primary text-primary me-3">3</span>
+                            <span class="fw-bold text-gray-500">Verify</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="badge badge-circle badge-light-primary text-primary me-3">4</span>
+                            <span class="fw-bold text-gray-500">Finish</span>
+                        </div>
+                    </div>
+
+                    <div class="flex-row-fluid p-10">
+                        <div class="mb-5">
+                            <h2 class="fw-bolder text-dark">Step 1: Enter Amount</h2>
+                            <div class="text-gray-500 fw-bold fs-6">How much would you like to deposit?</div>
+                        </div>
+                        
+                        <div class="mb-10">
+                            <label class="form-label fw-bold">Amount (KES)</label>
+                            <input type="number" class="form-control form-control-solid fs-2 py-4" placeholder="0.00" style="border: 2px solid #eee; border-radius: 0.75rem;"/>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+<button type="button" class="btn btn-primary px-10 btn-next-step">
+    Next Step <i class="fa fa-arrow-right ms-2"></i>
+</button>                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- nnnnnnnnnnnnnn -->
+<!-- ccccccc -->
+ <div id="depositWizardCard" class="card shadow-sm border-0 d-none">
+                <div class="card-header bg-white py-5 d-flex justify-content-between align-items-center">
+                    <div>
+                        <h3 class="fw-bolder text-gray-900 mb-0">Deposit Funds</h3>
+                        <span class="text-muted fs-7">Follow the steps to credit your account</span>
+                    </div>
+                    <div class="d-flex" id="depositStepDots">
+                        <div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div>
+                        <div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot"></div>
+                    </div>
+                </div>
+                
+                <div class="card-body p-10">
+                    <div class="step-content active" id="dstep1">
+                        <h4 class="fw-bold mb-8 text-center">Step 1: Select Deposit Wallet</h4>
+                        <div class="row g-5">
+                            <div class="col-md-4" onclick="nextStep('deposit', 1)">
+                                <div class="method-card p-6 text-center">
+                                    <img src="https://flagcdn.com/w40/ke.png" class="mb-3 rounded">
+                                    <div class="fw-bolder fs-5">KES Wallet</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" onclick="nextStep('deposit', 1)">
+                                <div class="method-card p-6 text-center">
+                                    <img src="https://flagcdn.com/w40/us.png" class="mb-3 rounded">
+                                    <div class="fw-bolder fs-5">USD Wallet</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" onclick="nextStep('deposit', 1)">
+                                <div class="method-card p-6 text-center">
+                                    <i class="fab fa-bitcoin text-warning fs-1 d-block mb-3"></i>
+                                    <div class="fw-bolder fs-5">Crypto Wallet</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-content" id="dstep2">
+                        <h4 class="fw-bold mb-8">Step 2: Choose Payment Method</h4>
+                        <div class="list-group list-group-flush">
+                            <label class="list-group-item d-flex align-items-center py-4 cursor-pointer">
+                                <input class="form-check-input me-4" type="radio" name="dmethod" checked>
+                                <i class="fa fa-mobile-alt fs-2 text-success me-4"></i>
+                                <div><span class="fw-bold d-block">Mobile Money (M-Pesa)</span><small class="text-muted">Instant processing • 0% fee</small></div>
+                            </label>
+                            <label class="list-group-item d-flex align-items-center py-4 cursor-pointer">
+                                <input class="form-check-input me-4" type="radio" name="dmethod">
+                                <i class="fa fa-university fs-2 text-primary me-4"></i>
+                                <div><span class="fw-bold d-block">Bank Transfer (EFT/RTGS)</span><small class="text-muted">1-2 hours • Bank charges apply</small></div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="step-content" id="dstep3">
+                        <h4 class="fw-bold mb-8">Step 3: Enter Amount</h4>
+                        <div class="position-relative mb-5">
+                            <input type="number" class="form-control form-control-solid fs-1 py-5 ps-15" placeholder="0.00">
+                            <span class="position-absolute top-50 translate-middle-y start-0 ms-5 fs-2 fw-bold text-gray-400">KES</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-light-primary btn-sm">+ 1,000</button>
+                            <button class="btn btn-light-primary btn-sm">+ 5,000</button>
+                            <button class="btn btn-light-primary btn-sm">+ 10,000</button>
+                        </div>
+                    </div>
+
+                    <div class="step-content" id="dstep4">
+                        <h4 class="fw-bold mb-6">Step 4: Verify Identity</h4>
+                        <p class="text-muted mb-8">Confirm the phone number for the STK push</p>
+                        <input type="text" class="form-control form-control-lg bg-light" value="+254 712 345 678">
+                    </div>
+
+                    <div class="step-content" id="dstep5">
+                        <h4 class="fw-bold mb-6 text-center">Step 5: Authorize Transaction</h4>
+                        <div class="d-flex justify-content-center gap-3 mb-6">
+                            <input type="text" class="form-control w-50px h-50px text-center fs-2 fw-bold" maxlength="1">
+                            <input type="text" class="form-control w-50px h-50px text-center fs-2 fw-bold" maxlength="1">
+                            <input type="text" class="form-control w-50px h-50px text-center fs-2 fw-bold" maxlength="1">
+                            <input type="text" class="form-control w-50px h-50px text-center fs-2 fw-bold" maxlength="1">
+                        </div>
+                        <div class="text-center text-muted fs-8">Enter your SendMO Transaction PIN</div>
+                    </div>
+
+                    <div class="step-content" id="dstep6">
+                        <div class="text-center py-10">
+                            <div class="spinner-border text-primary w-80px h-80px mb-6" role="status"></div>
+                            <h3 class="fw-bolder">Processing with Provider...</h3>
+                            <p class="text-muted">Please check your phone for a popup to enter your M-Pesa PIN.</p>
+                        </div>
+                    </div>
+
+                    <div class="step-content" id="dstep7">
+                        <h4 class="fw-bold mb-6">Step 7: Final Summary</h4>
+                        <div class="bg-light rounded p-6 mb-6">
+                            <div class="d-flex justify-content-between mb-3"><span>Deposit Amount</span><span class="fw-bold">KES 50,000.00</span></div>
+                            <div class="d-flex justify-content-between mb-3"><span>Fee</span><span class="text-success fw-bold">FREE</span></div>
+                            <hr>
+                            <div class="d-flex justify-content-between"><span>Total to Credit</span><span class="text-primary fw-bolder">KES 50,000.00</span></div>
+                        </div>
+                    </div>
+
+                    <div class="step-content" id="dstep8">
+                        <div class="text-center py-10">
+                            <i class="fa fa-check-circle text-success display-1 mb-6"></i>
+                            <h2 class="fw-bolder">Deposit Successful!</h2>
+                            <p class="text-muted fs-5">Your wallet has been credited. Transaction ID: #TXN-992341</p>
+                            <button class="btn btn-dark px-10" onclick="resetWizard('deposit')">Back to Dashboard</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white py-6 d-flex justify-content-between" id="depositFooter">
+                    <button class="btn btn-light fw-bold px-8" onclick="prevStep('deposit')">Back</button>
+                    <button class="btn btn-primary fw-bold px-8" onclick="nextStep('deposit')">Continue</button>
+                </div>
+            </div>
+        <!-- modalssssssssssssss -->
+         <script>
+            document.addEventListener('DOMContentLoaded', function () {
+    // Select all "Next Step" buttons inside the deposit modal
+    const nextButtons = document.querySelectorAll('#kt_modal_deposit .btn-primary');
+    
+    nextButtons.forEach((btn, index) => {
+        btn.addEventListener('click', function () {
+            const currentStep = this.closest('.flex-row-fluid');
+            const stepNumber = index + 1;
+            
+            // Logic to simulate moving to the next step
+            // In a real app, you'd toggle visibility of step divs here
+            console.log("Moving from Step " + stepNumber + " to " + (stepNumber + 1));
+            
+            // Simple visual feedback: Update the badge colors in the sidebar
+            const badges = document.querySelectorAll('#kt_modal_deposit .badge');
+            if (badges[stepNumber]) {
+                badges[stepNumber].classList.remove('badge-light-primary', 'text-primary');
+                badges[stepNumber].classList.add('badge-primary');
+            }
+        });
+    });
+});
+
+// Simple listener for the "Section Cards" in the Transact Modal
+document.querySelectorAll('#kt_modal_transact .cursor-pointer').forEach(card => {
+    card.addEventListener('click', function() {
+        const action = this.querySelector('span.fw-bolder').innerText;
+        alert("Navigating to: " + action);
+        // You can use window.location.href = "/your-url/" here
+    });
+});
+         </script>
+        <!-- modalssssssssssssss -->
+
+
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--end::Content-->
+                <!--end::Content-->
+                <!--end::Content-->
+                <!--end::Content-->
+                <!--end::Content-->
+                <!--end::Content-->
+
+                <!--begin::Footer-->
+                <div class="footer py-4 d-flex flex-lg-column " id="kt_footer">
+                    <!--begin::Container-->
+                    <div class=" container-xxl  d-flex flex-column flex-md-row flex-stack">
+                        <!--begin::Copyright-->
+                        <div class="text-gray-900 order-2 order-md-1">
+                            <span class="text-gray-500 fw-semibold me-1">Created by</span>
+                            <a href="https://keenthemes.com" target="_blank"
+                                class="text-muted text-hover-primary fw-semibold me-2 fs-6">j&D codex</a>
+                        </div>
+                        <!--end::Copyright-->
+
+                        <!--begin::Menu-->
+                        <ul class="menu menu-gray-600 menu-hover-primary fw-semibold order-1">
+                            <li class="menu-item"><a href="https://keenthemes.com" target="_blank"
+                                    class="menu-link px-2">About</a></li>
+
+                            <li class="menu-item"><a href="https://devs.keenthemes.com" target="_blank"
+                                    class="menu-link px-2">Support</a></li>
+
+                            <li class="menu-item"><a href="https://1.envato.market/EA4JP" target="_blank"
+                                    class="menu-link px-2">Purchase</a></li>
+                        </ul>
+                        <!--end::Menu-->
+                    </div>
+                    <!--end::Container-->
+                </div>
+                <!--end::Footer-->
+            </div>
+            <!--end::Wrapper-->
+        </div>
+        no js
+        <!--end::Page-->
+    </div>
     <!--end::Root-->
 
     <!--begin::Drawers-->
