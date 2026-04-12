@@ -3014,17 +3014,17 @@
 
                 <div class="row g-2 mt-6">
                     <div class="col-6">
-                        <button class="btn btn-primary w-100 py-3 fw-bold fs-7" onclick="showDepositWizard()">
-                            <i class="fa fa-plus-circle me-1"></i> Deposit
+                        <button class="btn btn-primary w-100 py-3 fw-bold fs-7" data-bs-toggle="modal" data-bs-target="#sendMoneyModal">
+                            <i class="fa fa-plus-circle me-1"></i> Send Money
                         </button>
                     </div>
                     <div class="col-6">
-                        <button class="btn btn-light w-100 py-3 fw-bold fs-7" data-bs-toggle="modal" data-bs-target="#withdrawalModal">
-                            <i class="fa fa-arrow-up-right-from-square me-1"></i> Withdraw
+                        <button class="btn btn-light w-100 py-3 fw-bold fs-7" data-bs-toggle="modal" data-bs-target="#receiveMoneyModal">
+                            <i class="fa fa-arrow-up-right-from-square me-1"></i> Receive Money
                         </button>
                     </div>
                     <div class="col-12">
-                        <button class="btn btn-white bg-opacity-10 border-0 text-white w-100 py-2 fw-bold fs-8 mt-1" style="background: rgba(255,255,255,0.05);">
+                        <button class="btn btn-white bg-opacity-10 border-0 text-white w-100 py-2 fw-bold fs-8 mt-1" style="background: rgba(255,255,255,0.05);" data-bs-toggle="modal" data-bs-target="#transferMoneyModal">
                             <i class="fa fa-exchange-alt me-2"></i> Internal Transfer
                         </button>
                     </div>
@@ -4036,9 +4036,556 @@ document.querySelectorAll('#kt_modal_transact .cursor-pointer').forEach(card => 
         </div>
         no js
         <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <style>
+    /* Wizard Stepper */
+    .wizard-stepper { display: flex; justify-content: space-between; position: relative; margin-bottom: 2rem; padding: 0 1rem; }
+    .wizard-stepper::before { content: ''; position: absolute; top: 18px; left: 10%; width: 80%; height: 3px; background: var(--border-color); z-index: 0; }
+    .wizard-step { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 1; }
+    .wizard-step .step-circle { width: 40px; height: 40px; border-radius: 50%; background: #ffffff; border: 3px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-weight: 800; color: var(--text-muted); transition: all 0.3s; }
+    .wizard-step .step-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); margin-top: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    
+    .wizard-step.active .step-circle { border-color: var(--primary-gold); background: var(--primary-gold); color: #fff; box-shadow: 0 0 15px rgba(201, 169, 63, 0.4); }
+    .wizard-step.active .step-label { color: var(--text-dark); }
+    
+    .wizard-step.completed .step-circle { border-color: var(--success); background: var(--success); color: #fff; }
+    
+    /* Recipient Cards */
+    .recipient-card { border: 1px solid var(--border-color); border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 15px; cursor: pointer; transition: all 0.2s ease; background: #fff; margin-bottom: 10px; }
+    .recipient-card:hover { border-color: var(--primary-gold); background: rgba(201, 169, 63, 0.03); transform: translateY(-2px); }
+    .recipient-card.selected { border-color: var(--primary-gold); background: rgba(201, 169, 63, 0.08); box-shadow: 0 4px 12px rgba(201, 169, 63, 0.15); }
+    
+    /* OTP Inputs */
+    .otp-grid { display: flex; justify-content: center; gap: 10px; margin: 2rem 0; }
+    .otp-input { width: 50px; height: 60px; text-align: center; font-size: 1.5rem; font-weight: 800; border: 2px solid var(--border-color); border-radius: 12px; background: var(--input-bg); color: var(--text-dark); transition: 0.2s; }
+    .otp-input:focus { border-color: var(--primary-gold); outline: none; box-shadow: 0 0 0 4px rgba(201, 169, 63, 0.1); background: #fff; }
+
+    /* Summary Card */
+    .summary-box { background: var(--input-bg); border: 1px dashed var(--border-color); border-radius: 16px; padding: 20px; }
+    .summary-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.95rem; }
+    .summary-row:last-child { margin-bottom: 0; padding-top: 12px; border-top: 1px solid var(--border-color); }
+
+    /* Radar Pulse (Receive Money) */
+    .radar-pulse { width: 120px; height: 120px; border-radius: 50%; background: rgba(201, 169, 63, 0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto; position: relative; }
+    .radar-pulse::before, .radar-pulse::after { content: ''; position: absolute; width: 100%; height: 100%; border-radius: 50%; background: rgba(201, 169, 63, 0.3); animation: radar 2s linear infinite; }
+    .radar-pulse::after { animation-delay: 1s; }
+    @keyframes radar { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
+</style>
+
+<div class="modal fade" id="sendMoneyModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content" style="border-radius: 20px; border: 0; box-shadow: 0 25px 50px rgba(0,0,0,0.15);">
+            
+            <div class="modal-header border-0 pb-0 pt-4 px-5">
+                <h3 class="fw-bolder text-dark mb-0 d-flex align-items-center">
+                    <i class="fas fa-paper-plane text-primary me-3"></i> Send Money
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="resetWizard('send')"></button>
+            </div>
+
+            <div class="modal-body p-5">
+                <div class="wizard-stepper" id="sendStepper">
+                    <div class="wizard-step active" data-step="1"><div class="step-circle">1</div><div class="step-label">Details</div></div>
+                    <div class="wizard-step" data-step="2"><div class="step-circle">2</div><div class="step-label">Review</div></div>
+                    <div class="wizard-step" data-step="3"><div class="step-circle">3</div><div class="step-label">Verify</div></div>
+                    <div class="wizard-step" data-step="4"><div class="step-circle"><i class="fas fa-check"></i></div><div class="step-label">Done</div></div>
+                </div>
+
+                <div class="wizard-step-content active" id="send-step-1">
+                    <div class="form-floating mb-4">
+                        <input type="number" id="send-amount" class="form-control form-control-lg bg-light border-0 fw-bolder fs-2 text-primary" placeholder="0.00">
+                        <label>Amount to Send (KES)</label>
+                    </div>
+
+                    <h6 class="fw-bold text-dark fs-7 text-uppercase mb-3">Select Recipient</h6>
+                    
+                    <div id="send-recipients-list" class="mb-4" style="max-height: 200px; overflow-y: auto;">
+                        <div class="recipient-card" onclick="selectRecipient(this, 'John Doe', 'john@example.com')">
+                            <div class="symbol symbol-40px bg-light-primary text-primary rounded-circle d-flex align-items-center justify-content-center fw-bolder">JD</div>
+                            <div class="flex-grow-1">
+                                <h6 class="text-dark fw-bold mb-0">John Doe</h6>
+                                <span class="text-muted fs-8">john@example.com</span>
+                            </div>
+                            <i class="fas fa-check-circle text-gold fs-5 d-none check-icon"></i>
+                        </div>
+                        <div class="recipient-card" onclick="selectRecipient(this, 'Sarah Smith', 'sarah@example.com')">
+                            <div class="symbol symbol-40px bg-light-success text-success rounded-circle d-flex align-items-center justify-content-center fw-bolder">SS</div>
+                            <div class="flex-grow-1">
+                                <h6 class="text-dark fw-bold mb-0">Sarah Smith</h6>
+                                <span class="text-muted fs-8">sarah@example.com</span>
+                            </div>
+                            <i class="fas fa-check-circle text-gold fs-5 d-none check-icon"></i>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-center my-4">
+                        <hr class="flex-grow-1 border-dashed"><span class="mx-3 text-muted fs-8 fw-bold text-uppercase">OR</span><hr class="flex-grow-1 border-dashed">
+                    </div>
+
+                    <button class="btn btn-light border border-dashed w-100 fw-bold py-3 text-dark mb-3" onclick="document.getElementById('new-recipient-form').classList.toggle('d-none')">
+                        <i class="fas fa-user-plus me-2"></i> Add New Recipient
+                    </button>
+
+                    <div id="new-recipient-form" class="d-none bg-light p-4 rounded-3 border mb-4">
+                        <div class="form-floating mb-3"><input type="text" class="form-control border-0" placeholder="Full Name"><label>Full Name</label></div>
+                        <div class="form-floating mb-3"><input type="email" class="form-control border-0" placeholder="Email / Account"><label>Email or Account ID</label></div>
+                        <div class="form-floating mb-3"><input type="tel" class="form-control border-0" placeholder="Phone"><label>Phone (Optional)</label></div>
+                        <button class="btn btn-dark w-100 fw-bold" onclick="showMiniToast('Recipient Saved!'); document.getElementById('new-recipient-form').classList.add('d-none');">Save Recipient</button>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="text" id="send-note" class="form-control bg-light border-0" placeholder="Add a note">
+                        <label>Note (Optional)</label>
+                    </div>
+                </div>
+
+                <div class="wizard-step-content" id="send-step-2">
+                    <div class="alert bg-light-info border border-info border-dashed d-flex align-items-center p-4 mb-4 rounded-4">
+                        <i class="fas fa-info-circle fs-2x text-info me-3"></i>
+                        <div><h6 class="mb-1 text-info fw-bolder">Review your transaction</h6><span class="fs-8 text-dark">Please verify all details before proceeding.</span></div>
+                    </div>
+
+                    <div class="summary-box mb-4">
+                        <div class="summary-row"><span class="text-muted fw-bold">Recipient</span><span class="fw-bolder text-dark" id="send-review-name">-</span></div>
+                        <div class="summary-row"><span class="text-muted fw-bold">Account</span><span class="fw-bold text-muted" id="send-review-account">-</span></div>
+                        <div class="summary-row mt-4"><span class="text-muted fw-bold">Transfer Amount</span><span class="fw-bolder text-dark" id="send-review-amount">KES 0.00</span></div>
+                        <div class="summary-row"><span class="text-muted fw-bold">Network Fee</span><span class="fw-bolder text-danger">KES 45.00</span></div>
+                        <div class="summary-row pt-3 mt-2"><span class="text-dark fw-bolder text-uppercase">Total Deduction</span><span class="fw-bolder text-primary fs-4" id="send-review-total">KES 0.00</span></div>
+                    </div>
+
+                    <div class="bg-light-success p-3 rounded-3 d-flex align-items-center">
+                        <i class="fas fa-shield-alt text-success fs-3 me-3"></i>
+                        <span class="text-dark fs-8 fw-semibold">Your transaction is protected by our zero-fraud guarantee.</span>
+                    </div>
+                </div>
+
+                <div class="wizard-step-content" id="send-step-3">
+                    <div class="text-center mb-4">
+                        <div class="symbol symbol-70px bg-light-warning rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-lock text-warning fs-1"></i>
+                        </div>
+                        <h4 class="fw-bolder text-dark">Enter Verification Code</h4>
+                        <p class="text-muted fs-7">We've sent a 6-digit code to your registered device<br><strong class="text-dark">+254 712 *** 678</strong></p>
+                    </div>
+
+                    <div class="otp-grid">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <span class="text-muted fs-8">Didn't receive the code?</span>
+                        <button class="btn btn-link text-primary fw-bold p-0 ms-1" onclick="showMiniToast('New code sent!')">Resend Code</button>
+                    </div>
+                </div>
+
+                <div class="wizard-step-content" id="send-step-4">
+                    <div class="text-center mb-5">
+                        <div class="symbol symbol-80px bg-light-success rounded-circle d-inline-flex align-items-center justify-content-center mb-4 border border-success border-dashed">
+                            <i class="fas fa-check text-success fs-2x"></i>
+                        </div>
+                        <h3 class="fw-bolder text-dark">Payment Successful!</h3>
+                        <p class="text-muted fs-7">Your money has been sent securely.</p>
+                    </div>
+
+                    <div class="summary-box mb-4 text-center">
+                        <span class="text-muted fs-8 fw-bold text-uppercase d-block mb-1">Amount Sent</span>
+                        <h2 class="fw-bolder text-primary mb-4" id="send-success-amount">KES 0.00</h2>
+                        <div class="summary-row"><span class="text-muted">To</span><span class="fw-bold text-dark" id="send-success-name">-</span></div>
+                        <div class="summary-row"><span class="text-muted">Transaction ID</span><span class="font-monospace text-dark fw-bold">#TRX-2026-89A</span></div>
+                        <div class="summary-row"><span class="text-muted">Date</span><span class="fw-bold text-dark" id="send-success-date">Now</span></div>
+                    </div>
+
+                    <button class="btn btn-light-primary w-100 fw-bold py-3" onclick="showMiniToast('Receipt downloading...')"><i class="fas fa-download me-2"></i> Download PDF Receipt</button>
+                </div>
+
+            </div>
+
+            <div class="modal-footer border-0 p-4 bg-light d-flex justify-content-between" id="sendFooter">
+                <button class="btn btn-outline-custom fw-bold px-4" id="sendBtnPrev" onclick="navigateWizard('send', -1)" disabled>Back</button>
+                <button class="btn btn-gold fw-bold px-5" id="sendBtnNext" onclick="navigateWizard('send', 1)">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="receiveMoneyModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content" style="border-radius: 20px; border: 0; box-shadow: 0 25px 50px rgba(0,0,0,0.15);">
+            
+            <div class="modal-header border-0 pb-0 pt-4 px-5">
+                <h3 class="fw-bolder text-dark mb-0 d-flex align-items-center">
+                    <i class="fas fa-hand-holding-usd text-success me-3"></i> Receive Money
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="resetWizard('receive')"></button>
+            </div>
+
+            <div class="modal-body p-5">
+                <div class="wizard-stepper" id="receiveStepper">
+                    <div class="wizard-step active" data-step="1"><div class="step-circle">1</div><div class="step-label">Amount</div></div>
+                    <div class="wizard-step" data-step="2"><div class="step-circle">2</div><div class="step-label">QR Code</div></div>
+                    <div class="wizard-step" data-step="3"><div class="step-circle">3</div><div class="step-label">Waiting</div></div>
+                    <div class="wizard-step" data-step="4"><div class="step-circle"><i class="fas fa-check"></i></div><div class="step-label">Done</div></div>
+                </div>
+
+                <div class="wizard-step-content active" id="receive-step-1">
+                    <div class="alert bg-light-success border border-success border-dashed p-4 mb-4 rounded-4">
+                        <h6 class="mb-1 text-success fw-bolder">Request a payment</h6>
+                        <span class="fs-8 text-dark">Specify the amount you want to receive to generate a dynamic code.</span>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <input type="number" id="receive-amount" class="form-control form-control-lg bg-light border-0 fw-bolder fs-2 text-success" placeholder="0.00">
+                        <label>Amount to Receive (KES)</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="text" id="receive-desc" class="form-control bg-light border-0 fw-semibold" placeholder="Description">
+                        <label>Description (Optional)</label>
+                    </div>
+                </div>
+
+                <div class="wizard-step-content" id="receive-step-2">
+                    <div class="text-center mb-4">
+                        <h4 class="fw-bolder text-dark mb-1">Scan to Pay</h4>
+                        <p class="text-muted fs-7">Have the payer scan this QR code.</p>
+                    </div>
+                    
+                    <div class="d-flex justify-content-center mb-5">
+                        <div class="p-3 bg-white border border-dashed rounded-4 shadow-sm">
+                            <i class="fas fa-qrcode" style="font-size: 10rem; color: var(--text-dark);"></i>
+                        </div>
+                    </div>
+
+                    <div class="bg-light p-3 rounded-4 border d-flex justify-content-between align-items-center">
+                        <div class="text-start overflow-hidden pe-3">
+                            <span class="d-block text-muted fs-9 fw-bold text-uppercase">Your Public Wallet Address</span>
+                            <span class="fw-bolder text-dark fs-7 text-truncate d-block">0x742d35Cc6634C0532925a3b844Bc9e7595f0bEb</span>
+                        </div>
+                        <button class="btn btn-gold btn-icon shadow-sm flex-shrink-0" onclick="copyToClipboard('0x742d...0bEb')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="wizard-step-content text-center" id="receive-step-3">
+                    <div class="radar-pulse mb-5">
+                        <i class="fas fa-satellite-dish fs-1 text-gold"></i>
+                    </div>
+                    <h3 class="fw-bolder text-dark mb-2">Awaiting Payment...</h3>
+                    <p class="text-muted fs-7 mb-5">We'll automatically proceed once the network confirms receipt.</p>
+
+                    <div class="summary-box mx-auto" style="max-width: 300px;">
+                        <span class="d-block text-muted fs-8 fw-bold text-uppercase mb-2">Expected Amount</span>
+                        <h2 class="fw-bolder text-success mb-4" id="waiting-amount">KES 0.00</h2>
+                        <div class="summary-row"><span class="text-muted">Status</span><span class="badge bg-light-warning text-warning-dark pulse-ring">Listening</span></div>
+                        <div class="summary-row"><span class="text-muted">Req ID</span><span class="fw-bold">#REQ-823</span></div>
+                    </div>
+                </div>
+
+                <div class="wizard-step-content text-center" id="receive-step-4">
+                    <div class="symbol symbol-80px bg-light-success rounded-circle d-inline-flex align-items-center justify-content-center mb-4 border border-success border-dashed">
+                        <i class="fas fa-check text-success fs-2x"></i>
+                    </div>
+                    <h3 class="fw-bolder text-dark mb-2">Payment Received!</h3>
+                    <p class="text-muted fs-7 mb-5">Funds have been credited to your active wallet.</p>
+
+                    <div class="summary-box text-center mb-4">
+                        <span class="text-muted fs-8 fw-bold text-uppercase d-block mb-1">Amount Received</span>
+                        <h2 class="fw-bolder text-success mb-4" id="receive-success-amount">KES 0.00</h2>
+                        <div class="summary-row"><span class="text-muted">From</span><span class="fw-bold text-dark">External Wallet</span></div>
+                        <div class="summary-row"><span class="text-muted">Txn ID</span><span class="font-monospace fw-bold">#TRX-2026-RCV</span></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer border-0 p-4 bg-light d-flex justify-content-between" id="receiveFooter">
+                <button class="btn btn-outline-custom fw-bold px-4" id="receiveBtnPrev" onclick="navigateWizard('receive', -1)" disabled>Back</button>
+                <button class="btn btn-gold fw-bold px-5" id="receiveBtnNext" onclick="navigateWizard('receive', 1)">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="transferMoneyModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content" style="border-radius: 20px; border: 0; box-shadow: 0 25px 50px rgba(0,0,0,0.15);">
+            
+            <div class="modal-header border-0 pb-0 pt-4 px-5">
+                <h3 class="fw-bolder text-dark mb-0 d-flex align-items-center">
+                    <i class="fas fa-exchange-alt text-info me-3"></i> Transfer Funds
+                </h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="resetWizard('transfer')"></button>
+            </div>
+
+            <div class="modal-body p-5">
+                <div class="wizard-stepper" id="transferStepper">
+                    <div class="wizard-step active" data-step="1"><div class="step-circle">1</div><div class="step-label">Accounts</div></div>
+                    <div class="wizard-step" data-step="2"><div class="step-circle">2</div><div class="step-label">Review</div></div>
+                    <div class="wizard-step" data-step="3"><div class="step-circle">3</div><div class="step-label">Verify</div></div>
+                    <div class="wizard-step" data-step="4"><div class="step-circle"><i class="fas fa-check"></i></div><div class="step-label">Done</div></div>
+                </div>
+
+                <div class="wizard-step-content active" id="transfer-step-1">
+                    <div class="form-floating mb-3">
+                        <select id="transfer-from" class="form-select bg-light border-0 fw-bold text-dark">
+                            <option value="">Select source...</option>
+                            <option value="Checking">Checking Account - KES 84,750</option>
+                            <option value="Savings">Savings Account - KES 150,000</option>
+                        </select>
+                        <label>From Account</label>
+                    </div>
+
+                    <div class="text-center my-3">
+                        <div class="symbol symbol-35px bg-white border rounded-circle d-inline-flex align-items-center justify-content-center shadow-sm">
+                            <i class="fas fa-arrow-down text-muted"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-4">
+                        <select id="transfer-to" class="form-select bg-light border-0 fw-bold text-dark">
+                            <option value="">Select destination...</option>
+                            <option value="Savings">Savings Account</option>
+                            <option value="Investment">Investment Vault</option>
+                        </select>
+                        <label>To Account</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" id="transfer-amount" class="form-control form-control-lg bg-light border-0 fw-bolder fs-2 text-info" placeholder="0.00">
+                        <label>Amount to Transfer (KES)</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" class="form-control bg-light border-0" placeholder="Note">
+                        <label>Note (Optional)</label>
+                    </div>
+                </div>
+
+                <div class="wizard-step-content" id="transfer-step-2">
+                    <div class="alert bg-light-warning border border-warning border-dashed p-4 mb-4 rounded-4">
+                        <h6 class="mb-1 text-warning-dark fw-bolder">Review Transfer</h6>
+                        <span class="fs-8 text-dark">Internal transfers are instant and cannot be reversed.</span>
+                    </div>
+
+                    <div class="summary-box mb-4">
+                        <div class="summary-row"><span class="text-muted fw-bold">From</span><span class="fw-bold text-dark" id="transfer-review-from">-</span></div>
+                        <div class="summary-row"><span class="text-muted fw-bold">To</span><span class="fw-bold text-dark" id="transfer-review-to">-</span></div>
+                        <div class="summary-row mt-4"><span class="text-muted fw-bold">Transfer Amount</span><span class="fw-bolder text-dark" id="transfer-review-amount">KES 0.00</span></div>
+                        <div class="summary-row"><span class="text-muted fw-bold">Fee</span><span class="fw-bolder text-success">FREE</span></div>
+                        <div class="summary-row pt-3 mt-2"><span class="text-dark fw-bolder text-uppercase">Total Deduction</span><span class="fw-bolder text-info fs-4" id="transfer-review-total">KES 0.00</span></div>
+                    </div>
+                </div>
+
+                <div class="wizard-step-content" id="transfer-step-3">
+                    <div class="text-center mb-4">
+                        <div class="symbol symbol-70px bg-light-info rounded-circle d-inline-flex align-items-center justify-content-center mb-3">
+                            <i class="fas fa-mobile-alt text-info fs-1"></i>
+                        </div>
+                        <h4 class="fw-bolder text-dark">Verify Transfer</h4>
+                        <p class="text-muted fs-7">Enter the 6-digit code sent to your authenticator app.</p>
+                    </div>
+
+                    <div class="otp-grid">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                        <input type="text" class="otp-input" maxlength="1" onkeyup="moveToNext(this, event)">
+                    </div>
+                </div>
+
+                <div class="wizard-step-content" id="transfer-step-4">
+                    <div class="text-center mb-5">
+                        <div class="symbol symbol-80px bg-light-success rounded-circle d-inline-flex align-items-center justify-content-center mb-4 border border-success border-dashed">
+                            <i class="fas fa-exchange-alt text-success fs-2x"></i>
+                        </div>
+                        <h3 class="fw-bolder text-dark">Transfer Complete!</h3>
+                        <p class="text-muted fs-7">Funds moved successfully between your accounts.</p>
+                    </div>
+                    <div class="summary-box text-center">
+                        <span class="text-muted fs-8 fw-bold text-uppercase d-block mb-1">Amount Moved</span>
+                        <h2 class="fw-bolder text-info mb-0" id="transfer-success-amount">KES 0.00</h2>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer border-0 p-4 bg-light d-flex justify-content-between" id="transferFooter">
+                <button class="btn btn-outline-custom fw-bold px-4" id="transferBtnPrev" onclick="navigateWizard('transfer', -1)" disabled>Back</button>
+                <button class="btn btn-gold fw-bold px-5" id="transferBtnNext" onclick="navigateWizard('transfer', 1)">Continue <i class="fas fa-arrow-right ms-2"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="miniToastModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog modal-sm modal-dialog-centered" style="max-width: 250px;">
+        <div class="modal-content border-0 shadow-lg" style="background: rgba(30, 30, 45, 0.95); backdrop-filter: blur(10px); border-radius: 15px;">
+            <div class="modal-body p-4 text-center">
+                <i class="fas fa-check-circle text-success fs-1 mb-3"></i>
+                <h6 class="fw-bold text-white mb-0" id="miniToastMsg">Action Successful!</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const wizardState = { send: { current: 1, max: 4 }, receive: { current: 1, max: 4 }, transfer: { current: 1, max: 4 } };
+    let selectedRecipientData = { name: '-', account: '-' };
+
+    function selectRecipient(element, name, email) {
+        document.querySelectorAll('#send-recipients-list .recipient-card').forEach(c => {
+            c.classList.remove('selected');
+            c.querySelector('.check-icon').classList.add('d-none');
+        });
+        element.classList.add('selected');
+        element.querySelector('.check-icon').classList.remove('d-none');
+        selectedRecipientData = { name, account: email };
+    }
+
+    function navigateWizard(wizardId, dir) {
+        const state = wizardState[wizardId];
+        
+        if (dir === 1) {
+            if (wizardId === 'send' && state.current === 1) {
+                const amt = document.getElementById('send-amount').value;
+                if (!amt || selectedRecipientData.name === '-') return alert("Please enter amount and select a recipient.");
+                document.getElementById('send-review-name').innerText = selectedRecipientData.name;
+                document.getElementById('send-review-account').innerText = selectedRecipientData.account;
+                document.getElementById('send-review-amount').innerText = 'KES ' + parseFloat(amt).toLocaleString();
+                document.getElementById('send-review-total').innerText = 'KES ' + (parseFloat(amt) + 45).toLocaleString();
+            }
+            else if (wizardId === 'receive' && state.current === 1) {
+                const amt = document.getElementById('receive-amount').value;
+                if (!amt) return alert("Please enter an amount to request.");
+                document.getElementById('waiting-amount').innerText = 'KES ' + parseFloat(amt).toLocaleString();
+            }
+            else if (wizardId === 'transfer' && state.current === 1) {
+                const amt = document.getElementById('transfer-amount').value;
+                const from = document.getElementById('transfer-from').value;
+                const to = document.getElementById('transfer-to').value;
+                if (!amt || !from || !to) return alert("Fill all fields.");
+                document.getElementById('transfer-review-from').innerText = from;
+                document.getElementById('transfer-review-to').innerText = to;
+                document.getElementById('transfer-review-amount').innerText = 'KES ' + parseFloat(amt).toLocaleString();
+                document.getElementById('transfer-review-total').innerText = 'KES ' + parseFloat(amt).toLocaleString();
+            }
+            
+            if (wizardId === 'receive' && state.current === 2) {
+                setTimeout(() => { if (wizardState['receive'].current === 3) navigateWizard('receive', 1); }, 3000);
+            }
+            if ((wizardId === 'send' || wizardId === 'transfer') && state.current === 2) {
+                const btn = document.getElementById(`${wizardId}BtnNext`);
+                btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Processing...';
+                btn.disabled = true;
+                setTimeout(() => {
+                    btn.innerHTML = 'Next <i class="fas fa-arrow-right ms-2"></i>';
+                    btn.disabled = false;
+                    processStepChange(wizardId, dir);
+                }, 1000);
+                return;
+            }
+        }
+        processStepChange(wizardId, dir);
+    }
+
+    function processStepChange(wizardId, dir) {
+        const state = wizardState[wizardId];
+        state.current += dir;
+
+        for (let i = 1; i <= state.max; i++) {
+            document.getElementById(`${wizardId}-step-${i}`).classList.toggle('active', i === state.current);
+            const stepEl = document.querySelector(`#${wizardId}Stepper .wizard-step[data-step="${i}"]`);
+            if (stepEl) {
+                stepEl.classList.toggle('active', i === state.current);
+                stepEl.classList.toggle('completed', i < state.current);
+            }
+        }
+
+        const prevBtn = document.getElementById(`${wizardId}BtnPrev`);
+        const nextBtn = document.getElementById(`${wizardId}BtnNext`);
+        
+        prevBtn.disabled = (state.current === 1);
+
+        if (state.current === state.max) {
+            document.getElementById(`${wizardId}Footer`).classList.add('d-none');
+            if(wizardId === 'send') document.getElementById('send-success-amount').innerText = 'KES ' + document.getElementById('send-amount').value;
+            if(wizardId === 'receive') document.getElementById('receive-success-amount').innerText = 'KES ' + document.getElementById('receive-amount').value;
+            if(wizardId === 'transfer') document.getElementById('transfer-success-amount').innerText = 'KES ' + document.getElementById('transfer-amount').value;
+        } else if (state.current === state.max - 1 && wizardId !== 'receive') {
+            nextBtn.innerHTML = '<i class="fas fa-shield-alt me-2"></i> Verify & Send';
+            nextBtn.classList.replace('btn-gold', 'btn-dark');
+        } else {
+            nextBtn.innerHTML = 'Continue <i class="fas fa-arrow-right ms-2"></i>';
+            nextBtn.classList.replace('btn-dark', 'btn-gold');
+        }
+    }
+
+    function resetWizard(wizardId) {
+        wizardState[wizardId].current = 1;
+        document.getElementById(`${wizardId}Footer`).classList.remove('d-none');
+        document.querySelectorAll(`#${wizardId}Modal input`).forEach(i => i.value = '');
+        processStepChange(wizardId, 0); 
+    }
+
+    function moveToNext(current, event) {
+        if (current.value.length >= current.maxLength) {
+            let next = current.nextElementSibling;
+            if (next) next.focus();
+        }
+        if (event.key === "Backspace") {
+            let prev = current.previousElementSibling;
+            if (prev) prev.focus();
+        }
+    }
+
+    function showMiniToast(msg) {
+        document.getElementById('miniToastMsg').innerText = msg;
+        const modal = new bootstrap.Modal(document.getElementById('miniToastModal'));
+        modal.show();
+        setTimeout(() => modal.hide(), 1500);
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text);
+        showMiniToast('Address Copied!');
+    }
+</script>
+
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
+        <!--end::Page-->
     </div>
     <!--end::Root-->
 
+    <!--begin::Drawers-->
+    <!--begin::Drawers-->
+    <!--begin::Drawers-->
+    <!--begin::Drawers-->
+    <!--begin::Drawers-->
+    <!--begin::Drawers-->
+    <!--begin::Drawers-->
+    <!--begin::Drawers-->
+    <!--begin::Drawers-->
     <!--begin::Drawers-->
     <!--begin::Activities drawer-->
     <div id="kt_activities" class="bg-body" data-kt-drawer="true" data-kt-drawer-name="activities"
