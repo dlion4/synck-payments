@@ -1561,7 +1561,7 @@
                                     </div>
 
                                     <!--end::Tab  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx-->
-                                    <div class="tab-pane fade  show active" id="kt_aside_nav_tab_perfomance" role="tabpanel">
+                                    <div class="tab-pane fade   " id="kt_aside_nav_tab_perfomance" role="tabpanel">
                                         <div class="m-0">
                                             <h1 class="text-gray-800 fw-semibold mb-6 mx-5">Performance Analytics</h1>
                                             <div class="mx-5">
@@ -2521,7 +2521,7 @@
 
 
                                     <!--end::Tab  xxxxxxxxxxxxxxxxxx-->
-                                    <div class="tab-pane fade" id="kt_aside_nav_tab_dashboard"
+                                    <div class="tab-pane fade active show" id="kt_aside_nav_tab_dashboard"
                                         role="tabpanel">
                                         <div class="m-0">
 
@@ -2839,372 +2839,1121 @@
                 <!--end::Header-->
                 <!--begin::Content xxxxxxxxxxxxxx-->
                 <div class="content d-flex flex-column flex-column-fluid" id="kt_content">
-                    <div class="container-xxl py-10" id="kt_content_container" style="background-color: #f5f7fa; min-height: 100vh; font-family: 'Inter', sans-serif;">
+                    <!--begin::Container-->
+                    <div class=" container-xxl " id="kt_content_container">
 
-    <style>
-        :root {
-            --gold-primary: #D4AF37;
-            --gold-light: #F4E5B1;
-            --gold-dark: #996515;
-            --gold-soft: rgba(212, 175, 55, 0.1);
-        }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .animate-fade { animation: fadeInUp 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; opacity: 0; }
-        .delay-1 { animation-delay: 0.1s; }
-        .delay-2 { animation-delay: 0.2s; }
-        .delay-3 { animation-delay: 0.3s; }
 
-        .glass-card {
-            background: #ffffff;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-        }
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.1);
-            border-color: var(--gold-primary);
-        }
 
-        .btn-gold {
-            background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-            color: white !important;
-            font-weight: 700;
-            border: none;
-            transition: 0.3s;
-        }
-        .btn-gold:hover { filter: brightness(1.1); transform: translateY(-2px); }
+                                                
+                            <style>
+                                :root {
+                                    --gold-primary: #D4AF37;
+                                    --gold-light: #F4E5B1;
+                                    --gold-dark: #996515;
+                                    --gold-bg: #FCF9F0;
+                                    --gold-soft: rgba(212, 175, 55, 0.1);
+                                    --surface-card: #FFFFFF;
+                                    --text-main: #2D2401;
+                                }
 
-        .valuation-display {
-            background: linear-gradient(135deg, #ffffff 0%, #fffbf0 100%);
-            border: 2px solid var(--gold-primary);
-            border-radius: 24px;
-            padding: 3rem;
-            box-shadow: 0 10px 40px rgba(212, 175, 55, 0.15);
-        }
-        
-        /* Nav Pills Styling */
-        .nav-pills-gold .nav-link { color: #666; font-weight: 600; border-radius: 12px; padding: 10px 20px; transition: 0.3s; }
-        .nav-pills-gold .nav-link.active { background: var(--gold-primary); color: white; box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
-        
-        /* Mini Tabs */
-        .nav-mini .nav-link { font-size: 0.75rem; text-transform: uppercase; font-weight: 800; color: #999; padding: 5px 12px; border-radius: 8px; }
-        .nav-mini .nav-link.active { background: var(--gold-soft); color: var(--gold-dark); }
-        
-        /* Table Styles */
-        .table-custom thead th { border-bottom: 2px solid var(--gold-light); color: #996515; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; padding-bottom: 15px; }
-        .table-custom tbody td { padding: 15px 10px; vertical-align: middle; border-bottom: 1px dashed #e4e6ef; }
-    </style>
+                                /* body {
+                                    background-color: var(--gold-bg);
+                                    font-family: 'Plus Jakarta Sans', sans-serif;
+                                    color: var(--text-main);
+                                    letter-spacing: -0.01em;
+                                } */
 
-    <div class="row mb-8 animate-fade delay-1 align-items-center bg-white p-6 rounded-4 shadow-sm border border-gray-200 mx-0">
-        <div class="col-lg-8 mb-4 mb-lg-0">
-            <div class="d-flex align-items-center">
-                <div class="symbol symbol-60px me-4">
-                    <div class="w-60px h-60px rounded-circle d-flex align-items-center justify-content-center" style="background: var(--gold-soft); border: 1px dashed var(--gold-primary);">
-                        <i class="fas fa-chart-pie fs-2 text-warning" style="color: var(--gold-dark) !important;"></i>
-                    </div>
-                </div>
-                <div>
-                    <h6 class="fw-bold text-uppercase mb-1" style="color: var(--gold-dark); letter-spacing: 1px; font-size: 0.75rem;">Internal Ecosystem Audit</h6>
-                    <h1 class="fw-bolder m-0 fs-2 text-dark">Platform Business Valuation</h1>
-                    <p class="text-muted fs-7 mt-1 m-0">Dynamic worth calculated from live Sendmo transaction data, referrals, and cash flow history.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 text-lg-end d-flex flex-wrap justify-content-lg-end gap-3">
-            <button class="btn btn-light fw-bold border shadow-sm rounded-pill px-5" data-bs-toggle="modal" data-bs-target="#auditLogModal">
-                <i class="fas fa-history me-2 text-muted"></i> Audit Ledger
-            </button>
-            <button class="btn rounded-pill px-6 shadow-sm fw-bolder hover-elevate-up" data-bs-toggle="modal" data-bs-target="#recalcModal" style="background: linear-gradient(135deg, #D4AF37 0%, #996515 100%); color: white; border: none;">
-    <i class="fas fa-sparkles me-2"></i> Valuate With AI 
-</button>
-        </div>
-    </div>
+                                /* --- MagicUI & Modern UI Animations --- */
+                                @keyframes fadeInUp {
+                                    from {
+                                        opacity: 0;
+                                        transform: translateY(40px);
+                                    }
 
-    <div class="row g-5 mb-8">
-        
-        <div class="col-xl-7 animate-fade delay-2">
-            <div class="valuation-display h-100 text-center d-flex flex-column justify-content-center">
-                <span class="badge px-4 py-2 rounded-pill mx-auto mb-4 fw-bolder" style="background: var(--gold-dark); color: white; letter-spacing: 1px; font-size: 0.75rem;">ESTIMATED MARKET VALUE</span>
-                <div class="display-3 fw-bolder mb-6" style="color: var(--gold-dark); text-shadow: 0 4px 15px rgba(212,175,55,0.2);">$4,829,150.00</div>
-                
-                <div class="d-flex justify-content-center gap-5 mt-2 p-4 rounded-4 bg-white shadow-sm mx-auto border" style="max-width: 450px;">
-                    <div class="text-start">
-                        <div class="text-muted fs-8 fw-bold text-uppercase mb-1">Confidence Score</div>
-                        <div class="fs-4 fw-bolder text-success d-flex align-items-center">
-                            <i class="fas fa-check-circle me-2 fs-5"></i> 98.4%
-                        </div>
-                    </div>
-                    <div class="border-end"></div>
-                    <div class="text-start">
-                        <div class="text-muted fs-8 fw-bold text-uppercase mb-1">Data Points Analyzed</div>
-                        <div class="fs-4 fw-bolder text-dark">42,891</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                    to {
+                                        opacity: 1;
+                                        transform: translateY(0);
+                                    }
+                                }
 
-        <div class="col-xl-5 animate-fade delay-3">
-            <div class="glass-card p-6 h-100 d-flex flex-column">
-                <div class="d-flex justify-content-between align-items-center mb-6 border-bottom pb-4 border-dashed">
-                    <h5 class="fw-bolder text-dark m-0 fs-4">Recurring Revenue Mix</h5>
-                    <ul class="nav nav-mini bg-light p-1 rounded-3">
-                        <li class="nav-item"><button class="nav-link active border-0">Live</button></li>
-                        <li class="nav-item"><button class="nav-link border-0">History</button></li>
-                    </ul>
-                </div>
+                                @keyframes shimmer {
+                                    0% {
+                                        background-position: -200% 0;
+                                    }
 
-                <div class="row g-4 flex-grow-1">
-                    <div class="col-6">
-                        <div class="p-4 bg-light rounded-4 border-start border-4 h-100" style="border-color: var(--gold-primary) !important;">
-                            <span class="text-muted fs-8 fw-bold text-uppercase d-block mb-1">Per Week</span>
-                            <span class="fs-3 fw-bolder text-dark">$12,400</span>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-4 bg-light rounded-4 border-start border-4 h-100" style="border-color: var(--gold-primary) !important;">
-                            <span class="text-muted fs-8 fw-bold text-uppercase d-block mb-1">Per Month</span>
-                            <span class="fs-3 fw-bolder text-dark">$53,800</span>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-4 bg-light rounded-4 border-start border-4 h-100" style="border-color: var(--gold-primary) !important;">
-                            <span class="text-muted fs-8 fw-bold text-uppercase d-block mb-1">Per Quarter</span>
-                            <span class="fs-3 fw-bolder text-dark">$161,400</span>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-4 rounded-4 border-start border-4 h-100 shadow-sm" style="background: var(--gold-soft); border-color: var(--gold-dark) !important;">
-                            <span class="fs-8 fw-bolder text-uppercase d-block mb-1" style="color: var(--gold-dark);">Per Year</span>
-                            <span class="fs-3 fw-bolder" style="color: var(--gold-dark);">$645,600</span>
-                        </div>
-                    </div>
-                </div>
+                                    100% {
+                                        background-position: 200% 0;
+                                    }
+                                }
 
-                <button class="btn btn-light fw-bold w-100 mt-6 border shadow-sm py-3" data-bs-toggle="modal" data-bs-target="#recurringDetailModal">
-                    View Subscription Breakdown <i class="fas fa-arrow-right ms-2 fs-8"></i>
-                </button>
-            </div>
-        </div>
-    </div>
+                                @keyframes pulseGold {
+                                    0% {
+                                        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+                                    }
 
-    <div class="row mb-8 animate-fade delay-3">
-        <div class="col-12">
-            
-            <ul class="nav nav-pills nav-pills-gold mb-6 d-flex flex-nowrap overflow-auto pb-2" id="valuationMainTabs" style="scrollbar-width: none;">
-                <li class="nav-item me-3"><a class="nav-link active shadow-sm border" data-bs-toggle="pill" href="#cashFlowSec"><i class="fas fa-money-bill-wave me-2"></i> Cash Flow & Expenditures</a></li>
-                <li class="nav-item me-3"><a class="nav-link shadow-sm bg-white border" data-bs-toggle="pill" href="#channelsSec"><i class="fas fa-network-wired me-2"></i> Transaction Channels</a></li>
-                <li class="nav-item me-3"><a class="nav-link shadow-sm bg-white border" data-bs-toggle="pill" href="#projectionsSec"><i class="fas fa-chart-line me-2"></i> Growth Projections</a></li>
-            </ul>
+                                    70% {
+                                        box-shadow: 0 0 0 15px rgba(212, 175, 55, 0);
+                                    }
 
-            <div class="tab-content">
-                
-                <div class="tab-pane fade show active" id="cashFlowSec">
-                    <div class="row g-5">
-                        
-                        <div class="col-lg-4">
-                            <div class="glass-card p-6 h-100">
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="symbol symbol-40px me-3"><span class="symbol-label bg-light-success text-success"><i class="fas fa-arrow-down"></i></span></div>
-                                    <h5 class="fw-bolder m-0 text-dark">All Cash-In (Inflow)</h5>
+                                    100% {
+                                        box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+                                    }
+                                }
+
+                                .animate-fade {
+                                    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+                                    opacity: 0;
+                                }
+
+                                /* --- Custom UI Components --- */
+                                .gold-card {
+                                    background: var(--surface-card);
+                                    border: 1px solid rgba(212, 175, 55, 0.2);
+                                    border-radius: 24px;
+                                    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+                                    overflow: hidden;
+                                    position: relative;
+                                }
+
+                                .gold-card:hover {
+                                    transform: translateY(-10px);
+                                    box-shadow: 0 30px 60px rgba(153, 101, 21, 0.15);
+                                    border-color: var(--gold-primary);
+                                }
+
+                                .btn-sendmo {
+                                    background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+                                    color: white !important;
+                                    border: none;
+                                    padding: 14px 30px;
+                                    border-radius: 14px;
+                                    font-weight: 700;
+                                    text-transform: uppercase;
+                                    font-size: 0.8rem;
+                                    letter-spacing: 1px;
+                                    transition: 0.3s;
+                                }
+
+                                .btn-sendmo:hover {
+                                    filter: brightness(1.1);
+                                    transform: scale(1.02);
+                                    animation: pulseGold 2s infinite;
+                                }
+
+                                .nav-pills-gold .nav-link {
+                                    color: var(--gold-dark);
+                                    border-radius: 12px;
+                                    padding: 10px 20px;
+                                    font-weight: 600;
+                                    margin-right: 10px;
+                                }
+
+                                .nav-pills-gold .nav-link.active {
+                                    background-color: var(--gold-primary);
+                                    color: white;
+                                }
+
+                                /* Valuation Badge */
+                                .valuation-display {
+                                    background: linear-gradient(135deg, #FFFDF6 0%, #F4E5B1 100%);
+                                    border: 2px solid var(--gold-primary);
+                                    padding: 40px;
+                                    border-radius: 32px;
+                                    text-align: center;
+                                }
+
+                                .valuation-amount {
+                                    font-size: 4rem;
+                                    font-weight: 800;
+                                    color: var(--gold-dark);
+                                    text-shadow: 0 2px 10px rgba(153, 101, 21, 0.2);
+                                }
+
+                                /* Mini-Tabs Styling */
+                                .mini-tab-bar {
+                                    background: rgba(212, 175, 55, 0.05);
+                                    padding: 5px;
+                                    border-radius: 12px;
+                                    display: inline-flex;
+                                }
+
+                                .mini-tab-btn {
+                                    padding: 6px 15px;
+                                    font-size: 0.75rem;
+                                    font-weight: 700;
+                                    border-radius: 8px;
+                                    border: none;
+                                    background: transparent;
+                                    color: var(--gold-dark);
+                                }
+
+                                .mini-tab-btn.active {
+                                    background: white;
+                                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+                                }
+
+                                /* Projection Cards */
+                                .projection-node {
+                                    border-left: 4px solid var(--gold-primary);
+                                    padding-left: 20px;
+                                    position: relative;
+                                }
+
+                                .projection-node::before {
+                                    content: '';
+                                    position: absolute;
+                                    left: -10px;
+                                    top: 0;
+                                    width: 16px;
+                                    height: 16px;
+                                    background: var(--gold-primary);
+                                    border-radius: 50%;
+                                }
+
+                                .table-sendmo thead th {
+                                    font-size: 0.7rem;
+                                    text-transform: uppercase;
+                                    letter-spacing: 1px;
+                                    color: var(--gold-dark);
+                                    background: var(--gold-bg);
+                                    border: none;
+                                }
+
+                                .metric-label {
+                                    font-size: 0.85rem;
+                                    color: #666;
+                                    margin-bottom: 4px;
+                                }
+
+                                .metric-value {
+                                    font-size: 1.25rem;
+                                    font-weight: 700;
+                                    color: #111;
+                                }
+
+
+
+
+                                /* new stylessss for card */
+
+                                /* --- MagicUI Styles & Animations --- */
+                                @keyframes revealUp {
+                                    from {
+                                        opacity: 0;
+                                        transform: translateY(30px);
+                                        filter: blur(10px);
+                                    }
+
+                                    to {
+                                        opacity: 1;
+                                        transform: translateY(0);
+                                        filter: blur(0);
+                                    }
+                                }
+
+                                .animate-reveal {
+                                    animation: revealUp 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+                                }
+
+                                .card-channel {
+                                    background: var(--surface);
+                                    border: 1px solid rgba(212, 175, 55, 0.2);
+                                    border-radius: 24px;
+                                    transition: all 0.3s ease;
+                                }
+
+                                .card-channel:hover {
+                                    border-color: var(--gold-primary);
+                                    box-shadow: 0 20px 40px rgba(153, 101, 21, 0.1);
+                                    transform: translateY(-5px);
+                                }
+
+                                /* --- Filter Bar Style --- */
+                                .filter-bar {
+                                    background: white;
+                                    border-radius: 100px;
+                                    padding: 10px 30px;
+                                    border: 1px solid rgba(212, 175, 55, 0.3);
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 15px;
+                                }
+
+                                .filter-select {
+                                    border: none;
+                                    background: transparent;
+                                    font-weight: 600;
+                                    color: var(--gold-dark);
+                                    font-size: 0.85rem;
+                                    cursor: pointer;
+                                }
+
+                                .filter-select:focus {
+                                    outline: none;
+                                    box-shadow: none;
+                                }
+
+                                /* --- Mini Tabs --- */
+                                .nav-mini-channel .nav-link {
+                                    font-size: 0.7rem;
+                                    text-transform: uppercase;
+                                    font-weight: 800;
+                                    padding: 5px 12px;
+                                    color: #888;
+                                    border: none;
+                                }
+
+                                .nav-mini-channel .nav-link.active {
+                                    background: var(--gold-soft);
+                                    color: var(--gold-dark);
+                                    border-bottom: 2px solid var(--gold-primary);
+                                }
+
+                                /* --- Button & Badges --- */
+                                .btn-gold-sm {
+                                    background: var(--gold-gradient);
+                                    color: rgb(139, 94, 8);
+                                    font-size: 0.75rem;
+                                    font-weight: 700;
+                                    border-radius: 8px;
+                                    border: none;
+                                    padding: 5px 15px;
+                                }
+
+                                .badge-region {
+                                    background: var(--gold-light);
+                                    color: var(--gold-dark);
+                                    font-weight: 700;
+                                    font-size: 0.65rem;
+                                }
+
+                                .cash-flow-in {
+                                    color: #28a745;
+                                    font-weight: 700;
+                                }
+
+                                .cash-flow-out {
+                                    color: #dc3545;
+                                    font-weight: 700;
+                                }
+
+                                /* Custom Table */
+                                .table-channels thead th {
+                                    background: transparent;
+                                    border-bottom: 2px solid var(--gold-light);
+                                    color: #999;
+                                    font-size: 0.75rem;
+                                    text-transform: uppercase;
+                                }
+                            </style>
+
+
+                            <div class="container-fluid py-5 px-lg-5">
+
+                                <div class="row mb-5 animate-fade" style="animation-delay: 0.1s;">
+                                    <div class="col-lg-8">
+                                        <h6 class="text-gold fw-bold text-uppercase mb-2">Internal Ecosystem Audit</h6>
+                                        <h1 class="display-5 fw-extrabold mb-0">Platform Business <span
+                                                style="color:var(--gold-primary)">Valuation</span></h1>
+                                        <p class="text-muted">Dynamic worth calculated from live Sendmo transaction data, customer referrals,
+                                            and cash flow history.</p>
+                                    </div>
+                                    <div class="col-lg-4 text-end d-flex align-items-center justify-content-end gap-3">
+                                        <button class="btn btn-outline-dark border-2 rounded-pill px-4 fw-bold" data-bs-toggle="modal"
+                                            data-bs-target="#auditLogModal">Audit Ledger</button>
+                                        <button class="btn btn-sendmo rounded-pill shadow" data-bs-toggle="modal"
+                                            data-bs-target="#recalcModal">Recalculate Now</button>
+                                    </div>
                                 </div>
-                                <div class="display-5 fw-bolder text-success mb-4">$8.2M</div>
-                                
-                                <div class="bg-light p-4 rounded-4 border border-dashed mb-4">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-muted fw-bold fs-7">Platform Sales</span>
-                                        <span class="text-dark fw-bolder fs-6">$5.4M</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-muted fw-bold fs-7">External Transfers</span>
-                                        <span class="text-dark fw-bolder fs-6">$1.2M</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted fw-bold fs-7">Referral Payouts</span>
-                                        <span class="text-dark fw-bolder fs-6">$840K</span>
-                                    </div>
-                                </div>
-                                <button class="btn btn-sm btn-light-success w-100 fw-bold py-2 border" data-bs-toggle="modal" data-bs-target="#inflowModal">Analyze Sources</button>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-4">
-                            <div class="glass-card p-6 h-100">
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="symbol symbol-40px me-3"><span class="symbol-label bg-light-danger text-danger"><i class="fas fa-arrow-up"></i></span></div>
-                                    <h5 class="fw-bolder m-0 text-dark">All Cash-Out (Expenditure)</h5>
-                                </div>
-                                <div class="display-5 fw-bolder text-danger mb-4">$3.4M</div>
-                                
-                                <div class="bg-light p-4 rounded-4 border border-dashed mb-4">
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-muted fw-bold fs-7">Utilities & Rent</span>
-                                        <span class="text-dark fw-bolder fs-6">$420K</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-muted fw-bold fs-7">Salary Transfers</span>
-                                        <span class="text-dark fw-bolder fs-6">$1.8M</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="text-muted fw-bold fs-7">Vendor Payments</span>
-                                        <span class="text-dark fw-bolder fs-6">$1.1M</span>
-                                    </div>
-                                </div>
-                                <button class="btn btn-sm btn-light-danger w-100 fw-bold py-2 border" data-bs-toggle="modal" data-bs-target="#outflowModal">Expense Audit</button>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4">
-                            <div class="card border-0 p-6 h-100 shadow-sm rounded-4" style="background: linear-gradient(135deg, #1e1e2d 0%, #151521 100%);">
-                                <div class="d-flex align-items-center mb-4">
-                                    <div class="symbol symbol-40px me-3"><span class="symbol-label bg-white bg-opacity-10 text-warning border border-white border-opacity-25"><i class="fas fa-scale-balanced"></i></span></div>
-                                    <h5 class="fw-bolder m-0 text-white">Net Asset Value (NAV)</h5>
-                                </div>
-                                <div class="display-4 fw-bolder text-white mb-4">$4.8M</div>
-                                <p class="text-white opacity-50 fs-7 mb-6">Combined sum of all liquid assets and ledger history since account opening.</p>
-                                
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between text-white opacity-75 fs-8 fw-bold mb-2">
-                                        <span>Asset to Debt Ratio</span>
-                                        <span>72%</span>
-                                    </div>
-                                    <div class="progress h-6px bg-white bg-opacity-10 rounded-pill mb-6">
-                                        <div class="progress-bar bg-warning rounded-pill" style="width: 72%;"></div>
-                                    </div>
-                                    <button class="btn btn-gold w-100 py-3 rounded-pill" data-bs-toggle="modal" data-bs-target="#navModal">View Balance Sheet</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="tab-pane fade" id="channelsSec">
-                    <div class="glass-card p-6">
-                        
-                        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-6 gap-4">
-                            <h4 class="fw-bolder text-dark m-0 fs-4">Granular Channel Ledger</h4>
-                            
-                            <div class="d-flex flex-wrap gap-3 p-2 bg-light rounded-pill border">
-                                <select class="form-select form-select-sm border-0 bg-transparent fw-bold text-dark w-auto cursor-pointer shadow-none">
-                                    <option>All Channels</option><option>Web Gateway</option><option>POS Terminal</option>
-                                </select>
-                                <div class="vr bg-gray-300 mx-1"></div>
-                                <select class="form-select form-select-sm border-0 bg-transparent fw-bold text-dark w-auto cursor-pointer shadow-none">
-                                    <option>Global Region</option><option>West Africa</option><option>North America</option>
-                                </select>
-                                <button class="btn btn-sm btn-dark rounded-pill px-4 fw-bold shadow-sm ms-2" data-bs-toggle="modal" data-bs-target="#exportChannelModal">
-                                    <i class="fas fa-download me-1"></i> Export
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="table table-custom align-middle">
-                                <thead>
-                                    <tr>
-                                        <th class="ps-4">Channel Type</th>
-                                        <th>Region / Country</th>
-                                        <th>Gross Value</th>
-                                        <th>Net Flow</th>
-                                        <th>1M Projection</th>
-                                        <th class="text-end pe-4">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="fw-bold text-dark fs-6">
-                                    <tr class="hover-elevate-up transition-300" style="background: white;">
-                                        <td class="ps-4">
-                                            <div class="d-flex align-items-center">
-                                                <div class="symbol symbol-40px me-3"><span class="symbol-label bg-light-primary text-primary"><i class="fas fa-globe"></i></span></div>
-                                                <span>Web Gateway</span>
+                                <div class="row g-4 mb-5">
+                                    <div class="col-xl-7 animate-fade" style="animation-delay: 0.2s;">
+                                        <div class="valuation-display h-100 d-flex flex-column justify-content-center">
+                                            <span class="badge bg-gold-dark text-white px-3 py-2 rounded-pill mx-auto mb-3"
+                                                style="width: fit-content;">ESTIMATED MARKET VALUE</span>
+                                            <div class="valuation-amount">$4,829,150.00</div>
+                                            <div class="d-flex justify-content-center gap-4 mt-4">
+                                                <div class="text-start">
+                                                    <div class="metric-label">Confidence Score</div>
+                                                    <div class="h5 fw-bold mb-0 text-success">98.4% (Verified)</div>
+                                                </div>
+                                                <div class="vr"></div>
+                                                <div class="text-start">
+                                                    <div class="metric-label">Data Points Analyzed</div>
+                                                    <div class="h5 fw-bold mb-0">42,891 Entries</div>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td><span class="badge bg-light text-muted border px-3 py-2 fs-8">Nigeria / West</span></td>
-                                        <td>$420,000</td>
-                                        <td class="text-success">+$310,000</td>
-                                        <td style="color: var(--gold-dark);">$445K</td>
-                                        <td class="text-end pe-4"><button class="btn btn-sm btn-light border fw-bold text-muted hover-elevate-up">Details</button></td>
-                                    </tr>
-                                    <tr style="height: 10px; border: none;"><td colspan="6" style="border: none; padding: 0;"></td></tr>
-                                    
-                                    <tr class="hover-elevate-up transition-300" style="background: white;">
-                                        <td class="ps-4">
-                                            <div class="d-flex align-items-center">
-                                                <div class="symbol symbol-40px me-3"><span class="symbol-label bg-light-success text-success"><i class="fas fa-calculator"></i></span></div>
-                                                <span>POS Terminals</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-xl-5 animate-fade" style="animation-delay: 0.3s;">
+                                        <div class="gold-card p-4 h-100">
+                                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                                <h5 class="fw-bold mb-0">Recurring Revenue Mix</h5>
+                                                <div class="mini-tab-bar">
+                                                    <button class="mini-tab-btn active">Live</button>
+                                                    <button class="mini-tab-btn">History</button>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td><span class="badge bg-light text-muted border px-3 py-2 fs-8">Kenya / East</span></td>
-                                        <td>$180,000</td>
-                                        <td class="text-success">+$142,000</td>
-                                        <td style="color: var(--gold-dark);">$210K</td>
-                                        <td class="text-end pe-4"><button class="btn btn-sm btn-light border fw-bold text-muted hover-elevate-up">Details</button></td>
-                                    </tr>
-                                    <tr style="height: 10px; border: none;"><td colspan="6" style="border: none; padding: 0;"></td></tr>
-                                    
-                                    <tr class="hover-elevate-up transition-300" style="background: white;">
-                                        <td class="ps-4">
-                                            <div class="d-flex align-items-center">
-                                                <div class="symbol symbol-40px me-3"><span class="symbol-label bg-light-warning text-warning-dark"><i class="fas fa-mobile-alt"></i></span></div>
-                                                <span>STK Push (Mobile)</span>
+
+                                            <div class="row g-3">
+                                                <div class="col-6">
+                                                    <div class="p-3 bg-light rounded-4 border-start border-4 border-warning">
+                                                        <div class="metric-label">Per Week</div>
+                                                        <div class="metric-value">$12,400</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="p-3 bg-light rounded-4 border-start border-4 border-warning">
+                                                        <div class="metric-label">Per Month</div>
+                                                        <div class="metric-value">$53,800</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="p-3 bg-light rounded-4 border-start border-4 border-warning">
+                                                        <div class="metric-label">Per Quarter</div>
+                                                        <div class="metric-value">$161,400</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-6">
+                                                    <div class="p-3 bg-light rounded-4 border-start border-4 border-warning">
+                                                        <div class="metric-label">Per Year</div>
+                                                        <div class="metric-value">$645,600</div>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </td>
-                                        <td><span class="badge bg-light text-muted border px-3 py-2 fs-8">Global Routing</span></td>
-                                        <td>$94,000</td>
-                                        <td class="text-danger">-$12,000</td>
-                                        <td style="color: var(--gold-dark);">$105K</td>
-                                        <td class="text-end pe-4"><button class="btn btn-sm btn-light border fw-bold text-muted hover-elevate-up">Details</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
 
-                    </div>
-                </div>
+                                            <button class="btn btn-light border w-100 mt-4 py-3 fw-bold rounded-4" data-bs-toggle="modal"
+                                                data-bs-target="#recurringDetailModal">View Subscription Breakdown</button>
+                                        </div>
+                                    </div>
+                                </div>
 
-                <div class="tab-pane fade" id="projectionsSec">
-                    <div class="row g-4 mb-6">
-                        <div class="col-md-3">
-                            <div class="glass-card p-5 text-center h-100 d-flex flex-column justify-content-center">
-                                <div class="text-muted small fw-bolder text-uppercase ls-1 mb-3 border-bottom pb-2">1 Month</div>
-                                <div class="fs-1 fw-bolder text-dark mb-2">$5.1M</div>
-                                <span class="badge bg-light-success text-success fw-bold px-3 py-1 mx-auto"><i class="fas fa-arrow-up me-1"></i>4.2%</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="glass-card p-5 text-center h-100 d-flex flex-column justify-content-center">
-                                <div class="text-muted small fw-bolder text-uppercase ls-1 mb-3 border-bottom pb-2">3 Months</div>
-                                <div class="fs-1 fw-bolder text-dark mb-2">$5.8M</div>
-                                <span class="badge bg-light-success text-success fw-bold px-3 py-1 mx-auto"><i class="fas fa-arrow-up me-1"></i>18.0%</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="glass-card p-5 text-center h-100 d-flex flex-column justify-content-center">
-                                <div class="text-muted small fw-bolder text-uppercase ls-1 mb-3 border-bottom pb-2">6 Months</div>
-                                <div class="fs-1 fw-bolder text-dark mb-2">$7.2M</div>
-                                <span class="badge bg-light-success text-success fw-bold px-3 py-1 mx-auto"><i class="fas fa-arrow-up me-1"></i>44.0%</span>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card border-0 shadow-sm p-5 text-center h-100 d-flex flex-column justify-content-center" style="background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-primary) 100%);">
-                                <div class="text-dark small fw-bolder text-uppercase ls-1 mb-3 border-bottom border-dark border-opacity-25 pb-2">1 Year</div>
-                                <div class="fs-1 fw-bolder text-white mb-2" style="text-shadow: 0 2px 5px rgba(0,0,0,0.1);">$12.4M</div>
-                                <span class="badge bg-dark text-white fw-bold px-3 py-1 mx-auto">Compound Growth</span>
-                            </div>
-                        </div>
-                    </div>
+                                <div class="row mb-5">
+                                    <div class="col-12 animate-fade" style="animation-delay: 0.4s;">
+                                        <ul class="nav nav-pills nav-pills-gold mb-4" id="valuationMainTabs">
+                                            <li class="nav-item"><a class="nav-link active" data-bs-toggle="pill" href="#cashFlowSec">Cash Flow
+                                                    & Expenditures</a></li>
+                                            <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#ecosystemSec">Subsidiaries &
+                                                    Referrals</a></li>
+                                            <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#projectionsSec">Growth
+                                                    Projections</a></li>
+                                            <li class="nav-item"><a class="nav-link" data-bs-toggle="pill" href="#channelsSec">Transaction
+                                                    Channels</a></li>
+                                        </ul>
 
-                    <div class="glass-card p-6 border-start border-4" style="border-left-color: var(--gold-primary) !important;">
-                        
-                        
-                        <div class="row g-4">
-                           <div class="col-md-12">
-    <!-- <div class="card p-6 border-0 shadow-lg rounded-4 h-100" style="background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); border-top: 4px solid var(--gold-primary) !important;"> -->
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="cashFlowSec">
+                                                <div class="row g-4">
+                                                    <div class="col-lg-4">
+                                                        <div class="gold-card p-4">
+                                                            <h6 class="fw-bold mb-3">All Cash-In (Inflow)</h6>
+                                                            <div class="display-6 fw-bold text-success mb-2">$8.2M</div>
+                                                            <hr>
+                                                            <div class="d-flex justify-content-between small mb-2"><span>Platform
+                                                                    Sales</span><strong>$5.4M</strong></div>
+                                                            <div class="d-flex justify-content-between small mb-2"><span>External
+                                                                    Transfers</span><strong>$1.2M</strong></div>
+                                                            <div class="d-flex justify-content-between small mb-2"><span>Referral
+                                                                    Payouts</span><strong>$840K</strong></div>
+                                                            <button class="btn btn-sm btn-outline-warning w-100 mt-3" data-bs-toggle="modal"
+                                                                data-bs-target="#inflowModal">Analyze Sources</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="gold-card p-4">
+                                                            <h6 class="fw-bold mb-3">All Cash-Out (Expenditure)</h6>
+                                                            <div class="display-6 fw-bold text-danger mb-2">$3.4M</div>
+                                                            <hr>
+                                                            <div class="d-flex justify-content-between small mb-2"><span>Utilities &
+                                                                    Rent</span><strong>$420K</strong></div>
+                                                            <div class="d-flex justify-content-between small mb-2"><span>Salary
+                                                                    Transfers</span><strong>$1.8M</strong></div>
+                                                            <div class="d-flex justify-content-between small mb-2"><span>Vendor
+                                                                    Payments</span><strong>$1.1M</strong></div>
+                                                            <button class="btn btn-sm btn-outline-warning w-100 mt-3" data-bs-toggle="modal"
+                                                                data-bs-target="#outflowModal">Expense Audit</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4">
+                                                        <div class="gold-card p-4 bg-dark text-white">
+                                                            <h6 class="fw-bold mb-3 text-gold">Net Asset Value (NAV)</h6>
+                                                            <div class="display-6 fw-bold mb-2">$4.8M</div>
+                                                            <p class="small opacity-50">Combined sum of all liquid assets and ledger history
+                                                                since account opening.</p>
+                                                            <div class="progress mb-3" style="height: 10px; background: #333;">
+                                                                <div class="progress-bar bg-warning" style="width: 72%;"></div>
+                                                            </div>
+                                                            <button class="btn btn-sm btn-gold w-100" data-bs-toggle="modal"
+                                                                data-bs-target="#navModal">View Balance Sheet</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="projectionsSec">
+                                                <div class="row g-4">
+                                                    <div class="col-md-3">
+                                                        <div class="gold-card p-4 text-center">
+                                                            <div class="text-muted small fw-bold">1 MONTH PROJECTION</div>
+                                                            <div class="h3 fw-bold my-2 text-gold">$5.1M</div>
+                                                            <div class="badge bg-success-subtle text-success">+4.2% Growth</div>
+                                                            <button class="btn btn-sm btn-light mt-3 w-100" data-bs-toggle="modal"
+                                                                data-bs-target="#proj1mModal">Scenario Info</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="gold-card p-4 text-center">
+                                                            <div class="text-muted small fw-bold">3 MONTH PROJECTION</div>
+                                                            <div class="h3 fw-bold my-2 text-gold">$5.8M</div>
+                                                            <div class="badge bg-success-subtle text-success">+18% Growth</div>
+                                                            <button class="btn btn-sm btn-light mt-3 w-100" data-bs-toggle="modal"
+                                                                data-bs-target="#proj3mModal">Scenario Info</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="gold-card p-4 text-center">
+                                                            <div class="text-muted small fw-bold">6 MONTH PROJECTION</div>
+                                                            <div class="h3 fw-bold my-2 text-gold">$7.2M</div>
+                                                            <div class="badge bg-success-subtle text-success">+44% Growth</div>
+                                                            <button class="btn btn-sm btn-light mt-3 w-100" data-bs-toggle="modal"
+                                                                data-bs-target="#proj6mModal">Scenario Info</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="gold-card p-4 text-center" style="background: var(--gold-light);">
+                                                            <div class="text-dark small fw-bold">1 YEAR PROJECTION</div>
+                                                            <div class="h3 fw-bold my-2" style="color:var(--gold-dark)">$12.4M</div>
+                                                            <div class="badge bg-dark text-white">Compound Growth</div>
+                                                            <button class="btn btn-sm btn-dark mt-3 w-100" data-bs-toggle="modal"
+                                                                data-bs-target="#proj1yModal">Scenario Info</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="tab-pane fade" id="ecosystemSec">
+                                                <div class="gold-card p-4">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-md-8">
+                                                            <h5 class="fw-bold">Business Network & Subsidiaries</h5>
+                                                            <p class="text-muted small">Valuation inclusive of connected entities and referral
+                                                                network value.</p>
+                                                        </div>
+                                                        <div class="col-md-4 text-end">
+                                                            <button class="btn btn-gold btn-sm" data-bs-toggle="modal"
+                                                                data-bs-target="#addSubsidiaryModal">+ Link Subsidiary</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="table-responsive mt-4">
+                                                        <table class="table table-hover align-middle">
+                                                            <thead class="table-light">
+                                                                <tr>
+                                                                    <th>Entity Name</th>
+                                                                    <th>Relation</th>
+                                                                    <th>Total Transacted</th>
+                                                                    <th>Referral Value</th>
+                                                                    <th>Status</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="fw-bold">Sendmo Retail Hub</div>
+                                                                    </td>
+                                                                    <td><span class="badge bg-light text-dark border">Main Subsidiary</span>
+                                                                    </td>
+                                                                    <td>$1,240,000</td>
+                                                                    <td>$45,000</td>
+                                                                    <td><span class="text-success fw-bold">Active</span></td>
+                                                                    <td><button class="btn btn-sm btn-light" data-bs-toggle="modal"
+                                                                            data-bs-target="#entityDetailModal">Details</button></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="fw-bold">Alpha Logistics</div>
+                                                                    </td>
+                                                                    <td><span class="badge bg-light text-dark border">Partner Entity</span></td>
+                                                                    <td>$450,000</td>
+                                                                    <td>$12,000</td>
+                                                                    <td><span class="text-success fw-bold">Active</span></td>
+                                                                    <td><button class="btn btn-sm btn-light">Details</button></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane fade" id="channelsSec">
+                                                <div class="gold-card p-4">
+                                                    <div class="container-fluid py-5 px-lg-5">
+
+                                                        <div class="row mb-5 animate-reveal">
+                                                            <div class="col-lg-12">
+                                                                <div class="filter-bar shadow-sm">
+                                                                    <span class="text-muted small fw-bold">FILTERS:</span>
+                                                                    <div class="vr"></div>
+
+                                                                    <select class="filter-select">
+                                                                        <option>All Channels</option>
+                                                                        <option>POS Terminal</option>
+                                                                        <option>Web Gateway</option>
+                                                                        <option>Mobile App</option>
+                                                                        <option>API Bridge</option>
+                                                                    </select>
+
+                                                                    <div class="vr"></div>
+
+                                                                    <select class="filter-select">
+                                                                        <option>Last 30 Days</option>
+                                                                        <option>Last Quarter</option>
+                                                                        <option>Year to Date</option>
+                                                                        <option>All Time</option>
+                                                                    </select>
+
+                                                                    <div class="vr"></div>
+
+                                                                    <select class="filter-select">
+                                                                        <option>Global View</option>
+                                                                        <option>West Africa</option>
+                                                                        <option>East Africa</option>
+                                                                        <option>Europe (EU)</option>
+                                                                        <option>North America</option>
+                                                                    </select>
+
+                                                                    <button class="ms-auto btn btn-gold-sm px-4" data-bs-toggle="modal"
+                                                                        data-bs-target="#exportChannelModal">Apply & Export</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row g-4 mb-5">
+                                                            <div class="col-xl-4 col-md-6 animate-reveal" style="animation-delay: 0.1s;">
+                                                                <div class="card-channel p-4">
+                                                                    <div class="d-flex justify-content-between align-items-start mb-4">
+                                                                        <div>
+                                                                            <h6 class="fw-bold mb-0">Web Gateway</h6>
+                                                                            <span class="badge badge-region">Europe / Africa</span>
+                                                                        </div>
+                                                                        <button class="btn btn-light btn-sm rounded-circle"
+                                                                            data-bs-toggle="modal" data-bs-target="#webDetailsPop">i</button>
+                                                                    </div>
+
+                                                                    <ul class="nav nav-mini-channel mb-3">
+                                                                        <li class="nav-item"><button class="nav-link active"
+                                                                                data-bs-toggle="tab" data-bs-target="#web-flow">Cash
+                                                                                Flow</button></li>
+                                                                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab"
+                                                                                data-bs-target="#web-stats">Stats</button></li>
+                                                                    </ul>
+
+                                                                    <div class="tab-content">
+                                                                        <div class="tab-pane fade show active" id="web-flow">
+                                                                            <div class="mb-2 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Inflow</span>
+                                                                                <span class="cash-flow-in">+$1,240,000</span>
+                                                                            </div>
+                                                                            <div class="mb-4 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Outflow</span>
+                                                                                <span class="cash-flow-out">-$420,000</span>
+                                                                            </div>
+                                                                            <div class="progress" style="height: 6px;">
+                                                                                <div class="progress-bar bg-warning" style="width: 75%;"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="tab-pane fade" id="web-stats">
+                                                                            <p class="small text-muted">Active Merchants: 1,402</p>
+                                                                            <p class="small text-muted">Success Rate: 99.2%</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button class="btn btn-gold-sm w-100 mt-1 py-2" data-bs-toggle="modal"
+                                                                        data-bs-target="#deepDiveModal">View Channel Metrics</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xl-4 col-md-6 animate-reveal" style="animation-delay: 0.1s;">
+                                                                <div class="card-channel p-4">
+                                                                    <div class="d-flex justify-content-between align-items-start mb-4">
+                                                                        <div>
+                                                                            <h6 class="fw-bold mb-0">SendMO Link</h6>
+                                                                            <span class="badge badge-region">global</span>
+                                                                        </div>
+                                                                        <button class="btn btn-light btn-sm rounded-circle"
+                                                                            data-bs-toggle="modal" data-bs-target="#webDetailsPop">i</button>
+                                                                    </div>
+
+                                                                    <ul class="nav nav-mini-channel mb-3">
+                                                                        <li class="nav-item"><button class="nav-link active"
+                                                                                data-bs-toggle="tab" data-bs-target="#web-flow">Cash
+                                                                                Flow</button></li>
+                                                                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab"
+                                                                                data-bs-target="#link-stats">Stats</button></li>
+                                                                    </ul>
+
+                                                                    <div class="tab-content">
+                                                                        <div class="tab-pane fade show active" id="web-flow">
+                                                                            <div class="mb-2 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Inflow</span>
+                                                                                <span class="cash-flow-in">+$1,240,000</span>
+                                                                            </div>
+                                                                            <div class="mb-4 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Outflow</span>
+                                                                                <span class="cash-flow-out">-$10,000</span>
+                                                                            </div>
+                                                                            <div class="progress" style="height: 6px;">
+                                                                                <div class="progress-bar bg-warning" style="width: 75%;"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                    <div class="tab-pane fade" id="link-stats">
+                            <div class="d-flex flex-wrap gap-2 align-items-center py-2">
+                                
+                                <small class="text-muted border-end pe-2 me-1">
+                                    Sales: <span class="badge rounded-pill bg-dark font-monospace fw-bold text-white px-2">1,402</span>
+                                </small>
+
+                                <small class="text-muted border-end pe-2 me-1">
+                                    Users: <span class="text-dark fw-bold font-monospace">402</span>
+                                </small>
+
+                                <small class="text-muted border-end pe-2 me-1">
+                                    Networks: <span class="badge rounded-pill bg-light text-dark border font-monospace">04</span>
+                                </small>
+
+                                <small class="text-muted border-end pe-2 me-1">
+                                    Global: <span class="text-dark fw-bold font-monospace">34 <span style="font-size: 0.65rem;">CO</span></span>
+                                </small>
+
+                                <small class="fw-bold text-dark d-flex align-items-center">
+                                    <i class="fas fa-circle text-success me-1" style="font-size: 0.5rem;"></i>
+                                    Success: <span class="text-success ms-1 font-monospace">99.2%</span>
+                                </small>
+
+                            </div>
+                        </div>
+                                                                    </div>
+
+                                                                    <button class="btn btn-gold-sm w-100 mt-4 py-2" data-bs-toggle="modal"
+                                                                        data-bs-target="#deepDiveModal">View Channel Metrics</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-xl-4 col-md-6 animate-reveal" style="animation-delay: 0.1s;">
+                                                                <div class="card-channel p-4">
+                                                                    <div class="d-flex justify-content-between align-items-start mb-4">
+                                                                        <div>
+                                                                            <h6 class="fw-bold mb-0">STK push</h6>
+                                                                            <span class="badge badge-region">global</span>
+                                                                        </div>
+                                                                        <button class="btn btn-light btn-sm rounded-circle"
+                                                                            data-bs-toggle="modal" data-bs-target="#webDetailsPop">i</button>
+                                                                    </div>
+
+                                                                    <ul class="nav nav-mini-channel mb-3">
+                                                                        <li class="nav-item"><button class="nav-link active"
+                                                                                data-bs-toggle="tab" data-bs-target="#web-flow">Cash
+                                                                                Flow</button></li>
+                                                                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab"
+                                                                                data-bs-target="#stk-stats">Stats</button></li>
+                                                                    </ul>
+
+                                                                    <div class="tab-content">
+                                                                        <div class="tab-pane fade show active" id="web-flow">
+                                                                            <div class="mb-2 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Inflow</span>
+                                                                                <span class="cash-flow-in">+$1,240,000</span>
+                                                                            </div>
+                                                                            <div class="mb-4 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Outflow</span>
+                                                                                <span class="cash-flow-out">-$40,000</span>
+                                                                            </div>
+                                                                            <div class="progress" style="height: 6px;">
+                                                                                <div class="progress-bar bg-warning" style="width: 75%;"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="tab-pane fade" id="stk-stats">
+                                                                            <p class="small text-muted">Total Sales: 1,402</p>
+                                                                            <p class="small text-muted">Total users: 402</p>
+                                                                            <p class="small text-muted">mobile money networks: 4</p>
+                                                                            <p class="small text-muted">countries of operation: 34</p>
+                                                                            <p class="small text-muted">Success Rate: 99.2%</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button class="btn btn-gold-sm w-100 mt-4 py-2" data-bs-toggle="modal"
+                                                                        data-bs-target="#deepDiveModal">View Channel Metrics</button>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xl-4 col-md-6 animate-reveal" style="animation-delay: 0.2s;">
+                                                                <div class="card-channel p-4">
+                                                                    <div class="d-flex justify-content-between align-items-start mb-4">
+                                                                        <div>
+                                                                            <h6 class="fw-bold mb-0">POS Terminals</h6>
+                                                                            <span class="badge badge-region">Local / In-Store</span>
+                                                                        </div>
+                                                                        <button class="btn btn-light btn-sm rounded-circle">i</button>
+                                                                    </div>
+
+                                                                    <ul class="nav nav-mini-channel mb-3">
+                                                                        <li class="nav-item"><button class="nav-link active"
+                                                                                data-bs-toggle="tab" data-bs-target="#pos-flow">Cash
+                                                                                Flow</button></li>
+                                                                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab"
+                                                                                data-bs-target="#pos-stats">Stats</button></li>
+                                                                    </ul>
+
+                                                                    <div class="tab-content">
+                                                                        <div class="tab-pane fade show active" id="pos-flow">
+                                                                            <div class="mb-2 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Inflow</span>
+                                                                                <span class="cash-flow-in">+$2,840,000</span>
+                                                                            </div>
+                                                                            <div class="mb-4 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Outflow</span>
+                                                                                <span class="cash-flow-out">-$890,000</span>
+                                                                            </div>
+                                                                            <div class="progress" style="height: 6px;">
+                                                                                <div class="progress-bar bg-warning" style="width: 82%;"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="tab-pane fade" id="pos-stats">
+                                                                            <p class="small text-muted">Active Units: 4,500</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button class="btn btn-gold-sm w-100 mt-4 py-2" data-bs-toggle="modal"
+                                                                        data-bs-target="#posDeepModal">Manage Fleet</button>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-xl-4 col-md-6 animate-reveal" style="animation-delay: 0.3s;">
+                                                                <div class="card-channel p-4">
+                                                                    <div class="d-flex justify-content-between align-items-start mb-4">
+                                                                        <div>
+                                                                            <h6 class="fw-bold mb-0">API Bridge (B2B)</h6>
+                                                                            <span class="badge badge-region">International</span>
+                                                                        </div>
+                                                                        <button class="btn btn-light btn-sm rounded-circle">i</button>
+                                                                    </div>
+
+                                                                    <ul class="nav nav-mini-channel mb-3">
+                                                                        <li class="nav-item"><button class="nav-link active"
+                                                                                data-bs-toggle="tab" data-bs-target="#api-flow">Cash
+                                                                                Flow</button></li>
+                                                                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab"
+                                                                                data-bs-target="#api-stats">Stats</button></li>
+                                                                    </ul>
+
+                                                                    <div class="tab-content">
+                                                                        <div class="tab-pane fade show active" id="api-flow">
+                                                                            <div class="mb-2 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Inflow</span>
+                                                                                <span class="cash-flow-in">+$9,400,000</span>
+                                                                            </div>
+                                                                            <div class="mb-4 d-flex justify-content-between align-items-end">
+                                                                                <span class="small text-muted">Total Outflow</span>
+                                                                                <span class="cash-flow-out">-$1,200,000</span>
+                                                                            </div>
+                                                                            <div class="progress" style="height: 6px;">
+                                                                                <div class="progress-bar bg-warning" style="width: 90%;"></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="tab-pane fade" id="api-stats">
+                                                                            <p class="small text-muted">Endpoints: 14</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <button class="btn btn-gold-sm w-100 mt-4 py-2" data-bs-toggle="modal"
+                                                                        data-bs-target="#apiModal">Developer Console</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    <div class="card-channel p-4 animate-reveal" style="background: #fff; border-radius: 24px; border: 1px solid rgba(212, 175, 55, 0.2); position: relative; z-index: 1;">
+                                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                                            <h5 class="fw-bold mb-0" style="color: #2D2401;">Granular Channel Ledger</h5>
+                                                            <div class="d-flex gap-2">
+                                                                <button class="btn btn-light btn-sm border fw-bold px-3 shadow-sm" 
+                                                                        style="border-radius: 10px; transition: 0.3s;" 
+                                                                        data-bs-toggle="modal" 
+                                                                        data-bs-target="#advancedSearchModal">
+                                                                    <span class="me-1">🔍</span> Advanced Search
+                                                                </button>
+                                                                <button class="btn btn-gold-sm shadow-sm" 
+                                                                        style="background: linear-gradient(135deg, #D4AF37, #996515); border: none; color: white; padding: 6px 16px; border-radius: 10px; font-weight: 700;" 
+                                                                        data-bs-toggle="modal" 
+                                                                        data-bs-target="#syncModal">
+                                                                    Sync Data
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover align-middle">
+                                                                <thead style="border-bottom: 2px solid #F4E5B1;">
+                                                                    <tr style="font-size: 0.75rem; text-transform: uppercase; color: #996515; letter-spacing: 1px;">
+                                                                        <th>Channel Type</th>
+                                                                        <th>Region / Country</th>
+                                                                        <th>Gross Value</th>
+                                                                        <th>Net Flow</th>
+                                                                        <th>Projections (1M)</th>
+                                                                        <th class="text-end">Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody style="font-size: 0.9rem;">
+                                                                    <tr>
+                                                                        <td><div class="fw-bold">Web - Nigeria</div></td>
+                                                                        <td><span class="badge bg-light text-dark border" style="border-radius: 6px;">Lagos / West</span></td>
+                                                                        <td>$420,000</td>
+                                                                        <td><span class="text-success fw-bold">+$310,000</span></td>
+                                                                        <td><span class="text-gold fw-bold" style="color: #D4AF37;">$445K</span></td>
+                                                                        <td class="text-end">
+                                                                            <button class="btn btn-sm btn-light border fw-bold" style="border-radius: 8px; color: #996515;" data-bs-toggle="modal" data-bs-target="#viewChannelDetailModal">
+                                                                                View Analysis
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td><div class="fw-bold">POS - Kenya</div></td>
+                                                                        <td><span class="badge bg-light text-dark border" style="border-radius: 6px;">Nairobi / East</span></td>
+                                                                        <td>$180,000</td>
+                                                                        <td><span class="text-success fw-bold">+$142,000</span></td>
+                                                                        <td><span class="text-gold fw-bold" style="color: #D4AF37;">$210K</span></td>
+                                                                        <td class="text-end">
+                                                                            <button class="btn btn-sm btn-light border fw-bold" style="border-radius: 8px; color: #996515;" data-bs-toggle="modal" data-bs-target="#viewChannelDetailModal">
+                                                                                View Analysis
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal fade" id="advancedSearchModal" tabindex="-1" data-bs-backdrop="false" style="background: rgba(0,0,0,0.05);">
+                                                        <div class="modal-dialog modal-dialog-centered modal-sm" style="max-width: 400px;">
+                                                            <div class="modal-content" style="border-radius: 20px; border: 2px solid #D4AF37; box-shadow: 0 25px 80px rgba(0,0,0,0.15);">
+                                                                <div class="modal-header border-0 pb-0">
+                                                                    <h6 class="fw-bold mb-0" style="color: #996515;"><span class="me-2">⚡</span>Quick Filters</h6>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="font-size: 0.7rem;"></button>
+                                                                </div>
+                                                                <div class="modal-body p-4">
+                                                                    <div class="row g-3">
+                                                                        <div class="col-12">
+                                                                            <label class="small fw-bold text-muted mb-1">Channel & Region</label>
+                                                                            <div class="input-group input-group-sm mb-2">
+                                                                                <select class="form-select border-gold">
+                                                                                    <option>All Channels</option>
+                                                                                    <option>Web Gateway</option>
+                                                                                    <option>POS Terminal</option>
+                                                                                </select>
+                                                                            </div>
+                                                                            <div class="input-group input-group-sm">
+                                                                                <select class="form-select border-gold">
+                                                                                    <option>Global Region</option>
+                                                                                    <option>West Africa</option>
+                                                                                    <option>North America</option>
+                                                                                </select>
+                                                                            </div>
+                                                                        </div>
+                                                                        
+                                                                        <div class="col-12">
+                                                                            <label class="small fw-bold text-muted mb-1">Net Flow Range (USD)</label>
+                                                                            <div class="d-flex align-items-center gap-2">
+                                                                                <input type="number" class="form-control form-control-sm border-gold" placeholder="Min">
+                                                                                <span class="text-muted">-</span>
+                                                                                <input type="number" class="form-control form-control-sm border-gold" placeholder="Max">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12">
+                                                                            <label class="small fw-bold text-muted mb-1">Projection Horizon</label>
+                                                                            <div class="btn-group w-100" role="group">
+                                                                                <input type="radio" class="btn-check" name="proj" id="p1" checked>
+                                                                                <label class="btn btn-outline-warning btn-sm" for="p1">1M</label>
+                                                                                <input type="radio" class="btn-check" name="proj" id="p3">
+                                                                                <label class="btn btn-outline-warning btn-sm" for="p3">3M</label>
+                                                                                <input type="radio" class="btn-check" name="proj" id="p6">
+                                                                                <label class="btn btn-outline-warning btn-sm" for="p6">6M</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer border-0 pt-0">
+                                                                    <button class="btn btn-gold-sm w-100 py-2 shadow" style="background: #996515; color: white; border: none; border-radius: 12px; font-weight: 700;">Update Ledger</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="modal fade" id="viewChannelDetailModal" tabindex="-1" data-bs-backdrop="false" style="background: rgba(0,0,0,0.05);">
+                                                        <div class="modal-dialog modal-dialog-centered">
+                                                            <div class="modal-content" style="border-radius: 24px; border: none; box-shadow: 0 30px 100px rgba(153, 101, 21, 0.2); overflow: hidden;">
+                                                                <div class="modal-header border-0 p-4 pb-0" style="background: #fff;">
+                                                                    <div class="d-flex align-items-center gap-3">
+                                                                        <div class="p-2 bg-warning-subtle rounded-3 text-warning fw-bold">NW</div>
+                                                                        <div>
+                                                                            <h5 class="fw-bold mb-0" style="color: #2D2401;">Web - Nigeria</h5>
+                                                                            <p class="small text-muted mb-0">Market Data Verified</p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body p-4">
+                                                                    <ul class="nav nav-pills mb-4 d-flex justify-content-between bg-light p-1" style="border-radius: 14px;" role="tablist">
+                                                                        <li class="nav-item flex-grow-1">
+                                                                            <button class="nav-link active btn-sm w-100 py-2 fw-bold" data-bs-toggle="pill" data-bs-target="#m-inflow">CASH FLOW</button>
+                                                                        </li>
+                                                                        <li class="nav-item flex-grow-1">
+                                                                            <button class="nav-link btn-sm w-100 py-2 fw-bold" data-bs-toggle="pill" data-bs-target="#m-time">TIMELINE</button>
+                                                                        </li>
+                                                                        <li class="nav-item flex-grow-1">
+                                                                            <button class="nav-link btn-sm w-100 py-2 fw-bold" data-bs-toggle="pill" data-bs-target="#m-cust">CUSTOMERS</button>
+                                                                        </li>
+                                                                    </ul>
+
+                                                                    <div class="tab-content">
+                                                                        <div class="tab-pane fade show active" id="m-inflow">
+                                                                            <div class="row g-3">
+                                                                                <div class="col-12">
+                                                                                    <div class="p-3 bg-light rounded-4">
+                                                                                        <div class="small text-muted mb-1">Gross Inflow (Live)</div>
+                                                                                        <div class="h4 fw-bold text-success mb-0">$310,000.00</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <div class="p-3 border rounded-4">
+                                                                                        <div class="small text-muted">Settled</div>
+                                                                                        <div class="fw-bold">$298k</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <div class="p-3 border rounded-4">
+                                                                                        <div class="small text-muted">Pending</div>
+                                                                                        <div class="fw-bold text-warning">$12k</div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="tab-pane fade" id="m-time">
+                                                                            <div class="alert bg-gold-soft border-0 d-flex align-items-center gap-3 mb-3" style="background: #FCF9F0;">
+                                                                                <div class="spinner-grow spinner-grow-sm text-warning"></div>
+                                                                                <span class="small fw-bold">Live Traffic Monitor</span>
+                                                                            </div>
+                                                                            <div class="small">
+                                                                                <div class="d-flex justify-content-between py-2 border-bottom"><span>08:00 AM - 12:00 PM</span><strong class="text-gold">+$45k</strong></div>
+                                                                                <div class="d-flex justify-content-between py-2 border-bottom"><span>12:01 PM - 04:00 PM</span><strong class="text-gold">+$112k</strong></div>
+                                                                                <div class="d-flex justify-content-between py-2"><span>04:01 PM - Now</span><strong class="text-gold">+$15k</strong></div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="tab-pane fade" id="m-cust">
+                                                                            <h6 class="small fw-bold text-muted mb-3">Top Channel Contributors</h6>
+                                                                            <div class="d-flex align-items-center justify-content-between mb-3 p-2 bg-light rounded-3">
+                                                                                <span class="small fw-bold">1. Corporate Partners</span>
+                                                                                <span class="badge bg-dark">65% Vol</span>
+                                                                            </div>
+                                                                            <div class="d-flex align-items-center justify-content-between p-2 bg-light rounded-3">
+                                                                                <span class="small fw-bold">2. Direct Consumers</span>
+                                                                                <span class="badge bg-dark">35% Vol</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer border-0 p-4 pt-0">
+                                                                    <button class="btn btn-dark w-100 py-3 rounded-4 fw-bold" style="letter-spacing: 1px;">GENERATE FULL CHANNEL AUDIT</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <style>
+                                                        /* Styling to make the "No Backdrop" modals stand out */
+                                                        .modal-content {
+                                                            transition: transform 0.3s ease-out;
+                                                        }
+                                                        .btn-gold-sm:hover {
+                                                            transform: translateY(-2px);
+                                                            filter: brightness(1.1);
+                                                        }
+                                                        .nav-pills .nav-link.active {
+                                                            background-color: #D4AF37 !important;
+                                                            color: white !important;
+                                                        }
+                                                        .nav-pills .nav-link {
+                                                            color: #996515;
+                                                        }
+                                                        .border-gold {
+                                                            border-color: rgba(212, 175, 55, 0.4) !important;
+                                                        }
+                                                        .bg-gold-soft {
+                                                            background-color: rgba(212, 175, 55, 0.05);
+                                                        }
+                                                    </style>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+                                    </div>
+                                </div>
+
+                                <div class="row g-4 animate-fade" style="animation-delay: 0.5s;">
+                                    <div class="col-md-4">
+                                        <div class="gold-card p-4">
+                                            <div class="d-flex align-items-center gap-3 mb-3">
+                                                <div class="p-3 bg-warning-subtle rounded-circle">👥</div>
+                                                <h6 class="fw-bold mb-0">Total Customer Base</h6>
+                                            </div>
+                                            <div class="h4 fw-bold">14,291 Users</div>
+                                            <div class="small text-muted">+12% new referrals this month</div>
+                                            <button class="btn btn-sm btn-light border w-100 mt-3" data-bs-toggle="modal"
+                                                data-bs-target="#customerModal">User Analytics</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="gold-card p-4">
+                                            <div class="d-flex align-items-center gap-3 mb-3">
+                                                <div class="p-3 bg-warning-subtle rounded-circle">💳</div>
+                                                <h6 class="fw-bold mb-0">Transaction Channels</h6>
+                                            </div>
+                                            <div class="h4 fw-bold">8 Live Gateways</div>
+                                            <div class="small text-muted">POS, Web, API, and In-App</div>
+                                            <button class="btn btn-sm btn-light border w-100 mt-3" data-bs-toggle="modal"
+                                                data-bs-target="#channelModal">Manage Channels</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="gold-card p-4">
+                                            <div class="d-flex align-items-center gap-3 mb-3">
+                                                <div class="p-3 bg-warning-subtle rounded-circle">📈</div>
+                                                <h6 class="fw-bold mb-0">Lifetime Cash Flow Record</h6>
+                                            </div>
+                                            <div class="h4 fw-bold">$24,829,150</div>
+                                            <div class="small text-muted">Summed ledger activity (YTD)</div>
+                                            <button class="btn btn-sm btn-light border w-100 mt-3" data-bs-toggle="modal"
+                                                data-bs-target="#ledgerModal">Full Statement</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- additonal -->
+                                <div class="row g-4 mt-5 animate-in delay-3">
+                                <div class="col-md-6">
+                                    <div class="card card-valuation p-4 bg-dark text-white">
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+                                            <div class="p-3 bg-warning rounded-circle">🤝</div>
+                                            <h5 class="mb-0 fw-bold">Investor Readiness Score</h5>
+                                        </div>
+                                        <p class="text-light opacity-75">Your current metrics place you in the top 5% of early-stage fintech startups. Investors favor high retention over raw growth.</p>
+                                        <div class="d-flex gap-2">
+                                            <span class="badge bg-gold-primary text-dark" style="background: var(--gold-primary);">9.2 / 10 Score</span>
+                                            <button class="btn btn-sm btn-outline-light ms-auto">View Full Analysis</button>
+                                        </div>
+                                    </div>
+                                </div>
+                               <div class="col-md-6">
+    <div class="card p-6 border-0 shadow-lg rounded-4 h-100" style="background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); border-top: 4px solid var(--gold-primary) !important;">
         
         <div class="d-flex align-items-center mb-5 border-bottom border-dashed pb-4">
             <div class="symbol symbol-45px me-4">
@@ -3293,390 +4042,6 @@
                 </button>
             </div>
         </form>
-    
-</div>
-
-
-                            
-
-
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-</div>
-<div class="modal fade" id="auditLogModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow-lg overflow-hidden">
-            
-            <div class="modal-header bg-light border-bottom border-dashed p-5 pb-4">
-                <div class="d-flex align-items-center">
-                    <div class="spinner-grow text-warning me-3" style="width: 1.5rem; height: 1.5rem;" role="status"></div>
-                    <h4 class="fw-bolder text-dark m-0">Live System Audit & Ledger Sync</h4>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body p-6 p-md-8">
-                
-                <div class="text-center mb-8">
-                    <h5 class="fw-bolder text-dark mb-2">Aggregating 1,200 Days of History...</h5>
-                    <p class="text-muted fs-7 mb-4">Sendmo is validating cryptographic proofs and cross-referencing global ledgers to ensure absolute valuation accuracy.</p>
-                    
-                    <div class="d-flex justify-content-between align-items-center mb-2 px-1">
-                        <span class="fw-bold text-muted fs-8 text-uppercase ls-1">Overall Progress</span>
-                        <span class="fw-bolder text-dark fs-7">68%</span>
-                    </div>
-                    <div class="progress h-8px bg-light-warning rounded-pill shadow-sm">
-                        <div class="progress-bar bg-warning rounded-pill progress-bar-striped progress-bar-animated" style="width: 68%"></div>
-                    </div>
-                </div>
-
-                <h6 class="text-uppercase fw-bold text-muted fs-8 ls-1 mb-3">Live Processing Metrics</h6>
-                <div class="row g-3 mb-8">
-                    <div class="col-6 col-md-3">
-                        <div class="p-4 bg-light rounded-4 border border-dashed text-center h-100 hover-elevate-up">
-                            <i class="fas fa-wallet text-primary fs-3 mb-2"></i>
-                            <div class="fs-4 fw-bolder text-dark">1,402</div>
-                            <div class="fs-8 fw-bold text-muted">Wallets Scanned</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="p-4 bg-light rounded-4 border border-dashed text-center h-100 hover-elevate-up">
-                            <i class="fas fa-exchange-alt text-success fs-3 mb-2"></i>
-                            <div class="fs-4 fw-bolder text-dark">42.8K</div>
-                            <div class="fs-8 fw-bold text-muted">Transactions</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="p-4 bg-light rounded-4 border border-dashed text-center h-100 hover-elevate-up">
-                            <i class="fas fa-users text-info fs-3 mb-2"></i>
-                            <div class="fs-4 fw-bolder text-dark">12.8K</div>
-                            <div class="fs-8 fw-bold text-muted">Client Profiles</div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="p-4 bg-light rounded-4 border border-dashed text-center h-100 hover-elevate-up">
-                            <i class="fas fa-shield-virus text-danger fs-3 mb-2"></i>
-                            <div class="fs-4 fw-bolder text-dark">0</div>
-                            <div class="fs-8 fw-bold text-muted">Anomalies Found</div>
-                        </div>
-                    </div>
-                </div>
-
-                <h6 class="text-uppercase fw-bold text-muted fs-8 ls-1 mb-3">Module Verification Status</h6>
-                <div class="list-group list-group-flush border border-dashed rounded-4 bg-light">
-                    
-                    <div class="list-group-item bg-transparent d-flex justify-content-between align-items-center p-4 border-bottom border-dashed">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-arrow-down text-success fs-4 me-3 w-25px text-center"></i>
-                            <div>
-                                <h6 class="fw-bolder text-dark m-0 fs-7">Cash-In (Inflow) Ledgers</h6>
-                                <span class="text-muted fs-8">Verifying POS, Web, and API deposits</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <span class="fw-bolder text-success fs-7">+$8.2M</span>
-                            <i class="fas fa-check-circle text-success fs-5"></i>
-                        </div>
-                    </div>
-
-                    <div class="list-group-item bg-transparent d-flex justify-content-between align-items-center p-4 border-bottom border-dashed">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-arrow-up text-danger fs-4 me-3 w-25px text-center"></i>
-                            <div>
-                                <h6 class="fw-bolder text-dark m-0 fs-7">Cash-Out (Outflow) Ledgers</h6>
-                                <span class="text-muted fs-8">Validating vendor and utility payouts</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <span class="fw-bolder text-danger fs-7">-$3.4M</span>
-                            <i class="fas fa-check-circle text-success fs-5"></i>
-                        </div>
-                    </div>
-
-                    <div class="list-group-item bg-transparent d-flex justify-content-between align-items-center p-4 border-bottom border-dashed">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-id-card text-primary fs-4 me-3 w-25px text-center"></i>
-                            <div>
-                                <h6 class="fw-bolder text-dark m-0 fs-7">Client KYC & AML Checks</h6>
-                                <span class="text-muted fs-8">Cross-referencing active user identities</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <span class="fw-bolder text-dark fs-7">12,896 Users</span>
-                            <div class="spinner-border text-primary border-2" style="width: 1.25rem; height: 1.25rem;" role="status"></div>
-                        </div>
-                    </div>
-
-                    <div class="list-group-item bg-transparent d-flex justify-content-between align-items-center p-4">
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-layer-group text-warning-dark fs-4 me-3 w-25px text-center" style="color: #996515;"></i>
-                            <div>
-                                <h6 class="fw-bolder text-dark m-0 fs-7">Sub-Wallets & Nodes</h6>
-                                <span class="text-muted fs-8">Syncing Fiat balances and Crypto smart contracts</span>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center gap-3">
-                            <span class="badge bg-light-warning text-warning-dark fw-bold px-2 py-1">Pending</span>
-                            <i class="fas fa-clock text-muted fs-5 opacity-50"></i>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="mt-6 p-4 rounded-4 text-start border border-primary border-opacity-25" style="background: rgba(0, 158, 247, 0.05);">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="spinner-grow spinner-grow-sm text-primary" style="width: 0.5rem; height: 0.5rem;"></span>
-                            <span class="small fw-bold text-primary text-uppercase ls-1">Live Sync Stream</span>
-                        </div>
-                        <span class="small text-muted fw-bold">ID: <span class="text-dark">#TRX-8921</span></span>
-                    </div>
-                    <div class="mt-2 text-muted fs-8 font-monospace">
-                        [<span id="audit-timestamp">10:15:29 PM</span>] Fetching block header... Verified payload amount $240.50 (Client: CF-928) -> Status: <span class="text-success">OK</span>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="modal-footer bg-light border-top border-dashed p-5 d-flex justify-content-between align-items-center">
-                <button type="button" class="btn btn-light-danger fw-bold px-5" data-bs-dismiss="modal">Cancel Audit</button>
-                <button type="button" class="btn btn-dark fw-bold px-8 rounded-pill shadow-sm" data-bs-dismiss="modal">Run in Background <i class="fas fa-compress-alt ms-2"></i></button>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<script>
-    // Just a tiny script to make the timestamp look alive if you open the modal
-    document.addEventListener('DOMContentLoaded', () => {
-        const timeEl = document.getElementById('audit-timestamp');
-        if(timeEl) {
-            setInterval(() => {
-                timeEl.innerText = new Date().toLocaleTimeString('en-US');
-            }, 1000);
-        }
-    });
-</script>
-
-
-    <style>
-    /* Scoped styles for the AI Modal to maintain the premium dark/gold theme */
-    #recalcModal .ai-glass-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(10px);
-        border-radius: 16px;
-        transition: all 0.3s ease;
-    }
-    #recalcModal .ai-glass-card:hover {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(212, 175, 55, 0.3);
-        transform: translateY(-3px);
-    }
-    #recalcModal .ai-input {
-        background: rgba(0, 0, 0, 0.2) !important;
-        border: 1px solid rgba(255, 255, 255, 0.1) !important;
-        color: white !important;
-        border-radius: 12px;
-    }
-    #recalcModal .ai-input:focus {
-        border-color: #D4AF37 !important;
-        box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1) !important;
-    }
-    #recalcModal .prompt-pill {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        color: #a1a5b7;
-        cursor: pointer;
-        transition: 0.2s;
-    }
-    #recalcModal .prompt-pill:hover {
-        background: rgba(212, 175, 55, 0.1);
-        color: #D4AF37;
-        border-color: #D4AF37;
-    }
-    .ai-glow-text {
-        text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-    }
-    @keyframes aiPulse {
-        0% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4); }
-        70% { box-shadow: 0 0 0 10px rgba(212, 175, 55, 0); }
-        100% { box-shadow: 0 0 0 0 rgba(212, 175, 55, 0); }
-    }
-    .ai-pulse-ring { animation: aiPulse 2s infinite; }
-</style>
-
-<div class="modal fade" id="recalcModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content border-0 overflow-hidden shadow-lg" style="background: linear-gradient(135deg, #0d0d14 0%, #1a1a2e 100%); border-radius: 24px;">
-            
-            <div class="modal-header border-bottom border-white border-opacity-10 p-6 pb-5">
-                <div class="d-flex align-items-center">
-                    <div class="symbol symbol-45px me-4 ai-pulse-ring rounded-circle">
-                        <span class="symbol-label rounded-circle" style="background: rgba(212, 175, 55, 0.15); border: 1px solid #D4AF37;">
-                            <i class="fas fa-brain fs-3" style="color: #D4AF37;"></i>
-                        </span>
-                    </div>
-                    <div>
-                        <h3 class="modal-title text-white fw-bolder d-flex align-items-center m-0 fs-3">
-                            Sendmo AI Valuation Engine 
-                            <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-25 ms-3 fs-9 px-2 py-1 ls-1">BETA 2.0</span>
-                        </h3>
-                        <span class="text-muted fs-8 fw-semibold">Powered by deep-learning financial models</span>
-                    </div>
-                </div>
-                <button type="button" class="btn-close btn-close-white opacity-50" data-bs-dismiss="modal"></button>
-            </div>
-
-            <div class="modal-body p-6 p-lg-8">
-                <div class="row g-6">
-                    
-                    <div class="col-lg-4 d-flex flex-column">
-                        <div class="ai-glass-card p-6 h-100 d-flex flex-column">
-                            <h5 class="text-white fw-bold mb-4">AI Assistant</h5>
-                            <p class="text-muted fs-7 mb-6">I am analyzing your platform's 1.2M historical data points, current MRR, and global market trends. How can I help you project your business value today?</p>
-                            
-                            <div class="d-flex flex-column gap-2 mb-auto">
-                                <div class="prompt-pill px-4 py-2 rounded-pill fs-8 fw-bold d-flex align-items-center">
-                                    <i class="fas fa-search-dollar me-2"></i> Forecast Q4 Revenue Growth
-                                </div>
-                                <div class="prompt-pill px-4 py-2 rounded-pill fs-8 fw-bold d-flex align-items-center">
-                                    <i class="fas fa-chart-line me-2"></i> Calculate Exit Valuation Multiplier
-                                </div>
-                                <div class="prompt-pill px-4 py-2 rounded-pill fs-8 fw-bold d-flex align-items-center">
-                                    <i class="fas fa-exclamation-triangle me-2"></i> Identify Cash-Flow Bottlenecks
-                                </div>
-                                <div class="prompt-pill px-4 py-2 rounded-pill fs-8 fw-bold d-flex align-items-center">
-                                    <i class="fas fa-compress-alt me-2"></i> How can I reduce churn by 5%?
-                                </div>
-                            </div>
-
-                            <div class="mt-6 pt-5 border-top border-white border-opacity-10">
-                                <div class="position-relative">
-                                    <input type="text" class="form-control ai-input pe-14 py-3" placeholder="Ask AI to analyze...">
-                                    <button class="btn btn-sm position-absolute end-0 top-50 translate-middle-y me-1 rounded-3" style="background: #D4AF37; color: #111;">
-                                        <i class="fas fa-paper-plane"></i>
-                                    </button>
-                                </div>
-                                <div class="d-flex align-items-center mt-3 justify-content-center">
-                                    <span class="spinner-grow spinner-grow-sm text-success me-2" style="width: 0.5rem; height: 0.5rem;"></span>
-                                    <span class="text-muted fs-9">Model is active and analyzing...</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-8">
-                        
-                        <div class="ai-glass-card p-6 mb-6 position-relative overflow-hidden" style="border-color: rgba(212, 175, 55, 0.4);">
-                            <div class="position-absolute top-50 start-50 translate-middle" style="width: 200px; height: 200px; background: radial-gradient(circle, rgba(212,175,55,0.15) 0%, rgba(0,0,0,0) 70%); z-index: 0;"></div>
-                            
-                            <div class="position-relative z-index-1 d-flex flex-column flex-sm-row justify-content-between align-items-center">
-                                <div class="mb-4 mb-sm-0 text-center text-sm-start">
-                                    <span class="badge bg-white bg-opacity-10 text-white border border-white border-opacity-25 px-3 py-1 mb-3 text-uppercase ls-1 fs-8">AI Projected Market Value</span>
-                                    <div class="display-4 fw-bolder ai-glow-text" style="color: #D4AF37;">$5,240,800.00</div>
-                                    <div class="text-success fw-bold fs-7 mt-2"><i class="fas fa-arrow-trend-up me-1"></i> +8.5% higher than traditional models</div>
-                                </div>
-                                <div class="text-end">
-                                    <button class="btn btn-outline btn-outline-dashed btn-outline-white fw-bold text-white px-5 rounded-pill hover-elevate-up">
-                                        <i class="fas fa-download me-2"></i> Export Report
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row g-4 mb-6">
-                            <div class="col-md-4">
-                                <div class="ai-glass-card p-5 text-center h-100">
-                                    <i class="fas fa-bullseye fs-2x mb-3" style="color: #50cd89;"></i>
-                                    <h6 class="text-muted fw-bold fs-8 text-uppercase ls-1">Confidence Score</h6>
-                                    <div class="fs-2 fw-bolder text-white">94.2%</div>
-                                    <div class="progress h-4px mt-3 bg-white bg-opacity-10">
-                                        <div class="progress-bar bg-success" style="width: 94.2%"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="ai-glass-card p-5 text-center h-100">
-                                    <i class="fas fa-times me-1 fs-2x mb-3" style="color: #D4AF37;"></i>
-                                    <h6 class="text-muted fw-bold fs-8 text-uppercase ls-1">Industry Multiplier</h6>
-                                    <div class="fs-2 fw-bolder text-white">4.8x</div>
-                                    <span class="text-muted fs-8 d-block mt-2">Based on SaaS benchmarks</span>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="ai-glass-card p-5 text-center h-100">
-                                    <i class="fas fa-globe fs-2x mb-3 text-info"></i>
-                                    <h6 class="text-muted fw-bold fs-8 text-uppercase ls-1">Market Sentiment</h6>
-                                    <div class="fs-2 fw-bolder text-info">Bullish</div>
-                                    <span class="text-muted fs-8 d-block mt-2">Positive sector outlook</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <div class="ai-glass-card p-5 h-100 border-top border-4" style="border-top-color: #50cd89 !important;">
-                                    <div class="d-flex align-items-center mb-4">
-                                        <i class="fas fa-chart-pie text-success fs-3 me-3"></i>
-                                        <h5 class="text-white fw-bold m-0">Growth Opportunities</h5>
-                                    </div>
-                                    <div class="d-flex align-items-start mb-3">
-                                        <i class="fas fa-check-circle text-success mt-1 me-2 fs-7"></i>
-                                        <p class="text-muted fs-8 m-0">Optimizing your Gold Subscription tier pricing could yield an estimated <strong>+12% MRR</strong>.</p>
-                                    </div>
-                                    <div class="d-flex align-items-start">
-                                        <i class="fas fa-check-circle text-success mt-1 me-2 fs-7"></i>
-                                        <p class="text-muted fs-8 m-0">Expansion into the West African POS market shows a <strong>78% probability</strong> of high ROI based on your current data.</p>
-                                    </div>
-                                    <button class="btn btn-sm btn-light-success w-100 mt-4 rounded-3 fw-bold border border-success border-opacity-25 bg-transparent text-success">Apply Recommendations</button>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="ai-glass-card p-5 h-100 border-top border-4" style="border-top-color: #f1416c !important;">
-                                    <div class="d-flex align-items-center mb-4">
-                                        <i class="fas fa-shield-virus text-danger fs-3 me-3"></i>
-                                        <h5 class="text-white fw-bold m-0">Identified Risk Factors</h5>
-                                    </div>
-                                    <div class="d-flex align-items-start mb-3">
-                                        <i class="fas fa-exclamation-circle text-danger mt-1 me-2 fs-7"></i>
-                                        <p class="text-muted fs-8 m-0">Churn rate in the Standard tier has increased by <strong>2.1%</strong> over the last 30 days.</p>
-                                    </div>
-                                    <div class="d-flex align-items-start">
-                                        <i class="fas fa-exclamation-circle text-danger mt-1 me-2 fs-7"></i>
-                                        <p class="text-muted fs-8 m-0">Dependency on a single API gateway provider poses a moderate operational risk.</p>
-                                    </div>
-                                    <button class="btn btn-sm btn-light-danger w-100 mt-4 rounded-3 fw-bold border border-danger border-opacity-25 bg-transparent text-danger">View Mitigation Plan</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
-</div>
-
-
-<div class="modal fade" id="recurringDetailModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-        <div class="modal-content rounded-4 border-0 shadow-lg p-5 text-center">
-            <i class="fas fa-chart-pie fa-3x text-gold mb-4" style="color: #c99c35;"></i>
-            <h5 class="fw-bolder text-dark">Revenue Breakdown</h5>
-            <p class="text-muted fs-7 mb-5">Feature requires elevated API access.</p>
-            <button class="btn btn-light border fw-bold w-100 rounded-pill py-2" data-bs-dismiss="modal">Close</button>
-        </div>
     </div>
 </div>
 
@@ -3766,6 +4131,161 @@
         myModal.show();
     }
 </script>
+                            </div>
+                            
+                            </div>
+
+                            <div class="modal fade" id="recalcModal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content overflow-hidden" style="border-radius: 30px; border:none;">
+                                        <div class="modal-header border-0 bg-light p-4">
+                                            <div>
+                                                <h4 class="fw-bold mb-0">Valuation Refresh</h4>
+                                                <p class="text-muted small mb-0">Syncing live ledger data for accurate projection.</p>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body p-4">
+                                            <ul class="nav nav-pills nav-pills-gold mb-4" id="modalStepTabs">
+                                                <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab"
+                                                        data-bs-target="#step1">1. Revenue Audit</button></li>
+                                                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#step2">2.
+                                                        Liability Check</button></li>
+                                                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#step3">3.
+                                                        Growth Multiplier</button></li>
+                                            </ul>
+                                            <div class="tab-content border p-4 rounded-4 bg-light">
+                                                <div class="tab-pane fade show active" id="step1">
+                                                    <div class="d-flex justify-content-between mb-2"><span>Total Internal
+                                                            Sales</span><strong>$4.2M</strong></div>
+                                                    <div class="d-flex justify-content-between mb-2"><span>Recurring
+                                                            Subscription</span><strong>$820K</strong></div>
+                                                    <div class="progress mt-3" style="height: 10px;">
+                                                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning"
+                                                            style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="tab-pane fade" id="step2">
+                                                    <p class="small text-muted">Analyzing summed utilities and expenditures over last 24
+                                                        months...</p>
+                                                    <div class="alert alert-warning py-2 small">Calculated Outflow: $1.2M</div>
+                                                </div>
+                                                <div class="tab-pane fade" id="step3">
+                                                    <label class="form-label small fw-bold">Projected Ecosystem Growth</label>
+                                                    <select class="form-select border-warning mb-3">
+                                                        <option>Conservative (2.5x)</option>
+                                                        <option selected>Moderate (4.2x)</option>
+                                                        <option>Aggressive (8.0x)</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer border-0 p-4">
+                                            <button class="btn btn-light px-4" data-bs-dismiss="modal">Cancel</button>
+                                            <button class="btn btn-sendmo px-5">Generate Audit Report</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="auditLogModal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content rounded-5 border-0 shadow-lg">
+                                        <div class="modal-body p-5 text-center">
+                                            <div class="spinner-border text-warning mb-4" style="width: 3rem; height: 3rem;" role="status">
+                                            </div>
+                                            <h4 class="fw-bold">Verifying Cash Flow...</h4>
+                                            <p class="text-muted">Sendmo is aggregating all cash transfers and expenditures from the last 1,200
+                                                days to verify your platform valuation.</p>
+                                            <div class="bg-light p-3 rounded-4 mb-4 text-start">
+                                                <div class="d-flex justify-content-between small"><span>Last Entry:</span> <span>#TRX-8921 (2
+                                                        mins ago)</span></div>
+                                                <div class="d-flex justify-content-between small"><span>Summed Assets:</span>
+                                                    <span>$4,829,150.00</span></div>
+                                            </div>
+                                            <button class="btn btn-dark w-100 py-3 rounded-4" data-bs-dismiss="modal">Close Monitor</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="recurringDetailModal" tabindex="-1">
+                                <div class="modal-dialog modal-sm modal-dialog-centered">
+                                    <div class="modal-content p-3 border-warning rounded-4">
+                                        <h6 class="fw-bold">Subscription Revenue</h6>
+                                        <div class="list-group list-group-flush small">
+                                            <div class="list-group-item d-flex justify-content-between"><span>Gold Tier</span>
+                                                <strong>$22K/mo</strong></div>
+                                            <div class="list-group-item d-flex justify-content-between"><span>Standard</span>
+                                                <strong>$18K/mo</strong></div>
+                                            <div class="list-group-item d-flex justify-content-between"><span>Enterprise</span>
+                                                <strong>$13K/mo</strong></div>
+                                        </div>
+                                        <button class="btn btn-sm btn-gold mt-2" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="inflowModal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content p-4 rounded-4">
+                                        <h5 class="fw-bold">Inflow Detail</h5>
+                                        <p class="small text-muted">Analysis of all capital entering the platform.</p><button
+                                            class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="outflowModal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content p-4 rounded-4">
+                                        <h5 class="fw-bold">Outflow Detail</h5>
+                                        <p class="small text-muted">Analysis of all utilities and vendor transfers.</p><button
+                                            class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="navModal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content p-4 rounded-4">
+                                        <h5 class="fw-bold">Balance Sheet</h5>
+                                        <p class="small text-muted">Real-time assets vs liabilities recorded on Sendmo.</p><button
+                                            class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="proj1mModal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content p-4 rounded-4">
+                                        <h5 class="fw-bold">1-Month Outlook</h5>
+                                        <p class="small text-muted">Based on current churn and acquisition rates.</p><button
+                                            class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="modal fade" id="exportChannelModal" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content p-4 rounded-4">
+                                        <h6 class="fw-bold">Exporting Data...</h6>
+                                        <p class="small">Preparing CSV for current filters.</p><button class="btn btn-gold-sm"
+                                            data-bs-dismiss="modal">Done</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                                            </div>
+                                            <!--end::Container-->
+                </div>
+                <!--end::Content-->
 
                 <!--begin::Footer-->
                 <div class="footer py-4 d-flex flex-lg-column " id="kt_footer">
