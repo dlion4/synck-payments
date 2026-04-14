@@ -27,3 +27,9 @@ v21...esocial platforms
 v22...subscription...sections
 
 check the urls full ni....https://dlion4.github.io/synck-payments/channels/subscriptions.html
+
+v23...dashboard,,,
+
+v25..design of pages
+
+v26 ...themes.
